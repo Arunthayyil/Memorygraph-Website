@@ -707,11 +707,11 @@
   </div>
 
   <div class="hero-content">
-    <div class="hero-eyebrow">Boutique Wedding Studio · Kerala</div>
+    <div class="hero-eyebrow" data-cms="hero-eyebrow">Boutique Wedding Studio · Kerala</div>
     <h1 class="hero-headline">
       Love, told in<br><em>quiet light</em><br>and honest frames.
     </h1>
-    <p class="hero-subline">
+    <p class="hero-subline" data-cms="hero-subline">
       A small Kerala-based studio crafting cinematic, documentary-style wedding films and photographs. We work with a select few couples each year — so every story gets the attention it deserves.
     </p>
     <div class="hero-actions">
@@ -772,7 +772,7 @@
     </div>
     <div class="about-corner-br"></div>
     <div class="about-stat-card">
-      <strong>12</strong>
+      <strong data-cms="weddings-per-year">12</strong>
       <span>Weddings / Year</span>
       <em>By design.</em>
     </div>
@@ -858,7 +858,7 @@
       </svg>
     </a>
   </div>
-  <div class="stories-grid reveal">
+  <div class="stories-grid reveal" data-cms="stories-grid">
     <div class="story-card large">
       <div class="story-img">
         <div class="story-img-inner sg1"></div>
@@ -995,7 +995,7 @@
   <p class="cta-sub reveal reveal-d2">A few bookings remaining for the season. Kerala &amp; destination weddings welcome.</p>
   <div class="cta-actions reveal reveal-d3">
     <a href="contact.html" class="btn-primary">Send an Enquiry</a>
-    <a href="https://wa.me/918281639563" class="btn-outline">Chat on WhatsApp</a>
+    <a href="https://wa.me/918281639563" class="btn-outline" data-cms="whatsapp-link">Chat on WhatsApp</a>
   </div>
 </section>
 
@@ -1019,8 +1019,8 @@
         Memorygraph Wedding Studio<br>
         Thottupurath Building, Chungam<br>
         Thrissur, Kerala<br><br>
-        <a href="tel:+918281639563">+91 82816 39563</a><br>
-        <a href="mailto:hello@memorygraphweddings.com">hello@memorygraphweddings.com</a>
+        <a href="tel:+918281639563" data-cms="phone">+91 82816 39563</a><br>
+        <a href="mailto:hello@memorygraphweddings.com" data-cms="email">hello@memorygraphweddings.com</a>
       </div>
     </div>
     <div>
@@ -1064,7 +1064,7 @@
 </footer>
 
 <!-- WHATSAPP -->
-<a href="https://wa.me/918281639563?text=Hi%20Arun%2C%20I%27d%20love%20to%20talk%20about%20my%20wedding." class="whatsapp-float" target="_blank">
+<a href="https://wa.me/918281639563?text=Hi%20Arun%2C%20I%27d%20love%20to%20talk%20about%20my%20wedding." class="whatsapp-float" data-cms="whatsapp-link" target="_blank">
   <svg viewBox="0 0 32 32" fill="currentColor">
     <path d="M16 .4C7.4.4.4 7.4.4 16c0 2.84.74 5.62 2.16 8.06L.27 31.6l7.74-2.27C10.36 30.7 13.14 31.5 16 31.5c8.6 0 15.6-7 15.6-15.5C31.6 7.4 24.6.4 16 .4zM16 28.7c-2.5 0-4.96-.66-7.1-1.92l-.5-.3-5.34 1.55 1.6-5.18-.34-.55C2.92 19.92 2.2 18 2.2 16 2.2 8.4 8.4 2.2 16 2.2c7.6 0 13.8 6.2 13.8 13.8 0 7.6-6.2 12.7-13.8 12.7zm7.6-9.8c-.4-.2-2.4-1.18-2.78-1.32-.38-.14-.66-.2-.94.2-.28.4-1.06 1.32-1.3 1.6-.24.28-.48.3-.88.1-.4-.2-1.7-.62-3.24-2-1.2-1.06-2-2.38-2.24-2.78-.24-.4-.02-.62.18-.82.18-.18.4-.46.6-.7.2-.24.26-.4.4-.68.14-.28.06-.52-.04-.72-.1-.2-.92-2.22-1.26-3.04-.34-.8-.68-.7-.94-.72h-.8c-.28 0-.72.1-1.1.5-.38.4-1.44 1.4-1.44 3.42s1.48 3.96 1.68 4.24c.2.28 2.92 4.46 7.08 6.24 1 .42 1.78.68 2.38.88.98.32 1.88.28 2.6.16.78-.12 2.4-.98 2.74-1.92.34-.94.34-1.74.24-1.92-.1-.18-.36-.28-.76-.48z"/>
   </svg>
@@ -1090,8 +1090,8 @@
   const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}}),{threshold:.12});
   document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
 
-  // Testimonials
-  const tts=[
+  // Testimonials — defaults, overridden by CMS if cmsTestimonials exists
+  let tts=[
     {t:'"Arun has this rare ability to find the moments nobody else sees. We watch our wedding film like it\'s a movie about two people we love — and somehow that\'s us."', a:'Abhin &amp; Gayathry — Thrissur, 2024'},
     {t:'"We didn\'t want a photographer who told us where to stand. We wanted someone who felt the room. Memorygraph did exactly that — every frame is alive."', a:'Archana &amp; Manu — Kochi, 2024'},
     {t:'"Every step felt personal, intentional, and quietly luxurious. The album we received feels like an heirloom, not a product."', a:'Meera &amp; Anand — Palakkad, 2025'}
@@ -1099,18 +1099,22 @@
   let cur=0;
   const dts=document.querySelectorAll('.dot');
   function setT(i){
-    cur=i;
+    if (window.cmsTestimonials && window.cmsTestimonials.length) tts = window.cmsTestimonials;
+    cur=i % tts.length;
     const tEl=document.getElementById('testimonialText'), aEl=document.getElementById('testimonialAuthor');
     tEl.style.opacity='0'; tEl.style.transform='translateY(10px)';
     setTimeout(()=>{
-      tEl.innerHTML=tts[i].t; aEl.innerHTML=tts[i].a;
+      tEl.innerHTML=tts[cur].t; aEl.innerHTML=tts[cur].a;
       tEl.style.transition='opacity .5s, transform .5s';
       tEl.style.opacity='1'; tEl.style.transform='translateY(0)';
     },280);
-    dts.forEach((d,j)=>d.classList.toggle('active',j===i));
+    dts.forEach((d,j)=>d.classList.toggle('active',j===cur));
   }
-  setInterval(()=>setT((cur+1)%3), 6500);
+  // Wait for CMS loader, then start rotation
+  setTimeout(()=>{ if(window.cmsTestimonials) setT(0); }, 1500);
+  setInterval(()=>setT(cur+1), 6500);
 </script>
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<!-- CMS Loader -->
+<script src="/assets/cms-loader.js"></script>
 </body>
 </html>

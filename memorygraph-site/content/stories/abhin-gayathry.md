@@ -2,7 +2,7 @@
 couple_names: Abhin & Gayathry
 location: Vadakkumnathan Temple · Thrissur
 year: 2024
-date: 2024-11-15T07:00:00.000Z
+date: 29 April 2026
 category: Temple Wedding
 featured: true
 hero_image: /assets/uploads/gemini_generated_image_lgot50lgot50lgot.png

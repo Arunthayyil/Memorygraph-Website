@@ -356,5 +356,6 @@
   const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}}),{threshold:.1});
   document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
 </script>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </body>
 </html>

@@ -1,11 +1,11 @@
 {
-  "hero_eyebrow": "Boutique Wedding Studio · Kerala",
-  "hero_headline_1": "Love, told in",
   "hero_headline_emphasis": "quiet light",
+  "hero_eyebrow": "Boutique Wedding Studio · Kerala.",
+  "hero_video_url": "",
+  "hero_headline_1": "Love, told in",
   "hero_headline_2": "and honest frames.",
   "hero_subline": "A small Kerala-based studio crafting cinematic, documentary-style wedding films and photographs. We work with a select few couples each year — so every story gets the attention it deserves.",
-  "hero_video_url": "",
-  "weddings_per_year": 12,
   "years_active": 6,
-  "total_weddings": "200+"
+  "total_weddings": "200+",
+  "weddings_per_year": 12
 }

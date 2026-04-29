@@ -5,7 +5,7 @@ year: 2024
 date: 2024-11-15T07:00:00.000Z
 category: Temple Wedding
 featured: true
-hero_image: /assets/uploads/whatsapp-image-2026-04-21-at-16.57.13.jpeg
+hero_image: /assets/uploads/gemini_generated_image_lgot50lgot50lgot.png
 gallery_images: []
 film_url: ""
 story_excerpt: A morning ceremony bathed in golden lamp-light, the scent of

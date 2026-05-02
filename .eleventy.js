@@ -1,19 +1,23 @@
 module.exports = function(eleventyConfig) {
 
+  // Copy static folders
   eleventyConfig.addPassthroughCopy("src/assets");
-  eleventyConfig.addPassthroughCopy({"src/admin": "admin"});
-  eleventyConfig.addPassthroughCopy("src/admin/config.yml");
+  eleventyConfig.addPassthroughCopy({
+    "src/admin": "admin"
+  });
 
-  // COLLECTION
+  // Collection
   eleventyConfig.addCollection("stories", function(collectionApi) {
     return collectionApi
       .getFilteredByGlob("src/content/stories/*.md")
       .sort((a, b) => b.date - a.date);
   });
 
-  // FILTER
+  // ✅ THIS was missing / broken
   eleventyConfig.addFilter("formatDate", function(dateObj) {
-    return new Date(dateObj).toLocaleDateString("en-IN", {
+    if (!dateObj) return "";
+    const d = new Date(dateObj);
+    return d.toLocaleDateString("en-IN", {
       day: "2-digit",
       month: "long",
       year: "numeric"

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Arun T Chandran — Wedding Photographer in Thrissur, Kerala | Memorygraph</title>
+<meta name="description" content="The person and team behind Memorygraph Wedding Studio. A small Thrissur-based studio led by photographer-filmmaker Arun T Chandran. Documentary in spirit. Cinematic in craft."/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  :root{--ivory:#f4ede0;--ivory-2:#ece4d4;--ink:#1a1814;--ink-soft:#3a3530;--teal:#1d5959;--teal-deep:#0f3838;--gold:#b8965a;--gold-2:#d4a96a;--mist:#8b857a;--line:rgba(26,24,20,.12);--line-2:rgba(26,24,20,.06);--serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',sans-serif;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-weight:300;overflow-x:hidden;cursor:none;}
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");mix-blend-mode:multiply;opacity:.6;}
+  input,textarea,select{cursor:text;}
+  @media(prefers-reduced-motion:reduce){body{cursor:auto;}.cursor{display:none;}}
+
+  .cursor{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;}
+  .cursor-dot{width:4px;height:4px;background:var(--teal);border-radius:50%;position:absolute;transform:translate(-50%,-50%);}
+  .cursor-ring{width:24px;height:24px;border:1px solid rgba(29,89,89,.35);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .25s,height .25s;}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:4px;}
+
+  nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:24px 56px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s,background .5s;}
+  nav.scrolled{padding:14px 56px;background:rgba(244,237,224,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line-2);}
+  .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);}
+  .nav-mark{width:30px;height:24px;}
+  .nav-mark svg{width:100%;height:100%;}
+  .nav-wordmark{font-family:var(--serif);font-size:1.15rem;font-weight:500;letter-spacing:.04em;line-height:1;}
+  .nav-wordmark small{display:block;font-family:var(--sans);font-size:.55rem;letter-spacing:.32em;color:var(--mist);margin-top:4px;}
+  .nav-links{display:flex;gap:42px;list-style:none;}
+  .nav-links a{font-family:var(--sans);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:color .3s;position:relative;}
+  .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--teal);transition:width .4s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--teal);}
+  .nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+  .nav-cta{font-family:var(--sans);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;background:var(--teal);color:var(--ivory);padding:11px 26px;text-decoration:none;transition:all .35s;border:1px solid var(--teal);}
+  .nav-cta:hover{background:var(--teal-deep);}
+
+  .intro{min-height:100vh;display:grid;grid-template-columns:1fr 1.05fr;}
+  .intro-img{position:relative;overflow:hidden;background:linear-gradient(160deg,#d8cfb8 0%,#a89a78 100%);}
+  .intro-img::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(29,89,89,.15) 0%,transparent 60%);}
+  .intro-img::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");mix-blend-mode:multiply;}
+  .portrait-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;z-index:1;}
+  .pp-ring{width:200px;height:200px;border:1px solid rgba(26,24,20,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+  .pp-ring svg{opacity:.2;}
+  .pp-label{font-family:var(--sans);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(26,24,20,.4);}
+  .intro-deco{position:absolute;bottom:60px;left:60px;font-family:var(--serif);font-size:9rem;font-weight:300;font-style:italic;color:rgba(26,24,20,.06);line-height:1;user-select:none;z-index:2;}
+  .intro-content{padding:160px 80px 80px;display:flex;flex-direction:column;justify-content:center;}
+  .intro-eyebrow{font-family:var(--sans);font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;color:var(--teal);margin-bottom:28px;display:flex;align-items:center;gap:14px;}
+  .intro-eyebrow::before{content:'';width:32px;height:1px;background:var(--teal);}
+  .intro-name{font-family:var(--serif);font-size:clamp(3rem,5vw,5.5rem);font-weight:300;line-height:1.05;color:var(--ink);margin-bottom:8px;}
+  .intro-name em{font-style:italic;color:var(--teal);}
+  .intro-title{font-family:var(--sans);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--mist);margin-bottom:48px;}
+  .intro-quote{font-family:var(--serif);font-size:1.4rem;font-style:italic;line-height:1.7;color:var(--ink);border-left:2px solid var(--gold);padding-left:24px;margin-bottom:36px;}
+  .intro-bio{font-family:var(--sans);font-size:.9rem;font-weight:300;line-height:1.95;color:var(--ink-soft);margin-bottom:44px;}
+  .intro-stats{display:flex;gap:48px;padding:36px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .stat strong{display:block;font-family:var(--serif);font-size:2.6rem;font-weight:300;color:var(--teal);line-height:1;}
+  .stat span{font-family:var(--sans);font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mist);}
+
+  .philosophy{padding:140px 56px;background:var(--ivory-2);}
+  .philo-grid{display:grid;grid-template-columns:1fr 1fr;gap:120px;align-items:center;}
+  .section-label{font-family:var(--sans);font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;color:var(--teal);margin-bottom:24px;display:flex;align-items:center;gap:14px;}
+  .section-label::before{content:'';width:30px;height:1px;background:var(--teal);}
+  .section-label.center{justify-content:center;}
+  .section-label.center::before{display:none;}
+  .philo-title{font-family:var(--serif);font-size:clamp(2.4rem,4vw,4rem);font-weight:300;line-height:1.15;color:var(--ink);margin-bottom:36px;}
+  .philo-title em{font-style:italic;color:var(--teal);}
+  .philo-text{font-family:var(--sans);font-size:.9rem;font-weight:300;line-height:2;color:var(--ink-soft);}
+  .philo-pillars{display:flex;flex-direction:column;gap:1px;background:var(--line);}
+  .pillar{padding:36px 40px;background:var(--ivory-2);position:relative;overflow:hidden;transition:background .4s;}
+  .pillar::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:var(--gold);transform:scaleY(0);transform-origin:bottom;transition:transform .4s;}
+  .pillar:hover{background:var(--ivory);}
+  .pillar:hover::before{transform:scaleY(1);}
+  .pillar-num{font-family:var(--serif);font-size:2.6rem;font-weight:300;color:rgba(29,89,89,.18);line-height:1;margin-bottom:14px;}
+  .pillar-title{font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--ink);margin-bottom:10px;}
+  .pillar-desc{font-family:var(--sans);font-size:.84rem;font-weight:300;line-height:1.85;color:var(--ink-soft);}
+
+  .journey{padding:140px 56px;background:var(--ivory);}
+  .journey-header{text-align:center;max-width:700px;margin:0 auto 80px;}
+  .section-title-c{font-family:var(--serif);font-size:clamp(2.4rem,4vw,4rem);font-weight:300;line-height:1.15;color:var(--ink);}
+  .section-title-c em{font-style:italic;color:var(--teal);}
+  .timeline{max-width:880px;margin:0 auto;position:relative;padding-left:32px;}
+  .timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:var(--line);}
+  .timeline-item{position:relative;margin-bottom:64px;padding-left:48px;}
+  .timeline-item::before{content:'';position:absolute;left:-37px;top:8px;width:11px;height:11px;background:var(--gold);border-radius:50%;border:2px solid var(--ivory);box-shadow:0 0 0 1px var(--gold);}
+  .tl-year{font-family:var(--sans);font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--teal);margin-bottom:12px;}
+  .tl-title{font-family:var(--serif);font-size:1.6rem;font-weight:400;color:var(--ink);margin-bottom:10px;}
+  .tl-text{font-family:var(--sans);font-size:.88rem;font-weight:300;line-height:1.85;color:var(--ink-soft);}
+
+  /* TEAM */
+  .team{padding:140px 56px;background:var(--ivory-2);}
+  .team-header{text-align:center;max-width:700px;margin:0 auto 80px;}
+  .team-header p{font-family:var(--sans);font-size:.9rem;font-weight:300;line-height:1.85;color:var(--ink-soft);margin-top:24px;}
+  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);}
+  .team-card{background:var(--ivory-2);padding:0 0 40px;position:relative;overflow:hidden;transition:background .4s;}
+  .team-card:hover{background:var(--ivory);}
+  .team-img{width:100%;padding-bottom:100%;position:relative;overflow:hidden;background:linear-gradient(160deg,#d8cfb8 0%,#b8a98a 100%);}
+  .team-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(244,237,224,.8) 100%);}
+  .team-img-noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.15'/%3E%3C/svg%3E");mix-blend-mode:multiply;}
+  .team-img-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:1;}
+  .team-img-ph svg{opacity:.18;}
+  .team-info{padding:28px 32px 0;}
+  .team-role{font-family:var(--sans);font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+  .team-name{font-family:var(--serif);font-size:1.5rem;font-weight:400;color:var(--ink);margin-bottom:12px;}
+  .team-bio{font-family:var(--sans);font-size:.82rem;font-weight:300;line-height:1.8;color:var(--ink-soft);}
+  .team-lead-badge{position:absolute;top:20px;left:20px;z-index:3;background:var(--teal);color:var(--ivory);font-family:var(--sans);font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;padding:6px 12px;}
+
+  .cta-strip{padding:140px 56px;text-align:center;background:linear-gradient(160deg,var(--teal-deep) 0%,var(--teal) 100%);color:var(--ivory);position:relative;overflow:hidden;}
+  .cta-strip::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(184,150,90,.1) 0%,transparent 60%);}
+  .cs-title{font-family:var(--serif);font-size:clamp(2.4rem,4.5vw,4.5rem);font-weight:300;line-height:1.1;margin-bottom:20px;position:relative;z-index:1;}
+  .cs-title em{font-style:italic;color:var(--gold-2);}
+  .cs-sub{font-family:var(--sans);font-size:.9rem;color:rgba(244,237,224,.7);margin-bottom:40px;position:relative;z-index:1;max-width:520px;margin-left:auto;margin-right:auto;}
+  .btn-gold{font-family:var(--sans);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;background:var(--gold);color:var(--teal-deep);padding:16px 40px;text-decoration:none;transition:all .35s;display:inline-block;border:1px solid var(--gold);position:relative;z-index:1;}
+  .btn-gold:hover{background:var(--gold-2);}
+
+  footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;flex-wrap:wrap;gap:24px;}
+  .footer-logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;}
+  .footer-logo svg{width:30px;height:24px;color:var(--ivory);}
+  .footer-brand-text{font-family:var(--serif);font-size:1.2rem;font-weight:500;line-height:1;}
+  .footer-brand-text small{display:block;font-family:var(--sans);font-size:.55rem;letter-spacing:.32em;color:var(--mist);margin-top:5px;}
+  .footer-links-row{display:flex;gap:32px;flex-wrap:wrap;}
+  .footer-links-row a{font-family:var(--sans);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,237,224,.45);text-decoration:none;transition:color .3s;}
+  .footer-links-row a:hover{color:var(--gold);}
+  .footer-bottom{border-top:1px solid rgba(244,237,224,.08);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+  .footer-copy{font-family:var(--sans);font-size:.65rem;color:rgba(244,237,224,.3);}
+  .whatsapp-float{position:fixed;bottom:32px;right:32px;z-index:200;width:58px;height:58px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(37,211,102,.35);text-decoration:none;animation:pulse 2.5s ease-in-out infinite;}
+  .whatsapp-float svg{width:30px;height:30px;color:#fff;}
+  @keyframes pulse{0%,100%{box-shadow:0 8px 28px rgba(37,211,102,.35);}50%{box-shadow:0 8px 28px rgba(37,211,102,.6),0 0 0 14px rgba(37,211,102,.05);}}
+  .reveal{opacity:0;transform:translateY(36px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .reveal-d1{transition-delay:.15s;}.reveal-d2{transition-delay:.3s;}.reveal-d3{transition-delay:.45s;}
+
+  @media(max-width:980px){
+    body{cursor:auto;}.cursor{display:none;}
+    nav{padding:16px 20px;} nav.scrolled{padding:12px 20px;}
+    .nav-links{display:none;}
+    .intro{grid-template-columns:1fr;}
+    .intro-img{min-height:60vh;}
+    .intro-content{padding:80px 24px;}
+    .philosophy,.journey,.team,.cta-strip{padding:80px 20px;}
+    .philo-grid{grid-template-columns:1fr;gap:48px;}
+    .team-grid{grid-template-columns:1fr;}
+    .timeline{padding-left:24px;}
+    .intro-stats{gap:24px;flex-wrap:wrap;}
+    footer{padding:40px 24px 28px;}
+  }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"><div class="cursor-dot" id="cursorDot"></div><div class="cursor-ring" id="cursorRing"></div></div>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-mark"><svg viewBox="0 0 80 60" fill="currentColor" role="img" aria-label="Memorygraph"><path d="M 5 55 L 5 5 L 30 55 Z"/><path d="M 28 5 L 52 5 L 40 32 Z"/><path d="M 75 55 L 75 5 L 50 55 Z"/></svg></div>
+    <div class="nav-wordmark">Memorygraph<small>Photographing Memories</small></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="stories.html">Stories</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="investment.html">Investment</a></li>
+    <li><a href="blog.html">Journal</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Begin Your Story</a>
+</nav>
+
+<!-- INTRO -->
+<div class="intro">
+  <div class="intro-img">
+    <div class="portrait-ph">
+      <div class="pp-ring">
+        <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="38" r="22" stroke="#1a1814" stroke-width="1.5"/>
+          <path d="M12 92c0-21 17-38 38-38s38 17 38 38" stroke="#1a1814" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="pp-label">Arun's portrait goes here</div>
+    </div>
+    <div class="intro-deco">A.</div>
+    <!--
+      TO ADD PORTRAIT:
+      1. Upload arun-portrait.jpg to assets/team/
+      2. Add this inside .intro-img (replaces the .portrait-ph div):
+         <img src="assets/team/arun-portrait.jpg" alt="Arun T Chandran"
+              style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;"/>
+    -->
+  </div>
+  <div class="intro-content">
+    <div class="intro-eyebrow">The Person Behind the Lens</div>
+    <h1 class="intro-name">Arun T<br><em>Chandran</em></h1>
+    <div class="intro-title">Photographer · Filmmaker · Thrissur, Kerala</div>
+    <blockquote class="intro-quote" data-cms="intro-quote">
+      "There's a moment at every wedding — usually when nobody's looking — where something true happens. That's the only frame I care about getting right."
+    </blockquote>
+    <p class="intro-bio" data-cms="bio">
+      I grew up watching weddings the way most kids watch films — completely absorbed, unable to look away. Kerala weddings aren't quiet. They're full of competing rituals, six generations in the same room, light that changes every twenty minutes, and emotions that nobody rehearses. I found that irresistible.
+      <br><br>
+      I picked up a camera in my early twenties with no formal training — just an itch to document. I shot temple festivals, monsoon mornings, street markets. Then a friend asked me to shoot her wedding, and something clicked. Not the shutter, but the realization that this was where those skills actually meant something. That was 2018. Memorygraph followed in 2020.
+      <br><br>
+      We are a small team, deliberately so. I lead every wedding personally, alongside people I trust completely. We're not trying to be the biggest studio in Kerala. We're trying to do work we're genuinely proud of — and to still be proud of it ten years from now.
+    </p>
+    <div class="intro-stats">
+      <div class="stat"><strong>9+</strong><span>Years Shooting</span></div>
+      <div class="stat"><strong>6</strong><span>Years as Memorygraph</span></div>
+      <div class="stat"><strong>Kerala &amp; Beyond</strong><span>Coverage Area</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PHILOSOPHY -->
+<div class="philosophy">
+  <div class="philo-grid">
+    <div>
+      <div class="section-label reveal">Our Philosophy</div>
+      <h2 class="philo-title reveal reveal-d1">Photography is just<br><em>listening</em><br>with a camera.</h2>
+      <p class="philo-text reveal reveal-d2">
+        The best wedding photographs don't happen because a photographer gave perfect directions. They happen when a photographer disappears into the room, reads the energy, and is present in exactly the right moment.
+        <br><br>
+        We've spent years learning to be invisible — not absent, but unobtrusive. To blend into a celebration so completely that people forget we're there. That's when the real moments surface. And those are always the ones that mean the most, years later.
+        <br><br>
+        Kerala weddings carry a particular magic — the rituals, the golden light, the generations gathered in one space. We consider it a privilege to hold that in our hands.
+      </p>
+    </div>
+    <div class="philo-pillars">
+      <div class="pillar reveal">
+        <div class="pillar-num">01</div>
+        <div class="pillar-title">Presence Over Direction</div>
+        <p class="pillar-desc">We rarely ask couples to pose. The real photographs come from real moments — and there are always more of them than people expect.</p>
+      </div>
+      <div class="pillar reveal reveal-d1">
+        <div class="pillar-num">02</div>
+        <div class="pillar-title">Light as Language</div>
+        <p class="pillar-desc">Kerala's golden hour is unlike anywhere else in the world. We plan every wedding around it — and we show up in the mornings most photographers sleep through.</p>
+      </div>
+      <div class="pillar reveal reveal-d2">
+        <div class="pillar-num">03</div>
+        <div class="pillar-title">Editing as Storytelling</div>
+        <p class="pillar-desc">Post-production isn't correction — it's the final act of the story. Warm, cinematic, restrained. Designed to age beautifully and stay that way.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JOURNEY -->
+<div class="journey">
+  <div class="journey-header">
+    <div class="section-label reveal center">How We Got Here</div>
+    <h2 class="section-title-c reveal reveal-d1">The story so <em>far</em>.</h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="tl-year">2017 · The Beginning</div>
+      <div class="tl-title">A Camera I Couldn't Really Use</div>
+      <p class="tl-text">Bought a secondhand DSLR with no idea what I was doing. Spent the next six months at every temple festival and cultural event I could find in Thrissur — shooting badly, watching carefully, slowly understanding the difference between a photograph and a snapshot.</p>
+    </div>
+    <div class="timeline-item reveal reveal-d1">
+      <div class="tl-year">2018 · First Wedding</div>
+      <div class="tl-title">A Friend Asked, and Everything Changed</div>
+      <p class="tl-text">A college friend asked me to shoot her wedding. I was terrified. The photographs were raw — but they were honest in a way that changed how I understood what this work could be. She still calls them her favorites from that day.</p>
+    </div>
+    <div class="timeline-item reveal reveal-d2">
+      <div class="tl-year">2020 · The Studio</div>
+      <div class="tl-title">The Year I Said No to Everything That Wasn't This</div>
+      <p class="tl-text">Founded Memorygraph with one operating principle: only the work we're proud of, only the couples we genuinely connect with. We turned down more weddings than we accepted in year one. The work got better almost immediately.</p>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="tl-year">2022 · Cinema</div>
+      <div class="tl-title">Adding Motion to Memory</div>
+      <p class="tl-text">Brought cinematography in-house and started building wedding films the way we'd want to watch them — real story arcs, real silences, real voices. Not a highlight reel. A film. The first one we made, we watched back four times before delivering.</p>
+    </div>
+    <div class="timeline-item reveal reveal-d1">
+      <div class="tl-year">Now · 2026</div>
+      <div class="tl-title">Quietly Devoted</div>
+      <p class="tl-text">A small team. A focused list of weddings each year. Every couple given our full attention — from the first call to the last delivered image. We're not trying to grow bigger. We're trying to do this better.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TEAM -->
+<div class="team">
+  <div class="team-header">
+    <div class="section-label reveal center">The People</div>
+    <h2 class="section-title-c reveal reveal-d1">The team behind<br>every <em>wedding</em>.</h2>
+    <p class="reveal reveal-d2">Arun leads every wedding personally. The people below are not hired help — they're collaborators who've been part of Memorygraph's work for years, and who show up to every wedding the same way we do: with care, with attention, and without autopilot.</p>
+  </div>
+  <div class="team-grid">
+
+    <!-- TEAM MEMBER 1: ARUN -->
+    <div class="team-card reveal">
+      <div class="team-lead-badge">Lead</div>
+      <div class="team-img">
+        <div class="team-img-noise"></div>
+        <div class="team-img-ph">
+          <svg width="72" height="72" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/>
+            <path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/>
+          </svg>
+        </div>
+        <!--
+          ADD PORTRAIT:
+          Replace .team-img-ph div with:
+          <img src="assets/team/arun.jpg" alt="Arun T Chandran"
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"/>
+        -->
+      </div>
+      <div class="team-info">
+        <div class="team-role">Founder · Lead Photographer &amp; Filmmaker</div>
+        <div class="team-name">Arun T Chandran</div>
+        <p class="team-bio">Leads every wedding from first call to final delivery. Photographer, cinematographer, and the creative vision behind Memorygraph. Has been shooting weddings since 2018 and still approaches every one like it's his first.</p>
+      </div>
+    </div>
+
+    <!-- TEAM MEMBER 2 — Replace with real person -->
+    <div class="team-card reveal reveal-d1">
+      <div class="team-img">
+        <div class="team-img-noise"></div>
+        <div class="team-img-ph">
+          <svg width="72" height="72" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/>
+            <path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/>
+          </svg>
+        </div>
+        <!--
+          ADD PORTRAIT:
+          <img src="assets/team/[name].jpg" alt="[Full Name]"
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"/>
+        -->
+      </div>
+      <div class="team-info">
+        <div class="team-role">Second Photographer</div>
+        <div class="team-name">[Team Member Name]</div>
+        <p class="team-bio">Replace this with a short personal bio — 2 to 3 sentences. Keep it warm and specific. Anjali is reading this to decide if she trusts this person at her wedding.</p>
+      </div>
+    </div>
+
+    <!-- TEAM MEMBER 3 — Replace with real person -->
+    <div class="team-card reveal reveal-d2">
+      <div class="team-img">
+        <div class="team-img-noise"></div>
+        <div class="team-img-ph">
+          <svg width="72" height="72" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/>
+            <path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/>
+          </svg>
+        </div>
+        <!--
+          ADD PORTRAIT:
+          <img src="assets/team/[name].jpg" alt="[Full Name]"
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"/>
+        -->
+      </div>
+      <div class="team-info">
+        <div class="team-role">Cinematographer</div>
+        <div class="team-name">[Team Member Name]</div>
+        <p class="team-bio">Replace this with a short personal bio — 2 to 3 sentences. Keep it warm and specific. Anjali is reading this to decide if she trusts this person at her wedding.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-strip">
+  <h2 class="cs-title">If you've read<br>this far — <em>let's talk.</em></h2>
+  <p class="cs-sub">We'd love to hear about your wedding. No sales pitch. No pressure. Just a conversation to see if we're the right fit for each other.</p>
+  <a href="contact.html" class="btn-gold">Begin Your Story</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">
+      <svg viewBox="0 0 80 60" fill="currentColor" role="img" aria-label="Memorygraph"><path d="M 5 55 L 5 5 L 30 55 Z"/><path d="M 28 5 L 52 5 L 40 32 Z"/><path d="M 75 55 L 75 5 L 50 55 Z"/></svg>
+      <div class="footer-brand-text">Memorygraph<small>Photographing Memories</small></div>
+    </a>
+    <div class="footer-links-row">
+      <a href="index.html">Home</a>
+      <a href="stories.html">Stories</a>
+      <a href="about.html">About</a>
+      <a href="investment.html">Investment</a>
+      <a href="blog.html">Journal</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Memorygraph Wedding Studio · Thrissur, Kerala</div>
+    <div class="footer-copy">+91 82816 39563 · hello@memorygraphweddings.com</div>
+  </div>
+</footer>
+
+<a href="https://wa.me/918281639563?text=Hi%20Arun%2C%20I%27d%20love%20to%20discuss%20my%20wedding." class="whatsapp-float" data-cms="whatsapp-link" target="_blank" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 .4C7.4.4.4 7.4.4 16c0 2.84.74 5.62 2.16 8.06L.27 31.6l7.74-2.27C10.36 30.7 13.14 31.5 16 31.5c8.6 0 15.6-7 15.6-15.5C31.6 7.4 24.6.4 16 .4zM16 28.7c-2.5 0-4.96-.66-7.1-1.92l-.5-.3-5.34 1.55 1.6-5.18-.34-.55C2.92 19.92 2.2 18 2.2 16 2.2 8.4 8.4 2.2 16 2.2c7.6 0 13.8 6.2 13.8 13.8 0 7.6-6.2 12.7-13.8 12.7zm7.6-9.8c-.4-.2-2.4-1.18-2.78-1.32-.38-.14-.66-.2-.94.2-.28.4-1.06 1.32-1.3 1.6-.24.28-.48.3-.88.1-.4-.2-1.7-.62-3.24-2-1.2-1.06-2-2.38-2.24-2.78-.24-.4-.02-.62.18-.82.18-.18.4-.46.6-.7.2-.24.26-.4.4-.68.14-.28.06-.52-.04-.72-.1-.2-.92-2.22-1.26-3.04-.34-.8-.68-.7-.94-.72h-.8c-.28 0-.72.1-1.1.5-.38.4-1.44 1.4-1.44 3.42s1.48 3.96 1.68 4.24c.2.28 2.92 4.46 7.08 6.24 1 .42 1.78.68 2.38.88.98.32 1.88.28 2.6.16.78-.12 2.4-.98 2.74-1.92.34-.94.34-1.74.24-1.92-.1-.18-.36-.28-.76-.48z"/></svg>
+</a>
+
+<script>
+  const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  function ac(){dot.style.left=mx+'px';dot.style.top=my+'px';rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(ac);}ac();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ring.style.width='40px';ring.style.height='40px';});
+    el.addEventListener('mouseleave',()=>{ring.style.width='24px';ring.style.height='24px';});
+  });
+  window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}}),{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+</script>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script src="/assets/cms-loader.js"></script>
+</body>
+</html>

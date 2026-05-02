@@ -1,0 +1,25 @@
+backend:
+  name: github
+  repo: Arunthayyil/Memorygraph-Website
+  branch: master
+  auth_type: pkce
+  app_id: Ov23lixxR64YoCp6ohrU
+
+media_folder: "src/assets/stories"
+public_folder: "/assets/stories"
+
+collections:
+  - name: "stories"
+    label: "Stories"
+    folder: "src/content/stories"
+    create: true
+    slug: "{{slug}}"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Short Location", name: "location_short", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Hero Image", name: "hero", widget: "image" }
+      - { label: "Quote", name: "quote", widget: "text" }
+      - { label: "Body", name: "body", widget: "markdown" }

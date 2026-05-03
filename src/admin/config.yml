@@ -1,8 +1,7 @@
 backend:
   name: github
   repo: Arunthayyil/Memorygraph-Website
-  branch: master
-  auth_type: pkce
+  branch: main
   app_id: Ov23lixxR64YoCp6ohrU
 
 media_folder: "src/assets/stories"

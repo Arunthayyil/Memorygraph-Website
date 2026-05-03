@@ -2,7 +2,7 @@ backend:
   name: github
   repo: Arunthayyil/Memorygraph-Website
   branch: main
-  app_id: Ov23lixxR64YoCp6ohrU
+  base_url: https://api.sveltia.com
 
 media_folder: "src/assets/stories"
 public_folder: "/assets/stories"

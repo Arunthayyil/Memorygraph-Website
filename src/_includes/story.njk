@@ -785,55 +785,42 @@ PLACEHOLDERS YOU NEED TO FILL:
 </section>
 
 <!-- ────── PREV / NEXT STORY ────── -->
-{%- set ns = namespace(prevStory=null, nextStory=null) -%}
-{%- for s in collections.stories -%}
-  {%- if s.url == page.url -%}
-    {%- if not loop.first -%}{%- set ns.prevStory = collections.stories[loop.index0 - 1] -%}{%- endif -%}
-    {%- if not loop.last -%}{%- set ns.nextStory = collections.stories[loop.index0 + 1] -%}{%- endif -%}
-  {%- endif -%}
-{%- endfor -%}
+{%- set prevStory = collections.stories | getPreviousCollectionItem -%}
+{%- set nextStory = collections.stories | getNextCollectionItem -%}
 <nav class="story-nav">
-  {% if ns.prevStory %}
-  <a href="{{ ns.prevStory.url }}" class="story-nav-card prev">
+  {% if prevStory %}
+  <a href="{{ prevStory.url }}" class="story-nav-card prev">
     <div class="story-nav-direction">
-      <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
-        <path d="M5 1L1 5l4 4M13 5H1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M5 1L1 5l4 4M13 5H1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
       Previous Story
     </div>
-    <div class="story-nav-couple">{{ ns.prevStory.data.title }}</div>
-    <div class="story-nav-meta">{{ ns.prevStory.data.location_short }} · {{ ns.prevStory.date | formatDate }}</div>
+    <div class="story-nav-couple">{{ prevStory.data.title }}</div>
+    <div class="story-nav-meta">{{ prevStory.data.location_short }} · {{ prevStory.date | formatDate }}</div>
   </a>
   {% else %}
   <a href="/stories/" class="story-nav-card prev">
     <div class="story-nav-direction">
-      <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
-        <path d="M5 1L1 5l4 4M13 5H1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M5 1L1 5l4 4M13 5H1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
       All Stories
     </div>
     <div class="story-nav-couple">View all stories</div>
     <div class="story-nav-meta">Memorygraph Wedding Studio</div>
   </a>
   {% endif %}
-  {% if ns.nextStory %}
-  <a href="{{ ns.nextStory.url }}" class="story-nav-card next">
+  {% if nextStory %}
+  <a href="{{ nextStory.url }}" class="story-nav-card next">
     <div class="story-nav-direction">
       Next Story
-      <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
-        <path d="M9 1l4 4-4 4M1 5h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M9 1l4 4-4 4M1 5h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
     </div>
-    <div class="story-nav-couple">{{ ns.nextStory.data.title }}</div>
-    <div class="story-nav-meta">{{ ns.nextStory.data.location_short }} · {{ ns.nextStory.date | formatDate }}</div>
+    <div class="story-nav-couple">{{ nextStory.data.title }}</div>
+    <div class="story-nav-meta">{{ nextStory.data.location_short }} · {{ nextStory.date | formatDate }}</div>
   </a>
   {% else %}
   <a href="/stories/" class="story-nav-card next">
     <div class="story-nav-direction">
       All Stories
-      <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
-        <path d="M9 1l4 4-4 4M1 5h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M9 1l4 4-4 4M1 5h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
     </div>
     <div class="story-nav-couple">View all stories</div>
     <div class="story-nav-meta">Memorygraph Wedding Studio</div>

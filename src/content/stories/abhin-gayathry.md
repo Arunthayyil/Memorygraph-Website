@@ -1,52 +1,37 @@
 ---
-layout: story.njk
-
-title: "Abhin & Gayathry"
-location: "Vadakkumnathan Temple, Thrissur"
-location_short: "Thrissur"
+title: Abhin & Gayathry
+location: Vadakkumnathan Temple, Thrissur
+location_short: Thrissur
 date: 2024-11-15
-
-hero: "/assets/stories/abhin-gayathry/hero.jpg"
-
-quote: "We barely felt the camera. Looking at the photographs now, it feels like the day was preserved exactly as we lived it."
-
-
+hero: /assets/stories/abhin-gayathry/02.jpg
+quote: We barely felt the camera. Looking at the photographs now, it feels like the day was preserved exactly as we lived it.
+layout: story.njk
 gallery:
-
-  - layout: "full"
+  - layout: full
     images:
-      - "/assets/stories/abhin-gayathry/01.jpg"
-
-  - layout: "two"
+      - /assets/stories/abhin-gayathry/01.jpg
+  - layout: two
     images:
-      - "/assets/stories/abhin-gayathry/02.jpg"
-      - "/assets/stories/abhin-gayathry/03.jpg"
-
-  - layout: "asym-l"
+      - /assets/stories/abhin-gayathry/02.jpg
+      - /assets/stories/abhin-gayathry/03.jpg
+  - layout: asym-l
     images:
-      - "/assets/stories/abhin-gayathry/04.jpg"
-      - "/assets/stories/abhin-gayathry/05.jpg"
-
-  - layout: "quote"
-    text: "The kind of light you only get in Kerala mornings — soft, slow, and impossible to fake."
- 
-
-  - layout: "three"
+      - /assets/stories/abhin-gayathry/04.jpg
+      - /assets/stories/abhin-gayathry/05.jpg
+  - layout: quote
+    text: The kind of light you only get in Kerala mornings — soft, slow, and impossible to fake.
+  - layout: three
     images:
-      - "/assets/stories/abhin-gayathry/06.jpg"
-      - "/assets/stories/abhin-gayathry/07.jpg"
-      - "/assets/stories/abhin-gayathry/08.jpg"
-
-
-  - layout: "asym-r"
+      - /assets/stories/abhin-gayathry/06.jpg
+      - /assets/stories/abhin-gayathry/07.jpg
+      - /assets/stories/abhin-gayathry/08.jpg
+  - layout: asym-r
     images:
-      - "/assets/stories/abhin-gayathry/09.jpg"
-      - "/assets/stories/abhin-gayathry/10.jpg"
-
-  - layout: "full"
+      - /assets/stories/abhin-gayathry/09.jpg
+      - /assets/stories/abhin-gayathry/10.jpg
+  - layout: full
     images:
-      - "/assets/stories/abhin-gayathry/11.jpg"
-
+      - /assets/stories/abhin-gayathry/11.jpg
 ---
 
 This was a quiet morning wedding at Vadakkumnathan Temple.

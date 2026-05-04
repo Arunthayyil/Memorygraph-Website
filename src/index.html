@@ -101,6 +101,7 @@
       padding:0 56px;
       overflow:hidden;
     }
+    .hero-video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:.8;}
     .hero-bg-frame {
       position:absolute; right:0; top:0; bottom:0;
       width:52%; overflow:hidden;
@@ -269,6 +270,14 @@
   .about-slideshow{position:absolute;inset:0;overflow:hidden;}
   .about-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.2s ease;background:linear-gradient(160deg,#d8cfb8 0%,#b8a98a 100%);}
   .about-slide.active{opacity:1;}
+
+  .about-slideshow{position:absolute;inset:0;overflow:hidden;}
+  .about-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.4s ease;}
+  .about-slide.active{opacity:1;}
+  .about-slide-dots{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:2;}
+  .asd{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:background .3s;}
+  .asd.active{background:rgba(255,255,255,.9);}
+
   .about-img-frame {
       width:100%; padding-bottom:125%;
       background: linear-gradient(160deg,#d8cfb8 0%,#bfb293 60%,#a89a78 100%);
@@ -664,7 +673,7 @@
       nav.scrolled { padding:14px 24px; }
       .nav-links { display:none; }
       .hero { padding:0 24px; min-height:680px; }
-      .hero-bg-frame { width:100%; opacity:.5; }
+    .hero-bg-frame { width:100%; opacity:.5; }
       .hero-content { padding-right:0; }
       .hero-meta { left:24px; bottom:24px; gap:24px; }
       .hero-scroll { display:none; }
@@ -704,9 +713,11 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg-frame">
+    <video autoplay muted loop playsinline class="hero-video">
+      <source src="/assets/hero.mp4" type="video/mp4">
+    </video>
     <div class="hero-bokeh b1"></div>
     <div class="hero-bokeh b2"></div>
-    <div class="hero-photo-tag">Hero film replaces this frame</div>
   </div>
 
   <div class="hero-content">
@@ -767,16 +778,22 @@
   <div class="about-left reveal">
     <div class="about-corner-tl"></div>
     <div class="about-img-frame">
-      <div class="about-placeholder">
-        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-          <circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/>
-          <path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/>
-        </svg>
-        <span>Your portrait goes here</span>
+      <div class="about-slideshow" id="aboutSlideshow">
+        <div class="about-slide active" style="background-image:url('/assets/about/01.jpg')"></div>
+        <div class="about-slide" style="background-image:url('/assets/about/02.jpg')"></div>
+        <div class="about-slide" style="background-image:url('/assets/about/03.jpg')"></div>
+        <div class="about-slide" style="background-image:url('/assets/about/04.jpg')"></div>
+        <div class="about-slide" style="background-image:url('/assets/about/05.jpg')"></div>
+      </div>
+      <div class="about-slide-dots">
+        <span class="asd active" onclick="setAboutSlide(0)"></span>
+        <span class="asd" onclick="setAboutSlide(1)"></span>
+        <span class="asd" onclick="setAboutSlide(2)"></span>
+        <span class="asd" onclick="setAboutSlide(3)"></span>
+        <span class="asd" onclick="setAboutSlide(4)"></span>
       </div>
     </div>
     <div class="about-corner-br"></div>
-
   </div>
 
   <div class="about-right">
@@ -906,6 +923,9 @@
       <div class="process-title">Delivered with Care</div>
       <p class="process-desc">Curated galleries. Cinematic films. Heirloom-quality albums. Delivered fast, presented beautifully — yours forever.</p>
     </div>
+  </div>
+  <div style="text-align:center;margin-top:56px;" class="reveal">
+    <a href="/investment/" style="font-family:var(--sans);font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(29,89,89,.25);padding-bottom:5px;transition:border-color .3s,color .3s;">Book your day →</a>
   </div>
 </section>
 
@@ -1077,6 +1097,17 @@
   // Wait for CMS loader, then start rotation
   setTimeout(()=>{ if(window.cmsTestimonials) setT(0); }, 1500);
   setInterval(()=>setT(cur+1), 6500);
+
+  // About slideshow
+  let aci=0;
+  const aSlides=document.querySelectorAll('.about-slide');
+  const aDots=document.querySelectorAll('.asd');
+  function setAboutSlide(i){
+    aSlides[aci].classList.remove('active'); aDots[aci].classList.remove('active');
+    aci=i%aSlides.length;
+    aSlides[aci].classList.add('active'); aDots[aci].classList.add('active');
+  }
+  if(aSlides.length) setInterval(()=>setAboutSlide(aci+1), 4500);
 
   // About section slideshow - pulls bg images from story cards
   (function(){

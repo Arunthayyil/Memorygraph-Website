@@ -37,6 +37,12 @@ collections:
           - { label: "Layout", name: "layout", widget: "select", options: ["full", "two", "three", "asym-l", "asym-r", "quote"] }
           - { label: "Images", name: "images", widget: "list", field: { label: "Image", name: "image", widget: "image" }, required: false }
           - { label: "Quote Text (for quote layout only)", name: "text", widget: "text", required: false }
+      - label: "Album Spreads (optional)"
+        name: "album_spreads"
+        widget: "list"
+        required: false
+        hint: "Add 2-4 spread photos to show the Heirloom Album from this wedding"
+        field: { label: "Spread Image", name: "image", widget: "image" }
       - { label: "Story Body", name: "body", widget: "markdown" }
 
   - name: "testimonials"

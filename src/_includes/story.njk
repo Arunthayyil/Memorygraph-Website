@@ -424,41 +424,60 @@ PLACEHOLDERS YOU NEED TO FILL:
   /* ─────────────────────────────────────
      STORY NAV — Previous/Next stories
      ───────────────────────────────────── */
+  /* STICKY STORY NAV STRIP */
   .story-nav {
-    background: var(--ivory-2);
-    border-top: 1px solid var(--line-2);
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
+    background: rgba(26,24,20,.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255,255,255,.08);
     display: grid; grid-template-columns: 1fr 1fr;
+    transform: translateY(100%);
+    transition: transform .5s cubic-bezier(.22,1,.36,1);
   }
+  .story-nav.visible { transform: translateY(0); }
   .story-nav-card {
-    padding: 40px 56px;
-    display: flex; flex-direction: column; gap: 16px;
-    text-decoration: none; color: var(--ink);
-    transition: background .35s;
+    padding: 16px 40px;
+    display: flex; flex-direction: column; gap: 4px;
+    text-decoration: none; color: var(--ivory);
+    transition: background .25s;
     position: relative;
   }
-  .story-nav-card:first-child {
-    border-right: 1px solid var(--line);
-  }
-  .story-nav-card:hover { background: var(--ivory); }
+  .story-nav-card:first-child { border-right: 1px solid rgba(255,255,255,.08); }
+  .story-nav-card:hover { background: rgba(255,255,255,.04); }
   .story-nav-direction {
-    font-family: var(--sans); font-size: .6rem;
-    letter-spacing: .3em; text-transform: uppercase;
+    font-family: var(--sans); font-size: .58rem;
+    letter-spacing: .28em; text-transform: uppercase;
     color: var(--gold);
-    display: flex; align-items: center; gap: 12px;
+    display: flex; align-items: center; gap: 8px;
   }
   .story-nav-card.next .story-nav-direction { justify-content: flex-end; }
   .story-nav-couple {
-    font-family: var(--serif); font-size: 1.4rem;
-    font-weight: 300; color: var(--ink);
-    transition: color .3s;
+    font-family: var(--serif); font-size: 1.05rem;
+    font-weight: 300; color: rgba(244,237,224,.9);
+    transition: color .3s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
-  .story-nav-card:hover .story-nav-couple { color: var(--teal); }
+  .story-nav-card:hover .story-nav-couple { color: var(--gold-2); }
   .story-nav-card.next { text-align: right; }
   .story-nav-meta {
-    font-family: var(--sans); font-size: .65rem;
-    letter-spacing: .22em; text-transform: uppercase;
-    color: var(--mist);
+    font-family: var(--sans); font-size: .6rem;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(244,237,224,.3);
   }
+
+
+  /* STORY ALBUM SPREADS */
+  .story-album { padding: 80px 56px; background: var(--ink); }
+  .story-album-header { text-align: center; margin-bottom: 48px; }
+  .story-album-label { font-family: var(--sans); font-size: .62rem; letter-spacing: .35em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .story-album-sub { font-family: var(--sans); font-size: .75rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(244,237,224,.3); }
+  .story-album-spreads { display: flex; flex-direction: column; gap: 3px; margin-bottom: 40px; }
+  .story-album-spread img { width: 100%; aspect-ratio: 8/3; object-fit: cover; display: block; transition: transform .8s ease; }
+  .story-album-spread:hover img { transform: scale(1.015); }
+  .story-album-cta { text-align: center; }
+  .story-album-link { font-family: var(--sans); font-size: .68rem; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,150,90,.3); padding-bottom: 4px; transition: border-color .3s; }
+  .story-album-link:hover { border-color: var(--gold); }
+  @media(max-width:768px){ .story-album { padding: 56px 24px; } .story-album-spread img { aspect-ratio: 16/9; } }
 
   /* ─────────────────────────────────────
      CTA — Book your wedding
@@ -564,7 +583,7 @@ PLACEHOLDERS YOU NEED TO FILL:
     .vendors { padding: 80px 24px; }
     .vendors-grid { grid-template-columns: 1fr; }
     .story-nav { grid-template-columns: 1fr; }
-    .story-nav-card { padding: 28px 24px; }
+    .story-nav-card { padding: 14px 20px; }
     .story-nav-card:first-child { border-right: none; border-bottom: 1px solid var(--line); }
     .story-nav-card.next { text-align: left; }
     .story-nav-card.next .story-nav-direction { justify-content: flex-start; }
@@ -729,6 +748,27 @@ PLACEHOLDERS YOU NEED TO FILL:
   {% endfor %}
 </section>
 
+
+{% if album_spreads and album_spreads.length > 0 %}
+<!-- ────── HEIRLOOM ALBUM ────── -->
+<section class="story-album">
+  <div class="story-album-header">
+    <div class="story-album-label">The Heirloom Album</div>
+    <p class="story-album-sub">32 × 12" · Lay-flat · Archival print</p>
+  </div>
+  <div class="story-album-spreads">
+    {% for spread in album_spreads %}
+    <div class="story-album-spread">
+      <img src="{{ spread.image if spread.image else spread }}" alt="Album spread from {{ title }}" loading="lazy"/>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="story-album-cta">
+    <a href="/investment/#album" class="story-album-link">Add an album to your package →</a>
+  </div>
+</section>
+{% endif %}
+
 <!-- ────── STATS ────── -->
 <section class="story-stats">
   <div class="stats-grid">
@@ -885,6 +925,15 @@ PLACEHOLDERS YOU NEED TO FILL:
 
   // Lazy load gallery images (basic native lazy loading via background-image trick)
   // For best performance, replace background-image divs with <img loading="lazy">
+
+  // Show sticky nav after scrolling 25% down
+  const storyNavEl = document.querySelector('.story-nav');
+  if(storyNavEl){
+    window.addEventListener('scroll', function(){
+      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+      storyNavEl.classList.toggle('visible', pct > 0.25);
+    }, {passive:true});
+  }
 </script>
 
 </body>

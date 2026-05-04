@@ -147,7 +147,33 @@
     .addons-grid{grid-template-columns:1fr;}
     footer{padding:40px 24px 28px;}
   }
-</style>
+
+  /* HEIRLOOM ALBUM */
+  .album{padding:120px 56px;background:var(--ink);overflow:hidden;position:relative;}
+  .album::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(184,150,90,.3),transparent);}
+  .album-inner{max-width:1200px;margin:0 auto;}
+  .album-header{text-align:center;margin-bottom:72px;}
+  .album-label{font-family:var(--sans);font-size:.62rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+  .album-title{font-family:var(--serif);font-size:clamp(2.2rem,4vw,3.6rem);font-weight:300;color:var(--ivory);line-height:1.15;}
+  .album-title em{font-style:italic;color:var(--gold-2);}
+  .album-subtitle{font-family:var(--sans);font-size:.9rem;font-weight:300;color:rgba(244,237,224,.5);margin-top:20px;line-height:1.8;max-width:560px;margin-left:auto;margin-right:auto;}
+  .album-spreads{display:flex;flex-direction:column;gap:4px;margin-bottom:64px;}
+  .album-spread{width:100%;aspect-ratio:8/3;overflow:hidden;position:relative;cursor:pointer;}
+  .album-spread img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .8s ease;display:block;}
+  .album-spread:hover img{transform:scale(1.02);}
+  .album-spec{display:flex;justify-content:center;gap:48px;margin-bottom:56px;flex-wrap:wrap;}
+  .album-spec-item{text-align:center;}
+  .album-spec-item strong{display:block;font-family:var(--serif);font-size:1.4rem;font-weight:400;color:var(--ivory);margin-bottom:4px;}
+  .album-spec-item span{font-family:var(--sans);font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(244,237,224,.35);}
+  .album-cta{text-align:center;}
+  .album-cta p{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:rgba(244,237,224,.5);margin-bottom:28px;}
+  @media(max-width:768px){
+    .album{padding:80px 24px;}
+    .album-spread{aspect-ratio:16/9;}
+    .album-spec{gap:28px;}
+  }
+
+  </style>
 </head>
 <body>
 <div class="cursor" id="cursor"><div class="cursor-dot" id="cursorDot"></div><div class="cursor-ring" id="cursorRing"></div></div>
@@ -319,6 +345,50 @@
     </div>
   </div>
 </div>
+
+<!-- HEIRLOOM ALBUM -->
+<section class="album">
+  <div class="album-inner">
+    <div class="album-header">
+      <div class="album-label">The Heirloom Album</div>
+      <h2 class="album-title reveal">The one thing your<br>phone will <em>never replace.</em></h2>
+      <p class="album-subtitle reveal reveal-d1">A 32×12 inch lay-flat album, printed on archival paper, bound to last a lifetime. Clean, timeless layouts designed around your photographs — not around a template. The kind of object you hand to your grandchildren.</p>
+    </div>
+    <div class="album-spreads reveal">
+      <div class="album-spread">
+        <img src="/assets/album/spread-01.jpg" alt="Heirloom Album spread"/>
+      </div>
+      <div class="album-spread">
+        <img src="/assets/album/spread-02.jpg" alt="Heirloom Album spread"/>
+      </div>
+      <div class="album-spread">
+        <img src="/assets/album/spread-03.jpg" alt="Heirloom Album spread"/>
+      </div>
+    </div>
+    <div class="album-spec reveal">
+      <div class="album-spec-item">
+        <strong>32 × 12"</strong>
+        <span>Panoramic Format</span>
+      </div>
+      <div class="album-spec-item">
+        <strong>Lay-Flat</strong>
+        <span>Binding Style</span>
+      </div>
+      <div class="album-spec-item">
+        <strong>Archival</strong>
+        <span>Print Quality</span>
+      </div>
+      <div class="album-spec-item">
+        <strong>Timeless</strong>
+        <span>Design Approach</span>
+      </div>
+    </div>
+    <div class="album-cta reveal">
+      <p>"Every wedding we design is built with the album in mind from the first frame."</p>
+      <a href="/contact/" class="btn-primary" style="display:inline-block;">Ask about adding an album</a>
+    </div>
+  </div>
+</section>
 
 <!-- FAQ -->
 <div class="faq">

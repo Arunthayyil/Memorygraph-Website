@@ -49,8 +49,8 @@
 
     /* ── CURSOR ── */
     .cursor { position:fixed; top:0; left:0; z-index:9999; pointer-events:none; }
-    .cursor-dot { width:4px; height:4px; background:var(--teal); border-radius:50%; position:absolute; transform:translate(-50%,-50%); }
-    .cursor-ring { width:24px; height:24px; border:1px solid rgba(29,89,89,.35); border-radius:50%; position:absolute; transform:translate(-50%,-50%); transition:width .25s, height .25s, border-color .3s; }
+    .cursor-dot { width:4px; height:4px; background:#fff; border-radius:50%; position:absolute; transform:translate(-50%,-50%); mix-blend-mode:difference; }
+    .cursor-ring { width:24px; height:24px; border:1px solid rgba(255,255,255,.8); border-radius:50%; position:absolute; transform:translate(-50%,-50%);mix-blend-mode:difference; transition:width .25s, height .25s, border-color .3s; }
     input, textarea, select { cursor: text; }
     @media (prefers-reduced-motion: reduce) { body { cursor:auto; } .cursor { display:none; } }
 
@@ -265,7 +265,11 @@
       background: var(--ivory);
     }
     .about-left { position:relative; }
-    .about-img-frame {
+  
+  .about-slideshow{position:absolute;inset:0;overflow:hidden;}
+  .about-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.2s ease;background:linear-gradient(160deg,#d8cfb8 0%,#b8a98a 100%);}
+  .about-slide.active{opacity:1;}
+  .about-img-frame {
       width:100%; padding-bottom:125%;
       background: linear-gradient(160deg,#d8cfb8 0%,#bfb293 60%,#a89a78 100%);
       position:relative; overflow:hidden;
@@ -477,7 +481,8 @@
     .testimonial-inner { position:relative; z-index:1; max-width:880px; margin:0 auto; }
     .testimonial-stars { display:flex; justify-content:center; gap:6px; margin-bottom:36px; }
     .star { color:var(--gold); font-size:.85rem; }
-    .testimonial-text {
+    .testimonial{min-height:320px;}
+  .testimonial-text {
       font-family:var(--serif); font-size:clamp(1.6rem,3.5vw,2.7rem);
       font-weight:300; font-style:italic; line-height:1.5;
       color:var(--ink); margin-bottom:48px;
@@ -685,17 +690,7 @@
 <!-- NAV -->
 <nav id="nav">
   <a href="/" class="nav-logo">
-    <div class="nav-mark">
-      <svg viewBox="0 0 80 60" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path d="M 5 55 L 5 5 L 30 55 Z"/>
-        <path d="M 28 5 L 52 5 L 40 32 Z"/>
-        <path d="M 75 55 L 75 5 L 50 55 Z"/>
-      </svg>
-    </div>
-    <div class="nav-wordmark">
-      Memorygraph
-      <small>Photographing Memories</small>
-    </div>
+    <img src="/assets/logo/logo-dark.png" alt="Memorygraph Wedding Studio" class="nav-logo-img"/>
   </a>
   <ul class="nav-links">
     <li><a href="/stories/">Stories</a></li>
@@ -781,17 +776,13 @@
       </div>
     </div>
     <div class="about-corner-br"></div>
-    <div class="about-stat-card">
-      <strong>4 <span style="font-size:.6em;color:var(--mist);font-weight:400;">weeks</span></strong>
-      <span>per wedding</span>
-      <em>From hello to delivery.</em>
-    </div>
+
   </div>
 
   <div class="about-right">
     <div class="section-label reveal">The Studio</div>
     <h2 class="section-title reveal reveal-d1">
-      We don't measure<br>weddings shot.<br>We measure ones we <em>remember.</em>
+      We don't measure<br>the weddings we've shot.<br>We measure the ones we <em>don't forget.</em>
     </h2>
     <blockquote class="about-body-quote reveal reveal-d2">
       "Every couple deserves a team that isn't running on autopilot — that shows up rested, listens carefully, and leaves with photographs you'll keep returning to."
@@ -868,62 +859,24 @@
     </a>
   </div>
   <div class="stories-grid reveal" data-cms="stories-grid">
-    <a href="/stories/abhin-gayathry/" class="story-card-link"><div class="story-card large">
-      <div class="story-img">
-        <div class="story-img-inner sg1"></div>
-        <div class="story-img-noise"></div>
-        <div class="story-img-icon">
-          <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-            <path d="M14 42L28 18L42 42M20 33h16" stroke="#1a1814" stroke-width=".8" stroke-linecap="round"/>
-          </svg>
+    {% assign story_gradient = "sg1,sg2,sg3,sg4,sg5" | split: "," %}
+    {% for story in collections.stories limit:5 %}
+    <a href="{{ story.url }}" class="story-card-link">
+      <div class="story-card{% if forloop.first %} large{% endif %}">
+        <div class="story-img">
+          <div class="story-img-inner {% if story.data.hero %}has-hero{% else %}{{ story_gradient[forloop.index0] }}{% endif %}"
+               {% if story.data.hero %}style="background-image:url('{{ story.data.hero }}');background-size:cover;background-position:center;"{% endif %}>
+          </div>
+          <div class="story-img-noise"></div>
+          {% if forloop.first %}<div class="story-tag">Featured</div>{% endif %}
         </div>
-        <div class="story-tag">Featured</div>
+        <div class="story-meta-block">
+          <div class="story-name">{{ story.data.title }}</div>
+          <div class="story-meta">{{ story.data.location_short }} · {{ story.date | formatDate }}</div>
+        </div>
       </div>
-      <div class="story-meta-block">
-        <div class="story-name">Abhin &amp; Gayathry</div>
-        <div class="story-meta">Vadakkumnathan · Thrissur · 2024</div>
-      </div>
-    </div></a>
-    <a href="/stories/archana-manu/" class="story-card-link"><div class="story-card">
-      <div class="story-img">
-        <div class="story-img-inner sg2"></div>
-        <div class="story-img-noise"></div>
-      </div>
-      <div class="story-meta-block">
-        <div class="story-name">Archana &amp; Manu</div>
-        <div class="story-meta">Heritage · Kochi · 2024</div>
-      </div>
-    </div></a>
-    <a href="/stories/priya-rahul/" class="story-card-link"><div class="story-card">
-      <div class="story-img">
-        <div class="story-img-inner sg3"></div>
-        <div class="story-img-noise"></div>
-      </div>
-      <div class="story-meta-block">
-        <div class="story-name">Priya &amp; Rahul</div>
-        <div class="story-meta">Garden · Palakkad · 2024</div>
-      </div>
-    </div></a>
-    <a href="/stories/devika-arjun/" class="story-card-link"><div class="story-card">
-      <div class="story-img">
-        <div class="story-img-inner sg4"></div>
-        <div class="story-img-noise"></div>
-      </div>
-      <div class="story-meta-block">
-        <div class="story-name">Devika &amp; Arjun</div>
-        <div class="story-meta">Backwaters · Alleppey · 2025</div>
-      </div>
-    </div></a>
-    <a href="/stories/meera-anand/" class="story-card-link"><div class="story-card">
-      <div class="story-img">
-        <div class="story-img-inner sg2"></div>
-        <div class="story-img-noise"></div>
-      </div>
-      <div class="story-meta-block">
-        <div class="story-name">Meera &amp; Anand</div>
-        <div class="story-meta">Temple · Palakkad · 2025</div>
-      </div>
-    </div></a>
+    </a>
+    {% endfor %}
   </div>
 </section>
 
@@ -1026,8 +979,8 @@
         Memorygraph Wedding Studio<br>
         Thottupurath Building, Chungam<br>
         Thrissur, Kerala<br><br>
-        <a href="tel:+919846238073" data-cms="phone">+91 82816 39563</a><br>
-        <a href="mailto:hello@memorygraphweddings.com" data-cms="email">hello@memorygraphweddings.com</a>
+        <a href="tel:+919846238073" data-cms="phone">+91 98462 38073</a><br>
+        <a href="mailto:memorygraphweddings@gmail.com" data-cms="email">memorygraphweddings@gmail.com</a>
       </div>
     </div>
     <div>
@@ -1112,7 +1065,7 @@
   function setT(i){
     cur=i % tts.length;
     const tEl=document.getElementById('testimonialText'), aEl=document.getElementById('testimonialAuthor');
-    tEl.style.opacity='0'; tEl.style.transform='translateY(10px)';
+    tEl.style.opacity='0'; tEl.style.transform='translateY(6px)'; tEl.style.minHeight=tEl.offsetHeight+'px';
     setTimeout(()=>{
       tEl.innerHTML=tts[cur].t; aEl.innerHTML=tts[cur].a;
       tEl.style.transition='opacity .5s, transform .5s';
@@ -1123,6 +1076,23 @@
   // Wait for CMS loader, then start rotation
   setTimeout(()=>{ if(window.cmsTestimonials) setT(0); }, 1500);
   setInterval(()=>setT(cur+1), 6500);
+
+  // About section slideshow from story collection heroes
+  (function(){
+    const slides = document.querySelectorAll('.about-slide');
+    if(!slides.length) return;
+    {% assign hero_urls = "" %}{% for story in collections.stories limit:5 %}{% if story.data.hero %}{% unless forloop.first %},{% endunless %}{{ story.data.hero }}{% endif %}{% endfor %}
+    const imgs = "{% for story in collections.stories limit:5 %}{% if story.data.hero %}{{ story.data.hero }},{% endif %}{% endfor %}".split(',').filter(Boolean);
+    if(!imgs.length) return;
+    slides.forEach((s,i)=>{ if(imgs[i]) s.style.backgroundImage=`url('${imgs[i]}')`; });
+    let ci=0;
+    setInterval(()=>{
+      slides[ci].classList.remove('active');
+      ci=(ci+1)%Math.min(slides.length,imgs.length);
+      slides[ci].classList.add('active');
+    },4500);
+  })();
+
 </script>
 <!-- CMS Loader -->
 <script src="/assets/cms-loader.js"></script>

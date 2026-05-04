@@ -20,8 +20,8 @@
   body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");mix-blend-mode:multiply;opacity:.6;}
 
   .cursor{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;}
-  .cursor-dot{width:4px;height:4px;background:var(--teal);border-radius:50%;position:absolute;transform:translate(-50%,-50%);}
-  @media(prefers-reduced-motion:reduce){body{cursor:auto;}.cursor{display:none;}} .cursor-ring{width:24px;height:24px;border:1px solid rgba(29,89,89,.35);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .25s,height .25s;}
+  .cursor-dot{width:4px;height:4px;background:#fff;border-radius:50%;position:absolute;transform:translate(-50%,-50%);mix-blend-mode:difference;}
+  @media(prefers-reduced-motion:reduce){body{cursor:auto;}.cursor{display:none;}} .cursor-ring{width:24px;height:24px;border:1px solid rgba(255,255,255,.7);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .25s,height .25s;mix-blend-mode:difference;}
 
   /* NAV */
   nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:24px 56px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s,background .5s;}
@@ -169,8 +169,7 @@
 
 <nav id="nav">
   <a href="/" class="nav-logo">
-    <div class="nav-mark"><svg viewBox="0 0 80 60" fill="currentColor"><path d="M 5 55 L 5 5 L 30 55 Z"/><path d="M 28 5 L 52 5 L 40 32 Z"/><path d="M 75 55 L 75 5 L 50 55 Z"/></svg></div>
-    <div class="nav-wordmark">Memorygraph<small>Photographing Memories</small></div>
+    <img src="/assets/logo/logo-dark.png" alt="Memorygraph Wedding Studio" class="nav-logo-img"/>
   </a>
   <ul class="nav-links">
     <li><a href="/stories/" class="active">Stories</a></li>
@@ -278,7 +277,7 @@
 <footer>
   <div class="footer-inner">
     <a href="/" class="footer-logo">
-      <img src="/assets/logo/logo.jpg" alt="Memorygraph Wedding Studio" style="height:52px;width:auto;mix-blend-mode:screen;opacity:.9;"/>
+      <img src="/assets/logo/logo-white.png" alt="Memorygraph Wedding Studio" style="height:52px;width:auto;mix-blend-mode:screen;opacity:.9;"/>
     </a>
     <div class="footer-links-row">
       <a href="/index/">Home</a>
@@ -296,7 +295,7 @@
       <a href="https://www.youtube.com/@MemorygraphWeddings" target="_blank" rel="noopener" style="font-family:var(--sans);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,237,224,.4);text-decoration:none;">YouTube</a>
       <a href="https://www.facebook.com/myjourneyismystory.iamarun" target="_blank" rel="noopener" style="font-family:var(--sans);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,237,224,.4);text-decoration:none;">Facebook</a>
     </div>
-    <div class="footer-copy">+91 82816 39563 · hello@memorygraphweddings.com</div>
+    <div class="footer-copy">+91 98462 38073 · memorygraphweddings@gmail.com</div>
   </div>
 </footer>
 

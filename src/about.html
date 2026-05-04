@@ -16,8 +16,8 @@
   @media(prefers-reduced-motion:reduce){body{cursor:auto;}.cursor{display:none;}}
 
   .cursor{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;}
-  .cursor-dot{width:4px;height:4px;background:var(--teal);border-radius:50%;position:absolute;transform:translate(-50%,-50%);}
-  .cursor-ring{width:24px;height:24px;border:1px solid rgba(29,89,89,.35);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .25s,height .25s;}
+  .cursor-dot{width:4px;height:4px;background:#fff;border-radius:50%;position:absolute;transform:translate(-50%,-50%);mix-blend-mode:difference;}
+  .cursor-ring{width:24px;height:24px;border:1px solid rgba(255,255,255,.7);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .25s,height .25s;mix-blend-mode:difference;}
   a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:4px;}
 
   nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:24px 56px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s,background .5s;}
@@ -83,7 +83,7 @@
   .pillar:hover::before{transform:scaleY(1);}
   .pillar-num{font-family:var(--serif);font-size:2.6rem;font-weight:300;color:rgba(29,89,89,.18);line-height:1;margin-bottom:14px;}
   .pillar-title{font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--ink);margin-bottom:10px;}
-  .pillar-desc{font-family:var(--sans);font-size:.84rem;font-weight:300;line-height:1.85;color:var(--ink-soft);}
+  .pillar-desc{font-family:var(--sans);font-size:.9rem;font-weight:300;line-height:1.9;color:var(--ink-soft);}
 
   .journey{padding:140px 56px;background:var(--ivory);}
   .journey-header{text-align:center;max-width:700px;margin:0 auto 80px;}
@@ -95,12 +95,12 @@
   .timeline-item::before{content:'';position:absolute;left:-37px;top:8px;width:11px;height:11px;background:var(--gold);border-radius:50%;border:2px solid var(--ivory);box-shadow:0 0 0 1px var(--gold);}
   .tl-year{font-family:var(--sans);font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--teal);margin-bottom:12px;}
   .tl-title{font-family:var(--serif);font-size:1.6rem;font-weight:400;color:var(--ink);margin-bottom:10px;}
-  .tl-text{font-family:var(--sans);font-size:.88rem;font-weight:300;line-height:1.85;color:var(--ink-soft);}
+  .tl-text{font-family:var(--sans);font-size:.94rem;font-weight:300;line-height:1.9;color:var(--ink-soft);}
 
   /* TEAM */
   .team{padding:140px 56px;background:var(--ivory-2);}
   .team-header{text-align:center;max-width:700px;margin:0 auto 80px;}
-  .team-header p{font-family:var(--sans);font-size:.9rem;font-weight:300;line-height:1.85;color:var(--ink-soft);margin-top:24px;}
+  .team-header p{font-family:var(--sans);font-size:.95rem;font-weight:300;line-height:1.9;color:var(--ink-soft);margin-top:24px;}
   .team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);}
   .team-card{background:var(--ivory-2);padding:0 0 40px;position:relative;overflow:hidden;transition:background .4s;}
   .team-card:hover{background:var(--ivory);}
@@ -112,7 +112,7 @@
   .team-info{padding:28px 32px 0;}
   .team-role{font-family:var(--sans);font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
   .team-name{font-family:var(--serif);font-size:1.5rem;font-weight:400;color:var(--ink);margin-bottom:12px;}
-  .team-bio{font-family:var(--sans);font-size:.82rem;font-weight:300;line-height:1.8;color:var(--ink-soft);}
+  .team-bio{font-family:var(--sans);font-size:.88rem;font-weight:300;line-height:1.85;color:var(--ink-soft);}
   .team-lead-badge{position:absolute;top:20px;left:20px;z-index:3;background:var(--teal);color:var(--ivory);font-family:var(--sans);font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;padding:6px 12px;}
 
   .cta-strip{padding:140px 56px;text-align:center;background:linear-gradient(160deg,var(--teal-deep) 0%,var(--teal) 100%);color:var(--ivory);position:relative;overflow:hidden;}
@@ -163,8 +163,7 @@
 
 <nav id="nav">
   <a href="/" class="nav-logo">
-    <div class="nav-mark"><svg viewBox="0 0 80 60" fill="currentColor" role="img" aria-label="Memorygraph"><path d="M 5 55 L 5 5 L 30 55 Z"/><path d="M 28 5 L 52 5 L 40 32 Z"/><path d="M 75 55 L 75 5 L 50 55 Z"/></svg></div>
-    <div class="nav-wordmark">Memorygraph<small>Photographing Memories</small></div>
+    <img src="/assets/logo/logo-dark.png" alt="Memorygraph Wedding Studio" class="nav-logo-img"/>
   </a>
   <ul class="nav-links">
     <li><a href="/stories/">Stories</a></li>
@@ -425,7 +424,7 @@
   </div>
   <div class="footer-bottom">
     <div class="footer-copy">© 2026 Memorygraph Wedding Studio · Thrissur, Kerala</div>
-    <div class="footer-copy">+91 82816 39563 · hello@memorygraphweddings.com</div>
+    <div class="footer-copy">+91 98462 38073 · memorygraphweddings@gmail.com</div>
   </div>
 </footer>
 

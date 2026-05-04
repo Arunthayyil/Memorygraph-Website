@@ -82,7 +82,7 @@ PLACEHOLDERS YOU NEED TO FILL:
 
   /* CURSOR */
   .cursor { position:fixed; top:0; left:0; z-index:9999; pointer-events:none; }
-  .cursor-dot { width:4px; height:6px; background:var(--teal); border-radius:50%; position:absolute; transform:translate(-50%,-50%); }
+  .cursor-dot { width:4px; height:6px; background:#fff; border-radius:50%; position:absolute; transform:translate(-50%,-50%); mix-blend-mode:difference; }
   .cursor-ring { width:24px; height:36px; border:1px solid rgba(29,89,89,.4); border-radius:50%; position:absolute; transform:translate(-50%,-50%); transition:width .25s, height .25s; }
 
   /* NAV */
@@ -430,7 +430,7 @@ PLACEHOLDERS YOU NEED TO FILL:
     display: grid; grid-template-columns: 1fr 1fr;
   }
   .story-nav-card {
-    padding: 80px 56px;
+    padding: 40px 56px;
     display: flex; flex-direction: column; gap: 16px;
     text-decoration: none; color: var(--ink);
     transition: background .35s;
@@ -448,7 +448,7 @@ PLACEHOLDERS YOU NEED TO FILL:
   }
   .story-nav-card.next .story-nav-direction { justify-content: flex-end; }
   .story-nav-couple {
-    font-family: var(--serif); font-size: 2rem;
+    font-family: var(--serif); font-size: 1.4rem;
     font-weight: 300; color: var(--ink);
     transition: color .3s;
   }
@@ -564,7 +564,7 @@ PLACEHOLDERS YOU NEED TO FILL:
     .vendors { padding: 80px 24px; }
     .vendors-grid { grid-template-columns: 1fr; }
     .story-nav { grid-template-columns: 1fr; }
-    .story-nav-card { padding: 50px 24px; }
+    .story-nav-card { padding: 28px 24px; }
     .story-nav-card:first-child { border-right: none; border-bottom: 1px solid var(--line); }
     .story-nav-card.next { text-align: left; }
     .story-nav-card.next .story-nav-direction { justify-content: flex-start; }
@@ -589,14 +589,7 @@ PLACEHOLDERS YOU NEED TO FILL:
 <!-- ────── NAV ────── -->
 <nav id="nav">
   <a href="/" class="nav-logo">
-    <div class="nav-mark">
-      <svg viewBox="0 0 80 60" fill="currentColor" role="img" aria-label="Memorygraph">
-        <path d="M 5 55 L 5 5 L 30 55 Z"/>
-        <path d="M 28 5 L 52 5 L 40 32 Z"/>
-        <path d="M 75 55 L 75 5 L 50 55 Z"/>
-      </svg>
-    </div>
-    <div class="nav-wordmark">Memorygraph<small>Photographing Memories</small></div>
+    <img src="/assets/logo/logo-dark.png" alt="Memorygraph Wedding Studio" class="nav-logo-img"/>
   </a>
   <ul class="nav-links">
     <li><a href="/stories/" class="active">Stories</a></li>
@@ -841,7 +834,7 @@ PLACEHOLDERS YOU NEED TO FILL:
 <footer>
   <div class="footer-inner">
     <a href="/" class="footer-logo">
-      <img src="/assets/logo/logo.jpg" alt="Memorygraph Wedding Studio" style="height:52px;width:auto;mix-blend-mode:screen;opacity:.9;"/>
+      <img src="/assets/logo/logo-white.png" alt="Memorygraph Wedding Studio" style="height:52px;width:auto;mix-blend-mode:screen;opacity:.9;"/>
     </a>
     <div class="footer-links-row">
       <a href="/">Home</a>
@@ -854,7 +847,7 @@ PLACEHOLDERS YOU NEED TO FILL:
   </div>
   <div class="footer-bottom">
     <div class="footer-copy">© 2026 Memorygraph Wedding Studio · Thrissur, Kerala</div>
-    <div class="footer-copy">+91 82816 39563 · hello@memorygraphweddings.com</div>
+    <div class="footer-copy">+91 98462 38073 · memorygraphweddings@gmail.com</div>
   </div>
 </footer>
 

@@ -859,14 +859,15 @@
     </a>
   </div>
   <div class="stories-grid reveal" data-cms="stories-grid">
-    {% assign story_gradient = "sg1,sg2,sg3,sg4,sg5" | split: "," %}
     {% for story in collections.stories limit:5 %}
     <a href="{{ story.url }}" class="story-card-link">
       <div class="story-card{% if forloop.first %} large{% endif %}">
         <div class="story-img">
-          <div class="story-img-inner {% if story.data.hero %}has-hero{% else %}{{ story_gradient[forloop.index0] }}{% endif %}"
-               {% if story.data.hero %}style="background-image:url('{{ story.data.hero }}');background-size:cover;background-position:center;"{% endif %}>
-          </div>
+          {% if story.data.hero %}
+          <div class="story-img-inner" style="background-image:url('{{ story.data.hero }}');background-size:cover;background-position:center;"></div>
+          {% else %}
+          <div class="story-img-inner sg{% cycle '1','2','3','4','5' %}"></div>
+          {% endif %}
           <div class="story-img-noise"></div>
           {% if forloop.first %}<div class="story-tag">Featured</div>{% endif %}
         </div>
@@ -1077,18 +1078,16 @@
   setTimeout(()=>{ if(window.cmsTestimonials) setT(0); }, 1500);
   setInterval(()=>setT(cur+1), 6500);
 
-  // About section slideshow from story collection heroes
+  // About section slideshow - pulls bg images from story cards
   (function(){
     const slides = document.querySelectorAll('.about-slide');
-    if(!slides.length) return;
-    {% assign hero_urls = "" %}{% for story in collections.stories limit:5 %}{% if story.data.hero %}{% unless forloop.first %},{% endunless %}{{ story.data.hero }}{% endif %}{% endfor %}
-    const imgs = "{% for story in collections.stories limit:5 %}{% if story.data.hero %}{{ story.data.hero }},{% endif %}{% endfor %}".split(',').filter(Boolean);
-    if(!imgs.length) return;
-    slides.forEach((s,i)=>{ if(imgs[i]) s.style.backgroundImage=`url('${imgs[i]}')`; });
+    const cards = document.querySelectorAll('.story-img-inner[style]');
+    if(!slides.length || !cards.length) return;
+    cards.forEach((c,i)=>{ if(slides[i]) slides[i].style.backgroundImage=c.style.backgroundImage; });
     let ci=0;
     setInterval(()=>{
       slides[ci].classList.remove('active');
-      ci=(ci+1)%Math.min(slides.length,imgs.length);
+      ci=(ci+1)%slides.length;
       slides[ci].classList.add('active');
     },4500);
   })();

@@ -51,7 +51,18 @@
   .intro-name em{font-style:italic;color:var(--teal);}
   .intro-title{font-family:var(--sans);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--mist);margin-bottom:48px;}
   .intro-quote{font-family:var(--serif);font-size:1.4rem;font-style:italic;line-height:1.7;color:var(--ink);border-left:2px solid var(--gold);padding-left:24px;margin-bottom:36px;}
-  .intro-bio{font-family:var(--sans);font-size:.9rem;font-weight:300;line-height:1.95;color:var(--ink-soft);margin-bottom:44px;}
+  .intro-bio{font-family:var(--sans);font-size:.9rem;font-weight:300;line-height:1.95;color:var(--ink-soft);margin-bottom:28px;}
+  /* EXPANDABLE FULL STORY */
+  .story-toggle{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);background:none;border:1px solid var(--teal);padding:12px 24px;cursor:pointer;transition:all .3s;margin-top:28px;}
+  .story-toggle:hover{background:var(--teal);color:var(--ivory);}
+  .story-toggle svg{transition:transform .4s;}
+  .story-toggle.open svg{transform:rotate(180deg);}
+  .full-story{max-height:0;overflow:hidden;transition:max-height .7s cubic-bezier(.22,1,.36,1);}
+  .full-story.open{max-height:3000px;}
+  .full-story-inner{padding:40px 0 8px;}
+  .full-story-inner p{font-family:var(--sans);font-size:.9rem;font-weight:300;line-height:1.95;color:var(--ink-soft);margin-bottom:24px;}
+  .full-story-inner p:first-of-type::first-letter{font-family:var(--serif);font-size:3.5rem;font-weight:400;float:left;line-height:.85;padding:6px 10px 0 0;color:var(--teal);}
+
   .intro-stats{display:flex;gap:48px;padding:36px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
   .stat strong{display:block;font-family:var(--serif);font-size:2.6rem;font-weight:300;color:var(--teal);line-height:1;}
   .stat span{font-family:var(--sans);font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mist);}
@@ -90,7 +101,7 @@
   .team{padding:140px 56px;background:var(--ivory-2);}
   .team-header{text-align:center;max-width:700px;margin:0 auto 80px;}
   .team-header p{font-family:var(--sans);font-size:.9rem;font-weight:300;line-height:1.85;color:var(--ink-soft);margin-top:24px;}
-  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);}
+  .team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);}
   .team-card{background:var(--ivory-2);padding:0 0 40px;position:relative;overflow:hidden;transition:background .4s;}
   .team-card:hover{background:var(--ivory);}
   .team-img{width:100%;padding-bottom:100%;position:relative;overflow:hidden;background:linear-gradient(160deg,#d8cfb8 0%,#b8a98a 100%);}
@@ -139,7 +150,7 @@
     .intro-content{padding:80px 24px;}
     .philosophy,.journey,.team,.cta-strip{padding:80px 20px;}
     .philo-grid{grid-template-columns:1fr;gap:48px;}
-    .team-grid{grid-template-columns:1fr;}
+    .team-grid{grid-template-columns:1fr 1fr;}
     .timeline{padding-left:24px;}
     .intro-stats{gap:24px;flex-wrap:wrap;}
     footer{padding:40px 24px 28px;}
@@ -185,24 +196,133 @@
     -->
   </div>
   <div class="intro-content">
-    <div class="intro-eyebrow">The Person Behind the Lens</div>
     <h1 class="intro-name">Arun T<br><em>Chandran</em></h1>
     <div class="intro-title">Photographer · Filmmaker · Thrissur, Kerala</div>
     <blockquote class="intro-quote" data-cms="intro-quote">
       "There's a moment at every wedding — usually when nobody's looking — where something true happens. That's the only frame I care about getting right."
     </blockquote>
-    <p class="intro-bio" data-cms="bio">
-      I grew up watching weddings the way most kids watch films — completely absorbed, unable to look away. Kerala weddings aren't quiet. They're full of competing rituals, six generations in the same room, light that changes every twenty minutes, and emotions that nobody rehearses. I found that irresistible.
-      <br><br>
-      I picked up a camera in my early twenties with no formal training — just an itch to document. I shot temple festivals, monsoon mornings, street markets. Then a friend asked me to shoot her wedding, and something clicked. Not the shutter, but the realization that this was where those skills actually meant something. That was 2018. Memorygraph followed in 2020.
-      <br><br>
-      We are a small team, deliberately so. I lead every wedding personally, alongside people I trust completely. We're not trying to be the biggest studio in Kerala. We're trying to do work we're genuinely proud of — and to still be proud of it ten years from now.
+    <p class="intro-bio">
+      Arun grew up in Thrissur — his first camera was a gift from his sister, long before he understood what photography could become. After a year working at an MNC in Infopark, Kochi, he resigned, withdrew his PF savings, and bought a professional camera. He spent the next year alone in forests, learning patience and stillness — the two things that turned out to matter most in a wedding. A friend's cousin's wedding in Kottayam confirmed it.
     </p>
-    <div class="intro-stats">
-      <div class="stat"><strong>9+</strong><span>Years Shooting</span></div>
+
+    <button class="story-toggle" id="storyToggle" onclick="toggleStory()">
+      Read the full story
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </button>
+
+    <div class="full-story" id="fullStory">
+      <div class="full-story-inner">
+        <p>I did a diploma in electronics. Got a campus placement at an MNC in Infopark, Kochi — the kind of job that looked good on paper and felt completely wrong from the inside. I lasted a year. Not because I wasn't trying, but because I was struggling with everything — the work, the environment, the version of myself I was becoming. I was at the brink of something I didn't want to name at the time. So I resigned.</p>
+        <p>Photography wasn't a plan. It was the one thing that had always made sense. When I was young, my sister — seven years older than me — and her husband gifted me a camera. I'd go on walks and come back with photographs. I had no idea what I was doing technically, but I had a genuine feeling for it. That never went away.</p>
+        <p>After resigning, I withdrew my PF fund and borrowed a little from my father to buy my first professional camera. Then I spent months alone in forests. Wildlife photography — birds, mostly. A paradise flycatcher once. Snakes sometimes. It was quiet work, solitary work, and I was good at being patient and invisible. Those two things turned out to matter a lot later.</p>
+        <p>The first wedding came through a friend. His cousin was getting married in Kottayam, budget was tight, and he thought of me. I said I wasn't sure I could photograph people — all my work until then had been birds and animals. He insisted. I went.</p>
+        <p>I still remember every moment of that wedding. It's been roughly ten years and I can picture the light in that room, the specific nervousness of not knowing how to move in a crowd with a camera. I made technical mistakes — shutter speed off, ISO wrong in places. But looking at those photographs now, I still like them. There's something in them that was real. That morning I understood I wasn't bad at photographing people at all. I'd just never tried.</p>
+        <p>What followed was a few years of building slowly. Small functions, engagements, a second wedding that was a friend's own. Early on, the people who believed in me did so without a large portfolio to justify it. I've never forgotten that. Those early supporters are the reason Memorygraph exists.</p>
+      </div>
+    </div>
+
+    <div class="intro-stats" style="margin-top:36px;">
+      <div class="stat"><strong>10+</strong><span>Years Shooting</span></div>
       <div class="stat"><strong>6</strong><span>Years as Memorygraph</span></div>
       <div class="stat"><strong>Kerala &amp; Beyond</strong><span>Coverage Area</span></div>
     </div>
+  </div>
+</div>
+
+<!-- TEAM -->
+<div class="team">
+  <div class="team-header">
+    <div class="section-label reveal center">The Team</div>
+    <h2 class="section-title-c reveal reveal-d1">Four people.<br>One <em>standard.</em></h2>
+    <p class="reveal reveal-d2">Every Memorygraph wedding is covered by this team and this team only. No outsourced shooters, no day-of surprises. These are the people who will be in the room with you on your wedding day. Each of them has been part of this work for years. They know the rituals, they read a room quickly, and they know when to move and when to disappear. You'll be introduced to them before the day — no strangers with cameras.</p>
+  </div>
+  <div class="team-grid">
+
+    <!-- ARUN -->
+    <div class="team-card reveal">
+      <div class="team-lead-badge">Lead</div>
+      <div class="team-img">
+        <div class="team-img-noise"></div>
+        <div class="team-img-ph">
+          <svg width="72" height="72" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/>
+            <path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/>
+          </svg>
+        </div>
+        <!-- ADD PORTRAIT: replace .team-img-ph with:
+          <img src="/assets/team/arun.jpg" alt="Arun T Chandran"
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"/> -->
+      </div>
+      <div class="team-info">
+        <div class="team-role">Founder · Photographer</div>
+        <div class="team-name">Arun T Chandran</div>
+        <p class="team-bio">Leads every Memorygraph wedding personally — from the first conversation to the final delivered image. His approach is patient, documentary, and deeply attentive to the in-between moments that most photographers miss.</p>
+      </div>
+    </div>
+
+    <!-- JAYADEVAN -->
+    <div class="team-card reveal reveal-d1">
+      <div class="team-img">
+        <div class="team-img-noise"></div>
+        <div class="team-img-ph">
+          <svg width="72" height="72" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/>
+            <path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/>
+          </svg>
+        </div>
+        <!-- ADD PORTRAIT: replace .team-img-ph with:
+          <img src="/assets/team/jayadevan.jpg" alt="Jayadevan Nambothiri"
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"/> -->
+      </div>
+      <div class="team-info">
+        <div class="team-role">Photographer</div>
+        <div class="team-name">Jayadevan Nambothiri</div>
+        <p class="team-bio">A photographer with a quiet, observational eye — the kind that finds something worth keeping in the corners of a room while everyone else is looking at the centre. Works seamlessly alongside Arun so couples never feel like there are two cameras.</p>
+      </div>
+    </div>
+
+    <!-- ABIN -->
+    <div class="team-card reveal reveal-d1">
+      <div class="team-img">
+        <div class="team-img-noise"></div>
+        <div class="team-img-ph">
+          <svg width="72" height="72" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/>
+            <path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/>
+          </svg>
+        </div>
+        <!-- ADD PORTRAIT: replace .team-img-ph with:
+          <img src="/assets/team/abin.jpg" alt="Abin Varghese"
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"/> -->
+      </div>
+      <div class="team-info">
+        <div class="team-role">Cinematographer</div>
+        <div class="team-name">Abin Varghese</div>
+        <p class="team-bio">Brings a cinematic sensibility to every frame of motion — someone who thinks in terms of story arc and emotional rhythm, not just coverage. The wedding films he shapes are designed to be watched again and again, not just once.</p>
+      </div>
+    </div>
+
+    <!-- SABARI -->
+    <div class="team-card reveal reveal-d2">
+      <div class="team-img">
+        <div class="team-img-noise"></div>
+        <div class="team-img-ph">
+          <svg width="72" height="72" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/>
+            <path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/>
+          </svg>
+        </div>
+        <!-- ADD PORTRAIT: replace .team-img-ph with:
+          <img src="/assets/team/sabari.jpg" alt="Sabari"
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"/> -->
+      </div>
+      <div class="team-info">
+        <div class="team-role">Cinematographer</div>
+        <div class="team-name">Sabari</div>
+        <p class="team-bio">Sabari is the person in the room you never quite notice — which is exactly the point. He moves through a wedding with an ease that keeps the energy undisturbed, and his eye for the small, fleeting moments is the reason our films feel like they were lived rather than filmed.</p>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -217,7 +337,7 @@
         <br><br>
         We've spent years learning to be invisible — not absent, but unobtrusive. To blend into a celebration so completely that people forget we're there. That's when the real moments surface. And those are always the ones that mean the most, years later.
         <br><br>
-        Kerala weddings carry a particular magic — the rituals, the golden light, the generations gathered in one space. We consider it a privilege to hold that in our hands.
+        Kerala weddings carry a particular depth — the rituals, the golden light, the generations gathered in one space. We grew up with these ceremonies. Nothing needs explaining to us, and nothing will be missed because we didn't understand it. We consider that a responsibility, not just a privilege.
       </p>
     </div>
     <div class="philo-pillars">
@@ -248,113 +368,35 @@
   </div>
   <div class="timeline">
     <div class="timeline-item reveal">
-      <div class="tl-year">2017 · The Beginning</div>
-      <div class="tl-title">A Camera I Couldn't Really Use</div>
-      <p class="tl-text">Bought a secondhand DSLR with no idea what I was doing. Spent the next six months at every temple festival and cultural event I could find in Thrissur — shooting badly, watching carefully, slowly understanding the difference between a photograph and a snapshot.</p>
+      <div class="tl-year">Childhood · Thrissur</div>
+      <div class="tl-title">A Camera Before I Knew What It Meant</div>
+      <p class="tl-text">My sister and her husband gifted me a camera when I was young. I'd go on long walks and come back with photographs — no plan, no technique, just a genuine feeling for looking at the world a certain way. That feeling never left.</p>
     </div>
     <div class="timeline-item reveal reveal-d1">
-      <div class="tl-year">2018 · First Wedding</div>
-      <div class="tl-title">A Friend Asked, and Everything Changed</div>
-      <p class="tl-text">A college friend asked me to shoot her wedding. I was terrified. The photographs were raw — but they were honest in a way that changed how I understood what this work could be. She still calls them her favorites from that day.</p>
+      <div class="tl-year">The Year Everything Broke</div>
+      <div class="tl-title">Infopark, Then the Forest</div>
+      <p class="tl-text">Electronics diploma. Campus placement at an MNC in Infopark, Kochi. One year. Then I resigned — withdrew my PF savings and bought a professional camera. Spent the next months alone in forests, photographing birds, learning patience and stillness. Both turned out to matter.</p>
     </div>
     <div class="timeline-item reveal reveal-d2">
-      <div class="tl-year">2020 · The Studio</div>
-      <div class="tl-title">The Year I Said No to Everything That Wasn't This</div>
-      <p class="tl-text">Founded Memorygraph with one operating principle: only the work we're proud of, only the couples we genuinely connect with. We turned down more weddings than we accepted in year one. The work got better almost immediately.</p>
+      <div class="tl-year">~2014 · First Wedding</div>
+      <div class="tl-title">A Wedding in Kottayam I Still Remember</div>
+      <p class="tl-text">A friend's cousin needed a photographer and I said yes reluctantly — I had never photographed people. I made technical mistakes. But the photographs were real, and I realized I wasn't bad at this at all. That morning changed everything.</p>
     </div>
     <div class="timeline-item reveal">
-      <div class="tl-year">2022 · Cinema</div>
-      <div class="tl-title">Adding Motion to Memory</div>
-      <p class="tl-text">Brought cinematography in-house and started building wedding films the way we'd want to watch them — real story arcs, real silences, real voices. Not a highlight reel. A film. The first one we made, we watched back four times before delivering.</p>
+      <div class="tl-year">2020 · The Studio</div>
+      <div class="tl-title">Memorygraph</div>
+      <p class="tl-text">Founded with one principle: only work we're genuinely proud of, with couples we genuinely connect with. Small by design. The early supporters who believed before the portfolio existed — they built this with us.</p>
     </div>
     <div class="timeline-item reveal reveal-d1">
+      <div class="tl-year">2022 · Cinema</div>
+      <div class="tl-title">Adding Motion to Memory</div>
+      <p class="tl-text">Brought cinematography fully in-house. Wedding films built the way we'd want to watch them — real story arcs, real silences, real voices. The first one we made, we watched back four times before delivering.</p>
+    </div>
+    <div class="timeline-item reveal reveal-d2">
       <div class="tl-year">Now · 2026</div>
       <div class="tl-title">Quietly Devoted</div>
-      <p class="tl-text">A small team. A focused list of weddings each year. Every couple given our full attention — from the first call to the last delivered image. We're not trying to grow bigger. We're trying to do this better.</p>
+      <p class="tl-text">A small team. A focused calendar. Every couple given our full attention from first call to final delivery. Not trying to grow bigger. Trying to do this better.</p>
     </div>
-  </div>
-</div>
-
-<!-- TEAM -->
-<div class="team">
-  <div class="team-header">
-    <div class="section-label reveal center">The People</div>
-    <h2 class="section-title-c reveal reveal-d1">The team behind<br>every <em>wedding</em>.</h2>
-    <p class="reveal reveal-d2">Arun leads every wedding personally. The people below are not hired help — they're collaborators who've been part of Memorygraph's work for years, and who show up to every wedding the same way we do: with care, with attention, and without autopilot.</p>
-  </div>
-  <div class="team-grid">
-
-    <!-- TEAM MEMBER 1: ARUN -->
-    <div class="team-card reveal">
-      <div class="team-lead-badge">Lead</div>
-      <div class="team-img">
-        <div class="team-img-noise"></div>
-        <div class="team-img-ph">
-          <svg width="72" height="72" viewBox="0 0 80 80" fill="none">
-            <circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/>
-            <path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/>
-          </svg>
-        </div>
-        <!--
-          ADD PORTRAIT:
-          Replace .team-img-ph div with:
-          <img src="assets/team/arun.jpg" alt="Arun T Chandran"
-               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"/>
-        -->
-      </div>
-      <div class="team-info">
-        <div class="team-role">Founder · Lead Photographer &amp; Filmmaker</div>
-        <div class="team-name">Arun T Chandran</div>
-        <p class="team-bio">Leads every wedding from first call to final delivery. Photographer, cinematographer, and the creative vision behind Memorygraph. Has been shooting weddings since 2018 and still approaches every one like it's his first.</p>
-      </div>
-    </div>
-
-    <!-- TEAM MEMBER 2 — Replace with real person -->
-    <div class="team-card reveal reveal-d1">
-      <div class="team-img">
-        <div class="team-img-noise"></div>
-        <div class="team-img-ph">
-          <svg width="72" height="72" viewBox="0 0 80 80" fill="none">
-            <circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/>
-            <path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/>
-          </svg>
-        </div>
-        <!--
-          ADD PORTRAIT:
-          <img src="assets/team/[name].jpg" alt="[Full Name]"
-               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"/>
-        -->
-      </div>
-      <div class="team-info">
-        <div class="team-role">Second Photographer</div>
-        <div class="team-name">[Team Member Name]</div>
-        <p class="team-bio">Replace this with a short personal bio — 2 to 3 sentences. Keep it warm and specific. Anjali is reading this to decide if she trusts this person at her wedding.</p>
-      </div>
-    </div>
-
-    <!-- TEAM MEMBER 3 — Replace with real person -->
-    <div class="team-card reveal reveal-d2">
-      <div class="team-img">
-        <div class="team-img-noise"></div>
-        <div class="team-img-ph">
-          <svg width="72" height="72" viewBox="0 0 80 80" fill="none">
-            <circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/>
-            <path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/>
-          </svg>
-        </div>
-        <!--
-          ADD PORTRAIT:
-          <img src="assets/team/[name].jpg" alt="[Full Name]"
-               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"/>
-        -->
-      </div>
-      <div class="team-info">
-        <div class="team-role">Cinematographer</div>
-        <div class="team-name">[Team Member Name]</div>
-        <p class="team-bio">Replace this with a short personal bio — 2 to 3 sentences. Keep it warm and specific. Anjali is reading this to decide if she trusts this person at her wedding.</p>
-      </div>
-    </div>
-
   </div>
 </div>
 
@@ -382,7 +424,7 @@
   </div>
   <div class="footer-bottom">
     <div class="footer-copy">© 2026 Memorygraph Wedding Studio · Thrissur, Kerala</div>
-    <div class="footer-copy">+91 98462 38073 · hello@memorygraphweddings.com</div>
+    <div class="footer-copy">+91 82816 39563 · hello@memorygraphweddings.com</div>
   </div>
 </footer>
 
@@ -402,8 +444,14 @@
   window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
   const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}}),{threshold:.1});
   document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+
+  function toggleStory(){
+    document.getElementById('fullStory').classList.toggle('open');
+    document.getElementById('storyToggle').classList.toggle('open');
+    const btn=document.getElementById('storyToggle');
+    btn.childNodes[0].textContent=btn.classList.contains('open')?'Close story ':'Read the full story ';
+  }
 </script>
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script src="/assets/cms-loader.js"></script>
 </body>
 </html>

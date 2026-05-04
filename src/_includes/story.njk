@@ -588,7 +588,7 @@ PLACEHOLDERS YOU NEED TO FILL:
 
 <!-- ────── NAV ────── -->
 <nav id="nav">
-  <a href="../index/" class="nav-logo">
+  <a href="/" class="nav-logo">
     <div class="nav-mark">
       <svg viewBox="0 0 80 60" fill="currentColor" role="img" aria-label="Memorygraph">
         <path d="M 5 55 L 5 5 L 30 55 Z"/>
@@ -599,12 +599,12 @@ PLACEHOLDERS YOU NEED TO FILL:
     <div class="nav-wordmark">Memorygraph<small>Photographing Memories</small></div>
   </a>
   <ul class="nav-links">
-    <li><a href="../stories/" class="active">Stories</a></li>
-    <li><a href="../about/">About</a></li>
-    <li><a href="../investment/">Investment</a></li>
-    <li><a href="../blog/">Journal</a></li>
+    <li><a href="/stories/" class="active">Stories</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/investment/">Investment</a></li>
+    <li><a href="/blog/">Journal</a></li>
   </ul>
-  <a href="../contact/" class="nav-cta">Begin Your Story</a>
+  <a href="/contact/" class="nav-cta">Begin Your Story</a>
 </nav>
 
 <!-- ────── STORY HERO ────── -->
@@ -630,36 +630,37 @@ PLACEHOLDERS YOU NEED TO FILL:
 <section class="story-intro">
   <div class="story-intro-label">In Their Own Words</div>
   <blockquote class="story-intro-quote">{{ quote }}</blockquote>
-  <div class="story-intro-author">Gayathry, the bride</div>
+  <div class="story-intro-author">{{ quote_by if quote_by else title }}</div>
 </section>
 
 <!-- ────── NARRATIVE ────── -->
 <article class="story-narrative">
   <div class="narrative-eyebrow">The Story</div>
-  <h2 class="narrative-title">A morning of <em>quiet light</em>.</h2>
+  <h2 class="narrative-title">{{ chapter_title | safe if chapter_title else title }}</h2>
   <div class="narrative-body">
     {{ content | safe }}
   </div>
 </article>
 
 <!-- ────── FILM ────── -->
+{% if film_url %}
 <section class="story-film">
   <div class="film-eyebrow">Watch the Film</div>
   <h2 class="film-title">A short film of <em>their day</em>.</h2>
-  <div class="film-frame placeholder">
-    <!-- 
-      EDIT: Replace below with YouTube embed.
-      Get embed link from YouTube → Share → Embed → copy iframe src
-      Example src: https://www.youtube.com/embed/VIDEO_ID
-    -->
-    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+  {% if film_url %}
+  <div class="film-frame">
+    <iframe src="{{ film_url }}"
             title="Wedding film of {{ title }}"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
-    <!-- If no film yet, replace iframe above with: -->
-    <!-- Wedding film coming soon -->
   </div>
+  {% else %}
+  <div class="film-frame placeholder" style="padding:80px;font-family:var(--serif);font-style:italic;color:var(--mist);">
+    Film coming soon.
+  </div>
+  {% endif %}
 </section>
+{% endif %}
 
 <!-- ────── GALLERY ────── -->
 <section class="story-gallery">
@@ -738,10 +739,10 @@ PLACEHOLDERS YOU NEED TO FILL:
 <!-- ────── STATS ────── -->
 <section class="story-stats">
   <div class="stats-grid">
-    <div class="stat-box"><strong>840</strong><span>Images Delivered</span></div>
-    <div class="stat-box"><strong>12</strong><span>Hours of Coverage</span></div>
-    <div class="stat-box"><strong>2</strong><span>Photographers</span></div>
-    <div class="stat-box"><strong>2024</strong><span>Year</span></div>
+    <div class="stat-box"><strong>{{ stat_images if stat_images else "—" }}</strong><span>Images Delivered</span></div>
+    <div class="stat-box"><strong>{{ stat_hours if stat_hours else "—" }}</strong><span>Hours of Coverage</span></div>
+    <div class="stat-box"><strong>{{ stat_photographers if stat_photographers else "2" }}</strong><span>Photographers</span></div>
+    <div class="stat-box"><strong>{{ date | formatDate }}</strong><span>Wedding Day</span></div>
   </div>
 </section>
 
@@ -778,39 +779,66 @@ PLACEHOLDERS YOU NEED TO FILL:
     </div>
     <div class="vendor-item">
       <div class="vendor-role">Photo &amp; Film</div>
-      <div class="vendor-name"><a href="../index/">Memorygraph Wedding Studio</a></div>
+      <div class="vendor-name"><a href="/">Memorygraph Wedding Studio</a></div>
     </div>
   </div>
 </section>
 
 <!-- ────── PREV / NEXT STORY ────── -->
+{%- set ns = namespace(prevStory=null, nextStory=null) -%}
+{%- for s in collections.stories -%}
+  {%- if s.url == page.url -%}
+    {%- if not loop.first -%}{%- set ns.prevStory = collections.stories[loop.index0 - 1] -%}{%- endif -%}
+    {%- if not loop.last -%}{%- set ns.nextStory = collections.stories[loop.index0 + 1] -%}{%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
 <nav class="story-nav">
-  <!-- 
-    EDIT: Update href and couple names to point to actual prev/next story files.
-    On first/last story, you can either:
-      - Loop to opposite end (newest ↔ oldest)
-      - Or remove that side entirely
-  -->
-  <a href="archana-manu/" class="story-nav-card prev">
+  {% if ns.prevStory %}
+  <a href="{{ ns.prevStory.url }}" class="story-nav-card prev">
     <div class="story-nav-direction">
       <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
         <path d="M5 1L1 5l4 4M13 5H1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
       </svg>
       Previous Story
     </div>
-    <div class="story-nav-couple">Archana &amp; Manu</div>
-    <div class="story-nav-meta">Heritage · Kochi · 2024</div>
+    <div class="story-nav-couple">{{ ns.prevStory.data.title }}</div>
+    <div class="story-nav-meta">{{ ns.prevStory.data.location_short }} · {{ ns.prevStory.date | formatDate }}</div>
   </a>
-  <a href="priya-rahul/" class="story-nav-card next">
+  {% else %}
+  <a href="/stories/" class="story-nav-card prev">
+    <div class="story-nav-direction">
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
+        <path d="M5 1L1 5l4 4M13 5H1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      All Stories
+    </div>
+    <div class="story-nav-couple">View all stories</div>
+    <div class="story-nav-meta">Memorygraph Wedding Studio</div>
+  </a>
+  {% endif %}
+  {% if ns.nextStory %}
+  <a href="{{ ns.nextStory.url }}" class="story-nav-card next">
     <div class="story-nav-direction">
       Next Story
       <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
         <path d="M9 1l4 4-4 4M1 5h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
       </svg>
     </div>
-    <div class="story-nav-couple">Priya &amp; Rahul</div>
-    <div class="story-nav-meta">Garden · Palakkad · 2024</div>
+    <div class="story-nav-couple">{{ ns.nextStory.data.title }}</div>
+    <div class="story-nav-meta">{{ ns.nextStory.data.location_short }} · {{ ns.nextStory.date | formatDate }}</div>
   </a>
+  {% else %}
+  <a href="/stories/" class="story-nav-card next">
+    <div class="story-nav-direction">
+      All Stories
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
+        <path d="M9 1l4 4-4 4M1 5h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="story-nav-couple">View all stories</div>
+    <div class="story-nav-meta">Memorygraph Wedding Studio</div>
+  </a>
+  {% endif %}
 </nav>
 
 <!-- ────── CTA ────── -->
@@ -818,13 +846,13 @@ PLACEHOLDERS YOU NEED TO FILL:
   <div class="story-cta-eyebrow">Could yours be next?</div>
   <h2 class="story-cta-title">Let's tell <em>your</em><br>story, beautifully.</h2>
   <p class="story-cta-sub">A few openings remaining for the season. Kerala &amp; destination weddings welcome.</p>
-  <a href="../contact/" class="btn-gold">Begin Your Story</a>
+  <a href="/contact/" class="btn-gold">Begin Your Story</a>
 </section>
 
 <!-- ────── FOOTER ────── -->
 <footer>
   <div class="footer-inner">
-    <a href="../index/" class="footer-logo">
+    <a href="/" class="footer-logo">
       <svg viewBox="0 0 80 60" fill="currentColor" role="img" aria-label="Memorygraph">
         <path d="M 5 55 L 5 5 L 30 55 Z"/>
         <path d="M 28 5 L 52 5 L 40 32 Z"/>
@@ -833,12 +861,12 @@ PLACEHOLDERS YOU NEED TO FILL:
       <div class="footer-brand-text">Memorygraph<small>Photographing Memories</small></div>
     </a>
     <div class="footer-links-row">
-      <a href="../index/">Home</a>
-      <a href="../stories/">Stories</a>
-      <a href="../about/">About</a>
-      <a href="../investment/">Investment</a>
-      <a href="../blog/">Journal</a>
-      <a href="../contact/">Contact</a>
+      <a href="/">Home</a>
+      <a href="/stories/">Stories</a>
+      <a href="/about/">About</a>
+      <a href="/investment/">Investment</a>
+      <a href="/blog/">Journal</a>
+      <a href="/contact/">Contact</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -848,7 +876,7 @@ PLACEHOLDERS YOU NEED TO FILL:
 </footer>
 
 <!-- WhatsApp -->
-<a href="https://wa.me/918281639563?text=Hi%20Arun%2C%20I%27d%20love%20to%20discuss%20my%20wedding." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+<a href="https://wa.me/919846238073?text=Hi%20Arun%2C%20I%27d%20love%20to%20discuss%20my%20wedding." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
   <svg viewBox="0 0 32 32" fill="currentColor">
     <path d="M16 .4C7.4.4.4 7.4.4 16c0 2.84.74 5.62 2.16 8.06L.27 31.6l7.74-2.27C10.36 30.7 13.14 31.5 16 31.5c8.6 0 15.6-7 15.6-15.5C31.6 7.4 24.6.4 16 .4zM16 28.7c-2.5 0-4.96-.66-7.1-1.92l-.5-.3-5.34 1.55 1.6-5.18-.34-.55C2.92 19.92 2.2 18 2.2 16 2.2 8.4 8.4 2.2 16 2.2c7.6 0 13.8 6.2 13.8 13.8 0 7.6-6.2 12.7-13.8 12.7zm7.6-9.8c-.4-.2-2.4-1.18-2.78-1.32-.38-.14-.66-.2-.94.2-.28.4-1.06 1.32-1.3 1.6-.24.28-.48.3-.88.1-.4-.2-1.7-.62-3.24-2-1.2-1.06-2-2.38-2.24-2.78-.24-.4-.02-.62.18-.82.18-.18.4-.46.6-.7.2-.24.26-.4.4-.68.14-.28.06-.52-.04-.72-.1-.2-.92-2.22-1.26-3.04-.34-.8-.68-.7-.94-.72h-.8c-.28 0-.72.1-1.1.5-.38.4-1.44 1.4-1.44 3.42s1.48 3.96 1.68 4.24c.2.28 2.92 4.46 7.08 6.24 1 .42 1.78.68 2.38.88.98.32 1.88.28 2.6.16.78-.12 2.4-.98 2.74-1.92.34-.94.34-1.74.24-1.92-.1-.18-.36-.28-.76-.48z"/>
   </svg>
@@ -883,6 +911,5 @@ PLACEHOLDERS YOU NEED TO FILL:
   // For best performance, replace background-image divs with <img loading="lazy">
 </script>
 
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </body>
 </html>

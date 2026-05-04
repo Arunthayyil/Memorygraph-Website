@@ -9,17 +9,44 @@ media_folder: "src/assets/stories"
 public_folder: "/assets/stories"
 
 collections:
+
   - name: "stories"
-    label: "Stories"
+    label: "Wedding Stories"
     folder: "src/content/stories"
     create: true
     slug: "{{slug}}"
     format: "frontmatter"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Location", name: "location", widget: "string" }
-      - { label: "Short Location", name: "location_short", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Title (e.g. Abhin & Gayathry)", name: "title", widget: "string" }
+      - { label: "Full Location", name: "location", widget: "string", hint: "e.g. Vadakkumnathan Temple, Thrissur" }
+      - { label: "Short Location", name: "location_short", widget: "string", hint: "e.g. Thrissur" }
+      - { label: "Wedding Date", name: "date", widget: "datetime" }
       - { label: "Hero Image", name: "hero", widget: "image" }
-      - { label: "Quote", name: "quote", widget: "text" }
-      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Couple Quote", name: "quote", widget: "text", hint: "A quote from the couple about the experience" }
+      - { label: "Quote By", name: "quote_by", widget: "string", hint: "e.g. Gayathry, the bride", required: false }
+      - { label: "Chapter Title", name: "chapter_title", widget: "string", hint: "e.g. A morning of quiet light.", required: false }
+      - { label: "Wedding Film URL", name: "film_url", widget: "string", hint: "YouTube embed URL e.g. https://www.youtube.com/embed/VIDEO_ID", required: false }
+      - { label: "Images Delivered", name: "stat_images", widget: "string", hint: "e.g. 840", required: false }
+      - { label: "Hours of Coverage", name: "stat_hours", widget: "string", hint: "e.g. 12", required: false }
+      - { label: "No. of Photographers", name: "stat_photographers", widget: "string", hint: "e.g. 2", required: false }
+      - label: "Gallery"
+        name: "gallery"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Layout", name: "layout", widget: "select", options: ["full", "two", "three", "asym-l", "asym-r", "quote"] }
+          - { label: "Images", name: "images", widget: "list", field: { label: "Image", name: "image", widget: "image" }, required: false }
+          - { label: "Quote Text (for quote layout only)", name: "text", widget: "text", required: false }
+      - { label: "Story Body", name: "body", widget: "markdown" }
+
+  - name: "testimonials"
+    label: "Testimonials"
+    folder: "src/content/testimonials"
+    create: true
+    slug: "{{slug}}"
+    format: "frontmatter"
+    fields:
+      - { label: "Couple Name", name: "title", widget: "string", hint: "e.g. Anjali & Vivek" }
+      - { label: "Location", name: "location", widget: "string", hint: "e.g. Thrissur, 2024" }
+      - { label: "Testimonial", name: "quote", widget: "text" }
+      - { label: "Order (lower = appears first)", name: "order", widget: "number", default: 10, required: false }

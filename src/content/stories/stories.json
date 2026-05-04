@@ -1,3 +1,4 @@
 {
+  "layout": "story.njk",
   "permalink": "/stories/{{ page.fileSlug }}/"
 }

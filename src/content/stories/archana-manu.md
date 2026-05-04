@@ -11,7 +11,12 @@ film_url: ''
 stat_images: '1041'
 stat_hours: '15'
 stat_photographers: '2'
-gallery: []
+gallery:
+  - layout: full
+    images:
+      - /assets/stories/archana-manu/01.jpg
+      - /assets/stories/archana-manu/06.jpg
+    text: ''
 ---
 
 It started a day before the wedding, at Archana's ancestral home in Palakkad. The kind of home where every room held someone who had watched her grow up — hugs that lasted a beat too long, prayers that needed no words. We made portraits of her there in the evening. Soft light, the last hours of her name as it had always been.

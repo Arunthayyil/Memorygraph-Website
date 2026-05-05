@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Begin Your Story — Memorygraph Weddings</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/css/animations.css"/>
+
 <style>
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
   :root{--ivory:#f4ede0;--ivory-2:#ece4d4;--ink:#1a1814;--ink-soft:#3a3530;--teal:#1d5959;--teal-deep:#0f3838;--gold:#b8965a;--gold-2:#d4a96a;--mist:#8b857a;--line:rgba(26,24,20,.12);--line-2:rgba(26,24,20,.06);--serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',sans-serif;}
@@ -124,6 +126,15 @@
 </style>
 </head>
 <body>
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">Memorygraph<small>Photographing Memories</small></div>
+  <div class="preloader-line"></div>
+</div>
+
+<!-- PAGE TRANSITION OVERLAY -->
+<div class="page-transition-overlay"></div>
+
 <div class="cursor" id="cursor"><div class="cursor-dot" id="cursorDot"></div><div class="cursor-ring" id="cursorRing"></div></div>
 
 <nav id="nav">
@@ -268,7 +279,7 @@
 <footer>
   <div class="footer-inner">
     <a href="/" class="footer-logo">
-      <img src="/assets/logo/logo-white.png" alt="Memorygraph Wedding Studio" class="footer-logo-img"/>
+      <img src="/assets/logo/logo-white.png" alt="Memorygraph Wedding Studio" style="height:52px;width:auto;mix-blend-mode:screen;opacity:.9;"/>
     </a>
     <div class="footer-links-row">
       <a href="/">Home</a>
@@ -293,16 +304,13 @@
   <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 .4C7.4.4.4 7.4.4 16c0 2.84.74 5.62 2.16 8.06L.27 31.6l7.74-2.27C10.36 30.7 13.14 31.5 16 31.5c8.6 0 15.6-7 15.6-15.5C31.6 7.4 24.6.4 16 .4zM16 28.7c-2.5 0-4.96-.66-7.1-1.92l-.5-.3-5.34 1.55 1.6-5.18-.34-.55C2.92 19.92 2.2 18 2.2 16 2.2 8.4 8.4 2.2 16 2.2c7.6 0 13.8 6.2 13.8 13.8 0 7.6-6.2 12.7-13.8 12.7zm7.6-9.8c-.4-.2-2.4-1.18-2.78-1.32-.38-.14-.66-.2-.94.2-.28.4-1.06 1.32-1.3 1.6-.24.28-.48.3-.88.1-.4-.2-1.7-.62-3.24-2-1.2-1.06-2-2.38-2.24-2.78-.24-.4-.02-.62.18-.82.18-.18.4-.46.6-.7.2-.24.26-.4.4-.68.14-.28.06-.52-.04-.72-.1-.2-.92-2.22-1.26-3.04-.34-.8-.68-.7-.94-.72h-.8c-.28 0-.72.1-1.1.5-.38.4-1.44 1.4-1.44 3.42s1.48 3.96 1.68 4.24c.2.28 2.92 4.46 7.08 6.24 1 .42 1.78.68 2.38.88.98.32 1.88.28 2.6.16.78-.12 2.4-.98 2.74-1.92.34-.94.34-1.74.24-1.92-.1-.18-.36-.28-.76-.48z"/></svg>
 </a>
 
-<script>
-  const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-  function ac(){dot.style.left=mx+'px';dot.style.top=my+'px';rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(ac);}ac();
-  document.querySelectorAll('a,button,input,select,textarea').forEach(el=>{el.addEventListener('mouseenter',()=>{ring.style.width='40px';ring.style.height='40px';});el.addEventListener('mouseleave',()=>{ring.style.width='24px';ring.style.height='24px';});});
-  window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
-</script>
+<!-- VENDOR SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1/dist/lenis.min.js"></script>
 
-<!-- CMS Loader -->
+<!-- SHARED INTERACTIONS -->
+<script src="/assets/js/main.js"></script>
 <script src="/assets/cms-loader.js"></script>
 </body>
 </html>

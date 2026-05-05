@@ -29,6 +29,23 @@ module.exports = function(eleventyConfig) {
     });
   });
 
+  // Year shortcode — footer copyright
+  eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
+
+  // Blog collection
+  eleventyConfig.addCollection("blog", function(collectionApi) {
+    return collectionApi
+      .getFilteredByGlob("src/content/blog/*.md")
+      .sort((a, b) => b.date - a.date);
+  });
+
+  // absoluteUrl filter — story.njk OG image meta
+  eleventyConfig.addFilter("absoluteUrl", function(path, base) {
+    if (!path) return base || "";
+    if (path.startsWith("http")) return path;
+    return (base || "").replace(/\/$/, "") + (path.startsWith("/") ? path : "/" + path);
+  });
+
   return {
     dir: {
       input: "src",

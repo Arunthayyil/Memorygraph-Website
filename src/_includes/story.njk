@@ -1,43 +1,34 @@
 <!DOCTYPE html>
-<!--
-═══════════════════════════════════════════════════════════════════════
-WEDDING STORY TEMPLATE — Memorygraph Weddings
-═══════════════════════════════════════════════════════════════════════
-
-HOW TO USE THIS TEMPLATE:
-1. Copy this file and rename to: stories/[couple-slug].html
-   Example: stories/abhin-gayathry.html
-2. Find every {{PLACEHOLDER}} below and replace with real content
-3. Replace gallery images with real photo paths (assets/stories/[couple]/01.jpg etc)
-4. Update prev/next links at the bottom to navigate between stories
-
-PLACEHOLDERS YOU NEED TO FILL:
-  Abhin &amp; Gayathry     — e.g. "Abhin & Gayathry"
-  Gayathry, the bride     — e.g. "Abhin & Gayathry" (no last names, used in titles)
-  Vadakkumnathan Temple, Thrissur         — e.g. "Vadakkumnathan Temple, Thrissur"
-  Thrissur   — e.g. "Thrissur"
-  15 November 2024             — e.g. "15 November 2024"
-  2024             — e.g. "2024"
-         — Path to hero image
-  https://www.youtube.com/embed/dQw4w9WgXcQ         — YouTube embed URL (or leave empty to hide film section)
-  {{NARRATIVE}}        — 2-3 paragraph story
-  We barely felt the camera. Looking at the photographs now, it feels like the day was preserved exactly as we lived it.       — Quote from couple
-  840      — e.g. "840"
-  12   — e.g. "12"
-  2    — e.g. "2"
-
-═══════════════════════════════════════════════════════════════════════
--->
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="author" content="Memorygraph Wedding Studio"/>
+<meta name="robots" content="index, follow"/>
 <title>{{ title }} — A Wedding in {{ location_short }} | Memorygraph</title>
 <meta name="description" content="A cinematic wedding story of {{ title }} at {{ location }}. Photographed and filmed by Memorygraph Wedding Studio."/>
-<meta property="og:title" content='{{ title }} — A {{ location_short }} Wedding Story'/>
-<meta property="og:image" content=""/>
+<meta name="keywords" content="Wedding Photographer {{ location_short }}, Kerala Wedding, {{ title }} Wedding Story, Memorygraph"/>
+<meta property="og:title" content="{{ title }} — A {{ location_short }} Wedding Story"/>
+<meta property="og:description" content="A cinematic wedding story of {{ title }} at {{ location }}. Photographed and filmed by Memorygraph Wedding Studio."/>
 <meta property="og:type" content="article"/>
+<meta property="og:url" content="https://memorygraphweddings.com{{ page.url }}"/>
+<meta property="og:image" content="{{ 'https://memorygraphweddings.com' + hero }}"/>
+<meta property="og:locale" content="en_IN"/>
+<meta property="og:site_name" content="Memorygraph Weddings"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="{{ title }} — A {{ location_short }} Wedding Story"/>
+<meta name="twitter:description" content="A cinematic wedding story of {{ title }} at {{ location }}."/>
+<meta name="twitter:image" content="{{ 'https://memorygraphweddings.com' + hero }}"/>
+<link rel="canonical" href="https://memorygraphweddings.com{{ page.url }}"/>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+
+<!-- Shared Animation CSS -->
+<link rel="stylesheet" href="/assets/css/animations.css"/>
+
 <style>
   *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
 
@@ -74,22 +65,20 @@ PLACEHOLDERS YOU NEED TO FILL:
   }
 
   input, textarea, select { cursor: text; }
-
-  @media (prefers-reduced-motion: reduce) {
-    body { cursor: auto; }
-    .cursor { display: none; }
-  }
+  @media (prefers-reduced-motion: reduce) { body { cursor: auto; } .cursor { display: none; } }
+  @media (pointer: coarse) { body { cursor: auto; } .cursor { display: none; } }
 
   /* CURSOR */
   .cursor { position:fixed; top:0; left:0; z-index:9999; pointer-events:none; }
-  .cursor-dot { width:4px; height:6px; background:#fff; border-radius:50%; position:absolute; transform:translate(-50%,-50%); mix-blend-mode:difference; }
-  .cursor-ring { width:24px; height:36px; border:1px solid rgba(29,89,89,.4); border-radius:50%; position:absolute; transform:translate(-50%,-50%); transition:width .25s, height .25s; }
+  .cursor-dot { width:5px; height:5px; background:var(--teal); border-radius:50%; position:absolute; transform:translate(-50%,-50%); mix-blend-mode:difference; }
+  .cursor-ring { width:28px; height:28px; border:1px solid rgba(29,89,89,.4); border-radius:50%; position:absolute; transform:translate(-50%,-50%); transition:width .3s, height .3s, border-color .3s, background .3s; }
+  .cursor-ring.hover { width:48px; height:48px; border-color:var(--teal); background:rgba(29,89,89,.06); }
 
   /* NAV */
   nav {
     position:fixed; top:0; left:0; width:100%; z-index:100;
     padding:24px 56px; display:flex; align-items:center; justify-content:space-between;
-    transition:padding .5s, background .5s;
+    transition:padding .5s, background .5s, transform .4s cubic-bezier(.22,1,.36,1);
   }
   nav.scrolled {
     padding:14px 56px;
@@ -102,16 +91,14 @@ PLACEHOLDERS YOU NEED TO FILL:
   .nav-wordmark { font-family:var(--serif); font-size:1.15rem; font-weight:500; letter-spacing:.04em; line-height:1; }
   .nav-wordmark small { display:block; font-family:var(--sans); font-size:.55rem; letter-spacing:.32em; color:var(--mist); margin-top:4px; }
   .nav-links { display:flex; gap:42px; list-style:none; }
-  .nav-links a { font-family:var(--sans); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); text-decoration:none; transition:color .3s; position:relative; }
+  .nav-links a { font-family:var(--sans); font-size:.7rem; font-weight:400; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); text-decoration:none; transition:color .3s; position:relative; }
   .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px; background:var(--teal); transition:width .4s; }
   .nav-links a:hover, .nav-links a.active { color:var(--teal); }
   .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
-  .nav-cta { font-family:var(--sans); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; background:var(--teal); color:var(--ivory); padding:11px 26px; text-decoration:none; transition:all .35s; border:1px solid var(--teal); }
-  .nav-cta:hover { background:var(--teal-deep); }
+  .nav-cta { font-family:var(--sans); font-size:.7rem; font-weight:400; letter-spacing:.22em; text-transform:uppercase; background:var(--teal); color:var(--ivory); padding:11px 26px; text-decoration:none; transition:all .35s; border:1px solid var(--teal); display:inline-block; }
+  .nav-cta:hover { background:var(--teal-deep); border-color:var(--teal-deep); }
 
-  /* ─────────────────────────────────────
-     STORY HERO — Full-bleed cinematic image
-     ───────────────────────────────────── */
+  /* STORY HERO */
   .story-hero {
     position: relative; width: 100%; height: 100vh; min-height: 700px;
     overflow: hidden;
@@ -180,9 +167,7 @@ PLACEHOLDERS YOU NEED TO FILL:
   }
   @keyframes scrollAnim { 0%{top:-100%;} 100%{top:100%;} }
 
-  /* ─────────────────────────────────────
-     INTRO QUOTE — Sets the tone
-     ───────────────────────────────────── */
+  /* INTRO QUOTE */
   .story-intro {
     padding: 140px 56px;
     text-align: center; max-width: 980px;
@@ -201,10 +186,10 @@ PLACEHOLDERS YOU NEED TO FILL:
     margin-bottom: 36px;
   }
   .story-intro-quote::before, .story-intro-quote::after {
-    content: '“'; color: var(--gold);
+    content: '\201C'; color: var(--gold);
     font-size: 3rem; line-height: 0; vertical-align: -.1em;
   }
-  .story-intro-quote::after { content: '”'; }
+  .story-intro-quote::after { content: '\201D'; }
   .story-intro-author {
     font-family: var(--sans); font-size: .68rem;
     letter-spacing: .3em; text-transform: uppercase;
@@ -215,9 +200,7 @@ PLACEHOLDERS YOU NEED TO FILL:
     content: ''; width: 30px; height: 1px; background: var(--gold);
   }
 
-  /* ─────────────────────────────────────
-     NARRATIVE — The story in prose
-     ───────────────────────────────────── */
+  /* NARRATIVE */
   .story-narrative {
     max-width: 760px; margin: 0 auto;
     padding: 0 24px 140px;
@@ -248,9 +231,7 @@ PLACEHOLDERS YOU NEED TO FILL:
     color: var(--teal);
   }
 
-  /* ─────────────────────────────────────
-     FILM SECTION — Embedded video
-     ───────────────────────────────────── */
+  /* FILM SECTION */
   .story-film {
     background: var(--ink);
     padding: 100px 56px;
@@ -283,9 +264,7 @@ PLACEHOLDERS YOU NEED TO FILL:
     color: var(--mist); font-family: var(--serif); font-style: italic;
   }
 
-  /* ─────────────────────────────────────
-     GALLERY — Editorial mixed layout
-     ───────────────────────────────────── */
+  /* GALLERY */
   .story-gallery {
     padding: 140px 0 60px;
   }
@@ -305,11 +284,12 @@ PLACEHOLDERS YOU NEED TO FILL:
   }
   .gallery-title em { font-style: italic; color: var(--teal); }
 
-  /* Gallery image base */
   .gal-img {
     background-size: cover; background-position: center;
     background-color: #cdc1a8;
     position: relative; overflow: hidden;
+    cursor: pointer;
+    transition: transform .8s cubic-bezier(.22,1,.36,1), filter .8s;
   }
   .gal-img::after {
     content: ''; position: absolute; inset: 0;
@@ -321,8 +301,8 @@ PLACEHOLDERS YOU NEED TO FILL:
   .gal-img.placeholder {
     background: linear-gradient(160deg, #d8cfb8 0%, #b8a98a 100%);
   }
+  .gal-img:hover { transform: scale(1.02); }
 
-  /* Gallery layout patterns */
   .gallery-row { display: grid; gap: 4px; padding: 0 4px 4px; }
   .gallery-row.full { grid-template-columns: 1fr; }
   .gallery-row.two { grid-template-columns: 1fr 1fr; }
@@ -335,7 +315,6 @@ PLACEHOLDERS YOU NEED TO FILL:
   .gal-img.square { aspect-ratio: 1/1; }
   .gal-img.cinema { aspect-ratio: 21/9; }
 
-  /* Cinematic pull quote between galleries */
   .gallery-quote {
     text-align: center; padding: 100px 56px;
     max-width: 880px; margin: 0 auto;
@@ -351,9 +330,7 @@ PLACEHOLDERS YOU NEED TO FILL:
   }
   .gallery-quote-text em { color: var(--teal); }
 
-  /* ─────────────────────────────────────
-     STATS BAR — Numerical context
-     ───────────────────────────────────── */
+  /* STATS BAR */
   .story-stats {
     background: var(--ivory-2);
     padding: 80px 56px;
@@ -378,9 +355,7 @@ PLACEHOLDERS YOU NEED TO FILL:
     color: var(--mist);
   }
 
-  /* ─────────────────────────────────────
-     VENDOR CREDITS — SEO + relationships
-     ───────────────────────────────────── */
+  /* VENDOR CREDITS */
   .vendors {
     padding: 120px 56px;
     max-width: 1100px; margin: 0 auto;
@@ -421,9 +396,6 @@ PLACEHOLDERS YOU NEED TO FILL:
   .vendor-name a { color: var(--ink); text-decoration: none; transition: color .3s; }
   .vendor-name a:hover { color: var(--teal); }
 
-  /* ─────────────────────────────────────
-     STORY NAV — Previous/Next stories
-     ───────────────────────────────────── */
   /* STICKY STORY NAV STRIP */
   .story-nav {
     position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
@@ -465,7 +437,6 @@ PLACEHOLDERS YOU NEED TO FILL:
     color: rgba(244,237,224,.3);
   }
 
-
   /* STORY ALBUM SPREADS */
   .story-album { padding: 80px 56px; background: var(--ink); }
   .story-album-header { text-align: center; margin-bottom: 48px; }
@@ -479,9 +450,7 @@ PLACEHOLDERS YOU NEED TO FILL:
   .story-album-link:hover { border-color: var(--gold); }
   @media(max-width:768px){ .story-album { padding: 56px 24px; } .story-album-spread img { aspect-ratio: 16/9; } }
 
-  /* ─────────────────────────────────────
-     CTA — Book your wedding
-     ───────────────────────────────────── */
+  /* CTA */
   .story-cta {
     padding: 140px 56px;
     text-align: center;
@@ -561,10 +530,7 @@ PLACEHOLDERS YOU NEED TO FILL:
   @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
   @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 
-  .reveal { opacity:0; transform:translateY(36px); transition: opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1); }
-  .reveal.visible { opacity:1; transform:translateY(0); }
-  .reveal-d1 { transition-delay:.15s; }
-  .reveal-d2 { transition-delay:.3s; }
+  .gsap-reveal { opacity:0; transform:translateY(36px); }
 
   /* RESPONSIVE */
   @media (max-width: 980px) {
@@ -599,10 +565,27 @@ PLACEHOLDERS YOU NEED TO FILL:
 </head>
 <body>
 
-<!-- Custom cursor -->
-<div class="cursor" id="cursor">
-  <div class="cursor-dot" id="cursorDot"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">Memorygraph<small>Photographing Memories</small></div>
+  <div class="preloader-line"></div>
+</div>
+
+<!-- PAGE TRANSITION OVERLAY -->
+<div class="page-transition-overlay"></div>
+
+
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"><div class="cursor-dot" id="cursorDot"></div><div class="cursor-ring" id="cursorRing"></div></div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" aria-label="Close lightbox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  <button class="lightbox-nav lightbox-prev" aria-label="Previous image"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <img class="lightbox-img" src="" alt="Gallery image"/>
+  <button class="lightbox-nav lightbox-next" aria-label="Next image"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg></button>
+  <div class="lightbox-caption"></div>
 </div>
 
 <!-- ────── NAV ────── -->
@@ -616,13 +599,12 @@ PLACEHOLDERS YOU NEED TO FILL:
     <li><a href="/investment/">Investment</a></li>
     <li><a href="/blog/">Journal</a></li>
   </ul>
-  <a href="/contact/" class="nav-cta">Begin Your Story</a>
+  <a href="/contact/" class="nav-cta magnetic">Begin Your Story</a>
 </nav>
 
 <!-- ────── STORY HERO ────── -->
 <section class="story-hero">
-  <!-- Replace url('') below with the hero image path. Remove "placeholder" class after. -->
-  <div class="story-hero-img placeholder" style="background-image: url('{{ hero }}');"></div>
+  <div class="story-hero-img {% if not hero %}placeholder{% endif %}" style="background-image: url('{{ hero }}');"></div>
   <div class="story-hero-overlay"></div>
   <div class="story-hero-content">
     <div class="story-hero-eyebrow">A Wedding Story</div>
@@ -639,7 +621,7 @@ PLACEHOLDERS YOU NEED TO FILL:
 </section>
 
 <!-- ────── INTRO QUOTE ────── -->
-<section class="story-intro">
+<section class="story-intro gsap-reveal">
   <div class="story-intro-label">In Their Own Words</div>
   <blockquote class="story-intro-quote">{{ quote }}</blockquote>
   <div class="story-intro-author">{{ quote_by if quote_by else title }}</div>
@@ -647,9 +629,9 @@ PLACEHOLDERS YOU NEED TO FILL:
 
 <!-- ────── NARRATIVE ────── -->
 <article class="story-narrative">
-  <div class="narrative-eyebrow">The Story</div>
-  <h2 class="narrative-title">{{ chapter_title | safe if chapter_title else title }}</h2>
-  <div class="narrative-body">
+  <div class="narrative-eyebrow gsap-reveal">The Story</div>
+  <h2 class="narrative-title gsap-reveal reveal-d1 stagger-words">{{ chapter_title | safe if chapter_title else title }}</h2>
+  <div class="narrative-body gsap-reveal reveal-d2">
     {{ content | safe }}
   </div>
 </article>
@@ -657,104 +639,69 @@ PLACEHOLDERS YOU NEED TO FILL:
 <!-- ────── FILM ────── -->
 {% if film_url %}
 <section class="story-film">
-  <div class="film-eyebrow">Watch the Film</div>
-  <h2 class="film-title">A short film of <em>their day</em>.</h2>
-  {% if film_url %}
-  <div class="film-frame">
+  <div class="film-eyebrow gsap-reveal">Watch the Film</div>
+  <h2 class="film-title gsap-reveal reveal-d1 stagger-words">A short film of <em>their day</em>.</h2>
+  <div class="film-frame gsap-reveal reveal-d2">
     <iframe src="{{ film_url }}"
             title="Wedding film of {{ title }}"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
   </div>
-  {% else %}
-  <div class="film-frame placeholder" style="padding:80px;font-family:var(--serif);font-style:italic;color:var(--mist);">
-    Film coming soon.
-  </div>
-  {% endif %}
 </section>
 {% endif %}
 
 <!-- ────── GALLERY ────── -->
 <section class="story-gallery">
   <div class="gallery-eyebrow-wrap">
-    <div class="gallery-eyebrow">The Photographs</div>
-    <h2 class="gallery-title">Frames from <em>the day</em>.</h2>
+    <div class="gallery-eyebrow gsap-reveal">The Photographs</div>
+    <h2 class="gallery-title gsap-reveal reveal-d1 stagger-words">Frames from <em>the day</em>.</h2>
   </div>
 
-  <!-- 
-    GALLERY LAYOUT GUIDE:
-    Mix and match these row types for editorial feel:
-      .gallery-row.full        — single full-width image
-      .gallery-row.two         — two equal images side-by-side
-      .gallery-row.three       — three equal images
-      .gallery-row.asym-l      — large left, small right (2:1)
-      .gallery-row.asym-r      — small left, large right (1:2)
-    
-    Image aspect ratios:
-      .gal-img.tall            — 3:4 (portrait)
-      .gal-img.wide            — 16:9 (landscape)
-      .gal-img.cinema          — 21:9 (widescreen)
-      .gal-img.square          — 1:1
-    
-    Replace inline style url('') with real image paths.
-    Add class "has-image" to images that have real photos (removes the noise placeholder).
-  -->
-
-   {% for row in gallery %}
-
+  {% for row in gallery %}
     {% if row.layout == "full" %}
       <div class="gallery-row full">
-        <div class="gal-img cinema" style="background-image:url('{{ row.images[0] }}')"></div>
+        <div class="gal-img cinema {% if row.images[0] %}has-image{% endif %}" style="background-image:url('{{ row.images[0] }}')" data-lightbox="{{ row.images[0] }}" data-caption="{{ title }}"></div>
       </div>
     {% endif %}
-
     {% if row.layout == "two" %}
       <div class="gallery-row two">
-        <div class="gal-img tall" style="background-image:url('{{ row.images[0] }}')"></div>
-        <div class="gal-img tall" style="background-image:url('{{ row.images[1] }}')"></div>
+        <div class="gal-img tall {% if row.images[0] %}has-image{% endif %}" style="background-image:url('{{ row.images[0] }}')" data-lightbox="{{ row.images[0] }}" data-caption="{{ title }}"></div>
+        <div class="gal-img tall {% if row.images[1] %}has-image{% endif %}" style="background-image:url('{{ row.images[1] }}')" data-lightbox="{{ row.images[1] }}" data-caption="{{ title }}"></div>
       </div>
     {% endif %}
-
     {% if row.layout == "three" %}
       <div class="gallery-row three">
-        <div class="gal-img square" style="background-image:url('{{ row.images[0] }}')"></div>
-        <div class="gal-img square" style="background-image:url('{{ row.images[1] }}')"></div>
-        <div class="gal-img square" style="background-image:url('{{ row.images[2] }}')"></div>
+        <div class="gal-img square {% if row.images[0] %}has-image{% endif %}" style="background-image:url('{{ row.images[0] }}')" data-lightbox="{{ row.images[0] }}" data-caption="{{ title }}"></div>
+        <div class="gal-img square {% if row.images[1] %}has-image{% endif %}" style="background-image:url('{{ row.images[1] }}')" data-lightbox="{{ row.images[1] }}" data-caption="{{ title }}"></div>
+        <div class="gal-img square {% if row.images[2] %}has-image{% endif %}" style="background-image:url('{{ row.images[2] }}')" data-lightbox="{{ row.images[2] }}" data-caption="{{ title }}"></div>
       </div>
     {% endif %}
-
     {% if row.layout == "asym-l" %}
       <div class="gallery-row asym-l">
-        <div class="gal-img wide" style="background-image:url('{{ row.images[0] }}')"></div>
-        <div class="gal-img tall" style="background-image:url('{{ row.images[1] }}')"></div>
+        <div class="gal-img wide {% if row.images[0] %}has-image{% endif %}" style="background-image:url('{{ row.images[0] }}')" data-lightbox="{{ row.images[0] }}" data-caption="{{ title }}"></div>
+        <div class="gal-img tall {% if row.images[1] %}has-image{% endif %}" style="background-image:url('{{ row.images[1] }}')" data-lightbox="{{ row.images[1] }}" data-caption="{{ title }}"></div>
       </div>
     {% endif %}
-
     {% if row.layout == "asym-r" %}
       <div class="gallery-row asym-r">
-        <div class="gal-img tall" style="background-image:url('{{ row.images[0] }}')"></div>
-        <div class="gal-img wide" style="background-image:url('{{ row.images[1] }}')"></div>
+        <div class="gal-img tall {% if row.images[0] %}has-image{% endif %}" style="background-image:url('{{ row.images[0] }}')" data-lightbox="{{ row.images[0] }}" data-caption="{{ title }}"></div>
+        <div class="gal-img wide {% if row.images[1] %}has-image{% endif %}" style="background-image:url('{{ row.images[1] }}')" data-lightbox="{{ row.images[1] }}" data-caption="{{ title }}"></div>
       </div>
     {% endif %}
-
     {% if row.layout == "quote" %}
-      <div class="gallery-quote">
-        <blockquote class="gallery-quote-text">
-          {{ row.text }}
-        </blockquote>
+      <div class="gallery-quote gsap-reveal">
+        <blockquote class="gallery-quote-text">{{ row.text }}</blockquote>
       </div>
     {% endif %}
-
   {% endfor %}
 </section>
-
 
 {% if album_spreads and album_spreads.length > 0 %}
 <!-- ────── HEIRLOOM ALBUM ────── -->
 <section class="story-album">
   <div class="story-album-header">
     <div class="story-album-label">The Heirloom Album</div>
-    <p class="story-album-sub">32 × 12" · Lay-flat · Archival print</p>
+    <p class="story-album-sub">32 &times; 12" &middot; Lay-flat &middot; Archival print</p>
   </div>
   <div class="story-album-spreads">
     {% for spread in album_spreads %}
@@ -764,32 +711,28 @@ PLACEHOLDERS YOU NEED TO FILL:
     {% endfor %}
   </div>
   <div class="story-album-cta">
-    <a href="/investment/#album" class="story-album-link">Add an album to your package →</a>
+    <a href="/investment/#album" class="story-album-link">Add an album to your package &rarr;</a>
   </div>
 </section>
 {% endif %}
 
 <!-- ────── STATS ────── -->
-<section class="story-stats">
+<section class="story-stats gsap-reveal">
   <div class="stats-grid">
-    <div class="stat-box"><strong>{{ stat_images if stat_images else "—" }}</strong><span>Images Delivered</span></div>
-    <div class="stat-box"><strong>{{ stat_hours if stat_hours else "—" }}</strong><span>Hours of Coverage</span></div>
+    <div class="stat-box"><strong>{{ stat_images if stat_images else "&mdash;" }}</strong><span>Images Delivered</span></div>
+    <div class="stat-box"><strong>{{ stat_hours if stat_hours else "&mdash;" }}</strong><span>Hours of Coverage</span></div>
     <div class="stat-box"><strong>{{ stat_photographers if stat_photographers else "2" }}</strong><span>Photographers</span></div>
     <div class="stat-box"><strong>{{ date | formatDate }}</strong><span>Wedding Day</span></div>
   </div>
 </section>
 
 <!-- ────── VENDOR CREDITS ────── -->
-<section class="vendors">
+<section class="vendors gsap-reveal">
   <div class="vendors-header">
     <div class="vendors-eyebrow">In Good Company</div>
     <h2 class="vendors-title">The team behind <em>this day</em>.</h2>
   </div>
   <div class="vendors-grid">
-    <!-- 
-      EDIT: Replace vendor names. Link them to their websites/Instagram if they have one.
-      Remove any rows you don't need. Add more by copying any item.
-    -->
     <div class="vendor-item">
       <div class="vendor-role">Venue</div>
       <div class="vendor-name">{{ location }}</div>
@@ -817,7 +760,6 @@ PLACEHOLDERS YOU NEED TO FILL:
   </div>
 </section>
 
-
 <!-- ────── PREV / NEXT STORY ────── -->
 {%- set prevStory = collections.stories | getPreviousCollectionItem -%}
 {%- set nextStory = collections.stories | getNextCollectionItem -%}
@@ -829,7 +771,7 @@ PLACEHOLDERS YOU NEED TO FILL:
       Previous Story
     </div>
     <div class="story-nav-couple">{{ prevStory.data.title }}</div>
-    <div class="story-nav-meta">{{ prevStory.data.location_short }} · {{ prevStory.date | formatDate }}</div>
+    <div class="story-nav-meta">{{ prevStory.data.location_short }} &middot; {{ prevStory.date | formatDate }}</div>
   </a>
   {% else %}
   <a href="/stories/" class="story-nav-card prev">
@@ -848,7 +790,7 @@ PLACEHOLDERS YOU NEED TO FILL:
       <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M9 1l4 4-4 4M1 5h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
     </div>
     <div class="story-nav-couple">{{ nextStory.data.title }}</div>
-    <div class="story-nav-meta">{{ nextStory.data.location_short }} · {{ nextStory.date | formatDate }}</div>
+    <div class="story-nav-meta">{{ nextStory.data.location_short }} &middot; {{ nextStory.date | formatDate }}</div>
   </a>
   {% else %}
   <a href="/stories/" class="story-nav-card next">
@@ -864,10 +806,10 @@ PLACEHOLDERS YOU NEED TO FILL:
 
 <!-- ────── CTA ────── -->
 <section class="story-cta">
-  <div class="story-cta-eyebrow">Could yours be next?</div>
-  <h2 class="story-cta-title">Let's tell <em>your</em><br>story, beautifully.</h2>
-  <p class="story-cta-sub">A few openings remaining for the season. Kerala &amp; destination weddings welcome.</p>
-  <a href="/contact/" class="btn-gold">Begin Your Story</a>
+  <div class="story-cta-eyebrow gsap-reveal">Could yours be next?</div>
+  <h2 class="story-cta-title gsap-reveal reveal-d1 stagger-words">Let's tell <em>your</em><br>story, beautifully.</h2>
+  <p class="story-cta-sub gsap-reveal reveal-d2">A few openings remaining for the season. Kerala &amp; destination weddings welcome.</p>
+  <a href="/contact/" class="btn-gold gsap-reveal magnetic">Begin Your Story</a>
 </section>
 
 <!-- ────── FOOTER ────── -->
@@ -886,53 +828,46 @@ PLACEHOLDERS YOU NEED TO FILL:
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy">© 2026 Memorygraph Wedding Studio · Thrissur, Kerala</div>
-    <div class="footer-copy">+91 98462 38073 · memorygraphweddings@gmail.com</div>
+    <div class="footer-copy">&copy; 2026 Memorygraph Wedding Studio &middot; Thrissur, Kerala</div>
+    <div class="footer-copy">+91 98462 38073 &middot; memorygraphweddings@gmail.com</div>
   </div>
 </footer>
 
 <!-- WhatsApp -->
 <a href="https://wa.me/919846238073?text=Hi%20Arun%2C%20I%27d%20love%20to%20discuss%20my%20wedding." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
-  <svg viewBox="0 0 32 32" fill="currentColor">
-    <path d="M16 .4C7.4.4.4 7.4.4 16c0 2.84.74 5.62 2.16 8.06L.27 31.6l7.74-2.27C10.36 30.7 13.14 31.5 16 31.5c8.6 0 15.6-7 15.6-15.5C31.6 7.4 24.6.4 16 .4zM16 28.7c-2.5 0-4.96-.66-7.1-1.92l-.5-.3-5.34 1.55 1.6-5.18-.34-.55C2.92 19.92 2.2 18 2.2 16 2.2 8.4 8.4 2.2 16 2.2c7.6 0 13.8 6.2 13.8 13.8 0 7.6-6.2 12.7-13.8 12.7zm7.6-9.8c-.4-.2-2.4-1.18-2.78-1.32-.38-.14-.66-.2-.94.2-.28.4-1.06 1.32-1.3 1.6-.24.28-.48.3-.88.1-.4-.2-1.7-.62-3.24-2-1.2-1.06-2-2.38-2.24-2.78-.24-.4-.02-.62.18-.82.18-.18.4-.46.6-.7.2-.24.26-.4.4-.68.14-.28.06-.52-.04-.72-.1-.2-.92-2.22-1.26-3.04-.34-.8-.68-.7-.94-.72h-.8c-.28 0-.72.1-1.1.5-.38.4-1.44 1.4-1.44 3.42s1.48 3.96 1.68 4.24c.2.28 2.92 4.46 7.08 6.24 1 .42 1.78.68 2.38.88.98.32 1.88.28 2.6.16.78-.12 2.4-.98 2.74-1.92.34-.94.34-1.74.24-1.92-.1-.18-.36-.28-.76-.48z"/>
-  </svg>
+  <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 .4C7.4.4.4 7.4.4 16c0 2.84.74 5.62 2.16 8.06L.27 31.6l7.74-2.27C10.36 30.7 13.14 31.5 16 31.5c8.6 0 15.6-7 15.6-15.5C31.6 7.4 24.6.4 16 .4zM16 28.7c-2.5 0-4.96-.66-7.1-1.92l-.5-.3-5.34 1.55 1.6-5.18-.34-.55C2.92 19.92 2.2 18 2.2 16 2.2 8.4 8.4 2.2 16 2.2c7.6 0 13.8 6.2 13.8 13.8 0 7.6-6.2 12.7-13.8 12.7zm7.6-9.8c-.4-.2-2.4-1.18-2.78-1.32-.38-.14-.66-.2-.94.2-.28.4-1.06 1.32-1.3 1.6-.24.28-.48.3-.88.1-.4-.2-1.7-.62-3.24-2-1.2-1.06-2-2.38-2.24-2.78-.24-.4-.02-.62.18-.82.18-.18.4-.46.6-.7.2-.24.26-.4.4-.68.14-.28.06-.52-.04-.72-.1-.2-.92-2.22-1.26-3.04-.34-.8-.68-.7-.94-.72h-.8c-.28 0-.72.1-1.1.5-.38.4-1.44 1.4-1.44 3.42s1.48 3.96 1.68 4.24c.2.28 2.92 4.46 7.08 6.24 1 .42 1.78.68 2.38.88.98.32 1.88.28 2.6.16.78-.12 2.4-.98 2.74-1.92.34-.94.34-1.74.24-1.92-.1-.18-.36-.28-.76-.48z"/></svg>
 </a>
 
+<!-- VENDOR SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1/dist/lenis.min.js"></script>
+
+<!-- SHARED INTERACTIONS -->
+<script src="/assets/js/main.js"></script>
+
+<!-- PAGE-SPECIFIC SCRIPTS -->
 <script>
-  // Cursor
-  const dot = document.getElementById('cursorDot'), ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  function ac() {
-    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
-    rx += (mx - rx) * .13; ry += (my - ry) * .13;
-    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-    requestAnimationFrame(ac);
-  } ac();
-  document.querySelectorAll('a, button').forEach(el => {
-    el.addEventListener('mouseenter', () => { ring.style.width = '40px'; ring.style.height = '40px'; });
-    el.addEventListener('mouseleave', () => { ring.style.width = '24px'; ring.style.height = '24px'; });
-  });
-
-  // Nav scroll
-  window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', scrollY > 60));
-
-  // Reveal on scroll
-  const obs = new IntersectionObserver(e => e.forEach(x => {
-    if (x.isIntersecting) { x.target.classList.add('visible'); obs.unobserve(x.target); }
-  }), { threshold: .1 });
-  document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
-
-  // Lazy load gallery images (basic native lazy loading via background-image trick)
-  // For best performance, replace background-image divs with <img loading="lazy">
-
-  // Show sticky nav after scrolling 25% down
+  // Sticky story nav
   const storyNavEl = document.querySelector('.story-nav');
   if(storyNavEl){
     window.addEventListener('scroll', function(){
       const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
       storyNavEl.classList.toggle('visible', pct > 0.25);
     }, {passive:true});
+  }
+
+  // Gallery images click to lightbox
+  document.querySelectorAll('.gal-img[data-lightbox]').forEach(img => {
+    img.addEventListener('click', () => {
+      if (window.openLightbox) openLightbox(img.dataset.lightbox, img.dataset.caption);
+    });
+  });
+
+  // Legacy reveal fallback
+  if (!window.gsap) {
+    const obs = new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}}),{threshold:.1});
+    document.querySelectorAll('.reveal, .gsap-reveal').forEach(r=>obs.observe(r));
   }
 </script>
 

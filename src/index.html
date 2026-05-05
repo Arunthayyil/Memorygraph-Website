@@ -4,12 +4,48 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Memorygraph Weddings | Wedding Photographer in Thrissur, Kerala | Cinematic Films</title>
-  <meta name="description" content="Documentary-led, cinematic wedding photography & films in Kerala. A small Thrissur-based studio quietly devoted to every wedding we hold in our hands."/>
+  <meta name="description" content="Documentary-led, cinematic wedding photography &amp; films in Kerala. A small Thrissur-based studio quietly devoted to every wedding we hold in our hands."/>
+  <meta name="keywords" content="Wedding Photographer Thrissur, Kerala Wedding Photography, Cinematic Wedding Films, Destination Wedding Kerala, Memorygraph"/>
+  <meta name="author" content="Memorygraph Wedding Studio"/>
+  <meta name="robots" content="index, follow"/>
   <meta property="og:title" content="Memorygraph Weddings — Cinematic Wedding Photography, Kerala"/>
   <meta property="og:description" content="A small Thrissur-based studio. Documentary in spirit. Cinematic in craft."/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://memorygraphweddings.com"/>
+  <meta property="og:image" content="https://memorygraphweddings.com/assets/og-home.jpg"/>
+  <meta property="og:locale" content="en_IN"/>
+  <meta property="og:site_name" content="Memorygraph Weddings"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Memorygraph Weddings — Cinematic Wedding Photography, Kerala"/>
+  <meta name="twitter:description" content="A small Thrissur-based studio. Documentary in spirit. Cinematic in craft."/>
+  <meta name="twitter:image" content="https://memorygraphweddings.com/assets/og-home.jpg"/>
+  <link rel="canonical" href="https://memorygraphweddings.com"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Memorygraph Wedding Studio",
+    "url": "https://memorygraphweddings.com",
+    "telephone": "+919846238073",
+    "email": "memorygraphweddings@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Thottupurath Building, Chungam",
+      "addressLocality": "Thrissur",
+      "addressRegion": "Kerala",
+      "addressCountry": "IN"
+    },
+    "sameAs": [
+      "https://www.instagram.com/memorygraph.weddings/",
+      "https://www.youtube.com/@MemorygraphWeddings",
+      "https://www.facebook.com/myjourneyismystory.iamarun"
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/assets/css/animations.css"/>
   <style>
     *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
 
@@ -49,8 +85,8 @@
 
     /* ── CURSOR ── */
     .cursor { position:fixed; top:0; left:0; z-index:9999; pointer-events:none; }
-    .cursor-dot { width:4px; height:4px; background:#fff; border-radius:50%; position:absolute; transform:translate(-50%,-50%); mix-blend-mode:difference; }
-    .cursor-ring { width:24px; height:24px; border:1px solid rgba(255,255,255,.8); border-radius:50%; position:absolute; transform:translate(-50%,-50%);mix-blend-mode:difference; transition:width .25s, height .25s, border-color .3s; }
+    .cursor-dot { width:6px; height:6px; background:#ffffff; border-radius:50%; position:absolute; transform:translate(-50%,-50%); mix-blend-mode:difference; }
+    .cursor-ring { width:28px; height:28px; border:1.5px solid rgba(26,24,20,.55); border-radius:50%; position:absolute; transform:translate(-50%,-50%); transition:width .3s, height .3s, border-color .3s, background .3s; }
     input, textarea, select { cursor: text; }
     @media (prefers-reduced-motion: reduce) { body { cursor:auto; } .cursor { display:none; } }
 
@@ -357,6 +393,7 @@
     .service-card {
       padding:48px 40px; background:var(--ivory-2);
       transition:background .4s; position:relative;
+      opacity:1; transform:none;
     }
     .service-card::before {
       content:''; position:absolute; top:0; left:0; width:100%; height:2px;
@@ -686,9 +723,42 @@
     }
   
     .story-card-link { display:block; text-decoration:none; color:inherit; }
-</style>
+
+    /* ── LANDSCAPE SLIDESHOW ── */
+    .moments-section{background:var(--ink);padding:0;position:relative;overflow:hidden;}
+    .moments-header{padding:80px 56px 48px;position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-end;}
+    .moments-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3.8rem);font-weight:300;font-style:italic;color:var(--ivory);line-height:1.1;}
+    .moments-sub{font-family:var(--sans);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,237,224,.35);}
+    .moments-reel{position:relative;width:100%;overflow:hidden;}
+    .moments-slide{position:absolute;inset:0;width:100%;padding-bottom:42%;background:linear-gradient(160deg,#2a2420 0%,#1a1814 100%);background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s ease;}
+    .moments-slide.active{opacity:1;position:relative;}
+    .moments-slide::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(26,24,20,.65) 0%,transparent 40%);}
+    .moments-caption{position:absolute;bottom:32px;left:56px;z-index:2;font-family:var(--serif);font-size:1rem;font-style:italic;color:rgba(244,237,224,.5);}
+    .moments-dots{display:flex;gap:8px;padding:28px 56px 60px;justify-content:center;}
+    .moments-dot{width:28px;height:2px;background:rgba(244,237,224,.2);cursor:pointer;transition:all .3s;}
+    .moments-dot.active{background:var(--gold);width:44px;}
+    /* ── PROCESS TIMELINE SECTION ── */
+    .process-tl-section{background:var(--ivory-2);border-top:1px solid var(--line-2);padding:140px 56px;}
+    .process-tl-header{max-width:700px;margin-bottom:100px;}
+    @media(max-width:980px){
+      .moments-header{padding:60px 24px 36px;flex-direction:column;align-items:flex-start;gap:12px;}
+      .moments-slide{padding-bottom:65%;}
+      .moments-caption{left:24px;}
+      .moments-dots{padding:20px 24px 48px;}
+      .process-tl-section{padding:80px 24px;}
+    }
+  </style>
 </head>
 <body>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">Memorygraph<small>Photographing Memories</small></div>
+  <div class="preloader-line"></div>
+</div>
+
+<!-- PAGE TRANSITION OVERLAY -->
+<div class="page-transition-overlay"></div>
 
 <!-- CURSOR -->
 <div class="cursor" id="cursor">
@@ -707,7 +777,7 @@
     <li><a href="/investment/">Investment</a></li>
     <li><a href="/blog/">Journal</a></li>
   </ul>
-  <a href="/contact/" class="nav-cta">Begin Your Story</a>
+  <a href="/contact/" class="nav-cta magnetic">Begin Your Story</a>
 </nav>
 
 <!-- HERO -->
@@ -819,11 +889,10 @@
 <!-- SERVICES -->
 <section class="services" id="services">
   <div class="services-header">
-    <div class="section-label center reveal">How We Work</div>
-    <h2 class="section-title reveal reveal-d1">Three crafts, one <em>story</em>.</h2>
+    <h2 class="section-title reveal reveal-d1">Three crafts, one <em>story.</em></h2>
   </div>
   <div class="services-grid">
-    <div class="service-card reveal">
+    <div class="service-card">
       <div class="service-icon">
         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
           <rect x="6" y="14" width="36" height="26" rx="2"/>
@@ -835,7 +904,7 @@
       <h3 class="service-title">Photography</h3>
       <p class="service-desc">We shoot the way memory works — quiet, unforced, drawn to the moments people don't realize they're making. Editorial in look. Documentary in soul.</p>
     </div>
-    <div class="service-card reveal reveal-d1">
+    <div class="service-card">
       <div class="service-icon">
         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
           <rect x="4" y="14" width="28" height="20" rx="2"/>
@@ -846,7 +915,7 @@
       <h3 class="service-title">Cinematography</h3>
       <p class="service-desc">Wedding films that feel like short cinema — your real voices, your real silences. Built to be watched again and again, not scrolled past.</p>
     </div>
-    <div class="service-card reveal reveal-d2">
+    <div class="service-card">
       <div class="service-icon">
         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
           <circle cx="24" cy="24" r="4"/>
@@ -898,37 +967,6 @@
   </div>
 </section>
 
-<!-- PROCESS -->
-<section class="process">
-  <div class="section-label reveal">The Experience</div>
-  <h2 class="section-title reveal reveal-d1">How we <em>work</em>.</h2>
-  <div class="process-grid">
-    <div class="process-step reveal">
-      <div class="process-num">01</div>
-      <div class="process-title">The First Conversation</div>
-      <p class="process-desc">A 30-minute call — not a sales pitch. We listen to your story, your vision, your worries. Most couples leave this call already feeling lighter.</p>
-    </div>
-    <div class="process-step reveal reveal-d1">
-      <div class="process-num">02</div>
-      <div class="process-title">A Plan Built Around You</div>
-      <p class="process-desc">Light maps, ceremony flow, family logistics, drone permissions if needed. We over-plan so the day itself can be effortless.</p>
-    </div>
-    <div class="process-step reveal reveal-d2">
-      <div class="process-num">03</div>
-      <div class="process-title">The Day Itself</div>
-      <p class="process-desc">Quiet, observant, deeply focused. We move like shadows — present everywhere, intrusive nowhere.</p>
-    </div>
-    <div class="process-step reveal reveal-d3">
-      <div class="process-num">04</div>
-      <div class="process-title">Delivered with Care</div>
-      <p class="process-desc">Curated galleries. Cinematic films. Heirloom-quality albums. Delivered fast, presented beautifully — yours forever.</p>
-    </div>
-  </div>
-  <div style="text-align:center;margin-top:56px;" class="reveal">
-    <a href="/investment/" style="font-family:var(--sans);font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(29,89,89,.25);padding-bottom:5px;transition:border-color .3s,color .3s;">Book your day →</a>
-  </div>
-</section>
-
 <!-- TESTIMONIAL -->
 <section class="testimonial">
   <div class="testimonial-quotes">"</div>
@@ -947,25 +985,85 @@
   </div>
 </section>
 
-<!-- INVESTMENT TEASER -->
-<section class="investment-teaser" id="investment">
-  <div class="section-label reveal">Investment</div>
-  <h2 class="investment-headline reveal reveal-d1">
-    Tailored to <em>your</em> wedding.<br>Never one-size-fits-all.
-  </h2>
-  <p class="investment-sub reveal reveal-d2">
-    Most of our weddings fall between <strong style="color:var(--gold-2);">₹2L and ₹6L</strong>, with our most-booked Signature collection averaging around ₹3.5L. Every proposal is built around your actual wedding — not pulled from a price sheet.
-  </p>
-  <div class="investment-pillars reveal reveal-d3">
-    <div class="inv-pillar">Photography</div>
-    <div class="inv-pillar">Cinematic Films</div>
-    <div class="inv-pillar">Drone Coverage</div>
-    <div class="inv-pillar">Heirloom Albums</div>
+<!-- LANDSCAPE SLIDESHOW -->
+<div class="moments-section">
+  <div class="moments-header">
+    <h2 class="moments-title reveal">Moments that<br>stayed with us.</h2>
+    <span class="moments-sub">A quiet archive</span>
   </div>
-  <a href="/investment/" class="btn-gold reveal">See What's Possible</a>
-</section>
-
-<!-- CTA -->
+  <div class="moments-reel" id="momentsReel">
+    <div class="moments-slide active" style="background-image:url('/assets/stories/abhin-gayathry/07.jpg');">
+      <span class="moments-caption">Abhin &amp; Gayathry &middot; Vadakkumnathan Temple</span>
+    </div>
+    <div class="moments-slide" style="background-image:url('/assets/stories/abhin-gayathry/01.jpg');">
+      <span class="moments-caption">Quiet light &middot; Thrissur</span>
+    </div>
+    <div class="moments-slide" style="background-image:url('/assets/stories/abhin-gayathry/11.jpg');">
+      <span class="moments-caption">The morning after the ceremony</span>
+    </div>
+    <div class="moments-slide" style="background-image:url('/assets/stories/abhin-gayathry/04.jpg');">
+      <span class="moments-caption">In between the rituals</span>
+    </div>
+    <div class="moments-slide" style="background-image:url('/assets/stories/abhin-gayathry/09.jpg');">
+      <span class="moments-caption">The ones we don&rsquo;t forget</span>
+    </div>
+  </div>
+  <div class="moments-dots">
+    <div class="moments-dot active" onclick="setMoment(0)"></div>
+    <div class="moments-dot" onclick="setMoment(1)"></div>
+    <div class="moments-dot" onclick="setMoment(2)"></div>
+    <div class="moments-dot" onclick="setMoment(3)"></div>
+    <div class="moments-dot" onclick="setMoment(4)"></div>
+  </div>
+</div><!-- PROCESS TIMELINE -->
+<div class="process-tl-section">
+  <div class="process-tl-header">
+    <div class="section-label reveal">The Experience</div>
+    <h2 class="section-title reveal reveal-d1">How we <em>work.</em></h2>
+    <p style="font-family:var(--sans);font-size:.92rem;font-weight:300;line-height:1.9;color:var(--ink-soft);margin-top:24px;" class="reveal reveal-d2">From the first message to the final album — here's what it feels like to work with Memorygraph.</p>
+  </div>
+  <div class="process-timeline">
+    <div class="process-tl-item">
+      <div class="tl-content">
+        <div class="tl-num">01</div>
+        <div class="tl-title">The First Conversation</div>
+        <p class="tl-desc">A 30-minute call — not a sales pitch. We listen to your story, your vision, your worries. Most couples leave already feeling lighter.</p>
+      </div>
+      <div class="tl-visual"><div class="tl-visual-img" style="background-image:url('/assets/stories/abhin-gayathry/03.jpg');"></div></div>
+      <div class="tl-dot"></div>
+    </div>
+    <div class="process-tl-item">
+      <div class="tl-visual"><div class="tl-visual-img" style="background-image:url('/assets/stories/abhin-gayathry/05.jpg');"></div></div>
+      <div class="tl-content">
+        <div class="tl-num">02</div>
+        <div class="tl-title">A Plan Built Around You</div>
+        <p class="tl-desc">Light maps, ceremony flow, family logistics, drone permissions. We over-plan so the day itself can be effortless.</p>
+      </div>
+      <div class="tl-dot"></div>
+    </div>
+    <div class="process-tl-item">
+      <div class="tl-content">
+        <div class="tl-num">03</div>
+        <div class="tl-title">The Day Itself</div>
+        <p class="tl-desc">Quiet, observant, deeply focused. We move like shadows — present everywhere, intrusive nowhere. You'll forget we're there.</p>
+      </div>
+      <div class="tl-visual"><div class="tl-visual-img" style="background-image:url('/assets/stories/abhin-gayathry/08.jpg');"></div></div>
+      <div class="tl-dot"></div>
+    </div>
+    <div class="process-tl-item">
+      <div class="tl-visual"><div class="tl-visual-img" style="background-image:url('/assets/stories/abhin-gayathry/11.jpg');"></div></div>
+      <div class="tl-content">
+        <div class="tl-num">04</div>
+        <div class="tl-title">Delivered with Care</div>
+        <p class="tl-desc">Curated galleries, cinematic films, heirloom-quality albums. Delivered within 30 days, presented beautifully — yours forever.</p>
+      </div>
+      <div class="tl-dot"></div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:80px;" class="reveal">
+    <a href="/investment/" style="font-family:var(--sans);font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(29,89,89,.25);padding-bottom:5px;">See our collections &rarr;</a>
+  </div>
+</div><!-- CTA -->
 <section class="cta-banner" id="contact">
   <div class="cta-deco"></div>
   <div class="cta-deco2"></div>
@@ -973,7 +1071,7 @@
   <h2 class="cta-headline reveal reveal-d1">
     If your wedding feels like<br>one of <em>ours</em> — let's talk.
   </h2>
-  <p class="cta-sub reveal reveal-d2">Currently booking January 2026 onwards. Kerala &amp; destination weddings welcome.</p>
+  <p class="cta-sub reveal reveal-d2">Currently booking for 2026 &amp; 2027. Kerala &amp; destination weddings welcome.</p>
   <div class="cta-actions reveal reveal-d3">
     <a href="/contact/" class="btn-primary">Send an Enquiry</a>
     <a href="https://wa.me/919846238073" class="btn-outline" data-cms="whatsapp-link">Chat on WhatsApp</a>
@@ -985,15 +1083,7 @@
   <div class="footer-top">
     <div>
       <div class="footer-logo">
-        <svg viewBox="0 0 80 60" fill="currentColor">
-          <path d="M 5 55 L 5 5 L 30 55 Z"/>
-          <path d="M 28 5 L 52 5 L 40 32 Z"/>
-          <path d="M 75 55 L 75 5 L 50 55 Z"/>
-        </svg>
-        <div class="footer-brand-text">
-          Memorygraph
-          <small>Photographing Memories</small>
-        </div>
+        <img src="/assets/logo/logo-white.png" alt="Memorygraph Wedding Studio" style="height:52px;width:auto;mix-blend-mode:screen;opacity:.9;"/>
       </div>
       <p class="footer-tagline">"Quietly devoted to every wedding<br>we hold in our hands."</p>
       <div class="footer-contact">
@@ -1052,79 +1142,63 @@
   <span class="whatsapp-tooltip">Chat with Arun</span>
 </a>
 
+
+<!-- VENDOR SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1/dist/lenis.min.js"></script>
+
+<!-- SHARED INTERACTIONS -->
+<script src="/assets/js/main.js"></script>
+
 <script>
-  // Cursor
-  const dot=document.getElementById('cursorDot'), ring=document.getElementById('cursorRing');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-  function ac(){dot.style.left=mx+'px';dot.style.top=my+'px';rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(ac);} ac();
-  document.querySelectorAll('a,button').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{ring.style.width='40px';ring.style.height='40px';ring.style.borderColor='rgba(29,89,89,.6)';});
-    el.addEventListener('mouseleave',()=>{ring.style.width='24px';ring.style.height='24px';ring.style.borderColor='rgba(29,89,89,.35)';});
-  });
-
-  // Nav scroll
-  const nav=document.getElementById('nav');
-  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
-
-  // Reveal
-  const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}}),{threshold:.12});
-  document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
-
-  // Testimonials — defaults, overridden by CMS if cmsTestimonials exists
-  {% if collections.testimonials and collections.testimonials.size > 0 %}
-  let tts=[{% for t in collections.testimonials %}{t:{{ t.data.quote | json }},a:{{ t.data.title | append: " — " | append: t.data.location | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}];
-  {% else %}
-  let tts=[
-    {t:'"I told Vivek a week before the wedding that I was scared the photographer would be in our face all day. We barely noticed Arun. And the photographs — I&rsquo;ve cried twice already."', a:'Gayathry — married Abhin in Thrissur, Nov 2024'},
-    {t:'"Everyone kept asking who shot our wedding because the photos didn&rsquo;t look like wedding photos. They looked like a magazine. That&rsquo;s exactly what I wanted but couldn&rsquo;t find anywhere else."', a:'Archana — married Manu in Kochi, 2024'},
-    {t:'"They were the calmest people in the room. They got the rituals my parents cared about and the in-between moments I didn&rsquo;t even know I wanted. Worth every rupee."', a:'Meera — married Anand in Palakkad, 2025'}
-  ];
-  {% endif %}
+  let tts;
+  if(window._cms_testimonials && window._cms_testimonials.length){
+    tts=window._cms_testimonials;
+  } else {
+    tts=[
+      {t:'"We barely noticed Arun. And the photographs — I\'ve cried twice already."',a:'Gayathry — married Abhin in Thrissur, Nov 2024'},
+      {t:'"The photos didn\'t look like wedding photos. They looked like a magazine. Exactly what I wanted."',a:'Archana — married Manu in Kochi, 2024'},
+      {t:'"They were the calmest people in the room. Worth every rupee."',a:'Meera — married Anand in Palakkad, 2025'}
+    ];
+  }
   let cur=0;
   const dts=document.querySelectorAll('.dot');
   function setT(i){
-    cur=i % tts.length;
-    const tEl=document.getElementById('testimonialText'), aEl=document.getElementById('testimonialAuthor');
-    tEl.style.opacity='0'; tEl.style.transform='translateY(6px)'; tEl.style.minHeight=tEl.offsetHeight+'px';
-    setTimeout(()=>{
-      tEl.innerHTML=tts[cur].t; aEl.innerHTML=tts[cur].a;
-      tEl.style.transition='opacity .5s, transform .5s';
-      tEl.style.opacity='1'; tEl.style.transform='translateY(0)';
-    },280);
+    cur=i%tts.length;
+    const tEl=document.getElementById('testimonialText'),aEl=document.getElementById('testimonialAuthor');
+    tEl.style.opacity='0';tEl.style.transform='translateY(6px)';
+    setTimeout(()=>{tEl.innerHTML=tts[cur].t;aEl.innerHTML=tts[cur].a;tEl.style.transition='opacity .5s,transform .5s';tEl.style.opacity='1';tEl.style.transform='translateY(0)';},280);
     dts.forEach((d,j)=>d.classList.toggle('active',j===cur));
   }
-  // Wait for CMS loader, then start rotation
-  setTimeout(()=>{ if(window.cmsTestimonials) setT(0); }, 1500);
-  setInterval(()=>setT(cur+1), 6500);
+  setInterval(()=>setT(cur+1),6500);
 
   // About slideshow
   let aci=0;
   const aSlides=document.querySelectorAll('.about-slide');
   const aDots=document.querySelectorAll('.asd');
   function setAboutSlide(i){
-    aSlides[aci].classList.remove('active'); aDots[aci].classList.remove('active');
+    aSlides[aci].classList.remove('active');aDots[aci].classList.remove('active');
     aci=i%aSlides.length;
-    aSlides[aci].classList.add('active'); aDots[aci].classList.add('active');
+    aSlides[aci].classList.add('active');aDots[aci].classList.add('active');
   }
-  if(aSlides.length) setInterval(()=>setAboutSlide(aci+1), 4500);
+  if(aSlides.length) setInterval(()=>setAboutSlide(aci+1),4500);
 
-  // About section slideshow - pulls bg images from story cards
-  (function(){
-    const slides = document.querySelectorAll('.about-slide');
-    const cards = document.querySelectorAll('.story-img-inner[style]');
-    if(!slides.length || !cards.length) return;
-    cards.forEach((c,i)=>{ if(slides[i]) slides[i].style.backgroundImage=c.style.backgroundImage; });
-    let ci=0;
-    setInterval(()=>{
-      slides[ci].classList.remove('active');
-      ci=(ci+1)%slides.length;
-      slides[ci].classList.add('active');
-    },4500);
-  })();
+  // Moments slideshow
+  let mci=0;
+  const mSlides=document.querySelectorAll('.moments-slide');
+  const mDots=document.querySelectorAll('.moments-dot');
+  function setMoment(i){
+    mSlides[mci].classList.remove('active');mDots[mci].classList.remove('active');
+    mci=i%mSlides.length;
+    mSlides[mci].classList.add('active');mDots[mci].classList.add('active');
+  }
+  if(mSlides.length) setInterval(()=>setMoment(mci+1),5000);
 
+  // Reveal
+  const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
 </script>
-<!-- CMS Loader -->
 <script src="/assets/cms-loader.js"></script>
 </body>
 </html>

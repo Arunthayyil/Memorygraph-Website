@@ -3,9 +3,32 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="author" content="Memorygraph Wedding Studio"/>
+<meta name="robots" content="index, follow"/>
 <meta name="description" content="A curated portfolio of cinematic Kerala wedding stories — temple weddings, heritage venues, destinations. Photographed and filmed by Memorygraph Wedding Studio."/>
+<meta name="keywords" content="Kerala Wedding Stories, Temple Wedding Photography, Heritage Venue Wedding, Destination Wedding Kerala, Memorygraph Portfolio"/>
 <title>Wedding Stories | Real Kerala Weddings | Memorygraph</title>
+<meta property="og:title" content="Wedding Stories | Real Kerala Weddings | Memorygraph"/>
+<meta property="og:description" content="A curated portfolio of cinematic Kerala wedding stories — temple weddings, heritage venues, destinations."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://memorygraphweddings.com/stories/"/>
+<meta property="og:image" content="https://memorygraphweddings.com/assets/og-stories.jpg"/>
+<meta property="og:locale" content="en_IN"/>
+<meta property="og:site_name" content="Memorygraph Weddings"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Wedding Stories | Real Kerala Weddings | Memorygraph"/>
+<meta name="twitter:description" content="A curated portfolio of cinematic Kerala wedding stories — temple weddings, heritage venues, destinations."/>
+<meta name="twitter:image" content="https://memorygraphweddings.com/assets/og-stories.jpg"/>
+<link rel="canonical" href="https://memorygraphweddings.com/stories/"/>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+
+<!-- Shared Animation CSS -->
+<link rel="stylesheet" href="/assets/css/animations.css"/>
+
 <style>
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
   :root{
@@ -18,17 +41,18 @@
   html{scroll-behavior:smooth;}
   body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-weight:300;overflow-x:hidden;cursor:none;}
   body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");mix-blend-mode:multiply;opacity:.6;}
+  @media (prefers-reduced-motion:reduce){body{cursor:auto;}.cursor{display:none;}}
+  @media (pointer: coarse) { body { cursor: auto; } .cursor { display: none; } }
 
   .cursor{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;}
-  .cursor-dot{width:4px;height:4px;background:#fff;border-radius:50%;position:absolute;transform:translate(-50%,-50%);mix-blend-mode:difference;}
-  @media(prefers-reduced-motion:reduce){body{cursor:auto;}.cursor{display:none;}} .cursor-ring{width:24px;height:24px;border:1px solid rgba(255,255,255,.7);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .25s,height .25s;mix-blend-mode:difference;}
+  .cursor-dot{width:5px;height:5px;background:var(--teal);border-radius:50%;position:absolute;transform:translate(-50%,-50%);mix-blend-mode:difference;}
+  .cursor-ring{width:28px;height:28px;border:1px solid rgba(29,89,89,.4);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s,background .3s;}
+  .cursor-ring.hover{width:48px;height:48px;border-color:var(--teal);background:rgba(29,89,89,.06);}
 
   /* NAV */
-  nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:24px 56px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s,background .5s;}
+  nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:24px 56px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s,background .5s,transform .4s cubic-bezier(.22,1,.36,1);}
   nav.scrolled{padding:14px 56px;background:rgba(244,237,224,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line-2);}
   .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);}
-  .nav-mark{width:30px;height:24px;}
-  .nav-mark svg{width:100%;height:100%;}
   .nav-wordmark{font-family:var(--serif);font-size:1.15rem;font-weight:500;letter-spacing:.04em;color:var(--ink);line-height:1;}
   .nav-wordmark small{display:block;font-family:var(--sans);font-size:.55rem;font-weight:400;letter-spacing:.32em;color:var(--mist);margin-top:4px;}
   .nav-links{display:flex;gap:42px;list-style:none;}
@@ -36,7 +60,7 @@
   .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--teal);transition:width .4s;}
   .nav-links a:hover,.nav-links a.active{color:var(--teal);}
   .nav-links a:hover::after,.nav-links a.active::after{width:100%;}
-  .nav-cta{font-family:var(--sans);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;background:var(--teal);color:var(--ivory);padding:11px 26px;text-decoration:none;transition:all .35s;border:1px solid var(--teal);}
+  .nav-cta{font-family:var(--sans);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;background:var(--teal);color:var(--ivory);padding:11px 26px;text-decoration:none;transition:all .35s;border:1px solid var(--teal);display:inline-block;}
   .nav-cta:hover{background:var(--teal-deep);border-color:var(--teal-deep);}
 
   /* PAGE HERO */
@@ -87,8 +111,8 @@
   .stories-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
   .story-card{position:relative;overflow:hidden;cursor:pointer;}
   .s-img{width:100%;padding-bottom:130%;position:relative;overflow:hidden;}
-  .s-img-inner{position:absolute;inset:0;transition:transform .8s cubic-bezier(.22,1,.36,1);}
-  .story-card:hover .s-img-inner{transform:scale(1.05);}
+  .s-img-inner{position:absolute;inset:0;transition:transform .8s cubic-bezier(.22,1,.36,1),filter .8s;filter:grayscale(60%);}
+  .story-card:hover .s-img-inner{transform:scale(1.05);filter:grayscale(0%);}
   .sg1{background:linear-gradient(160deg,#d8cfb8 0%,#b8a98a 100%);}
   .sg2{background:linear-gradient(140deg,#cdc1a8 0%,#aa9a7a 100%);}
   .sg3{background:linear-gradient(150deg,#c9bda1 0%,#a09177 100%);}
@@ -160,12 +184,41 @@
     .stories-grid{grid-template-columns:1fr;}
     .feat-stats{gap:24px;}
   }
-
   .story-card-link { display: block; text-decoration: none; color: inherit; }
 </style>
 </head>
 <body>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">
+    Memorygraph
+    <small>Photographing Memories</small>
+  </div>
+  <div class="preloader-line"></div>
+</div>
+
+<!-- PAGE TRANSITION OVERLAY -->
+<div class="page-transition-overlay"></div>
+
+<!-- THEME TOGGLE -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+  </svg>
+</button>
+
+<!-- CURSOR -->
 <div class="cursor" id="cursor"><div class="cursor-dot" id="cursorDot"></div><div class="cursor-ring" id="cursorRing"></div></div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" aria-label="Close lightbox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  <button class="lightbox-nav lightbox-prev" aria-label="Previous image"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <img class="lightbox-img" src="" alt="Gallery image"/>
+  <button class="lightbox-nav lightbox-next" aria-label="Next image"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg></button>
+  <div class="lightbox-caption"></div>
+</div>
 
 <nav id="nav">
   <a href="/" class="nav-logo">
@@ -177,18 +230,18 @@
     <li><a href="/investment/">Investment</a></li>
     <li><a href="/blog/">Journal</a></li>
   </ul>
-  <a href="/contact/" class="nav-cta">Begin Your Story</a>
+  <a href="/contact/" class="nav-cta magnetic">Begin Your Story</a>
 </nav>
 
 <!-- HERO -->
 <div class="page-hero">
-  <div class="ph-label">Wedding Stories</div>
-  <h1>Love, told in<br><em>frames.</em></h1>
-  <p class="ph-sub">Every wedding we photograph becomes a story we carry with us. These are some of the ones that have left a permanent mark — the ones we still think about.</p>
+  <div class="ph-label gsap-reveal">Wedding Stories</div>
+  <h1 class="gsap-reveal reveal-d1 stagger-words">Love, told in<br><em>frames.</em></h1>
+  <p class="ph-sub gsap-reveal reveal-d2">Every wedding we photograph becomes a story we carry with us. These are some of the ones that have left a permanent mark — the ones we still think about.</p>
 </div>
 
 <!-- FILTERS -->
-<div class="filter-bar">
+<div class="filter-bar gsap-reveal">
   <button class="filter-btn active">All Stories</button>
   <button class="filter-btn">Temple Weddings</button>
   <button class="filter-btn">Heritage Venues</button>
@@ -201,8 +254,8 @@
 <!-- FEATURED -->
 {% set featured = collections.stories[0] %}
 <div class="featured">
-  <div class="feat-img reveal">
-    <div class="feat-badge">Featured · Watch the Film</div>
+  <div class="feat-img gsap-reveal">
+    <div class="feat-badge">Featured &middot; Watch the Film</div>
     <div class="feat-frame" style="background-image:url('{{ featured.data.hero }}'); background-size:cover; background-position:center;">
       <div class="ph-icon">
         <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
@@ -210,15 +263,15 @@
           <path d="M12 88c0-21 17-38 38-38s38 17 38 38" stroke="#1a1814" stroke-width="1.5"/>
         </svg>
       </div>
-      <div class="feat-play">
+      <div class="feat-play" data-lightbox="{{ featured.data.hero }}" data-caption="{{ featured.data.title }}">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
       </div>
     </div>
     <div class="feat-corner"></div>
   </div>
-  <div class="feat-meta reveal reveal-d1">
-    <div class="feat-label">Most Recent · 2024</div>
-   <h2 class="feat-title">{{ featured.data.title }}</h2>
+  <div class="feat-meta gsap-reveal reveal-d1">
+    <div class="feat-label">Most Recent &middot; 2024</div>
+    <h2 class="feat-title">{{ featured.data.title }}</h2>
     <div class="feat-loc">{{ featured.data.location }}</div>
     <blockquote class="feat-quote">"A morning ceremony bathed in golden lamp-light, the scent of jasmine, and a couple who barely needed direction — they were too busy being in love."</blockquote>
     <div class="feat-stats">
@@ -234,44 +287,39 @@
 
 <!-- GRID -->
 <div class="grid-section">
-  <div class="grid-title reveal">— All stories</div>
+  <div class="grid-title gsap-reveal">&mdash; All stories</div>
   <div class="stories-grid" data-cms="stories-full-grid">
    {% for story in collections.stories %}
-
-<a href="{{ story.url }}" class="story-card-link">
-  <div class="story-card reveal">
-
-    <div class="s-img">
-      <div class="s-img-inner"
-           style="background-image: url('{{ story.data.hero }}'); background-size: cover; background-position: center;">
+    <a href="{{ story.url }}" class="story-card-link">
+      <div class="story-card gsap-reveal">
+        <div class="s-img">
+          <div class="s-img-inner"
+               style="background-image: url('{{ story.data.hero }}'); background-size: cover; background-position: center;"
+               data-lightbox="{{ story.data.hero }}" data-caption="{{ story.data.title }} &mdash; {{ story.data.location }}">
+          </div>
+          <div class="s-noise"></div>
+        </div>
+        <div class="s-meta-block">
+          <div class="s-name">{{ story.data.title }}</div>
+          <div class="s-meta">
+            {{ story.data.location_short }} &middot; {{ story.data.date | formatDate }}
+          </div>
+        </div>
+        <div class="s-hover">
+          <div class="s-hover-btn">View Story</div>
+        </div>
       </div>
-      <div class="s-noise"></div>
-    </div>
-
-    <div class="s-meta-block">
-      <div class="s-name">{{ story.data.title }}</div>
-      <div class="s-meta">
-        {{ story.data.location_short }} · {{ story.data.date | formatDate }}
-      </div>
-    </div>
-
-    <div class="s-hover">
-      <div class="s-hover-btn">View Story</div>
-    </div>
-
-  </div>
-</a>
-
-{% endfor %}
+    </a>
+    {% endfor %}
   </div>
 </div>
 
 <!-- CTA -->
 <div class="cta-strip">
-  <div class="cs-label">Your Story Next?</div>
-  <h2 class="cs-title">Could yours be the<br>next <em>love story</em>?</h2>
-  <p class="cs-sub">A few openings remaining for the season. Kerala &amp; destination weddings welcome.</p>
-  <a href="/contact/" class="btn-gold">Begin Your Story</a>
+  <div class="cs-label gsap-reveal">Your Story Next?</div>
+  <h2 class="cs-title gsap-reveal reveal-d1 stagger-words">Could yours be the<br>next <em>love story</em>?</h2>
+  <p class="cs-sub gsap-reveal reveal-d2">A few openings remaining for the season. Kerala &amp; destination weddings welcome.</p>
+  <a href="/contact/" class="btn-gold gsap-reveal magnetic">Begin Your Story</a>
 </div>
 
 <footer>
@@ -280,7 +328,7 @@
       <img src="/assets/logo/logo-white.png" alt="Memorygraph Wedding Studio" style="height:52px;width:auto;mix-blend-mode:screen;opacity:.9;"/>
     </a>
     <div class="footer-links-row">
-      <a href="/index/">Home</a>
+      <a href="/">Home</a>
       <a href="/stories/">Stories</a>
       <a href="/about/">About</a>
       <a href="/investment/">Investment</a>
@@ -289,13 +337,13 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy">© 2026 Memorygraph Wedding Studio · Thrissur, Kerala</div>
+    <div class="footer-copy">&copy; 2026 Memorygraph Wedding Studio &middot; Thrissur, Kerala</div>
     <div class="footer-socials" style="display:flex;gap:18px;">
-      <a href="https://www.instagram.com/memorygraph.weddings/" target="_blank" rel="noopener" style="font-family:var(--sans);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,237,224,.4);text-decoration:none;">Instagram</a>
-      <a href="https://www.youtube.com/@MemorygraphWeddings" target="_blank" rel="noopener" style="font-family:var(--sans);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,237,224,.4);text-decoration:none;">YouTube</a>
-      <a href="https://www.facebook.com/myjourneyismystory.iamarun" target="_blank" rel="noopener" style="font-family:var(--sans);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,237,224,.4);text-decoration:none;">Facebook</a>
+      <a href="https://www.instagram.com/memorygraph.weddings/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.youtube.com/@MemorygraphWeddings" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/myjourneyismystory.iamarun" target="_blank" rel="noopener">Facebook</a>
     </div>
-    <div class="footer-copy">+91 98462 38073 · memorygraphweddings@gmail.com</div>
+    <div class="footer-copy">+91 98462 38073 &middot; memorygraphweddings@gmail.com</div>
   </div>
 </footer>
 
@@ -303,15 +351,17 @@
   <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 .4C7.4.4.4 7.4.4 16c0 2.84.74 5.62 2.16 8.06L.27 31.6l7.74-2.27C10.36 30.7 13.14 31.5 16 31.5c8.6 0 15.6-7 15.6-15.5C31.6 7.4 24.6.4 16 .4zM16 28.7c-2.5 0-4.96-.66-7.1-1.92l-.5-.3-5.34 1.55 1.6-5.18-.34-.55C2.92 19.92 2.2 18 2.2 16 2.2 8.4 8.4 2.2 16 2.2c7.6 0 13.8 6.2 13.8 13.8 0 7.6-6.2 12.7-13.8 12.7zm7.6-9.8c-.4-.2-2.4-1.18-2.78-1.32-.38-.14-.66-.2-.94.2-.28.4-1.06 1.32-1.3 1.6-.24.28-.48.3-.88.1-.4-.2-1.7-.62-3.24-2-1.2-1.06-2-2.38-2.24-2.78-.24-.4-.02-.62.18-.82.18-.18.4-.46.6-.7.2-.24.26-.4.4-.68.14-.28.06-.52-.04-.72-.1-.2-.92-2.22-1.26-3.04-.34-.8-.68-.7-.94-.72h-.8c-.28 0-.72.1-1.1.5-.38.4-1.44 1.4-1.44 3.42s1.48 3.96 1.68 4.24c.2.28 2.92 4.46 7.08 6.24 1 .42 1.78.68 2.38.88.98.32 1.88.28 2.6.16.78-.12 2.4-.98 2.74-1.92.34-.94.34-1.74.24-1.92-.1-.18-.36-.28-.76-.48z"/></svg>
 </a>
 
+<!-- VENDOR SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1/dist/lenis.min.js"></script>
+
+<!-- SHARED INTERACTIONS -->
+<script src="/assets/js/main.js"></script>
+
+<!-- PAGE-SPECIFIC SCRIPTS -->
 <script>
-  const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-  function ac(){dot.style.left=mx+'px';dot.style.top=my+'px';rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(ac);}ac();
-  document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{ring.style.width='40px';ring.style.height='40px';});el.addEventListener('mouseleave',()=>{ring.style.width='24px';ring.style.height='24px';});});
-  window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
-  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}}),{threshold:.1});
-  document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+  // Filter buttons
   document.querySelectorAll('.filter-btn').forEach(b=>b.addEventListener('click',()=>{
     document.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
     b.classList.add('active');
@@ -330,6 +380,12 @@
       card.style.display = show ? '' : 'none';
     });
   }));
+
+  // Legacy reveal fallback
+  if (!window.gsap) {
+    const obs = new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}}),{threshold:.1});
+    document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+  }
 </script>
 
 <!-- CMS Loader -->

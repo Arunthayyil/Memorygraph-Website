@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Thank you for reaching out to Memorygraph Wedding Studio. We will be in touch within 24 hours."/>
+<title>Thank You | Memorygraph Wedding Studio</title>
+<link rel="canonical" href="https://memorygraphweddings.com/contact/success/"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+<!-- Shared Animation CSS -->
+<link rel="stylesheet" href="/assets/css/animations.css"/>
+
+<style>
+  *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --ivory:    #f4ede0;
+    --ivory-2:  #ece4d4;
+    --ink:      #1a1814;
+    --ink-soft: #3a3530;
+    --teal:     #1d5959;
+    --teal-deep:#0f3838;
+    --gold:     #b8965a;
+    --gold-2:   #d4a96a;
+    --mist:     #8b857a;
+    --line:     rgba(26,24,20,.12);
+    --line-2:   rgba(26,24,20,.06);
+    --serif:    'Cormorant Garamond', Georgia, serif;
+    --sans:     'Jost', sans-serif;
+  }
+  html{scroll-behavior:smooth;}
+  body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-weight:300;overflow-x:hidden;cursor:none;}
+  @media (pointer: coarse) { body { cursor: auto; } .cursor { display: none; } }
+
+  .cursor{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;}
+  .cursor-dot{width:5px;height:5px;background:var(--teal);border-radius:50%;position:absolute;transform:translate(-50%,-50%);mix-blend-mode:difference;}
+  .cursor-ring{width:28px;height:28px;border:1px solid rgba(29,89,89,.4);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s,background .3s;}
+
+  nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:24px 56px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s,background .5s,transform .4s cubic-bezier(.22,1,.36,1);}
+  nav.scrolled{padding:14px 56px;background:rgba(244,237,224,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line-2);}
+  .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);}
+  .nav-wordmark{font-family:var(--serif);font-size:1.15rem;font-weight:500;letter-spacing:.04em;color:var(--ink);line-height:1;}
+  .nav-wordmark small{display:block;font-family:var(--sans);font-size:.55rem;font-weight:400;letter-spacing:.32em;color:var(--mist);margin-top:4px;}
+  .nav-links{display:flex;gap:42px;list-style:none;}
+  .nav-links a{font-family:var(--sans);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:color .3s;position:relative;}
+  .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--teal);transition:width .4s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--teal);}
+  .nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+  .nav-cta{font-family:var(--sans);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;background:var(--teal);color:var(--ivory);padding:11px 26px;text-decoration:none;transition:all .35s;border:1px solid var(--teal);display:inline-block;}
+  .nav-cta:hover{background:var(--teal-deep);border-color:var(--teal-deep);}
+
+  .success-page{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:200px 56px 80px;}
+  .success-inner{max-width:600px;}
+  .success-icon{width:64px;height:64px;border:1px solid var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 32px;color:var(--teal);}
+  .success-icon svg{width:24px;height:24px;}
+  .success-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:300;color:var(--ink);margin-bottom:20px;}
+  .success-title em{font-style:italic;color:var(--teal);}
+  .success-desc{font-family:var(--sans);font-size:.92rem;font-weight:300;color:var(--ink-soft);line-height:1.9;margin-bottom:40px;}
+  .btn-primary{font-family:var(--sans);font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;background:var(--ink);color:var(--ivory);padding:16px 40px;text-decoration:none;transition:all .35s;display:inline-block;border:1px solid var(--ink);}
+  .btn-primary:hover{background:var(--teal);border-color:var(--teal);}
+
+  footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;flex-wrap:wrap;gap:24px;}
+  .footer-brand-text{font-family:var(--serif);font-size:1.2rem;font-weight:500;line-height:1;}
+  .footer-brand-text small{display:block;font-family:var(--sans);font-size:.55rem;letter-spacing:.32em;color:var(--mist);margin-top:5px;}
+  .footer-links-row{display:flex;gap:32px;flex-wrap:wrap;}
+  .footer-links-row a{font-family:var(--sans);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,237,224,.45);text-decoration:none;transition:color .3s;}
+  .footer-links-row a:hover{color:var(--gold);}
+  .footer-bottom{border-top:1px solid rgba(244,237,224,.08);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+  .footer-copy{font-family:var(--sans);font-size:.65rem;color:rgba(244,237,224,.3);}
+
+  @media (max-width:980px){
+    body{cursor:auto;}.cursor{display:none;}
+    nav{padding:16px 20px;}nav.scrolled{padding:12px 20px;}
+    .nav-links{display:none;}
+    .success-page{padding:140px 24px 60px;}
+    footer{padding:40px 24px 28px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">Memorygraph<small>Photographing Memories</small></div>
+  <div class="preloader-line"></div>
+</div>
+
+
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"><div class="cursor-dot" id="cursorDot"></div><div class="cursor-ring" id="cursorRing"></div></div>
+
+<nav id="nav">
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo/logo-dark.png" alt="Memorygraph Wedding Studio" style="height:48px;width:auto;max-width:160px;display:block;"/>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/stories/">Stories</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/investment/">Investment</a></li>
+    <li><a href="/blog/">Journal</a></li>
+  </ul>
+  <a href="/contact/" class="nav-cta">Begin Your Story</a>
+</nav>
+
+<div class="success-page">
+  <div class="success-inner">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg>
+    </div>
+    <h1 class="success-title">Thank you for reaching out.</h1>
+    <p class="success-desc">Your enquiry has been received. We read every message carefully and will be in touch within 24 hours. In the meantime, feel free to browse our <a href="/stories/" style="color:var(--teal);">stories</a> or connect with us on <a href="https://instagram.com/memorygraph.weddings" style="color:var(--teal);" target="_blank" rel="noopener">Instagram</a>.</p>
+    <a href="/" class="btn-primary">Back to Home</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">
+      <img src="/assets/logo/logo-white.png" alt="Memorygraph Wedding Studio" style="height:52px;width:auto;mix-blend-mode:screen;opacity:.9;"/>
+    </a>
+    <div class="footer-links-row">
+      <a href="/">Home</a>
+      <a href="/stories/">Stories</a>
+      <a href="/about/">About</a>
+      <a href="/investment/">Investment</a>
+      <a href="/blog/">Journal</a>
+      <a href="/contact/">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">&copy; {% year %} Memorygraph Wedding Studio &middot; Thrissur, Kerala</div>
+    <div class="footer-copy">+91 98462 38073 &middot; memorygraphweddings@gmail.com</div>
+  </div>
+</footer>
+
+<!-- VENDOR SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1/dist/lenis.min.js"></script>
+
+<!-- SHARED INTERACTIONS -->
+<script src="/assets/js/main.js"></script>
+
+<!-- CMS Loader -->
+<script src="/assets/cms-loader.js"></script>
+</body>
+</html>

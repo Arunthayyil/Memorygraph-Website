@@ -39,8 +39,8 @@
   .nav-cta{font-family:var(--sans);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;background:var(--teal);color:var(--ivory);padding:11px 26px;text-decoration:none;transition:all .35s;border:1px solid var(--teal);}
   .nav-cta:hover{background:var(--teal-deep);}
 
-  .intro{min-height:100vh;display:grid;grid-template-columns:1fr 1.05fr;}
-  .intro-img{position:relative;overflow:hidden;background:linear-gradient(160deg,#d8cfb8 0%,#a89a78 100%);}
+  .intro{display:grid;grid-template-columns:1fr 1.05fr;}
+  .intro-img{position:relative;overflow:hidden;background:linear-gradient(160deg,#d8cfb8 0%,#a89a78 100%);min-height:520px;}
   .intro-img::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(29,89,89,.15) 0%,transparent 60%);}
   .intro-img::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");mix-blend-mode:multiply;}
   .portrait-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;z-index:1;}
@@ -108,7 +108,7 @@
   .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;background:none;max-width:840px;margin:0 auto;}
   .team-card{background:transparent;padding:0;position:relative;text-align:center;opacity:1!important;transform:none!important;}
 
-  .team-img{width:120px;height:120px;border-radius:50%;margin:0 auto 20px;position:relative;overflow:hidden;background:linear-gradient(160deg,#d8cfb8 0%,#b8a98a 100%);}
+  .team-img{width:180px;height:180px;border-radius:50%;margin:0 auto 24px;position:relative;overflow:hidden;background:linear-gradient(160deg,#d8cfb8 0%,#b8a98a 100%);}
 
   .team-img-noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.15'/%3E%3C/svg%3E");mix-blend-mode:multiply;}
   .team-img-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:1;}
@@ -209,6 +209,11 @@
       Arun grew up in Thrissur — his first camera was a gift from his sister, long before he understood what photography could become. After a year working at an MNC in Infopark, Kochi, he resigned, withdrew his PF savings, and bought a professional camera. He spent the next year alone in forests, learning patience and stillness — the two things that turned out to matter most in a wedding. A friend's cousin's wedding in Kottayam confirmed it.
     </p>
 
+    <div style="border-left:2px solid var(--teal);padding:14px 20px;margin:24px 0;background:rgba(29,89,89,.04);">
+      <p style="font-family:var(--sans);font-size:.82rem;font-weight:400;line-height:1.8;color:var(--teal);margin-bottom:6px;">Arun leads every Memorygraph wedding personally — from the first conversation to the final delivered gallery. When you book us, you get him.</p>
+      <p style="font-family:var(--sans);font-size:.82rem;font-weight:300;line-height:1.8;color:var(--ink-soft);">We know when the muhurtham is. We know to step back during the Nischayam. Kerala weddings are our weddings — nothing needs explaining, and nothing will be missed.</p>
+    </div>
+
     <button class="story-toggle" id="storyToggle" onclick="toggleStory()">
       Read the full story
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
@@ -230,57 +235,6 @@
       <div class="stat"><strong>6</strong><span>Years as Memorygraph</span></div>
       <div class="stat"><strong>Kerala &amp; Beyond</strong><span>Coverage Area</span></div>
     </div>
-  </div>
-</div>
-
-<!-- TEAM -->
-<div class="team">
-  <div class="team-header">
-    <div class="section-label reveal center">The Team</div>
-    <h2 class="section-title-c reveal reveal-d1">The people<br>in the <em>room.</em></h2>
-    <p class="reveal reveal-d2">Every Memorygraph wedding is covered by this team and this team only. No outsourced shooters, no day-of surprises. These are the people who will be in the room with you on your wedding day. Each of them has been part of this work for years. They know the rituals, they read a room quickly, and they know when to move and when to disappear. You'll be introduced to them before the day — no strangers with cameras.</p>
-  </div>
-  <div class="team-grid">
-
-    <!-- JAYADEVAN -->
-    <div class="team-card gsap-reveal">
-      <div class="team-img">
-        <div class="team-img-noise"></div>
-<img src="/assets/team/jayadevan.jpg" alt="Jayadevan Nambothiri" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;"/>
-      </div>
-      <div class="team-info">
-        <div class="team-role">Photographer</div>
-        <div class="team-name">Jayadevan Nambothiri</div>
-        <p class="team-bio">A photographer with a quiet, observational eye — the kind that finds something worth keeping in the corners of a room while everyone else is looking at the centre. Works seamlessly alongside Arun so couples never feel like there are two cameras.</p>
-      </div>
-    </div>
-
-    <!-- ABIN -->
-    <div class="team-card gsap-reveal">
-      <div class="team-img">
-        <div class="team-img-noise"></div>
-<img src="/assets/team/abin.jpg" alt="Abin Varghese" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;"/>
-      </div>
-      <div class="team-info">
-        <div class="team-role">Cinematographer</div>
-        <div class="team-name">Abin Varghese</div>
-        <p class="team-bio">Brings a cinematic sensibility to every frame of motion — someone who thinks in terms of story arc and emotional rhythm, not just coverage. The wedding films he shapes are designed to be watched again and again, not just once.</p>
-      </div>
-    </div>
-
-    <!-- SABARI -->
-    <div class="team-card gsap-reveal">
-      <div class="team-img">
-        <div class="team-img-noise"></div>
-<img src="/assets/team/sabari.jpg" alt="Sabari" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;"/>
-      </div>
-      <div class="team-info">
-        <div class="team-role">Cinematographer</div>
-        <div class="team-name">Sabari</div>
-        <p class="team-bio">Sabari is the person in the room you never quite notice — which is exactly the point. He moves through a wedding with an ease that keeps the energy undisturbed, and his eye for the small, fleeting moments is the reason our films feel like they were lived rather than filmed.</p>
-      </div>
-    </div>
-
   </div>
 </div>
 
@@ -318,6 +272,57 @@
   </div>
 </div>
 
+<!-- TEAM -->
+<div class="team">
+  <div class="team-header">
+    <div class="section-label reveal center">The Team</div>
+    <h2 class="section-title-c reveal reveal-d1">The people<br>in the <em>room.</em></h2>
+    <p class="reveal reveal-d2">Every Memorygraph wedding is covered by this team and this team only. No outsourced shooters, no day-of surprises. These are the people who will be in the room with you on your wedding day. Each of them has been part of this work for years. They know the rituals, they read a room quickly, and they know when to move and when to disappear. You'll be introduced to them before the day — no strangers with cameras.</p>
+  </div>
+  <div class="team-grid">
+
+    <!-- JAYADEVAN -->
+    <div class="team-card">
+      <div class="team-img">
+        <div class="team-img-noise"></div>
+<img src="/assets/team/jayadevan.jpg" alt="Jayadevan Nambothiri" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;"/>
+      </div>
+      <div class="team-info">
+        <div class="team-role">Photographer</div>
+        <div class="team-name">Jayadevan Nambothiri</div>
+        <p class="team-bio">A quiet, observational photographer who finds the real moments in the corners of a room while everyone else is looking at the centre.</p>
+      </div>
+    </div>
+
+    <!-- ABIN -->
+    <div class="team-card">
+      <div class="team-img">
+        <div class="team-img-noise"></div>
+<img src="/assets/team/abin.jpg" alt="Abin Varghese" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;"/>
+      </div>
+      <div class="team-info">
+        <div class="team-role">Cinematographer</div>
+        <div class="team-name">Abin Varghese</div>
+        <p class="team-bio">Shapes wedding films around story arc and emotional rhythm — designed to be watched again and again, not just once.</p>
+      </div>
+    </div>
+
+    <!-- SABARI -->
+    <div class="team-card">
+      <div class="team-img">
+        <div class="team-img-noise"></div>
+<img src="/assets/team/sabari.jpg" alt="Sabari" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;"/>
+      </div>
+      <div class="team-info">
+        <div class="team-role">Cinematographer</div>
+        <div class="team-name">Sabari</div>
+        <p class="team-bio">The person in the room you never notice — which is exactly the point. His eye for small, fleeting moments is why our films feel lived rather than filmed.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <!-- JOURNEY -->
 <div class="journey">
   <div class="journey-header">
@@ -345,15 +350,18 @@
       <div class="tl-title">Memorygraph</div>
       <p class="tl-text">Founded with one principle: only work we're genuinely proud of, with couples we genuinely connect with. Small by design. The early supporters who believed before the portfolio existed — they built this with us.</p>
     </div>
-    <div class="timeline-item reveal reveal-d1">
-      <div class="tl-year">2022 · Cinema</div>
-      <div class="tl-title">Adding Motion to Memory</div>
-      <p class="tl-text">Brought cinematography fully in-house. Wedding films built the way we'd want to watch them — real story arcs, real silences, real voices. The first one we made, we watched back four times before delivering.</p>
-    </div>
-    <div class="timeline-item reveal reveal-d2">
-      <div class="tl-year">Now · 2026</div>
-      <div class="tl-title">Quietly Devoted</div>
-      <p class="tl-text">A small team. A focused calendar. Every couple given our full attention from first call to final delivery. Not trying to grow bigger. Trying to do this better.</p>
+
+  </div>
+</div>
+
+<!-- TESTIMONIAL -->
+<div style="background:var(--ivory);padding:60px 56px;border-top:1px solid var(--line-2);">
+  <div style="max-width:720px;margin:0 auto;text-align:center;">
+    <blockquote style="font-family:var(--serif);font-size:clamp(1.3rem,2.2vw,1.7rem);font-weight:300;font-style:italic;line-height:1.7;color:var(--ink);margin-bottom:28px;">"We were nervous about having a photographer at the Nischayam — it felt intrusive. Arun arrived early, introduced himself to my mother in Malayalam, and disappeared into the room. By the hour we'd forgotten he was there."</blockquote>
+    <div style="display:flex;align-items:center;justify-content:center;gap:16px;">
+      <div style="width:32px;height:1px;background:var(--gold);"></div>
+      <span style="font-family:var(--sans);font-size:.65rem;letter-spacing:.28em;text-transform:uppercase;color:var(--mist);">Gayathry — married Abhin at Vadakkumnathan Temple, Thrissur</span>
+      <div style="width:32px;height:1px;background:var(--gold);"></div>
     </div>
   </div>
 </div>

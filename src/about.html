@@ -71,7 +71,7 @@
   .stat strong{display:block;font-family:var(--serif);font-size:2.6rem;font-weight:300;color:var(--teal);line-height:1;}
   .stat span{font-family:var(--sans);font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mist);}
 
-  .philosophy{padding:140px 56px;background:var(--ivory-2);}
+  .philosophy{padding:80px 56px;background:var(--ivory-2);}
   .philo-grid{display:grid;grid-template-columns:1fr 1fr;gap:120px;align-items:center;}
   .section-label{font-family:var(--sans);font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;color:var(--teal);margin-bottom:24px;display:flex;align-items:center;gap:14px;}
   .section-label::before{content:'';width:30px;height:1px;background:var(--teal);}
@@ -89,8 +89,8 @@
   .pillar-title{font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--ink);margin-bottom:10px;}
   .pillar-desc{font-family:var(--sans);font-size:.9rem;font-weight:300;line-height:1.9;color:var(--ink-soft);}
 
-  .journey{padding:140px 56px;background:var(--ivory);}
-  .journey-header{text-align:center;max-width:700px;margin:0 auto 80px;}
+  .journey{padding:80px 56px;background:var(--ivory);}
+  .journey-header{text-align:center;max-width:700px;margin:0 auto 48px;}
   .section-title-c{font-family:var(--serif);font-size:clamp(2.4rem,4vw,4rem);font-weight:300;line-height:1.15;color:var(--ink);}
   .section-title-c em{font-style:italic;color:var(--teal);}
   .timeline{max-width:880px;margin:0 auto;position:relative;padding-left:32px;}
@@ -102,24 +102,24 @@
   .tl-text{font-family:var(--sans);font-size:.94rem;font-weight:300;line-height:1.9;color:var(--ink-soft);}
 
   /* TEAM */
-  .team{padding:140px 56px;background:var(--ivory-2);}
-  .team-header{text-align:center;max-width:700px;margin:0 auto 80px;}
+  .team{padding:80px 56px 60px;background:var(--ivory-2);}
+  .team-header{text-align:center;max-width:700px;margin:0 auto 48px;}
   .team-header p{font-family:var(--sans);font-size:.95rem;font-weight:300;line-height:1.9;color:var(--ink-soft);margin-top:24px;}
-  .team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);}
-  .team-card{background:var(--ivory-2);padding:0 0 40px;position:relative;overflow:hidden;transition:background .4s;opacity:1!important;transform:none!important;}
-  .team-card:hover{background:var(--ivory);}
-  .team-img{width:100%;padding-bottom:55%;position:relative;overflow:hidden;background:linear-gradient(160deg,#d8cfb8 0%,#b8a98a 100%);}
-  .team-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(244,237,224,.8) 100%);}
+  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;background:none;max-width:840px;margin:0 auto;}
+  .team-card{background:transparent;padding:0;position:relative;text-align:center;opacity:1!important;transform:none!important;}
+
+  .team-img{width:120px;height:120px;border-radius:50%;margin:0 auto 20px;position:relative;overflow:hidden;background:linear-gradient(160deg,#d8cfb8 0%,#b8a98a 100%);}
+
   .team-img-noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.15'/%3E%3C/svg%3E");mix-blend-mode:multiply;}
   .team-img-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:1;}
   .team-img-ph svg{opacity:.18;}
-  .team-info{padding:28px 32px 0;}
+  .team-info{padding:0;}
   .team-role{font-family:var(--sans);font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
-  .team-name{font-family:var(--serif);font-size:1.5rem;font-weight:400;color:var(--ink);margin-bottom:12px;}
-  .team-bio{font-family:var(--sans);font-size:.88rem;font-weight:300;line-height:1.85;color:var(--ink-soft);}
-  .team-lead-badge{position:absolute;top:20px;left:20px;z-index:3;background:var(--teal);color:var(--ivory);font-family:var(--sans);font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;padding:6px 12px;}
+  .team-name{font-family:var(--serif);font-size:1.2rem;font-weight:400;color:var(--ink);margin-bottom:8px;}
+  .team-bio{font-family:var(--sans);font-size:.82rem;font-weight:300;line-height:1.8;color:var(--ink-soft);}
 
-  .cta-strip{padding:140px 56px;text-align:center;background:linear-gradient(160deg,var(--teal-deep) 0%,var(--teal) 100%);color:var(--ivory);position:relative;overflow:hidden;}
+
+  .cta-strip{padding:80px 56px;text-align:center;background:linear-gradient(160deg,var(--teal-deep) 0%,var(--teal) 100%);color:var(--ivory);position:relative;overflow:hidden;}
   .cta-strip::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(184,150,90,.1) 0%,transparent 60%);}
   .cs-title{font-family:var(--serif);font-size:clamp(2.4rem,4.5vw,4.5rem);font-weight:300;line-height:1.1;margin-bottom:20px;position:relative;z-index:1;}
   .cs-title em{font-style:italic;color:var(--gold-2);}
@@ -153,9 +153,9 @@
     .intro{grid-template-columns:1fr;}
     .intro-img{min-height:60vh;}
     .intro-content{padding:80px 24px;}
-    .philosophy,.journey,.team,.cta-strip{padding:80px 20px;}
+    .philosophy,.journey,.cta-strip{padding:60px 24px;}.team{padding:60px 24px;}
     .philo-grid{grid-template-columns:1fr;gap:48px;}
-    .team-grid{grid-template-columns:1fr 1fr;}
+    .team-grid{grid-template-columns:repeat(3,1fr);gap:32px;}
     .timeline{padding-left:24px;}
     .intro-stats{gap:24px;flex-wrap:wrap;}
     footer{padding:40px 24px 28px;}
@@ -190,20 +190,14 @@
 <!-- INTRO -->
 <div class="intro">
   <div class="intro-img">
-    <div class="portrait-ph">
-      <div class="pp-ring">
-        <svg width="48" height="48" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/><path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/></svg>
-      </div>
-      <div class="pp-label">Arun's portrait goes here</div>
-    </div>
     <div class="intro-deco">A.</div>
-    <!--
-      TO ADD PORTRAIT:
-      1. Upload arun-portrait.jpg to assets/team/
-      2. Add this inside .intro-img (replaces the .portrait-ph div):
-         <img src="assets/team/arun-portrait.jpg" alt="Arun T Chandran"
-              style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;"/>
-    -->
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <img src="/assets/team/arun.jpg" alt="Arun T Chandran"
+             style="width:180px;height:180px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid rgba(244,237,224,.25);box-shadow:0 12px 48px rgba(26,24,20,.25);"/>
+        <span style="font-family:var(--sans);font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(26,24,20,.4);">Arun T Chandran</span>
+      </div>
+    </div>
   </div>
   <div class="intro-content">
     <h1 class="intro-name">Arun T<br><em>Chandran</em></h1>
@@ -243,36 +237,16 @@
 <div class="team">
   <div class="team-header">
     <div class="section-label reveal center">The Team</div>
-    <h2 class="section-title-c reveal reveal-d1">Four people.<br>One <em>standard.</em></h2>
+    <h2 class="section-title-c reveal reveal-d1">The people<br>in the <em>room.</em></h2>
     <p class="reveal reveal-d2">Every Memorygraph wedding is covered by this team and this team only. No outsourced shooters, no day-of surprises. These are the people who will be in the room with you on your wedding day. Each of them has been part of this work for years. They know the rituals, they read a room quickly, and they know when to move and when to disappear. You'll be introduced to them before the day — no strangers with cameras.</p>
   </div>
   <div class="team-grid">
-
-    <!-- ARUN -->
-    <div class="team-card gsap-reveal">
-      <div class="team-lead-badge">Lead</div>
-      <div class="team-img">
-        <div class="team-img-noise"></div>
-        <div class="team-img-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;">
-          <svg width="60" height="60" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/><path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/></svg>
-        </div>
-        <img src="/assets/team/arun.jpg" alt="Arun T Chandran" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:1;"/>
-      </div>
-      <div class="team-info">
-        <div class="team-role">Founder · Photographer</div>
-        <div class="team-name">Arun T Chandran</div>
-        <p class="team-bio">Leads every Memorygraph wedding personally — from the first conversation to the final delivered image. His approach is patient, documentary, and deeply attentive to the in-between moments that most photographers miss.</p>
-      </div>
-    </div>
 
     <!-- JAYADEVAN -->
     <div class="team-card gsap-reveal">
       <div class="team-img">
         <div class="team-img-noise"></div>
-        <div class="team-img-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;">
-          <svg width="60" height="60" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/><path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/></svg>
-        </div>
-        <img src="/assets/team/jayadevan.jpg" alt="Jayadevan Nambothiri" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:1;"/>
+<img src="/assets/team/jayadevan.jpg" alt="Jayadevan Nambothiri" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;"/>
       </div>
       <div class="team-info">
         <div class="team-role">Photographer</div>
@@ -285,10 +259,7 @@
     <div class="team-card gsap-reveal">
       <div class="team-img">
         <div class="team-img-noise"></div>
-        <div class="team-img-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;">
-          <svg width="60" height="60" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/><path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/></svg>
-        </div>
-        <img src="/assets/team/abin.jpg" alt="Abin Varghese" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:1;"/>
+<img src="/assets/team/abin.jpg" alt="Abin Varghese" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;"/>
       </div>
       <div class="team-info">
         <div class="team-role">Cinematographer</div>
@@ -301,10 +272,7 @@
     <div class="team-card gsap-reveal">
       <div class="team-img">
         <div class="team-img-noise"></div>
-        <div class="team-img-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;">
-          <svg width="60" height="60" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/><path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/></svg>
-        </div>
-        <img src="/assets/team/sabari.jpg" alt="Sabari" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:1;"/>
+<img src="/assets/team/sabari.jpg" alt="Sabari" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;"/>
       </div>
       <div class="team-info">
         <div class="team-role">Cinematographer</div>
@@ -314,7 +282,6 @@
     </div>
 
   </div>
-</div>
 </div>
 
 <!-- PHILOSOPHY -->

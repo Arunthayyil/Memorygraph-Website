@@ -106,7 +106,7 @@
   .team-header{text-align:center;max-width:700px;margin:0 auto 80px;}
   .team-header p{font-family:var(--sans);font-size:.95rem;font-weight:300;line-height:1.9;color:var(--ink-soft);margin-top:24px;}
   .team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);}
-  .team-card{background:var(--ivory-2);padding:0 0 40px;position:relative;overflow:hidden;transition:background .4s;}
+  .team-card{background:var(--ivory-2);padding:0 0 40px;position:relative;overflow:hidden;transition:background .4s;opacity:1!important;transform:none!important;}
   .team-card:hover{background:var(--ivory);}
   .team-img{width:100%;padding-bottom:55%;position:relative;overflow:hidden;background:linear-gradient(160deg,#d8cfb8 0%,#b8a98a 100%);}
   .team-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(244,237,224,.8) 100%);}
@@ -192,10 +192,7 @@
   <div class="intro-img">
     <div class="portrait-ph">
       <div class="pp-ring">
-        <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
-          <circle cx="50" cy="38" r="22" stroke="#1a1814" stroke-width="1.5"/>
-          <path d="M12 92c0-21 17-38 38-38s38 17 38 38" stroke="#1a1814" stroke-width="1.5"/>
-        </svg>
+        <svg width="48" height="48" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/><path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/></svg>
       </div>
       <div class="pp-label">Arun's portrait goes here</div>
     </div>
@@ -252,19 +249,14 @@
   <div class="team-grid">
 
     <!-- ARUN -->
-    <div class="team-card reveal">
+    <div class="team-card gsap-reveal">
       <div class="team-lead-badge">Lead</div>
       <div class="team-img">
         <div class="team-img-noise"></div>
-        <div class="team-img-ph">
-          <svg width="72" height="72" viewBox="0 0 80 80" fill="none">
-            <circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/>
-            <path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/>
-          </svg>
+        <div class="team-img-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;">
+          <svg width="60" height="60" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/><path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/></svg>
         </div>
-        <!-- ADD PORTRAIT: replace .team-img-ph with:
-          <img src="/assets/team/arun.jpg" alt="Arun T Chandran"
-               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"/> -->
+        <img src="/assets/team/arun.jpg" alt="Arun T Chandran" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:1;"/>
       </div>
       <div class="team-info">
         <div class="team-role">Founder · Photographer</div>
@@ -274,18 +266,13 @@
     </div>
 
     <!-- JAYADEVAN -->
-    <div class="team-card reveal reveal-d1">
+    <div class="team-card gsap-reveal">
       <div class="team-img">
         <div class="team-img-noise"></div>
-        <div class="team-img-ph">
-          <svg width="72" height="72" viewBox="0 0 80 80" fill="none">
-            <circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/>
-            <path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/>
-          </svg>
+        <div class="team-img-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;">
+          <svg width="60" height="60" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/><path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/></svg>
         </div>
-        <!-- ADD PORTRAIT: replace .team-img-ph with:
-          <img src="/assets/team/jayadevan.jpg" alt="Jayadevan Nambothiri"
-               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"/> -->
+        <img src="/assets/team/jayadevan.jpg" alt="Jayadevan Nambothiri" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:1;"/>
       </div>
       <div class="team-info">
         <div class="team-role">Photographer</div>
@@ -295,18 +282,13 @@
     </div>
 
     <!-- ABIN -->
-    <div class="team-card reveal reveal-d1">
+    <div class="team-card gsap-reveal">
       <div class="team-img">
         <div class="team-img-noise"></div>
-        <div class="team-img-ph">
-          <svg width="72" height="72" viewBox="0 0 80 80" fill="none">
-            <circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/>
-            <path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/>
-          </svg>
+        <div class="team-img-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;">
+          <svg width="60" height="60" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/><path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/></svg>
         </div>
-        <!-- ADD PORTRAIT: replace .team-img-ph with:
-          <img src="/assets/team/abin.jpg" alt="Abin Varghese"
-               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"/> -->
+        <img src="/assets/team/abin.jpg" alt="Abin Varghese" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:1;"/>
       </div>
       <div class="team-info">
         <div class="team-role">Cinematographer</div>
@@ -316,18 +298,13 @@
     </div>
 
     <!-- SABARI -->
-    <div class="team-card reveal reveal-d2">
+    <div class="team-card gsap-reveal">
       <div class="team-img">
         <div class="team-img-noise"></div>
-        <div class="team-img-ph">
-          <svg width="72" height="72" viewBox="0 0 80 80" fill="none">
-            <circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/>
-            <path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/>
-          </svg>
+        <div class="team-img-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;">
+          <svg width="60" height="60" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#1a1814" stroke-width="1"/><path d="M14 70c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#1a1814" stroke-width="1"/></svg>
         </div>
-        <!-- ADD PORTRAIT: replace .team-img-ph with:
-          <img src="/assets/team/sabari.jpg" alt="Sabari"
-               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"/> -->
+        <img src="/assets/team/sabari.jpg" alt="Sabari" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:1;"/>
       </div>
       <div class="team-info">
         <div class="team-role">Cinematographer</div>
@@ -337,6 +314,7 @@
     </div>
 
   </div>
+</div>
 </div>
 
 <!-- PHILOSOPHY -->

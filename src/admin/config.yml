@@ -3,56 +3,56 @@ backend:
   repo: Arunthayyil/Memorygraph-Website
   branch: main
   base_url: https://memorygraphweddings.com
-  auth_endpoint: api/auth
+  auth_endpoint: /api/auth
 
-media_folder: "src/assets/stories"
-public_folder: "/assets/stories"
+media_folder: "src/assets/uploads"
+public_folder: "/assets/uploads"
 
 collections:
-
   - name: "stories"
     label: "Wedding Stories"
     folder: "src/content/stories"
     create: true
     slug: "{{slug}}"
-    format: "frontmatter"
     fields:
-      - { label: "Title (e.g. Abhin & Gayathry)", name: "title", widget: "string" }
-      - { label: "Full Location", name: "location", widget: "string", hint: "e.g. Vadakkumnathan Temple, Thrissur" }
-      - { label: "Short Location", name: "location_short", widget: "string", hint: "e.g. Thrissur" }
-      - { label: "Wedding Date", name: "date", widget: "datetime" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Location Short", name: "location_short", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
       - { label: "Hero Image", name: "hero", widget: "image" }
-      - { label: "Couple Quote", name: "quote", widget: "text", hint: "A quote from the couple about the experience" }
-      - { label: "Quote By", name: "quote_by", widget: "string", hint: "e.g. Gayathry, the bride", required: false }
-      - { label: "Chapter Title", name: "chapter_title", widget: "string", hint: "e.g. A morning of quiet light.", required: false }
-      - { label: "Wedding Film URL", name: "film_url", widget: "string", hint: "YouTube embed URL e.g. https://www.youtube.com/embed/VIDEO_ID", required: false }
-      - { label: "Images Delivered", name: "stat_images", widget: "string", hint: "e.g. 840", required: false }
-      - { label: "Hours of Coverage", name: "stat_hours", widget: "string", hint: "e.g. 12", required: false }
-      - { label: "No. of Photographers", name: "stat_photographers", widget: "string", hint: "e.g. 2", required: false }
-      - label: "Gallery"
-        name: "gallery"
-        widget: "list"
-        required: false
-        fields:
-          - { label: "Layout", name: "layout", widget: "select", options: ["full", "two", "three", "asym-l", "asym-r", "quote"] }
-          - { label: "Images", name: "images", widget: "list", field: { label: "Image", name: "image", widget: "image" }, required: false }
-          - { label: "Quote Text (for quote layout only)", name: "text", widget: "text", required: false }
-      - label: "Album Spreads (optional)"
-        name: "album_spreads"
-        widget: "list"
-        required: false
-        hint: "Add 2-4 spread photos to show the Heirloom Album from this wedding"
-        field: { label: "Spread Image", name: "image", widget: "image" }
-      - { label: "Story Body", name: "body", widget: "markdown" }
+      - { label: "Quote", name: "quote", widget: "text" }
+      - { label: "Quote By", name: "quote_by", widget: "string", required: false }
+      - { label: "Chapter Title", name: "chapter_title", widget: "string", required: false }
+      - { label: "Film URL", name: "film_url", widget: "string", required: false }
+      - { label: "Stat Images", name: "stat_images", widget: "string", required: false }
+      - { label: "Stat Hours", name: "stat_hours", widget: "string", required: false }
+      - { label: "Stat Photographers", name: "stat_photographers", widget: "string", required: false }
+      - { label: "Gallery", name: "gallery", widget: "list", field: { name: "row", widget: "object", fields: [
+          { label: "Layout", name: "layout", widget: "select", options: ["full", "two", "three", "asym-l", "asym-r", "quote"] },
+          { label: "Images", name: "images", widget: "list", field: { widget: "image" }, required: false },
+          { label: "Text", name: "text", widget: "text", required: false }
+        ]}}
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Layout", name: "layout", widget: "hidden", default: "story.njk" }
 
   - name: "testimonials"
     label: "Testimonials"
     folder: "src/content/testimonials"
     create: true
     slug: "{{slug}}"
-    format: "frontmatter"
     fields:
-      - { label: "Couple Name", name: "title", widget: "string", hint: "e.g. Anjali & Vivek" }
-      - { label: "Location", name: "location", widget: "string", hint: "e.g. Thrissur, 2024" }
-      - { label: "Testimonial", name: "quote", widget: "text" }
-      - { label: "Order (lower = appears first)", name: "order", widget: "number", default: 10, required: false }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Order", name: "order", widget: "number", value_type: "int" }
+      - { label: "Quote", name: "quote", widget: "text" }
+
+  - name: "blog"
+    label: "Journal"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Hero Image", name: "hero", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }

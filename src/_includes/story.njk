@@ -542,6 +542,12 @@
     .story-hero-content { padding: 0 24px 60px; }
     .story-hero-scroll { display: none; }
     .story-intro, .story-narrative, .story-film, .story-cta { padding-left: 24px; padding-right: 24px; }
+    .story-intro { padding-top: 64px; padding-bottom: 64px; }
+    .story-narrative { padding-bottom: 72px; }
+    .story-film { padding-top: 64px; padding-bottom: 64px; }
+    .story-gallery { padding-top: 64px; padding-bottom: 32px; }
+    .gallery-quote { padding: 56px 24px; }
+    .story-cta { padding-top: 72px; padding-bottom: 72px; }
     .gallery-eyebrow-wrap { padding: 0 24px; }
     .gallery-row.three { grid-template-columns: 1fr 1fr; }
     .gallery-row.asym-l, .gallery-row.asym-r { grid-template-columns: 1fr; }
@@ -853,7 +859,7 @@
   if(storyNavEl){
     window.addEventListener('scroll', function(){
       const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-      storyNavEl.classList.toggle('visible', pct > 0.25);
+      storyNavEl.classList.toggle('visible', pct > 0.85);
     }, {passive:true});
   }
 

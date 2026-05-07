@@ -740,12 +740,42 @@
     /* ── PROCESS TIMELINE SECTION ── */
     .process-tl-section{background:var(--ivory-2);border-top:1px solid var(--line-2);padding:140px 56px;}
     .process-tl-header{max-width:700px;margin-bottom:100px;}
+    .delivery-experience{padding:130px 56px;background:var(--ink);color:var(--ivory);display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:center;overflow:hidden;}
+    .delivery-copy{max-width:620px;}
+    .delivery-copy .section-title{color:var(--ivory);}
+    .delivery-copy .section-title em{color:var(--gold-2);}
+    .delivery-text{font-family:var(--sans);font-size:.92rem;font-weight:300;line-height:1.9;color:rgba(244,237,224,.68);margin:28px 0 40px;}
+    .delivery-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
+    .delivery-outline{font-family:var(--sans);font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-2);text-decoration:none;border:1px solid rgba(212,169,106,.48);padding:14px 28px;transition:all .3s;}
+    .delivery-outline:hover{background:var(--gold);color:var(--teal-deep);border-color:var(--gold);}
+    .delivery-demo{position:relative;min-height:520px;}
+    .delivery-window{position:absolute;inset:0;background:var(--ivory);padding:18px;box-shadow:0 34px 80px rgba(0,0,0,.25);}
+    .delivery-window-bar{height:38px;display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--line-2);margin-bottom:18px;}
+    .delivery-window-bar span{width:8px;height:8px;border-radius:50%;background:var(--gold);}
+    .delivery-grid-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px;height:calc(100% - 56px);}
+    .delivery-grid-preview div{background-size:cover;background-position:center;min-height:130px;}
+    .delivery-grid-preview div:first-child{grid-row:span 2;background-image:url('/assets/stories/abhin-gayathry/01.jpg');}
+    .delivery-grid-preview div:nth-child(2){background-image:url('/assets/stories/abhin-gayathry/08.jpg');}
+    .delivery-grid-preview div:nth-child(3){background-image:url('/assets/stories/abhin-gayathry/05.jpg');}
+    .delivery-grid-preview div:nth-child(4){grid-column:span 2;background-image:url('/assets/stories/abhin-gayathry/11.jpg');}
+    .delivery-phone{position:absolute;right:-28px;bottom:-32px;width:190px;height:330px;background:var(--ink);border:10px solid #0c0b09;box-shadow:0 24px 60px rgba(0,0,0,.28);padding:12px;}
+    .delivery-phone-img{height:100%;background:url('/assets/stories/abhin-gayathry/02.jpg') center/cover;}
+    .delivery-chip{position:absolute;left:-30px;bottom:50px;background:var(--gold);color:var(--teal-deep);padding:18px 22px;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;box-shadow:0 18px 45px rgba(0,0,0,.22);}
+    .delivery-features{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(244,237,224,.12);margin-top:58px;grid-column:1/-1;}
+    .delivery-feature{background:var(--ink);padding:28px 26px;}
+    .delivery-feature h3{font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--gold-2);margin-bottom:8px;}
+    .delivery-feature p{font-family:var(--sans);font-size:.82rem;line-height:1.8;color:rgba(244,237,224,.62);}
     @media(max-width:980px){
       .moments-header{padding:60px 24px 36px;flex-direction:column;align-items:flex-start;gap:12px;}
       .moments-slide{padding-bottom:65%;}
       .moments-caption{left:24px;}
       .moments-dots{padding:20px 24px 48px;}
       .process-tl-section{padding:80px 24px;}
+      .delivery-experience{grid-template-columns:1fr;padding:80px 24px;gap:48px;}
+      .delivery-demo{min-height:420px;}
+      .delivery-phone{right:8px;width:150px;height:260px;}
+      .delivery-chip{left:0;bottom:26px;}
+      .delivery-features{grid-template-columns:1fr;}
     }
   </style>
 </head>
@@ -1046,7 +1076,35 @@
   <div style="text-align:center;margin-top:80px;" class="reveal">
     <a href="/investment/" style="font-family:var(--sans);font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(29,89,89,.25);padding-bottom:5px;">See our collections &rarr;</a>
   </div>
-</div><!-- CTA -->
+</div>
+
+<!-- DELIVERY EXPERIENCE -->
+<section class="delivery-experience">
+  <div class="delivery-copy">
+    <div class="section-label reveal">Delivery Experience</div>
+    <h2 class="section-title reveal reveal-d1">Your story, delivered<br><em>beautifully.</em></h2>
+    <p class="delivery-text reveal reveal-d2">After the edit, your photographs arrive in a private online gallery built for viewing, sharing, downloading, and choosing album favorites. No confusing folders. No lost links. Just your photographs, films, and selections kept in one quiet place.</p>
+    <div class="delivery-actions reveal reveal-d3">
+      <a href="/client-gallery/" class="delivery-outline">View Gallery Demo</a>
+      <a href="/contact/" class="delivery-outline">Ask About Delivery</a>
+    </div>
+  </div>
+  <div class="delivery-demo reveal reveal-d2" aria-hidden="true">
+    <div class="delivery-window">
+      <div class="delivery-window-bar"><span></span><span></span><span></span></div>
+      <div class="delivery-grid-preview">
+        <div></div><div></div><div></div><div></div>
+      </div>
+    </div>
+    <div class="delivery-phone"><div class="delivery-phone-img"></div></div>
+    <div class="delivery-chip">Album Picks Saved</div>
+  </div>
+  <div class="delivery-features reveal">
+    <div class="delivery-feature"><h3>Private Gallery</h3><p>Password protected access for the couple and family, arranged with the same care as the photographs themselves.</p></div>
+    <div class="delivery-feature"><h3>Album Selection</h3><p>Choose the frames you want printed, add notes for the design, and send the final shortlist back to us.</p></div>
+    <div class="delivery-feature"><h3>Easy Sharing</h3><p>One clean link for photographs, films, downloads, favorites, and the pieces your family will keep returning to.</p></div>
+  </div>
+</section><!-- CTA -->
 <section class="cta-banner" id="contact">
   <div class="cta-deco"></div>
   <div class="cta-deco2"></div>

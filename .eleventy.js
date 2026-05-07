@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require("path");
+
 module.exports = function(eleventyConfig) {
 
   // Copy static folders
@@ -37,6 +40,46 @@ module.exports = function(eleventyConfig) {
     return collectionApi
       .getFilteredByGlob("src/content/blog/*.md")
       .sort((a, b) => b.date - a.date);
+  });
+
+  // Client gallery collection
+  eleventyConfig.addCollection("clientGalleries", function(collectionApi) {
+    return collectionApi
+      .getFilteredByGlob("src/content/client-galleries/*.md")
+      .sort((a, b) => (a.data.title || "").localeCompare(b.data.title || ""));
+  });
+
+  // JSON filter for passing CMS gallery data to frontend scripts
+  eleventyConfig.addFilter("json", function(value) {
+    return JSON.stringify(value || null);
+  });
+
+  // Expands a client gallery folder into image items, then merges CMS quote/image blocks.
+  eleventyConfig.addFilter("clientGalleryItems", function(manualItems, galleryFolder) {
+    const items = [];
+    const supported = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
+    if (galleryFolder) {
+      const publicFolder = String(galleryFolder).replace(/\\/g, "/").replace(/^\/+/, "");
+      const sourceFolder = path.join("src", publicFolder);
+      if (fs.existsSync(sourceFolder) && fs.statSync(sourceFolder).isDirectory()) {
+        fs.readdirSync(sourceFolder)
+          .filter(file => supported.has(path.extname(file).toLowerCase()))
+          .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }))
+          .forEach((file, index) => {
+            const parsed = path.parse(file).name;
+            const displayName = parsed.replace(/^\d+[-_\s]*/, "").replace(/[-_]+/g, " ").trim() || `Image ${index + 1}`;
+            items.push({
+              item_type: "image",
+              image: `/${publicFolder}/${file}`,
+              image_code: `MG-${String(index + 1).padStart(3, "0")}`,
+              image_name: displayName.replace(/\b\w/g, char => char.toUpperCase()),
+              category: "Gallery",
+              caption: ""
+            });
+          });
+      }
+    }
+    return items.concat(Array.isArray(manualItems) ? manualItems : []);
   });
 
   // absoluteUrl filter — story.njk OG image meta

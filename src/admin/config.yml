@@ -35,6 +35,42 @@ collections:
       - { label: "Body", name: "body", widget: "markdown" }
       - { label: "Layout", name: "layout", widget: "hidden", default: "story.njk" }
 
+  - name: "client_galleries"
+    label: "Client Galleries"
+    folder: "src/content/client-galleries"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    fields:
+      - { label: "Client / Couple Name", name: "title", widget: "string" }
+      - { label: "Display Name", name: "couple_names", widget: "string", required: false }
+      - { label: "Gallery Password", name: "password", widget: "string" }
+      - { label: "Layout", name: "layout", widget: "hidden", default: "client-gallery.njk" }
+      - { label: "Hero Title", name: "hero_title", widget: "string", default: "Wedding gallery<br><em>delivery.</em>", hint: "HTML line breaks and <em> are supported." }
+      - { label: "Intro", name: "intro", widget: "text" }
+      - { label: "Selection Title", name: "selection_title", widget: "string", default: "Select the frames<br><em>you want printed.</em>" }
+      - { label: "Selection Note", name: "selection_note", widget: "text" }
+      - { label: "Hero Image", name: "hero_image", widget: "image" }
+      - { label: "Secondary Hero Image", name: "hero_image_secondary", widget: "image", required: false }
+      - { label: "Password Screen Image", name: "lock_image", widget: "image", required: false }
+      - { label: "Film Quality Label", name: "film_quality", widget: "string", default: "4K", required: false }
+      - { label: "WhatsApp Number", name: "whatsapp_number", widget: "string", default: "919846238073" }
+      - { label: "Bulk Gallery Folder", name: "gallery_folder", widget: "string", required: false, hint: "Optional. Upload hundreds of images into a folder like assets/uploads/client-galleries/abhin-gayathry, then enter that folder path here. Images are auto-added and sorted by filename." }
+      - label: "Gallery Items"
+        name: "gallery_items"
+        widget: "list"
+        summary: "{{fields.item_type}} — {{fields.image_name}}{{fields.quote}}"
+        hint: "Use this for quotes, special featured images, or hand-picked extras. Bulk folder images appear first, sorted by filename; these blocks appear after them in your chosen drag-and-drop order."
+        fields:
+          - { label: "Item Type", name: "item_type", widget: "select", options: ["image", "quote"], default: "image" }
+          - { label: "Image", name: "image", widget: "image", required: false }
+          - { label: "Image Code", name: "image_code", widget: "string", required: false, hint: "Example: MG-001. If blank, the page auto-generates one." }
+          - { label: "Image Name", name: "image_name", widget: "string", required: false }
+          - { label: "Category", name: "category", widget: "string", required: false, hint: "Example: Ceremony, Family, Portraits, Details. Filters are generated from these." }
+          - { label: "Caption", name: "caption", widget: "text", required: false }
+          - { label: "Quote", name: "quote", widget: "text", required: false }
+          - { label: "Quote By", name: "quote_by", widget: "string", required: false }
+
   - name: "testimonials"
     label: "Testimonials"
     folder: "src/content/testimonials"

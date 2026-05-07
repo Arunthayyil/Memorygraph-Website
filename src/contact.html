@@ -62,6 +62,10 @@
   .form-col::before{content:'';position:absolute;top:-1px;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--gold),var(--teal));}
   .form-title{font-family:var(--serif);font-size:1.8rem;font-weight:400;color:var(--ink);margin-bottom:8px;}
   .form-sub{font-family:var(--sans);font-size:.85rem;font-weight:300;color:var(--ink-soft);margin-bottom:48px;line-height:1.7;}
+  .delivery-reassurance{display:flex;gap:16px;align-items:flex-start;background:var(--ivory);border:1px solid var(--line-2);border-left:2px solid var(--gold);padding:18px 20px;margin:-24px 0 40px;}
+  .delivery-reassurance svg{width:22px;height:22px;flex-shrink:0;color:var(--teal);margin-top:2px;}
+  .delivery-reassurance p{font-family:var(--sans);font-size:.82rem;font-weight:300;color:var(--ink-soft);line-height:1.7;}
+  .delivery-reassurance strong{font-weight:400;color:var(--teal);}
   .form-step{font-family:var(--sans);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin:36px 0 18px;display:flex;align-items:center;gap:14px;}
   .form-step::before{content:'';width:24px;height:1px;background:var(--gold);}
   .form-step:first-of-type{margin-top:0;}
@@ -116,6 +120,7 @@
     .nav-links{display:none;}
     .contact-main{grid-template-columns:1fr;gap:48px;padding:120px 24px 60px;}
     .form-col{padding:40px 28px;}
+    .delivery-reassurance{margin:-20px 0 36px;}
     .form-row{grid-template-columns:1fr;gap:14px;}
     .form-field-full{grid-column:span 1;}
     .checkbox-grid{grid-template-columns:1fr;}
@@ -204,6 +209,10 @@
   <div class="form-col">
     <div class="form-title">The Enquiry</div>
     <p class="form-sub">Just the essentials — tell us about yourself and your wedding. We'll ask for more details once we've had a chance to reply properly.</p>
+    <div class="delivery-reassurance">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 9h8M8 13h5M17 17l3 3M20 17l-3 3"/></svg>
+      <p><strong>Every collection includes a private online gallery</strong> for delivery, family sharing, downloads, and album image selection.</p>
+    </div>
 
     <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
       <!-- IMPORTANT: Replace YOUR_FORM_ID with your real Formspree endpoint -->

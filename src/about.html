@@ -40,7 +40,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;
 nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:24px 56px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s,background .5s;}
 nav.scrolled{padding:14px 56px;background:rgba(244,237,224,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line-2);}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);}
-.nav-links{display:flex;gap:42px;list-style:none;}
+.nav-links{display:flex;gap:32px;list-style:none;}
 .nav-links a{font-family:var(--sans);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:color .3s;position:relative;}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--teal);transition:width .4s;}
 .nav-links a:hover,.nav-links a.active{color:var(--teal);}
@@ -169,6 +169,16 @@ footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
 .whatsapp-float svg{width:30px;height:30px;color:#fff;}
 @keyframes pulse{0%,100%{box-shadow:0 8px 28px rgba(37,211,102,.35);}50%{box-shadow:0 8px 28px rgba(37,211,102,.6),0 0 0 14px rgba(37,211,102,.05);}}
 
+.slide-arrows{display:none;position:absolute;top:50%;transform:translateY(-50%);width:100%;pointer-events:none;z-index:3;}
+.slide-btn{pointer-events:all;position:absolute;width:44px;height:44px;background:rgba(26,24,20,.55);border:1px solid rgba(244,237,224,.2);border-radius:50%;color:var(--ivory);font-size:1.5rem;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .3s;-webkit-tap-highlight-color:transparent;}
+.slide-btn:hover{background:rgba(26,24,20,.85);}
+.slide-btn.prev{left:16px;} .slide-btn.next{right:16px;}
+@media(max-width:980px){.slide-arrows{display:block;}}
+
+.slide-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;background:rgba(26,24,20,.55);border:1px solid rgba(244,237,224,.2);border-radius:50%;color:var(--ivory);font-size:1.5rem;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .3s;-webkit-tap-highlight-color:transparent;z-index:3;display:none;}
+.slide-btn.prev{left:16px;} .slide-btn.next{right:16px;}
+@media(max-width:980px){.slide-btn{display:flex;}}
+
 .reveal{opacity:0;transform:translateY(36px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);}
 .reveal.visible{opacity:1;transform:translateY(0);}
 .reveal-d1{transition-delay:.12s;}.reveal-d2{transition-delay:.24s;}.reveal-d3{transition-delay:.38s;}
@@ -220,6 +230,7 @@ footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
     <img src="/assets/logo/logo-dark.png" alt="Memorygraph Wedding Studio" style="height:48px;width:auto;max-width:160px;display:block;"/>
   </a>
   <ul class="nav-links">
+    <li><a href="/">Home</a></li>
     <li><a href="/stories/">Stories</a></li>
     <li><a href="/about/" class="active">About</a></li>
     <li><a href="/investment/">Investment</a></li>
@@ -297,11 +308,8 @@ footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
 </div>
 
 <!-- PHOTO STRIP -->
-<div class="photo-strip">
-  <div class="ps-item"><img src="/assets/stories/abhin-gayathry/07.jpg" alt=""/></div>
-  <div class="ps-item"><img src="/assets/stories/abhin-gayathry/01.jpg" alt=""/></div>
-  <div class="ps-item"><img src="/assets/stories/abhin-gayathry/11.jpg" alt=""/></div>
-  <div class="ps-item"><img src="/assets/stories/abhin-gayathry/04.jpg" alt=""/></div>
+<div class="photo-strip" id="photoStrip">
+  <!-- Landscape slides rendered by JS from /assets/slides/landscape/ -->
 </div>
 
 <!-- TEAM -->
@@ -443,6 +451,34 @@ footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
     if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
   }),{threshold:.08});
   document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+
+  // Photo strip — landscape folder-based slides with swipe
+  function captionFrom(src){
+    return src.split('/').pop().replace(/[.][^.]+$/,'').replace(/^[0-9]+-/,'').replace(/-/g,' ').replace(/\w/g,ch=>ch.toUpperCase());
+  }
+  const landscapeSlides=[
+    '/assets/slides/landscape/01.jpg',
+    '/assets/slides/landscape/02.jpg',
+    '/assets/slides/landscape/03.jpg',
+    '/assets/slides/landscape/04.jpg',
+    '/assets/slides/landscape/05.jpg',
+  ];
+  const stripEl=document.getElementById('photoStrip');
+  if(stripEl){
+    landscapeSlides.forEach(src=>{
+      const item=document.createElement('div');
+      item.className='ps-item';
+      const img=document.createElement('img');
+      img.src=src; img.alt=captionFrom(src);
+      item.appendChild(img); stripEl.appendChild(item);
+    });
+    let tx=0;
+    stripEl.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+    stripEl.addEventListener('touchend',e=>{
+      const d=tx-e.changedTouches[0].clientX;
+      if(Math.abs(d)>50){stripEl.scrollBy({left:d>0?window.innerWidth:-window.innerWidth,behavior:'smooth'});}
+    },{passive:true});
+  }
 </script>
 <script src="/assets/cms-loader.js"></script>
 </body>

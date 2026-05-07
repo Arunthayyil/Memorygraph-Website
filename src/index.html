@@ -772,6 +772,7 @@
     <img src="/assets/logo/logo-dark.png" alt="Memorygraph Wedding Studio" style="height:52px;width:auto;max-width:180px;"/>
   </a>
   <ul class="nav-links">
+    <li><a href="/">Home</a></li>
     <li><a href="/stories/">Stories</a></li>
     <li><a href="/about/">About</a></li>
     <li><a href="/investment/">Investment</a></li>
@@ -849,9 +850,7 @@
     <div class="about-corner-tl"></div>
     <div class="about-img-frame">
       <div class="about-slideshow" id="aboutSlideshow">
-        <div class="about-slide active" style="background-image:url('/assets/about/01.jpg')"></div>
-        <div class="about-slide" style="background-image:url('/assets/about/02.jpg')"></div>
-        <div class="about-slide" style="background-image:url('/assets/about/03.jpg')"></div>
+        <!-- Slides injected by JS from /assets/slides/portrait/ -->
         <div class="about-slide" style="background-image:url('/assets/about/04.jpg')"></div>
         <div class="about-slide" style="background-image:url('/assets/about/05.jpg')"></div>
       </div>
@@ -992,29 +991,13 @@
     <span class="moments-sub">A quiet archive</span>
   </div>
   <div class="moments-reel" id="momentsReel">
-    <div class="moments-slide active" style="background-image:url('/assets/stories/abhin-gayathry/07.jpg');">
-      <span class="moments-caption">Abhin &amp; Gayathry &middot; Vadakkumnathan Temple</span>
-    </div>
-    <div class="moments-slide" style="background-image:url('/assets/stories/abhin-gayathry/01.jpg');">
-      <span class="moments-caption">Quiet light &middot; Thrissur</span>
-    </div>
-    <div class="moments-slide" style="background-image:url('/assets/stories/abhin-gayathry/11.jpg');">
-      <span class="moments-caption">The morning after the ceremony</span>
-    </div>
-    <div class="moments-slide" style="background-image:url('/assets/stories/abhin-gayathry/04.jpg');">
-      <span class="moments-caption">In between the rituals</span>
-    </div>
-    <div class="moments-slide" style="background-image:url('/assets/stories/abhin-gayathry/09.jpg');">
-      <span class="moments-caption">The ones we don&rsquo;t forget</span>
+    <!-- Landscape slides injected by JS from /assets/slides/landscape/ -->
+    <div class="moments-slide-arrows slide-arrows">
+      <button class="slide-btn prev" onclick="setMoment(mci-1)" aria-label="Previous">&#8249;</button>
+      <button class="slide-btn next" onclick="setMoment(mci+1)" aria-label="Next">&#8250;</button>
     </div>
   </div>
-  <div class="moments-dots">
-    <div class="moments-dot active" onclick="setMoment(0)"></div>
-    <div class="moments-dot" onclick="setMoment(1)"></div>
-    <div class="moments-dot" onclick="setMoment(2)"></div>
-    <div class="moments-dot" onclick="setMoment(3)"></div>
-    <div class="moments-dot" onclick="setMoment(4)"></div>
-  </div>
+  <div class="moments-dots" id="momentsDots"></div>
 </div><!-- PROCESS TIMELINE -->
 <div class="process-tl-section">
   <div class="process-tl-header">
@@ -1173,27 +1156,96 @@
   }
   setInterval(()=>setT(cur+1),6500);
 
-  // About slideshow
-  let aci=0;
-  const aSlides=document.querySelectorAll('.about-slide');
-  const aDots=document.querySelectorAll('.asd');
-  function setAboutSlide(i){
-    aSlides[aci].classList.remove('active');aDots[aci].classList.remove('active');
-    aci=i%aSlides.length;
-    aSlides[aci].classList.add('active');aDots[aci].classList.add('active');
+  // ── SLIDE HELPERS ──────────────────────────────
+  function captionFrom(src){
+    return src.split('/').pop()
+      .replace(/\.\w+$/,'').replace(/^\d+-/,'')
+      .replace(/-/g,' ').replace(/\w/g,c=>c.toUpperCase());
   }
-  if(aSlides.length) setInterval(()=>setAboutSlide(aci+1),4500);
+  function addSwipe(el, onLeft, onRight){
+    let tx=0;
+    el.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+    el.addEventListener('touchend',e=>{
+      const d=tx-e.changedTouches[0].clientX;
+      if(Math.abs(d)>50){d>0?onLeft():onRight();}
+    },{passive:true});
+  }
 
-  // Moments slideshow
-  let mci=0;
-  const mSlides=document.querySelectorAll('.moments-slide');
-  const mDots=document.querySelectorAll('.moments-dot');
-  function setMoment(i){
-    mSlides[mci].classList.remove('active');mDots[mci].classList.remove('active');
-    mci=i%mSlides.length;
-    mSlides[mci].classList.add('active');mDots[mci].classList.add('active');
+  // ── PORTRAIT SLIDESHOW (/assets/slides/portrait/) ──
+  const portraitSlides = [
+    '/assets/slides/portrait/01.jpg',
+    '/assets/slides/portrait/02.jpg',
+    '/assets/slides/portrait/03.jpg',
+    '/assets/slides/portrait/04.jpg',
+    '/assets/slides/portrait/05.jpg',
+  ];
+  const aEl = document.getElementById('aboutSlideshow');
+  const aDotsEl = document.getElementById('aboutDots');
+  if(aEl){
+    portraitSlides.forEach((src,i)=>{
+      const d=document.createElement('div');
+      d.className='about-slide'+(i===0?' active':'');
+      d.style.backgroundImage=`url('${src}')`;
+      aEl.insertBefore(d, aEl.querySelector('.about-slide-arrows'));
+      const dot=document.createElement('div');
+      dot.className='asd'+(i===0?' active':'');
+      dot.onclick=()=>setAboutSlide(i);
+      if(aDotsEl) aDotsEl.appendChild(dot);
+    });
   }
-  if(mSlides.length) setInterval(()=>setMoment(mci+1),5000);
+  let aci=0;
+  function setAboutSlide(i){
+    const sl=document.querySelectorAll('.about-slide');
+    const dt=document.querySelectorAll('.asd');
+    if(!sl.length) return;
+    sl[aci].classList.remove('active');if(dt[aci])dt[aci].classList.remove('active');
+    aci=((i%sl.length)+sl.length)%sl.length;
+    sl[aci].classList.add('active');if(dt[aci])dt[aci].classList.add('active');
+  }
+  if(aEl){
+    setInterval(()=>setAboutSlide(aci+1),4500);
+    addSwipe(aEl,()=>setAboutSlide(aci+1),()=>setAboutSlide(aci-1));
+  }
+
+  // ── LANDSCAPE SLIDESHOW (/assets/slides/landscape/) ──
+  const landscapeSlides = [
+    '/assets/slides/landscape/01.jpg',
+    '/assets/slides/landscape/02.jpg',
+    '/assets/slides/landscape/03.jpg',
+    '/assets/slides/landscape/04.jpg',
+    '/assets/slides/landscape/05.jpg',
+  ];
+  const mReelEl = document.getElementById('momentsReel');
+  const mDotsEl = document.getElementById('momentsDots');
+  if(mReelEl){
+    landscapeSlides.forEach((src,i)=>{
+      const d=document.createElement('div');
+      d.className='moments-slide'+(i===0?' active':'');
+      d.style.backgroundImage=`url('${src}')`;
+      const cap=document.createElement('span');
+      cap.className='moments-caption';
+      cap.textContent=captionFrom(src);
+      d.appendChild(cap);
+      mReelEl.insertBefore(d, mReelEl.querySelector('.moments-slide-arrows'));
+      const dot=document.createElement('div');
+      dot.className='moments-dot'+(i===0?' active':'');
+      dot.onclick=()=>setMoment(i);
+      if(mDotsEl) mDotsEl.appendChild(dot);
+    });
+  }
+  let mci=0;
+  function setMoment(i){
+    const sl=document.querySelectorAll('.moments-slide');
+    const dt=document.querySelectorAll('.moments-dot');
+    if(!sl.length) return;
+    sl[mci].classList.remove('active');if(dt[mci])dt[mci].classList.remove('active');
+    mci=((i%sl.length)+sl.length)%sl.length;
+    sl[mci].classList.add('active');if(dt[mci])dt[mci].classList.add('active');
+  }
+  if(mReelEl){
+    setInterval(()=>setMoment(mci+1),5000);
+    addSwipe(mReelEl,()=>setMoment(mci+1),()=>setMoment(mci-1));
+  }
 
   // Reveal
   const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}}),{threshold:.12});

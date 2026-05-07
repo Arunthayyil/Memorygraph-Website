@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+{% set pageTitle = seoTitle or title %}
+{% set pageDescription = description or excerpt %}
+{% set socialImage = hero or site.defaultSocialImage %}
+<title>{{ pageTitle }} | Memorygraph Journal</title>
+<meta name="description" content="{{ pageDescription }}"/>
+<meta name="author" content="{{ author or 'Arun T Chandran' }}"/>
+<meta name="robots" content="index, follow"/>
+<meta property="og:title" content="{{ pageTitle }} | Memorygraph Journal"/>
+<meta property="og:description" content="{{ pageDescription }}"/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="{{ page.url | absoluteUrl(site.url) }}"/>
+<meta property="og:image" content="{{ socialImage | absoluteUrl(site.url) }}"/>
+<meta property="og:locale" content="{{ site.locale }}"/>
+<meta property="og:site_name" content="{{ site.shortName }}"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="{{ pageTitle }} | Memorygraph Journal"/>
+<meta name="twitter:description" content="{{ pageDescription }}"/>
+<meta name="twitter:image" content="{{ socialImage | absoluteUrl(site.url) }}"/>
+<link rel="canonical" href="{{ page.url | absoluteUrl(site.url) }}"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ page.url | absoluteUrl(site.url) }}"
+  },
+  "headline": {{ pageTitle | dump | safe }},
+  "description": {{ pageDescription | dump | safe }},
+  "image": ["{{ socialImage | absoluteUrl(site.url) }}"],
+  "datePublished": "{{ date | isoDate }}",
+  "dateModified": "{{ (updated or date) | isoDate }}",
+  "articleSection": {{ category | dump | safe }},
+  "keywords": {{ (tags or []) | dump | safe }},
+  "wordCount": "{{ content | wordCount }}",
+  "timeRequired": "PT{{ content | readingTime }}M",
+  "author": {
+    "@type": "Person",
+    "name": "{{ author or 'Arun T Chandran' }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.name }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ '/assets/logo/logo-dark.png' | absoluteUrl(site.url) }}"
+    }
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ '/' | absoluteUrl(site.url) }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Journal",
+      "item": "{{ '/blog/' | absoluteUrl(site.url) }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ title | dump | safe }},
+      "item": "{{ page.url | absoluteUrl(site.url) }}"
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/css/animations.css"/>
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  :root{--ivory:#f4ede0;--ivory-2:#ece4d4;--ink:#1a1814;--ink-soft:#3a3530;--teal:#1d5959;--teal-deep:#0f3838;--gold:#b8965a;--gold-2:#d4a96a;--mist:#8b857a;--line:rgba(26,24,20,.12);--line-2:rgba(26,24,20,.06);--serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',sans-serif;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-weight:300;overflow-x:hidden;cursor:none;}
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");mix-blend-mode:multiply;opacity:.6;}
+  .cursor{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;}
+  .cursor-dot{width:5px;height:5px;background:var(--teal);border-radius:50%;position:absolute;transform:translate(-50%,-50%);mix-blend-mode:difference;}
+  .cursor-ring{width:28px;height:28px;border:1px solid rgba(29,89,89,.4);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s,background .3s;}
+  @media(prefers-reduced-motion:reduce){body{cursor:auto;}.cursor{display:none;}}
+  nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:24px 56px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s,background .5s,transform .4s cubic-bezier(.22,1,.36,1);}
+  nav.scrolled{padding:14px 56px;background:rgba(244,237,224,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line-2);}
+  .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);}
+  .nav-links{display:flex;gap:32px;list-style:none;}
+  .nav-links a{font-family:var(--sans);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:color .3s;position:relative;}
+  .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--teal);transition:width .4s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--teal);}
+  .nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+  .nav-cta{font-family:var(--sans);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;background:var(--teal);color:var(--ivory);padding:11px 26px;text-decoration:none;transition:all .35s;border:1px solid var(--teal);}
+  .article-hero{padding:180px 56px 72px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);gap:48px;align-items:end;}
+  .eyebrow{font-family:var(--sans);font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:18px;}
+  .article-title{font-family:var(--serif);font-size:clamp(2.9rem,5vw,5.4rem);font-weight:300;line-height:1.02;margin-bottom:24px;}
+  .article-sub{font-family:var(--sans);font-size:1rem;line-height:1.9;color:var(--ink-soft);max-width:720px;}
+  .article-meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:30px;font-family:var(--sans);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mist);}
+  .hero-card{position:relative;min-height:360px;background:linear-gradient(160deg,#d8cfb8 0%,#a89a78 100%);overflow:hidden;}
+  .hero-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .hero-card::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.15'/%3E%3C/svg%3E");mix-blend-mode:multiply;}
+  .article-shell{padding:0 56px 120px;}
+  .article-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:48px;align-items:start;}
+  .article-content{max-width:780px;}
+  .article-content p,.article-content li{font-family:var(--sans);font-size:1rem;line-height:2;color:var(--ink-soft);}
+  .article-content p{margin-bottom:24px;}
+  .article-content h2,.article-content h3{font-family:var(--serif);font-weight:400;line-height:1.15;color:var(--ink);margin:54px 0 18px;}
+  .article-content h2{font-size:2.1rem;}
+  .article-content h3{font-size:1.55rem;}
+  .article-content ul,.article-content ol{margin:0 0 28px 22px;}
+  .article-content blockquote{margin:32px 0;padding:28px 30px;border-left:2px solid var(--gold);background:rgba(255,255,255,.35);font-family:var(--serif);font-size:1.35rem;font-style:italic;line-height:1.6;color:var(--ink);}
+  .article-content a{color:var(--teal);}
+  .article-content strong{font-weight:500;color:var(--ink);}
+  .article-aside{position:sticky;top:110px;display:flex;flex-direction:column;gap:22px;}
+  .aside-card{border:1px solid var(--line);padding:24px;background:rgba(255,255,255,.28);}
+  .aside-label{font-family:var(--sans);font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+  .aside-copy{font-family:var(--sans);font-size:.9rem;line-height:1.8;color:var(--ink-soft);}
+  .aside-tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{font-family:var(--sans);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;border:1px solid rgba(29,89,89,.2);padding:7px 10px;color:var(--teal);}
+  .cta-link{font-family:var(--sans);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal);padding-bottom:5px;display:inline-flex;gap:8px;}
+  .related{padding:0 56px 120px;}
+  .related-header{font-family:var(--serif);font-size:1.5rem;font-style:italic;color:var(--mist);margin-bottom:32px;}
+  .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .related-card{text-decoration:none;color:inherit;}
+  .related-image{position:relative;padding-bottom:62%;overflow:hidden;background:linear-gradient(160deg,#d8cfb8 0%,#a89a78 100%);margin-bottom:18px;}
+  .related-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.22,1,.36,1);}
+  .related-card:hover .related-image img{transform:scale(1.05);}
+  .related-title{font-family:var(--serif);font-size:1.3rem;line-height:1.25;margin-bottom:8px;}
+  .related-meta{font-family:var(--sans);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mist);}
+  footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;flex-wrap:wrap;gap:24px;}
+  .footer-links-row{display:flex;gap:32px;flex-wrap:wrap;}
+  .footer-links-row a{font-family:var(--sans);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,237,224,.45);text-decoration:none;transition:color .3s;}
+  .footer-links-row a:hover{color:var(--gold);}
+  .footer-bottom{border-top:1px solid rgba(244,237,224,.08);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+  .footer-copy{font-family:var(--sans);font-size:.65rem;color:rgba(244,237,224,.3);}
+  .whatsapp-float{position:fixed;bottom:32px;right:32px;z-index:200;width:58px;height:58px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(37,211,102,.35);text-decoration:none;animation:pulse 2.5s ease-in-out infinite;}
+  .whatsapp-float svg{width:30px;height:30px;color:#fff;}
+  @keyframes pulse{0%,100%{box-shadow:0 8px 28px rgba(37,211,102,.35);}50%{box-shadow:0 8px 28px rgba(37,211,102,.6),0 0 0 14px rgba(37,211,102,.05);}}
+  @media (max-width:980px){body{cursor:auto;}.cursor{display:none;}nav{padding:16px 20px;}nav.scrolled{padding:12px 20px;}.nav-links{display:none;}.article-hero{padding:140px 24px 48px;grid-template-columns:1fr;}.article-shell,.related{padding-left:24px;padding-right:24px;}.article-grid{grid-template-columns:1fr;}.article-aside{position:static;}.related-grid{grid-template-columns:1fr;}footer{padding:40px 24px 28px;}}
+</style>
+</head>
+<body>
+<div class="preloader" id="preloader"><div class="preloader-logo">Memorygraph<small>Photographing Memories</small></div><div class="preloader-line"></div></div>
+<div class="page-transition-overlay"></div>
+<div class="cursor" id="cursor"><div class="cursor-dot" id="cursorDot"></div><div class="cursor-ring" id="cursorRing"></div></div>
+<nav id="nav">
+  <a href="/" class="nav-logo"><img src="/assets/logo/logo-dark.png" alt="Memorygraph Wedding Studio" style="height:48px;width:auto;max-width:160px;display:block;"/></a>
+  <ul class="nav-links"><li><a href="/">Home</a></li><li><a href="/stories/">Stories</a></li><li><a href="/about/">About</a></li><li><a href="/investment/">Investment</a></li><li><a href="/blog/" class="active">Journal</a></li></ul>
+  <a href="/contact/" class="nav-cta">Begin Your Story</a>
+</nav>
+<header class="article-hero">
+  <div>
+    <div class="eyebrow">{{ category }}</div>
+    <h1 class="article-title">{{ title }}</h1>
+    <p class="article-sub">{{ excerpt or description }}</p>
+    <div class="article-meta"><span>{{ date | formatDate }}</span><span>{{ content | readingTime }} min read</span><span>{{ author or 'Arun T Chandran' }}</span></div>
+  </div>
+  <div class="hero-card"><img src="{{ socialImage }}" alt="{{ imageAlt or title }}"/></div>
+</header>
+<main class="article-shell">
+  <div class="article-grid">
+    <article class="article-content">{{ content | safe }}</article>
+    <aside class="article-aside">
+      <div class="aside-card"><div class="aside-label">At a glance</div><p class="aside-copy">{{ description }}</p></div>
+      <div class="aside-card"><div class="aside-label">Tagged</div><div class="aside-tags">{% for tag in tags %}<span class="tag">{{ tag }}</span>{% endfor %}</div></div>
+      <div class="aside-card"><div class="aside-label">Need help?</div><p class="aside-copy">If you want advice that is specific to your venue, timeline, or photography priorities, we are happy to help you think it through.</p><a href="/contact/" class="cta-link">Ask about your wedding</a></div>
+    </aside>
+  </div>
+</main>
+<section class="related">
+  <div class="related-header">More to read</div>
+  <div class="related-grid">
+    {% for post in collections.blog %}
+      {% if post.url != page.url and loop.index <= 4 %}
+      <a href="{{ post.url }}" class="related-card">
+        <div class="related-image"><img src="{{ post.data.hero or site.defaultSocialImage }}" alt="{{ post.data.imageAlt or post.data.title }}" loading="lazy"/></div>
+        <h2 class="related-title">{{ post.data.title }}</h2>
+        <div class="related-meta">{{ post.data.category }} · {{ post.templateContent | readingTime }} min read</div>
+      </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo"><img src="/assets/logo/logo-white.png" alt="Memorygraph Wedding Studio" style="height:52px;width:auto;mix-blend-mode:screen;opacity:.9;"/></a>
+    <div class="footer-links-row"><a href="/">Home</a><a href="/stories/">Stories</a><a href="/about/">About</a><a href="/investment/">Investment</a><a href="/blog/">Journal</a><a href="/contact/">Contact</a></div>
+  </div>
+  <div class="footer-bottom"><div class="footer-copy">© 2026 Memorygraph Wedding Studio · Thrissur, Kerala</div><div class="footer-copy">{{ site.phone }} · {{ site.email }}</div></div>
+</footer>
+<a href="https://wa.me/919846238073?text=Hi%20Arun%2C%20I%27d%20love%20to%20discuss%20my%20wedding." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp" rel="noopener"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 .4C7.4.4.4 7.4.4 16c0 2.84.74 5.62 2.16 8.06L.27 31.6l7.74-2.27C10.36 30.7 13.14 31.5 16 31.5c8.6 0 15.6-7 15.6-15.5C31.6 7.4 24.6.4 16 .4zM16 28.7c-2.5 0-4.96-.66-7.1-1.92l-.5-.3-5.34 1.55 1.6-5.18-.34-.55C2.92 19.92 2.2 18 2.2 16 2.2 8.4 8.4 2.2 16 2.2c7.6 0 13.8 6.2 13.8 13.8 0 7.6-6.2 12.7-13.8 12.7zm7.6-9.8c-.4-.2-2.4-1.18-2.78-1.32-.38-.14-.66-.2-.94.2-.28.4-1.06 1.32-1.3 1.6-.24.28-.48.3-.88.1-.4-.2-1.7-.62-3.24-2-1.2-1.06-2-2.38-2.24-2.78-.24-.4-.02-.62.18-.82.18-.18.4-.46.6-.7.2-.24.26-.4.4-.68.14-.28.06-.52-.04-.72-.1-.2-.92-2.22-1.26-3.04-.34-.8-.68-.7-.94-.72h-.8c-.28 0-.72.1-1.1.5-.38.4-1.44 1.4-1.44 3.42s1.48 3.96 1.68 4.24c.2.28 2.92 4.46 7.08 6.24 1 .42 1.78.68 2.38.88.98.32 1.88.28 2.6.16.78-.12 2.4-.98 2.74-1.92.34-.94.34-1.74.24-1.92-.1-.18-.36-.28-.76-.48z"/></svg></a>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1/dist/lenis.min.js"></script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

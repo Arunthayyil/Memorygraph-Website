@@ -1,0 +1,6 @@
+{
+  "layout": "blog-post.njk",
+  "tags": ["blog"],
+  "author": "Arun T Chandran",
+  "permalink": "/blog/{{ page.fileSlug }}/index.html"
+}

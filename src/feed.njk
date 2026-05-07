@@ -1,0 +1,25 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Memorygraph Journal</title>
+    <link>{{ '/blog/' | absoluteUrl(site.url) }}</link>
+    <description>Kerala wedding planning guides, real stories, and photography advice from Memorygraph Wedding Studio.</description>
+    <language>en-in</language>
+    {% if collections.blog and collections.blog.length %}
+    <lastBuildDate>{{ collections.blog[0].date.toUTCString() }}</lastBuildDate>
+    {% endif %}
+    {%- for post in collections.blog %}
+    <item>
+      <title>{{ post.data.title | escape }}</title>
+      <link>{{ post.url | absoluteUrl(site.url) }}</link>
+      <guid>{{ post.url | absoluteUrl(site.url) }}</guid>
+      <pubDate>{{ post.date.toUTCString() }}</pubDate>
+      <description>{{ (post.data.description or post.data.excerpt or post.templateContent | stripHtml) | escape }}</description>
+    </item>
+    {%- endfor %}
+  </channel>
+</rss>

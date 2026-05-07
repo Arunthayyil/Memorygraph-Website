@@ -54,6 +54,35 @@ module.exports = function(eleventyConfig) {
     return JSON.stringify(value || null);
   });
 
+  eleventyConfig.addFilter("isoDate", function(dateObj) {
+    if (!dateObj) return "";
+    return new Date(dateObj).toISOString();
+  });
+
+  eleventyConfig.addFilter("stripHtml", function(value) {
+    return String(value || "")
+      .replace(/<[^>]*>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  });
+
+  eleventyConfig.addFilter("wordCount", function(value) {
+    return String(value || "")
+      .replace(/<[^>]*>/g, " ")
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean).length;
+  });
+
+  eleventyConfig.addFilter("readingTime", function(value) {
+    const words = String(value || "")
+      .replace(/<[^>]*>/g, " ")
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean).length;
+    return Math.max(1, Math.ceil(words / 220));
+  });
+
   // Expands a client gallery folder into image items, then merges CMS quote/image blocks.
   eleventyConfig.addFilter("clientGalleryItems", function(manualItems, galleryFolder) {
     const items = [];

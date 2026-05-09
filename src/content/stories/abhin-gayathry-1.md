@@ -3,7 +3,7 @@ title: Abhin & Gayathry
 location: Vadakkumnathan Temple, Thrissur
 location_short: Thrissur
 date: 2024-11-15
-hero: /assets/stories/abhin-gayathry/07.jpg
+hero: /assets/uploads/client-galleries/abhin-gayathry/01.jpg
 quote: We barely felt the camera. Looking at the photographs now, it feels like the day was preserved exactly as we lived it.
 quote_by: Gayathry, the bride
 chapter_title: A morning of <em>quiet light</em>.

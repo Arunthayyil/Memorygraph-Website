@@ -115,14 +115,78 @@
   .export-output{display:none;padding:14px;background:var(--ivory);border:1px solid var(--line);font-size:.78rem;line-height:1.7;color:var(--ink-soft);white-space:pre-wrap;}
   .export-output.visible{display:block;}
 
-  .lightbox{position:fixed;inset:0;z-index:300;background:rgba(15,14,12,.94);display:none;align-items:center;justify-content:center;padding:64px 28px;color:var(--ivory);}
+  .lightbox{position:fixed;inset:0;z-index:300;background:rgba(15,14,12,.97);display:none;flex-direction:column;color:var(--ivory);}
   .lightbox.open{display:flex;}
-  .lightbox img{max-width:min(1200px,88vw);max-height:80vh;object-fit:contain;box-shadow:0 30px 80px rgba(0,0,0,.35);}
-  .lightbox-meta{position:absolute;left:32px;bottom:28px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,237,224,.7);}
-  .lightbox button{position:absolute;border:1px solid rgba(244,237,224,.28);background:rgba(244,237,224,.08);color:var(--ivory);}
-  .lb-close{top:24px;right:24px;width:44px;height:44px;}
-  .lb-prev,.lb-next{top:50%;width:48px;height:58px;transform:translateY(-50%);font-size:1.8rem;}
-  .lb-prev{left:24px;}.lb-next{right:24px;}
+  .lb-stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative;min-height:0;overflow:hidden;}
+  .lb-stage img{max-width:92vw;max-height:100%;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.4);}
+  .lightbox .lb-close,.lightbox .lb-prev,.lightbox .lb-next{position:absolute;border:1px solid rgba(244,237,224,.22);background:rgba(244,237,224,.06);color:var(--ivory);z-index:2;transition:background .2s;}
+  .lightbox .lb-close:hover,.lightbox .lb-prev:hover,.lightbox .lb-next:hover{background:rgba(244,237,224,.14);}
+  .lb-close{top:16px;right:16px;width:42px;height:42px;font-size:1.2rem;}
+  .lb-prev,.lb-next{top:50%;width:44px;height:56px;transform:translateY(-50%);font-size:1.6rem;}
+  .lb-prev{left:16px;}.lb-next{right:16px;}
+  .lb-bar{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px;background:rgba(26,24,20,.7);border-top:1px solid rgba(244,237,224,.08);backdrop-filter:blur(12px);}
+  .lb-bar-info{display:flex;flex-direction:column;gap:2px;min-width:0;}
+  .lb-bar-id{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-2);}
+  .lb-bar-title{font-size:.78rem;color:rgba(244,237,224,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .lb-bar-actions{display:flex;gap:8px;flex-shrink:0;}
+  .lb-action{display:flex;align-items:center;gap:6px;padding:9px 14px;border:1px solid rgba(244,237,224,.18);background:transparent;color:var(--ivory);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:background .2s,border-color .2s,color .2s;}
+  .lb-action:hover{background:rgba(244,237,224,.1);border-color:rgba(244,237,224,.3);}
+  .lb-action.active{background:var(--gold);color:var(--teal-deep);border-color:var(--gold);}
+  .lb-action-print{border-color:rgba(184,150,90,.5);color:var(--gold-2);}
+  .lb-action-print:hover{background:rgba(184,150,90,.14);border-color:var(--gold);}
+
+  .print-banner{display:flex;align-items:center;gap:20px;padding:18px 24px;margin-bottom:36px;background:linear-gradient(135deg,rgba(29,89,89,.06),rgba(184,150,90,.08));border:1px solid rgba(184,150,90,.22);position:relative;overflow:hidden;}
+  .print-banner::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);}
+  .print-banner-icon{flex-shrink:0;width:44px;height:44px;display:grid;place-items:center;background:rgba(184,150,90,.1);border:1px solid rgba(184,150,90,.2);color:var(--gold);}
+  .print-banner-text{flex:1;min-width:0;}
+  .print-banner-text strong{display:block;font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--ink);margin-bottom:2px;}
+  .print-banner-text span{font-size:.76rem;color:var(--mist);letter-spacing:.02em;}
+  .print-banner-cart{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+  .print-cart-pill{padding:8px 14px;background:var(--gold);color:var(--teal-deep);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;border:0;transition:background .2s;}
+  .print-cart-pill:hover{background:var(--gold-2);}
+  .print-cart-pill.empty{background:transparent;border:1px solid var(--line);color:var(--mist);}
+
+  .print-add-btn{background:rgba(184,150,90,.15)!important;border-color:rgba(184,150,90,.4)!important;color:var(--gold-2)!important;}
+  .print-add-btn:hover{background:rgba(184,150,90,.3)!important;}
+
+  .print-overlay{position:fixed;inset:0;z-index:400;background:rgba(15,14,12,.6);display:none;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px);}
+  .print-overlay.open{display:flex;}
+  .print-panel{width:min(540px,100%);max-height:88vh;background:var(--paper);display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.3);}
+  .print-panel-head{padding:24px 28px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:16px;}
+  .print-panel-title{font-family:var(--serif);font-size:1.8rem;font-weight:300;line-height:1.1;}
+  .print-panel-close{width:36px;height:36px;border:1px solid var(--line);background:transparent;color:var(--ink);flex-shrink:0;}
+  .print-panel-body{padding:24px 28px;overflow-y:auto;flex:1;}
+  .print-cart-list{display:grid;gap:14px;margin-bottom:20px;}
+  .print-cart-item{display:grid;grid-template-columns:68px 1fr auto;gap:14px;align-items:start;padding:14px;background:var(--ivory);border:1px solid var(--line-2);}
+  .print-cart-item img{width:68px;height:52px;object-fit:cover;display:block;}
+  .print-cart-item-info{min-width:0;}
+  .print-cart-item-id{font-family:var(--serif);font-size:1rem;font-weight:400;}
+  .print-cart-size-row{display:flex;gap:6px;margin-top:8px;}
+  .print-size-btn{padding:6px 12px;border:1px solid var(--line);background:var(--ivory);color:var(--ink-soft);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;transition:all .2s;}
+  .print-size-btn.active{background:var(--teal);border-color:var(--teal);color:var(--ivory);}
+  .print-size-btn:hover:not(.active){border-color:var(--teal);color:var(--teal);}
+  .print-qty-row{display:flex;align-items:center;gap:8px;margin-top:8px;}
+  .print-qty-btn{width:28px;height:28px;border:1px solid var(--line);background:var(--ivory);color:var(--ink);font-size:.9rem;display:grid;place-items:center;}
+  .print-qty-val{font-size:.82rem;min-width:20px;text-align:center;}
+  .print-cart-price{font-family:var(--serif);font-size:1.1rem;color:var(--teal);white-space:nowrap;}
+  .print-cart-remove{width:28px;height:28px;border:1px solid var(--line);background:transparent;color:var(--mist);font-size:.7rem;margin-top:6px;}
+  .print-add-more{width:100%;padding:14px;border:1px dashed var(--line);background:transparent;color:var(--mist);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;transition:border-color .2s,color .2s;margin-bottom:24px;}
+  .print-add-more:hover{border-color:var(--teal);color:var(--teal);}
+  .print-subtotal{padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;font-family:var(--serif);font-size:1.2rem;margin-bottom:24px;}
+  .print-subtotal span{color:var(--teal);}
+  .print-form-fields{display:grid;gap:12px;margin-bottom:20px;}
+  .print-input{width:100%;padding:13px 14px;border:1px solid var(--line);background:var(--ivory);color:var(--ink);font-family:var(--sans);font-size:.88rem;line-height:1.5;}
+  .print-input:focus{outline:1px solid var(--teal);border-color:var(--teal);}
+  .print-textarea{min-height:80px;resize:vertical;}
+  .print-panel-foot{padding:18px 28px;border-top:1px solid var(--line);display:grid;gap:10px;}
+  .print-note{font-size:.7rem;color:var(--mist);text-align:center;line-height:1.6;}
+  .print-wa-btn{display:flex;align-items:center;justify-content:center;gap:8px;}
+  .print-success{display:none;text-align:center;padding:48px 24px;}
+  .print-success.visible{display:block;}
+  .print-success-icon{font-size:2.4rem;margin-bottom:16px;}
+  .print-success h3{font-family:var(--serif);font-size:1.6rem;font-weight:300;margin-bottom:8px;}
+  .print-success p{color:var(--mist);font-size:.86rem;line-height:1.7;}
+  .print-empty{text-align:center;padding:32px 16px;color:var(--mist);font-size:.86rem;line-height:1.7;}
 
   .delivery-info{padding:90px 56px;background:var(--ink);color:var(--ivory);}
   .delivery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(244,237,224,.14);margin-top:44px;}
@@ -150,6 +214,17 @@
     .delivery-grid{grid-template-columns:1fr;}
     .lock-panel{padding:40px 28px;}
     .lock-form{grid-template-columns:1fr;}
+    .print-banner{flex-wrap:wrap;padding:16px 18px;gap:14px;}
+    .print-banner-icon{width:36px;height:36px;}
+    .print-banner-text strong{font-size:1rem;}
+    .print-banner-cart{width:100%;}
+    .print-cart-pill{width:100%;text-align:center;}
+    .lb-bar{flex-direction:column;align-items:stretch;padding:12px 16px;gap:10px;}
+    .lb-bar-actions{justify-content:stretch;}
+    .lb-action{flex:1;justify-content:center;padding:10px 8px;font-size:.55rem;}
+    .print-panel{max-height:94vh;}
+    .print-cart-item{grid-template-columns:56px 1fr auto;}
+    .print-cart-item img{width:56px;height:44px;}
   }
   @media(max-width:560px){
     .topbar{display:block;}
@@ -161,6 +236,7 @@
     .photo-grid{columns:1;}
     .selected-item{grid-template-columns:66px 1fr auto;}
     .selected-item img{width:66px;height:54px;}
+    .lb-action span{display:none;}
   }
 </style>
 </head>
@@ -238,6 +314,20 @@
       </div>
       <p class="section-note">{{ selection_note }}</p>
     </div>
+    <div class="print-banner" id="printBanner">
+      <div class="print-banner-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="20" height="20" rx="1"/><rect x="5" y="5" width="14" height="14"/><path d="M2 2l3 3M22 2l-3 3M2 22l3-3M22 22l-3-3"/></svg>
+      </div>
+      <div class="print-banner-text">
+        <strong>Print & frame service</strong>
+        <span>A4 &#8212; &#8377;500 &middot; A3 &#8212; &#8377;1,000 &middot; Delivered to your door</span>
+      </div>
+      <div class="print-banner-cart">
+        <button class="print-cart-pill empty" type="button" id="openPrintCart">
+          <span id="printCartBadge">0</span> items &middot; View order
+        </button>
+      </div>
+    </div>
     <div class="photo-grid" id="photoGrid"></div>
   </section>
 
@@ -272,11 +362,69 @@
 </aside>
 
 <div class="lightbox" id="galleryLightbox" aria-hidden="true">
-  <button class="lb-close" type="button" id="lbClose" aria-label="Close">x</button>
-  <button class="lb-prev" type="button" id="lbPrev" aria-label="Previous">&#8249;</button>
-  <img src="" alt="" id="lbImage"/>
-  <button class="lb-next" type="button" id="lbNext" aria-label="Next">&#8250;</button>
-  <div class="lightbox-meta" id="lbMeta"></div>
+  <div class="lb-stage">
+    <button class="lb-close" type="button" id="lbClose" aria-label="Close">&times;</button>
+    <button class="lb-prev" type="button" id="lbPrev" aria-label="Previous">&#8249;</button>
+    <button class="lb-next" type="button" id="lbNext" aria-label="Next">&#8250;</button>
+    <img src="" alt="" id="lbImage"/>
+  </div>
+  <div class="lb-bar">
+    <div class="lb-bar-info">
+      <span class="lb-bar-id" id="lbBarId"></span>
+      <span class="lb-bar-title" id="lbBarTitle"></span>
+    </div>
+    <div class="lb-bar-actions">
+      <button class="lb-action" type="button" id="lbSelect">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        <span>Select</span>
+      </button>
+      <a class="lb-action" id="lbDownload" href="#" download>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>
+        <span>Download</span>
+      </a>
+      <button class="lb-action lb-action-print" type="button" id="lbOrderPrint">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="1"/><rect x="5" y="5" width="14" height="14"/><path d="M2 2l3 3M22 2l-3 3M2 22l3-3M22 22l-3-3"/></svg>
+        <span>Order Print</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="print-overlay" id="printOverlay">
+  <div class="print-panel">
+    <div class="print-panel-head">
+      <div>
+        <div class="eyebrow">Print & Frame</div>
+        <div class="print-panel-title">Your print order</div>
+      </div>
+      <button class="print-panel-close" type="button" id="closePrintPanel">&times;</button>
+    </div>
+    <div class="print-panel-body" id="printPanelBody">
+      <div class="print-cart-list" id="printCartList"></div>
+      <button class="print-add-more" type="button" id="printAddMore">+ Add another photo</button>
+      <div class="print-subtotal" id="printSubtotal">Order total <span>&#8377;0</span></div>
+      <div class="eyebrow" style="margin-bottom:14px;">Delivery details</div>
+      <div class="print-form-fields">
+        <input class="print-input" type="text" id="printName" placeholder="Full name" required/>
+        <input class="print-input" type="tel" id="printPhone" placeholder="Phone number" required/>
+        <textarea class="print-input print-textarea" id="printAddress" placeholder="Delivery address (with PIN code)"></textarea>
+      </div>
+    </div>
+    <div class="print-panel-foot">
+      <button class="btn gold" type="button" id="submitPrintOrder" style="width:100%;">Place Order</button>
+      <a class="btn ghost print-wa-btn" id="printWhatsApp" href="#" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4l-2-1c-.3-.1-.5-.1-.7.2l-.9 1.1c-.2.2-.3.2-.6.1-1.7-.8-2.8-1.8-3.7-3.1-.2-.3-.1-.5.1-.7l.6-.7c.2-.2.2-.4.1-.6l-1-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4C6.5 8 6 9 6 10.1s1 2.7 1.1 2.9c.1.2 2 3.1 4.9 4.3 2 .8 2.8.9 3.8.8.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.7-.5zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.4 5L2 22l5.2-1.4c1.4.8 3 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+        Send via WhatsApp
+      </a>
+      <p class="print-note">No payment required now. We will confirm your order and arrange delivery.</p>
+    </div>
+    <div class="print-success" id="printSuccess">
+      <div class="print-success-icon">&#10003;</div>
+      <h3>Order placed</h3>
+      <p>Your print order has been received. We will contact you shortly to confirm the details and delivery.</p>
+      <button class="btn ghost" type="button" id="printSuccessClose" style="margin-top:24px;">Back to gallery</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -416,12 +564,24 @@
             <button class="icon-btn select-btn" type="button" data-id="${escapeAttr(image.id)}" aria-label="Select ${escapeAttr(image.id)}">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6L9 17l-5-5"/></svg>
             </button>
+            <button class="icon-btn print-add-btn" type="button" data-index="${imageIndex}" aria-label="Order print of ${escapeAttr(image.id)}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="1"/><rect x="5" y="5" width="14" height="14"/><path d="M2 2l3 3M22 2l-3 3M2 22l3-3M22 22l-3-3"/></svg>
+            </button>
           </div>
         </div>
       </article>`;
     }).join('');
-    photoGrid.querySelectorAll('.select-btn').forEach(button => button.addEventListener('click', () => toggleSelect(button.dataset.id)));
-    photoGrid.querySelectorAll('.view-btn').forEach(button => button.addEventListener('click', () => openLightbox(Number(button.dataset.index))));
+    photoGrid.querySelectorAll('.select-btn').forEach(button => button.addEventListener('click', (e) => { e.stopPropagation(); toggleSelect(button.dataset.id); }));
+    photoGrid.querySelectorAll('.view-btn').forEach(button => button.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(Number(button.dataset.index)); }));
+    photoGrid.querySelectorAll('.download-btn').forEach(link => link.addEventListener('click', (e) => e.stopPropagation()));
+    photoGrid.querySelectorAll('.print-add-btn').forEach(button => button.addEventListener('click', (e) => { e.stopPropagation(); addToPrintCart(renderedImages[Number(button.dataset.index)]); }));
+    photoGrid.querySelectorAll('.photo-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const idx = renderedImages.findIndex(img => img.id === card.dataset.id);
+        if (idx >= 0) openLightbox(idx);
+      });
+      card.style.cursor = 'pointer';
+    });
     applyFilters();
   }
 
@@ -546,13 +706,18 @@
 
   const lightbox = document.getElementById('galleryLightbox');
   const lbImage = document.getElementById('lbImage');
-  const lbMeta = document.getElementById('lbMeta');
+  const lbBarId = document.getElementById('lbBarId');
+  const lbBarTitle = document.getElementById('lbBarTitle');
+  const lbSelectBtn = document.getElementById('lbSelect');
+  const lbDownloadBtn = document.getElementById('lbDownload');
+  const lbOrderPrintBtn = document.getElementById('lbOrderPrint');
 
   function openLightbox(index){
     lightboxIndex = index;
     updateLightbox();
     lightbox.classList.add('open');
     lightbox.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
   }
 
   function updateLightbox(){
@@ -560,18 +725,33 @@
     if(!image) return;
     lbImage.src = image.src;
     lbImage.alt = image.title;
-    lbMeta.textContent = `${image.id} · ${image.title} · ${selected.has(image.id) ? 'Selected for album' : 'Not selected'}`;
+    lbBarId.textContent = image.id;
+    lbBarTitle.textContent = image.title;
+    lbSelectBtn.classList.toggle('active', selected.has(image.id));
+    lbDownloadBtn.href = image.src;
+    lbDownloadBtn.download = fileNameForImage(image);
   }
 
   function closeLightbox(){
     lightbox.classList.remove('open');
     lightbox.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
   }
+
+  lbSelectBtn.addEventListener('click', () => {
+    const image = renderedImages[lightboxIndex];
+    if(image) toggleSelect(image.id);
+    updateLightbox();
+  });
+  lbOrderPrintBtn.addEventListener('click', () => {
+    const image = renderedImages[lightboxIndex];
+    if(image) addToPrintCart(image);
+  });
 
   document.getElementById('lbClose').addEventListener('click', closeLightbox);
   document.getElementById('lbPrev').addEventListener('click', () => { lightboxIndex = (lightboxIndex - 1 + renderedImages.length) % renderedImages.length; updateLightbox(); });
   document.getElementById('lbNext').addEventListener('click', () => { lightboxIndex = (lightboxIndex + 1) % renderedImages.length; updateLightbox(); });
-  lightbox.addEventListener('click', event => { if(event.target === lightbox) closeLightbox(); });
+  lightbox.querySelector('.lb-stage').addEventListener('click', event => { if(event.target === event.currentTarget || event.target === lbImage) closeLightbox(); });
   document.addEventListener('keydown', event => {
     if(!lightbox.classList.contains('open')) return;
     if(event.key === 'Escape') closeLightbox();
@@ -615,6 +795,160 @@
     if(window.CSS && CSS.escape) return CSS.escape(value);
     return String(value).replace(/"/g, '\\"');
   }
+
+  // ═══ PRINT CART ═══
+  const printCartKey = `memorygraph_print_cart_${gallerySlug}`;
+  let printCart = JSON.parse(localStorage.getItem(printCartKey) || '[]');
+  const printOverlay = document.getElementById('printOverlay');
+  const printCartList = document.getElementById('printCartList');
+  const printSubtotal = document.getElementById('printSubtotal');
+  const printCartBadge = document.getElementById('printCartBadge');
+  const openPrintCartBtn = document.getElementById('openPrintCart');
+  const printSuccess = document.getElementById('printSuccess');
+  const printPanelBody = document.getElementById('printPanelBody');
+
+  function savePrintCart(){
+    localStorage.setItem(printCartKey, JSON.stringify(printCart));
+    updatePrintBadge();
+  }
+
+  function updatePrintBadge(){
+    const count = printCart.reduce((s, i) => s + (i.qty || 1), 0);
+    printCartBadge.textContent = count;
+    openPrintCartBtn.classList.toggle('empty', count === 0);
+  }
+
+  function addToPrintCart(image){
+    const existing = printCart.find(i => i.imageId === image.id);
+    if(existing){
+      existing.qty = (existing.qty || 1) + 1;
+    } else {
+      printCart.push({ imageId: image.id, src: image.src, title: image.title, size: 'A4', qty: 1 });
+    }
+    savePrintCart();
+    openPrintPanel();
+  }
+
+  function getPrintTotal(){
+    return printCart.reduce((sum, item) => sum + (item.size === 'A3' ? 1000 : 500) * (item.qty || 1), 0);
+  }
+
+  function renderPrintCart(){
+    if(!printCart.length){
+      printCartList.innerHTML = '<div class="print-empty">No items yet. Click the frame icon on any photo, or use the <strong>Order Print</strong> button in the fullscreen view.</div>';
+    } else {
+      printCartList.innerHTML = printCart.map((item, idx) => `
+        <div class="print-cart-item">
+          <img src="${escapeAttr(item.src)}" alt="${escapeAttr(item.title)}"/>
+          <div class="print-cart-item-info">
+            <div class="print-cart-item-id">${escapeHtml(item.imageId)}</div>
+            <div class="print-cart-size-row">
+              <button class="print-size-btn${item.size === 'A4' ? ' active' : ''}" type="button" data-idx="${idx}" data-size="A4">A4 &middot; &#8377;500</button>
+              <button class="print-size-btn${item.size === 'A3' ? ' active' : ''}" type="button" data-idx="${idx}" data-size="A3">A3 &middot; &#8377;1,000</button>
+            </div>
+            <div class="print-qty-row">
+              <button class="print-qty-btn" type="button" data-idx="${idx}" data-dir="-1">&minus;</button>
+              <span class="print-qty-val">${item.qty || 1}</span>
+              <button class="print-qty-btn" type="button" data-idx="${idx}" data-dir="1">+</button>
+              <button class="print-cart-remove" type="button" data-idx="${idx}" title="Remove">&times;</button>
+            </div>
+          </div>
+          <div class="print-cart-price">&#8377;${((item.size === 'A3' ? 1000 : 500) * (item.qty || 1)).toLocaleString('en-IN')}</div>
+        </div>
+      `).join('');
+      printCartList.querySelectorAll('.print-size-btn').forEach(btn => btn.addEventListener('click', () => {
+        printCart[Number(btn.dataset.idx)].size = btn.dataset.size;
+        savePrintCart();
+        renderPrintCart();
+      }));
+      printCartList.querySelectorAll('.print-qty-btn').forEach(btn => btn.addEventListener('click', () => {
+        const idx = Number(btn.dataset.idx);
+        const dir = Number(btn.dataset.dir);
+        printCart[idx].qty = Math.max(1, (printCart[idx].qty || 1) + dir);
+        savePrintCart();
+        renderPrintCart();
+      }));
+      printCartList.querySelectorAll('.print-cart-remove').forEach(btn => btn.addEventListener('click', () => {
+        printCart.splice(Number(btn.dataset.idx), 1);
+        savePrintCart();
+        renderPrintCart();
+      }));
+    }
+    printSubtotal.innerHTML = `Order total <span>&#8377;${getPrintTotal().toLocaleString('en-IN')}</span>`;
+    updatePrintWhatsApp();
+  }
+
+  function openPrintPanel(){
+    printSuccess.classList.remove('visible');
+    printPanelBody.style.display = '';
+    document.querySelector('.print-panel-foot').style.display = '';
+    renderPrintCart();
+    printOverlay.classList.add('open');
+  }
+
+  function closePrintPanel(){
+    printOverlay.classList.remove('open');
+  }
+
+  function printOrderText(){
+    const name = document.getElementById('printName').value.trim();
+    const phone = document.getElementById('printPhone').value.trim();
+    const address = document.getElementById('printAddress').value.trim();
+    let text = `Memorygraph Print Order\nGallery: ${galleryTitle}\n\n`;
+    printCart.forEach(item => {
+      text += `${item.imageId} — ${item.size} × ${item.qty || 1} — ₹${((item.size === 'A3' ? 1000 : 500) * (item.qty || 1))}\n`;
+    });
+    text += `\nTotal: ₹${getPrintTotal().toLocaleString('en-IN')}\n\nName: ${name || 'Not provided'}\nPhone: ${phone || 'Not provided'}\nAddress: ${address || 'Not provided'}`;
+    return text;
+  }
+
+  function updatePrintWhatsApp(){
+    const text = encodeURIComponent(printOrderText());
+    document.getElementById('printWhatsApp').href = `https://wa.me/${whatsappNumber}?text=${text}`;
+  }
+
+  openPrintCartBtn.addEventListener('click', openPrintPanel);
+  document.getElementById('closePrintPanel').addEventListener('click', closePrintPanel);
+  printOverlay.addEventListener('click', e => { if(e.target === printOverlay) closePrintPanel(); });
+  document.getElementById('printAddMore').addEventListener('click', () => { closePrintPanel(); });
+
+  document.getElementById('submitPrintOrder').addEventListener('click', async () => {
+    const name = document.getElementById('printName').value.trim();
+    const phone = document.getElementById('printPhone').value.trim();
+    const address = document.getElementById('printAddress').value.trim();
+    if(!printCart.length){ alert('Add at least one photo to your order.'); return; }
+    if(!name || !phone || !address){ alert('Please fill in your name, phone number, and delivery address.'); return; }
+    const submitBtn = document.getElementById('submitPrintOrder');
+    submitBtn.textContent = 'Placing order...';
+    submitBtn.disabled = true;
+    try {
+      const res = await fetch('/api/order', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ gallery: galleryTitle, items: printCart, name, phone, address })
+      });
+      if(res.ok){
+        printCart = [];
+        savePrintCart();
+        printPanelBody.style.display = 'none';
+        document.querySelector('.print-panel-foot').style.display = 'none';
+        printSuccess.classList.add('visible');
+      } else {
+        const err = await res.json().catch(() => ({}));
+        alert(err.error || 'Order could not be placed. Please try sending via WhatsApp instead.');
+      }
+    } catch(e) {
+      alert('Network error. Please try sending your order via WhatsApp instead.');
+    }
+    submitBtn.textContent = 'Place Order';
+    submitBtn.disabled = false;
+  });
+
+  document.getElementById('printSuccessClose').addEventListener('click', closePrintPanel);
+
+  document.querySelectorAll('#printName,#printPhone,#printAddress').forEach(el => el.addEventListener('input', updatePrintWhatsApp));
+
+  updatePrintBadge();
 
   addCategoryFilters();
   buildGallery();

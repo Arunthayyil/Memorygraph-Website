@@ -20,6 +20,8 @@
 <meta name="twitter:description" content="A curated portfolio of cinematic Kerala wedding stories — temple weddings, heritage venues, destinations."/>
 <meta name="twitter:image" content="https://memorygraphweddings.com/assets/og-stories.jpg"/>
 <link rel="canonical" href="https://memorygraphweddings.com/stories/"/>
+<link rel="icon" href="/assets/logo/logo-dark.png" type="image/png"/>
+<link rel="apple-touch-icon" href="/assets/logo/logo-dark.png"/>
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -294,7 +296,7 @@
       <div class="story-card gsap-reveal">
         <div class="s-img">
           <div class="s-img-inner"
-               style="background-image: url('{{ story.data.hero }}'); background-size: cover; background-position: center;"
+               data-bg="{{ story.data.hero }}" style="background-size: cover; background-position: center;"
                data-lightbox="{{ story.data.hero }}" data-caption="{{ story.data.title }} &mdash; {{ story.data.location }}">
           </div>
           <div class="s-noise"></div>

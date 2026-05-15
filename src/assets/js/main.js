@@ -281,6 +281,35 @@
     el.addEventListener('click', () => openLightbox(el.dataset.lightbox || el.src, el.dataset.caption));
   });
 
+  if (lightbox) {
+    let swipeStartX = 0;
+    lightbox.addEventListener('touchstart', e => { swipeStartX = e.changedTouches[0].clientX; }, { passive: true });
+    lightbox.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - swipeStartX;
+      if (Math.abs(dx) < 50) return;
+      if (dx < 0) nextLightbox();
+      if (dx > 0) prevLightbox();
+    });
+  }
+
+  window.openLightbox = openLightbox;
+
+  // ═══════════════════════════════════════════════
+  // 8b. LAZY-LOAD BACKGROUND IMAGES
+  // ═══════════════════════════════════════════════
+  const lazyBgElements = document.querySelectorAll('[data-bg]');
+  if (lazyBgElements.length) {
+    const bgObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.backgroundImage = "url('" + e.target.dataset.bg + "')";
+          bgObs.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '200px' });
+    lazyBgElements.forEach(el => bgObs.observe(el));
+  }
+
   // ═══════════════════════════════════════════════
   // 9. FLOATING LABELS VALIDATION
   // ═══════════════════════════════════════════════

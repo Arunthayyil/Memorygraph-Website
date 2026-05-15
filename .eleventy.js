@@ -111,6 +111,42 @@ module.exports = function(eleventyConfig) {
     return items.concat(Array.isArray(manualItems) ? manualItems : []);
   });
 
+  // Flattens gallery data into a simple image list for masonry display.
+  // Merges folder-based images with manual gallery entries.
+  eleventyConfig.addFilter("storyGalleryImages", function(manualGallery, galleryFolder) {
+    const images = [];
+    const supported = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
+
+    if (galleryFolder) {
+      const publicFolder = String(galleryFolder).replace(/\\/g, "/").replace(/^\/+/, "");
+      const sourceFolder = path.join("src", publicFolder);
+      if (fs.existsSync(sourceFolder) && fs.statSync(sourceFolder).isDirectory()) {
+        fs.readdirSync(sourceFolder)
+          .filter(file => supported.has(path.extname(file).toLowerCase()))
+          .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }))
+          .forEach(file => {
+            images.push({ type: "image", src: `/${publicFolder}/${file}` });
+          });
+      }
+    }
+
+    if (Array.isArray(manualGallery)) {
+      manualGallery.forEach(row => {
+        if (row.layout === "quote" && row.text) {
+          images.push({ type: "quote", text: row.text });
+        } else if (Array.isArray(row.images)) {
+          row.images.forEach(src => {
+            if (src) images.push({ type: "image", src: src });
+          });
+        } else if (row.image) {
+          images.push({ type: "image", src: row.image });
+        }
+      });
+    }
+
+    return images;
+  });
+
   // absoluteUrl filter — story.njk OG image meta
   eleventyConfig.addFilter("absoluteUrl", function(path, base) {
     if (!path) return base || "";

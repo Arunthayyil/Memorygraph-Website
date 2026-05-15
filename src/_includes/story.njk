@@ -20,6 +20,8 @@
 <meta name="twitter:description" content="A cinematic wedding story of {{ title }} at {{ location }}."/>
 <meta name="twitter:image" content="{{ 'https://memorygraphweddings.com' + hero }}"/>
 <link rel="canonical" href="https://memorygraphweddings.com{{ page.url }}"/>
+<link rel="icon" href="/assets/logo/logo-dark.png" type="image/png"/>
+<link rel="apple-touch-icon" href="/assets/logo/logo-dark.png"/>
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -284,36 +286,27 @@
   }
   .gallery-title em { font-style: italic; color: var(--teal); }
 
-  .gal-img {
-    background-size: cover; background-position: center;
-    background-color: #cdc1a8;
-    position: relative; overflow: hidden;
+  .gallery-masonry {
+    columns: 2;
+    column-gap: 6px;
+    padding: 0 6px;
+  }
+  .gal-item {
+    break-inside: avoid;
+    margin-bottom: 6px;
+    overflow: hidden;
     cursor: pointer;
-    transition: transform .8s cubic-bezier(.22,1,.36,1), filter .8s;
+    position: relative;
+    background-color: #ece4d4;
+    line-height: 0;
   }
-  .gal-img::after {
-    content: ''; position: absolute; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
-    mix-blend-mode: multiply;
-    opacity: var(--show-noise, 1);
+  .gal-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform .8s cubic-bezier(.22,1,.36,1), filter .6s;
   }
-  .gal-img.has-image::after { opacity: 0; }
-  .gal-img.placeholder {
-    background: linear-gradient(160deg, #d8cfb8 0%, #b8a98a 100%);
-  }
-  .gal-img:hover { transform: scale(1.02); }
-
-  .gallery-row { display: grid; gap: 4px; padding: 0 4px 4px; }
-  .gallery-row.full { grid-template-columns: 1fr; }
-  .gallery-row.two { grid-template-columns: 1fr 1fr; }
-  .gallery-row.three { grid-template-columns: 1fr 1fr 1fr; }
-  .gallery-row.asym-l { grid-template-columns: 2fr 1fr; }
-  .gallery-row.asym-r { grid-template-columns: 1fr 2fr; }
-
-  .gal-img.tall { aspect-ratio: 3/4; }
-  .gal-img.wide { aspect-ratio: 16/9; }
-  .gal-img.square { aspect-ratio: 1/1; }
-  .gal-img.cinema { aspect-ratio: 21/9; }
+  .gal-item:hover img { transform: scale(1.02); }
 
   .gallery-quote {
     text-align: center; padding: 100px 56px;
@@ -543,8 +536,8 @@
     .gallery-quote { padding: 56px 24px; }
     .story-cta { padding-top: 72px; padding-bottom: 72px; }
     .gallery-eyebrow-wrap { padding: 0 24px; }
-    .gallery-row.three { grid-template-columns: 1fr 1fr; }
-    .gallery-row.asym-l, .gallery-row.asym-r { grid-template-columns: 1fr; }
+    .gallery-masonry { column-gap: 4px; }
+    .gal-item { margin-bottom: 4px; }
     .stats-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
     .vendors { padding: 80px 24px; }
     .vendors-grid { grid-template-columns: 1fr; }
@@ -556,8 +549,7 @@
     footer { padding: 40px 24px 28px; }
   }
   @media (max-width: 600px) {
-    .gallery-row.three { grid-template-columns: 1fr; }
-    .gallery-row.two { grid-template-columns: 1fr; }
+    .gallery-masonry { columns: 1; }
     .story-hero-meta { gap: 20px; }
     .story-hero-meta-item::before { display: none; }
   }
@@ -658,43 +650,20 @@
     <h2 class="gallery-title gsap-reveal reveal-d1 stagger-words">Frames from <em>the day</em>.</h2>
   </div>
 
-  {% for row in gallery %}
-    {% if row.layout == "full" %}
-      <div class="gallery-row full">
-        <div class="gal-img cinema {% if row.images[0] %}has-image{% endif %}" style="background-image:url('{{ row.images[0] }}')" data-lightbox="{{ row.images[0] }}" data-caption="{{ title }}"></div>
-      </div>
-    {% endif %}
-    {% if row.layout == "two" %}
-      <div class="gallery-row two">
-        <div class="gal-img tall {% if row.images[0] %}has-image{% endif %}" style="background-image:url('{{ row.images[0] }}')" data-lightbox="{{ row.images[0] }}" data-caption="{{ title }}"></div>
-        <div class="gal-img tall {% if row.images[1] %}has-image{% endif %}" style="background-image:url('{{ row.images[1] }}')" data-lightbox="{{ row.images[1] }}" data-caption="{{ title }}"></div>
-      </div>
-    {% endif %}
-    {% if row.layout == "three" %}
-      <div class="gallery-row three">
-        <div class="gal-img square {% if row.images[0] %}has-image{% endif %}" style="background-image:url('{{ row.images[0] }}')" data-lightbox="{{ row.images[0] }}" data-caption="{{ title }}"></div>
-        <div class="gal-img square {% if row.images[1] %}has-image{% endif %}" style="background-image:url('{{ row.images[1] }}')" data-lightbox="{{ row.images[1] }}" data-caption="{{ title }}"></div>
-        <div class="gal-img square {% if row.images[2] %}has-image{% endif %}" style="background-image:url('{{ row.images[2] }}')" data-lightbox="{{ row.images[2] }}" data-caption="{{ title }}"></div>
-      </div>
-    {% endif %}
-    {% if row.layout == "asym-l" %}
-      <div class="gallery-row asym-l">
-        <div class="gal-img wide {% if row.images[0] %}has-image{% endif %}" style="background-image:url('{{ row.images[0] }}')" data-lightbox="{{ row.images[0] }}" data-caption="{{ title }}"></div>
-        <div class="gal-img tall {% if row.images[1] %}has-image{% endif %}" style="background-image:url('{{ row.images[1] }}')" data-lightbox="{{ row.images[1] }}" data-caption="{{ title }}"></div>
-      </div>
-    {% endif %}
-    {% if row.layout == "asym-r" %}
-      <div class="gallery-row asym-r">
-        <div class="gal-img tall {% if row.images[0] %}has-image{% endif %}" style="background-image:url('{{ row.images[0] }}')" data-lightbox="{{ row.images[0] }}" data-caption="{{ title }}"></div>
-        <div class="gal-img wide {% if row.images[1] %}has-image{% endif %}" style="background-image:url('{{ row.images[1] }}')" data-lightbox="{{ row.images[1] }}" data-caption="{{ title }}"></div>
-      </div>
-    {% endif %}
-    {% if row.layout == "quote" %}
-      <div class="gallery-quote gsap-reveal">
-        <blockquote class="gallery-quote-text">{{ row.text }}</blockquote>
-      </div>
-    {% endif %}
-  {% endfor %}
+  {%- set allImages = gallery | storyGalleryImages(gallery_folder) -%}
+  <div class="gallery-masonry">
+    {% for img in allImages %}
+      {% if img.type == "quote" %}
+        <div class="gallery-quote gsap-reveal">
+          <blockquote class="gallery-quote-text">{{ img.text }}</blockquote>
+        </div>
+      {% else %}
+        <div class="gal-item">
+          <img src="{{ img.src }}" alt="{{ title }}" loading="lazy" data-lightbox="{{ img.src }}" data-caption="{{ title }}"/>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
 </section>
 
 {% if album_spreads and album_spreads.length > 0 %}
@@ -849,13 +818,6 @@
 
 <!-- PAGE-SPECIFIC SCRIPTS -->
 <script>
-  // Gallery images click to lightbox
-  document.querySelectorAll('.gal-img[data-lightbox]').forEach(img => {
-    img.addEventListener('click', () => {
-      if (window.openLightbox) openLightbox(img.dataset.lightbox, img.dataset.caption);
-    });
-  });
-
   // Legacy reveal fallback
   if (!window.gsap) {
     const obs = new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}}),{threshold:.1});

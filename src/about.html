@@ -16,8 +16,11 @@
 <meta property="og:site_name" content="Memorygraph Weddings"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <link rel="canonical" href="https://memorygraphweddings.com/about/"/>
+<link rel="icon" href="/assets/logo/logo-dark.png" type="image/png"/>
+<link rel="apple-touch-icon" href="/assets/logo/logo-dark.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="/assets/css/animations.css"/>
 <style>
@@ -183,10 +186,26 @@ footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
 .reveal.visible{opacity:1;transform:translateY(0);}
 .reveal-d1{transition-delay:.12s;}.reveal-d2{transition-delay:.24s;}.reveal-d3{transition-delay:.38s;}
 
+/* ── HAMBURGER & MOBILE MENU ── */
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:101;}
+.nav-toggle span{display:block;width:22px;height:1.5px;background:var(--ink);transition:all .35s cubic-bezier(.22,1,.36,1);}
+.nav-toggle.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.mobile-menu{position:fixed;inset:0;z-index:99;background:var(--ivory);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s;}
+.mobile-menu.open{opacity:1;visibility:visible;}
+.mobile-menu a{font-family:var(--serif);font-size:clamp(1.8rem,5vw,2.8rem);font-weight:300;font-style:italic;color:var(--ink);text-decoration:none;transition:color .3s;}
+.mobile-menu a:hover{color:var(--teal);}
+.mobile-menu-cta{font-family:var(--sans)!important;font-size:.7rem!important;font-style:normal!important;letter-spacing:.22em;text-transform:uppercase;background:var(--teal);color:var(--ivory)!important;padding:14px 32px;margin-top:12px;}
+.mobile-menu-social{display:flex;gap:24px;margin-top:8px;}
+.mobile-menu-social a{font-family:var(--sans)!important;font-size:.62rem!important;font-style:normal!important;letter-spacing:.22em;text-transform:uppercase;color:var(--mist)!important;}
+.skip-link{position:absolute;top:-100%;left:16px;z-index:10001;background:var(--teal);color:var(--ivory);padding:12px 24px;font-family:var(--sans);font-size:.8rem;text-decoration:none;transition:top .3s;}
+.skip-link:focus{top:16px;}
+
 @media(max-width:980px){
   body{cursor:auto;}.cursor{display:none;}
   nav{padding:16px 20px;}nav.scrolled{padding:12px 20px;}
-  .nav-links{display:none;}
+  .nav-links{display:none;}.nav-cta{display:none;}.nav-toggle{display:flex;}
   .hero{grid-template-columns:1fr;min-height:auto;}
   .hero-img{height:65vw;min-height:280px;order:-1;}
   .hero-img-gradient{background:linear-gradient(to bottom,transparent 70%,var(--ivory) 100%);}
@@ -218,6 +237,9 @@ footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
 </head>
 <body>
 
+<a href="#about-content" class="skip-link">Skip to content</a>
+<noscript><style>.preloader{display:none!important;}.reveal{opacity:1!important;transform:none!important;}.cursor{display:none!important;}body{cursor:auto!important;}</style></noscript>
+
 <div class="preloader" id="preloader">
   <div class="preloader-logo">Memorygraph<small>Photographing Memories</small></div>
   <div class="preloader-line"></div>
@@ -237,9 +259,24 @@ footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
     <li><a href="/blog/">Journal</a></li>
   </ul>
   <a href="/contact/" class="nav-cta magnetic">Begin Your Story</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/">Home</a>
+  <a href="/stories/">Stories</a>
+  <a href="/about/">About</a>
+  <a href="/investment/">Investment</a>
+  <a href="/blog/">Journal</a>
+  <a href="/contact/" class="mobile-menu-cta">Begin Your Story</a>
+  <div class="mobile-menu-social">
+    <a href="https://instagram.com/memorygraph.weddings" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.youtube.com/@MemorygraphWeddings" target="_blank" rel="noopener">YouTube</a>
+  </div>
+</div>
+
 <!-- HERO -->
+<div id="about-content"></div>
 <div class="hero">
   <div class="hero-text">
     <div class="hero-eyebrow reveal">The person behind every wedding</div>
@@ -321,7 +358,7 @@ footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
   </div>
   <div class="team-grid">
     <div class="team-card reveal">
-      <div class="team-portrait"><img src="/assets/team/jayadevan.jpg" alt="Jayadevan Nambothiri"/></div>
+      <div class="team-portrait"><img src="/assets/team/jayadevan.jpg" alt="Jayadevan Nambothiri" loading="lazy"/></div>
       <div class="team-info">
         <div class="team-role">Photographer</div>
         <div class="team-name">Jayadevan Nambothiri</div>
@@ -329,7 +366,7 @@ footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
       </div>
     </div>
     <div class="team-card reveal reveal-d1">
-      <div class="team-portrait"><img src="/assets/team/abin.jpg" alt="Abin Varghese"/></div>
+      <div class="team-portrait"><img src="/assets/team/abin.jpg" alt="Abin Varghese" loading="lazy"/></div>
       <div class="team-info">
         <div class="team-role">Cinematographer</div>
         <div class="team-name">Abin Varghese</div>
@@ -337,7 +374,7 @@ footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
       </div>
     </div>
     <div class="team-card reveal reveal-d2">
-      <div class="team-portrait"><img src="/assets/team/sabari.jpg" alt="Sabari"/></div>
+      <div class="team-portrait"><img src="/assets/team/sabari.jpg" alt="Sabari" loading="lazy"/></div>
       <div class="team-info">
         <div class="team-role">Cinematographer</div>
         <div class="team-name">Sabari</div>
@@ -451,6 +488,13 @@ footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
     if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
   }),{threshold:.08});
   document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+
+  // Mobile menu
+  const navToggle=document.getElementById('navToggle'),mobileMenu=document.getElementById('mobileMenu');
+  if(navToggle&&mobileMenu){
+    navToggle.addEventListener('click',()=>{const o=mobileMenu.classList.toggle('open');navToggle.classList.toggle('open');navToggle.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});
+    mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobileMenu.classList.remove('open');navToggle.classList.remove('open');navToggle.setAttribute('aria-expanded','false');document.body.style.overflow='';}));
+  }
 
   // Photo strip — landscape folder-based slides with swipe
   function captionFrom(src){

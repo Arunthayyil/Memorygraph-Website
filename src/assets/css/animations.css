@@ -55,7 +55,7 @@ body {
 }
 
 @keyframes preFadeIn { to { opacity: 1; } }
-@keyframes preSlide { to { left: 100%; } } 50%{opacity:1;} }
+@keyframes preSlide { 0% { left: -100%; } 50% { opacity: 1; } 100% { left: 100%; } }
 
 /* ── PAGE TRANSITIONS ── */
 .page-transition-overlay {

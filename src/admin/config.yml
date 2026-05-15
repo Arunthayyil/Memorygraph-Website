@@ -14,25 +14,35 @@ collections:
     folder: "src/content/stories"
     create: true
     slug: "{{slug}}"
+    summary: "{{title}} — {{location_short}} · {{date | date('YYYY-MM-DD')}}"
+    sortable_fields: ["date", "title", "location_short"]
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Location", name: "location", widget: "string" }
-      - { label: "Location Short", name: "location_short", widget: "string" }
+      - { label: "Title", name: "title", widget: "string", hint: "Couple names, e.g. Abhin & Gayathry" }
+      - { label: "Location", name: "location", widget: "string", hint: "Full venue name, e.g. Vadakkumnathan Temple, Thrissur" }
+      - { label: "Location Short", name: "location_short", widget: "string", hint: "City only, e.g. Thrissur" }
       - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
-      - { label: "Hero Image", name: "hero", widget: "image" }
-      - { label: "Quote", name: "quote", widget: "text" }
-      - { label: "Quote By", name: "quote_by", widget: "string", required: false }
-      - { label: "Chapter Title", name: "chapter_title", widget: "string", required: false }
-      - { label: "Film URL", name: "film_url", widget: "string", required: false }
-      - { label: "Stat Images", name: "stat_images", widget: "string", required: false }
-      - { label: "Stat Hours", name: "stat_hours", widget: "string", required: false }
-      - { label: "Stat Photographers", name: "stat_photographers", widget: "string", required: false }
-      - { label: "Gallery", name: "gallery", widget: "list", field: { name: "row", widget: "object", fields: [
-          { label: "Layout", name: "layout", widget: "select", options: ["full", "two", "three", "asym-l", "asym-r", "quote"] },
-          { label: "Images", name: "images", widget: "list", field: { widget: "image" }, required: false },
-          { label: "Text", name: "text", widget: "text", required: false }
-        ]}}
-      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Hero Image", name: "hero", widget: "image", hint: "Main cover image — shown on cards, hero, and social shares" }
+      - { label: "Quote", name: "quote", widget: "text", hint: "A short quote from the couple or your reflection on the day" }
+      - { label: "Quote By", name: "quote_by", widget: "string", required: false, hint: "e.g. Gayathry, the bride" }
+      - { label: "Chapter Title", name: "chapter_title", widget: "string", required: false, hint: "HTML allowed. e.g. A morning of <em>quiet light</em>." }
+      - { label: "Film URL", name: "film_url", widget: "string", required: false, hint: "YouTube embed URL if a film exists" }
+      - { label: "Images Delivered", name: "stat_images", widget: "string", required: false, default: "800+" }
+      - { label: "Hours of Coverage", name: "stat_hours", widget: "string", required: false, default: "12" }
+      - { label: "Photographers", name: "stat_photographers", widget: "string", required: false, default: "2" }
+      - { label: "Gallery Folder", name: "gallery_folder", widget: "string", required: false, hint: "Bulk upload: drop all images into a folder like assets/stories/couple-name/ then enter that path here. Images auto-layout in a magazine-style grid sorted by filename. Any manual gallery rows below appear after these." }
+      - label: "Gallery (Manual)"
+        name: "gallery"
+        widget: "list"
+        required: false
+        hint: "Optional. Add extra images or quotes after the bulk folder images. Drag to reorder."
+        field:
+          name: "row"
+          widget: "object"
+          fields:
+            - { label: "Type", name: "layout", widget: "select", options: ["image", "quote"], default: "image" }
+            - { label: "Images", name: "images", widget: "list", field: { widget: "image" }, required: false, hint: "Add one or more images" }
+            - { label: "Quote Text", name: "text", widget: "text", required: false, hint: "Only for quote type" }
+      - { label: "Body", name: "body", widget: "markdown", hint: "The written story — appears below the opening quote" }
       - { label: "Layout", name: "layout", widget: "hidden", default: "story.njk" }
 
   - name: "client_galleries"
@@ -76,28 +86,32 @@ collections:
     folder: "src/content/testimonials"
     create: true
     slug: "{{slug}}"
+    summary: "{{title}} — {{location}}"
+    sortable_fields: ["order", "title"]
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Location", name: "location", widget: "string" }
-      - { label: "Order", name: "order", widget: "number", value_type: "int" }
-      - { label: "Quote", name: "quote", widget: "text" }
+      - { label: "Couple Name", name: "title", widget: "string", hint: "e.g. Abhin & Gayathry" }
+      - { label: "Location", name: "location", widget: "string", hint: "e.g. Thrissur" }
+      - { label: "Display Order", name: "order", widget: "number", value_type: "int", hint: "Lower number = appears first on the homepage" }
+      - { label: "Quote", name: "quote", widget: "text", hint: "Keep it short — 2-3 sentences works best" }
 
   - name: "blog"
     label: "Journal"
     folder: "src/content/blog"
     create: true
     slug: "{{slug}}"
+    summary: "{{title}} — {{category}} · {{date | date('YYYY-MM-DD')}}"
+    sortable_fields: ["date", "title", "category"]
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
       - { label: "Updated", name: "updated", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, required: false }
-      - { label: "SEO Title", name: "seoTitle", widget: "string", required: false }
-      - { label: "Description", name: "description", widget: "text" }
-      - { label: "Excerpt", name: "excerpt", widget: "text" }
+      - { label: "SEO Title", name: "seoTitle", widget: "string", required: false, hint: "Override the browser tab title. Leave blank to use the main title." }
+      - { label: "Description", name: "description", widget: "text", hint: "For search engines — 150-160 characters ideal" }
+      - { label: "Excerpt", name: "excerpt", widget: "text", hint: "Short preview shown on the blog listing page" }
       - { label: "Category", name: "category", widget: "select", options: ["Planning Guides", "Wedding Stories", "Photography Advice", "Kerala Weddings"] }
       - { label: "Hero Image", name: "hero", widget: "image", required: false }
-      - { label: "Hero Alt Text", name: "imageAlt", widget: "string", required: false }
-      - { label: "Featured Post", name: "featured", widget: "boolean", required: false, default: false }
+      - { label: "Hero Alt Text", name: "imageAlt", widget: "string", required: false, hint: "Describe the image for accessibility" }
+      - { label: "Featured Post", name: "featured", widget: "boolean", required: false, default: false, hint: "Pin to the top of the journal page" }
       - { label: "Author", name: "author", widget: "string", required: false, default: "Arun T Chandran" }
-      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false, hint: "Comma-separated, e.g. Kerala, Hindu wedding, temple" }
       - { label: "Body", name: "body", widget: "markdown" }

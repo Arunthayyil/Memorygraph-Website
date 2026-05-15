@@ -42,8 +42,11 @@
     ]
   }
   </script>
+  <link rel="icon" href="/assets/logo/logo-dark.png" type="image/png"/>
+  <link rel="apple-touch-icon" href="/assets/logo/logo-dark.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/assets/css/animations.css"/>
   <style>
@@ -120,8 +123,8 @@
       transition:color .3s; position:relative;
     }
     .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px; background:var(--teal); transition:width .4s; }
-    .nav-links a:hover { color:var(--teal); }
-    .nav-links a:hover::after { width:100%; }
+    .nav-links a:hover, .nav-links a.active { color:var(--teal); }
+    .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
     .nav-cta {
       font-family:var(--sans); font-size:.7rem; font-weight:400;
       letter-spacing:.22em; text-transform:uppercase;
@@ -697,6 +700,76 @@
     .reveal-d2 { transition-delay:.3s; }
     .reveal-d3 { transition-delay:.45s; }
 
+    /* ── FAQ ── */
+    .faq-list { display:flex; flex-direction:column; }
+    .faq-item {
+      border-bottom:1px solid var(--line);
+      padding:0;
+    }
+    .faq-item summary {
+      font-family:var(--serif); font-size:1.2rem; font-weight:400;
+      color:var(--ink); padding:24px 40px 24px 0;
+      cursor:pointer; list-style:none; position:relative;
+      transition:color .3s;
+    }
+    .faq-item summary::-webkit-details-marker { display:none; }
+    .faq-item summary::after {
+      content:'+'; position:absolute; right:0; top:24px;
+      font-family:var(--sans); font-size:1.2rem; font-weight:200;
+      color:var(--teal); transition:transform .35s;
+    }
+    .faq-item[open] summary::after { transform:rotate(45deg); }
+    .faq-item[open] summary { color:var(--teal); }
+    .faq-item p {
+      font-family:var(--sans); font-size:.88rem; font-weight:300;
+      line-height:1.9; color:var(--ink-soft);
+      padding:0 40px 24px 0;
+    }
+    .faq-item summary:hover { color:var(--teal); }
+
+    /* ── HAMBURGER MENU ── */
+    .nav-toggle { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px; z-index:101; }
+    .nav-toggle span { display:block; width:22px; height:1.5px; background:var(--ink); transition:all .35s cubic-bezier(.22,1,.36,1); }
+    .nav-toggle.open span:nth-child(1) { transform:rotate(45deg) translate(4px,4px); }
+    .nav-toggle.open span:nth-child(2) { opacity:0; }
+    .nav-toggle.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+
+    .mobile-menu {
+      position:fixed; inset:0; z-index:99;
+      background:var(--ivory); display:flex; flex-direction:column;
+      align-items:center; justify-content:center; gap:36px;
+      opacity:0; visibility:hidden; transition:opacity .4s, visibility .4s;
+    }
+    .mobile-menu.open { opacity:1; visibility:visible; }
+    .mobile-menu a {
+      font-family:var(--serif); font-size:clamp(1.8rem,5vw,2.8rem);
+      font-weight:300; font-style:italic; color:var(--ink);
+      text-decoration:none; transition:color .3s;
+    }
+    .mobile-menu a:hover { color:var(--teal); }
+    .mobile-menu-cta {
+      font-family:var(--sans); font-size:.7rem; letter-spacing:.22em;
+      text-transform:uppercase; background:var(--teal); color:var(--ivory);
+      padding:14px 32px; text-decoration:none; margin-top:12px;
+    }
+    .mobile-menu-social {
+      display:flex; gap:24px; margin-top:8px;
+    }
+    .mobile-menu-social a {
+      font-family:var(--sans) !important; font-size:.62rem !important;
+      font-style:normal !important; letter-spacing:.22em;
+      text-transform:uppercase; color:var(--mist) !important;
+    }
+
+    /* ── SKIP TO CONTENT ── */
+    .skip-link {
+      position:absolute; top:-100%; left:16px; z-index:10001;
+      background:var(--teal); color:var(--ivory); padding:12px 24px;
+      font-family:var(--sans); font-size:.8rem; text-decoration:none;
+      transition:top .3s;
+    }
+    .skip-link:focus { top:16px; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 980px) {
       body { cursor:auto; }
@@ -704,6 +777,8 @@
       nav { padding:18px 24px; }
       nav.scrolled { padding:14px 24px; }
       .nav-links { display:none; }
+      .nav-cta { display:none; }
+      .nav-toggle { display:flex; }
       .hero { padding:0 24px; min-height:680px; }
     .hero-bg-frame { width:100%; opacity:.5; }
       .hero-content { padding-right:0; }
@@ -715,6 +790,8 @@
       .about-stat-card { right:auto; left:50%; transform:translateX(-50%); }
       .footer-bottom { flex-direction:column; }
       .testimonial-quotes { font-size:14rem; }
+      .faq-section { padding:80px 24px !important; }
+      .faq-section > div { grid-template-columns:1fr !important; gap:40px; }
     }
   
     .story-card-link { display:block; text-decoration:none; color:inherit; }
@@ -776,6 +853,20 @@
 </head>
 <body>
 
+<!-- SKIP TO CONTENT -->
+<a href="#about" class="skip-link">Skip to content</a>
+
+<!-- NOSCRIPT FALLBACK -->
+<noscript>
+  <style>
+    .preloader { display:none !important; }
+    .reveal { opacity:1 !important; transform:none !important; }
+    .cursor { display:none !important; }
+    body { cursor:auto !important; }
+    .hero-eyebrow, .hero-headline, .hero-subline, .hero-actions, .hero-meta, .hero-scroll { opacity:1 !important; transform:none !important; animation:none !important; }
+  </style>
+</noscript>
+
 <!-- PRELOADER -->
 <div class="preloader" id="preloader">
   <div class="preloader-logo">Memorygraph<small>Photographing Memories</small></div>
@@ -797,14 +888,31 @@
     <img src="/assets/logo/logo-dark.png" alt="Memorygraph Wedding Studio" style="height:52px;width:auto;max-width:180px;"/>
   </a>
   <ul class="nav-links">
-    <li><a href="/">Home</a></li>
+    <li><a href="/" class="active">Home</a></li>
     <li><a href="/stories/">Stories</a></li>
     <li><a href="/about/">About</a></li>
     <li><a href="/investment/">Investment</a></li>
     <li><a href="/blog/">Journal</a></li>
   </ul>
   <a href="/contact/" class="nav-cta magnetic">Begin Your Story</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/">Home</a>
+  <a href="/stories/">Stories</a>
+  <a href="/about/">About</a>
+  <a href="/investment/">Investment</a>
+  <a href="/blog/">Journal</a>
+  <a href="/contact/" class="mobile-menu-cta">Begin Your Story</a>
+  <div class="mobile-menu-social">
+    <a href="https://instagram.com/memorygraph.weddings" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.youtube.com/@MemorygraphWeddings" target="_blank" rel="noopener">YouTube</a>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -876,16 +984,8 @@
     <div class="about-img-frame">
       <div class="about-slideshow" id="aboutSlideshow">
         <!-- Slides injected by JS from /assets/slides/portrait/ -->
-        <div class="about-slide" style="background-image:url('/assets/about/04.jpg')"></div>
-        <div class="about-slide" style="background-image:url('/assets/about/05.jpg')"></div>
       </div>
-      <div class="about-slide-dots">
-        <span class="asd active" onclick="setAboutSlide(0)"></span>
-        <span class="asd" onclick="setAboutSlide(1)"></span>
-        <span class="asd" onclick="setAboutSlide(2)"></span>
-        <span class="asd" onclick="setAboutSlide(3)"></span>
-        <span class="asd" onclick="setAboutSlide(4)"></span>
-      </div>
+      <div class="about-slide-dots" id="aboutDots"></div>
     </div>
     <div class="about-corner-br"></div>
   </div>
@@ -974,7 +1074,7 @@
       <div class="story-card{% if forloop.first %} large{% endif %}">
         <div class="story-img">
           {% if story.data.hero %}
-          <div class="story-img-inner" style="background-image:url('{{ story.data.hero }}');background-size:cover;background-position:center;"></div>
+          <div class="story-img-inner" data-bg="{{ story.data.hero }}" style="background-size:cover;background-position:center;"></div>
           {% else %}
           <div class="story-img-inner sg{% cycle '1','2','3','4','5' %}"></div>
           {% endif %}
@@ -1036,11 +1136,11 @@
         <div class="tl-title">The First Conversation</div>
         <p class="tl-desc">A 30-minute call — not a sales pitch. We listen to your story, your vision, your worries. Most couples leave already feeling lighter.</p>
       </div>
-      <div class="tl-visual"><div class="tl-visual-img" style="background-image:url('/assets/stories/abhin-gayathry/03.jpg');"></div></div>
+      <div class="tl-visual"><div class="tl-visual-img" data-bg="/assets/stories/abhin-gayathry/03.jpg"></div></div>
       <div class="tl-dot"></div>
     </div>
     <div class="process-tl-item">
-      <div class="tl-visual"><div class="tl-visual-img" style="background-image:url('/assets/stories/abhin-gayathry/05.jpg');"></div></div>
+      <div class="tl-visual"><div class="tl-visual-img" data-bg="/assets/stories/abhin-gayathry/05.jpg"></div></div>
       <div class="tl-content">
         <div class="tl-num">02</div>
         <div class="tl-title">A Plan Built Around You</div>
@@ -1054,11 +1154,11 @@
         <div class="tl-title">The Day Itself</div>
         <p class="tl-desc">Quiet, observant, deeply focused. We move like shadows — present everywhere, intrusive nowhere. You'll forget we're there.</p>
       </div>
-      <div class="tl-visual"><div class="tl-visual-img" style="background-image:url('/assets/stories/abhin-gayathry/08.jpg');"></div></div>
+      <div class="tl-visual"><div class="tl-visual-img" data-bg="/assets/stories/abhin-gayathry/08.jpg"></div></div>
       <div class="tl-dot"></div>
     </div>
     <div class="process-tl-item">
-      <div class="tl-visual"><div class="tl-visual-img" style="background-image:url('/assets/stories/abhin-gayathry/11.jpg');"></div></div>
+      <div class="tl-visual"><div class="tl-visual-img" data-bg="/assets/stories/abhin-gayathry/11.jpg"></div></div>
       <div class="tl-content">
         <div class="tl-num">04</div>
         <div class="tl-title">Delivered with Care</div>
@@ -1098,7 +1198,58 @@
     <div class="delivery-feature"><h3>Album Selection</h3><p>Choose the frames you want printed, add notes for the design, and send the final shortlist back to us.</p></div>
     <div class="delivery-feature"><h3>Easy Sharing</h3><p>One clean link for photographs, films, downloads, favorites, and the pieces your family will keep returning to.</p></div>
   </div>
-</section><!-- CTA -->
+</section><!-- FAQ -->
+<section class="faq-section" id="faq" style="padding:120px 56px;background:var(--ivory);border-top:1px solid var(--line-2);">
+  <div style="display:grid;grid-template-columns:.8fr 1.2fr;gap:80px;align-items:start;">
+    <div>
+      <div class="section-label reveal">Common Questions</div>
+      <h2 class="section-title reveal reveal-d1">Before you<br><em>reach out.</em></h2>
+      <p class="reveal reveal-d2" style="font-family:var(--sans);font-size:.92rem;font-weight:300;line-height:1.9;color:var(--ink-soft);margin-top:24px;">Honest answers to the questions we hear most. If yours isn't here, we'd love to hear it.</p>
+    </div>
+    <div class="faq-list reveal reveal-d2">
+      <details class="faq-item">
+        <summary>How far in advance should we book?</summary>
+        <p>We take a limited number of weddings each month to give every couple our full attention. Peak season dates (November–February) tend to fill 4–6 months ahead. The earlier you reach out, the better — but we always try to make it work.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do you travel outside Kerala for weddings?</summary>
+        <p>Absolutely. We've covered weddings across South India and are happy to travel anywhere. Destination wedding travel and accommodation costs are quoted transparently upfront — no surprises.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How many photographs will we receive?</summary>
+        <p>It depends on the collection and the length of your day, but typically between 400–1000+ hand-edited photographs. We don't pad galleries with duplicates — every image earns its place.</p>
+      </details>
+      <details class="faq-item">
+        <summary>When will we get our photos and films?</summary>
+        <p>We promise delivery within 30 days. Highlight teasers arrive within 48 hours (or same-day for Legacy collections). Your photographs and films are delivered through a private online gallery — not random Google Drive links.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can we customize a collection?</summary>
+        <p>Yes. Our three collections cover most needs, but we're happy to add drone coverage, extra days, printed albums, or pre-wedding shoots as individual add-ons. Tell us what you need — we'll build it around your wedding.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Will Arun personally photograph our wedding?</summary>
+        <p>Yes — always. When you book Memorygraph, you book Arun leading the coverage personally. Not an associate, not whoever is available. That's a promise we've kept since day one.</p>
+      </details>
+    </div>
+  </div>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "How far in advance should we book?", "acceptedAnswer": {"@type": "Answer", "text": "Peak season dates (November–February) tend to fill 4–6 months ahead. The earlier you reach out, the better."}},
+    {"@type": "Question", "name": "Do you travel outside Kerala for weddings?", "acceptedAnswer": {"@type": "Answer", "text": "Absolutely. Destination wedding travel and accommodation costs are quoted transparently upfront."}},
+    {"@type": "Question", "name": "How many photographs will we receive?", "acceptedAnswer": {"@type": "Answer", "text": "Typically between 400–1000+ hand-edited photographs depending on the collection."}},
+    {"@type": "Question", "name": "When will we get our photos and films?", "acceptedAnswer": {"@type": "Answer", "text": "Within 30 days. Highlight teasers arrive within 48 hours or same-day for Legacy collections."}},
+    {"@type": "Question", "name": "Can we customize a collection?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Add drone coverage, extra days, printed albums, or pre-wedding shoots as individual add-ons."}},
+    {"@type": "Question", "name": "Will Arun personally photograph our wedding?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — always. When you book Memorygraph, you book Arun leading the coverage personally."}}
+  ]
+}
+</script>
+
+<!-- CTA -->
 <section class="cta-banner" id="contact">
   <div class="cta-deco"></div>
   <div class="cta-deco2"></div>
@@ -1302,6 +1453,28 @@
   // Reveal
   const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}}),{threshold:.12});
   document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+
+  // Mobile menu toggle
+  const navToggle=document.getElementById('navToggle');
+  const mobileMenu=document.getElementById('mobileMenu');
+  if(navToggle&&mobileMenu){
+    navToggle.addEventListener('click',()=>{
+      const isOpen=mobileMenu.classList.toggle('open');
+      navToggle.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded',isOpen);
+      document.body.style.overflow=isOpen?'hidden':'';
+      if(lenis){isOpen?lenis.stop():lenis.start();}
+    });
+    mobileMenu.querySelectorAll('a').forEach(a=>{
+      a.addEventListener('click',()=>{
+        mobileMenu.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded','false');
+        document.body.style.overflow='';
+        if(lenis)lenis.start();
+      });
+    });
+  }
 </script>
 <script src="/assets/cms-loader.js"></script>
 </body>

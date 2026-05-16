@@ -42,10 +42,8 @@
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "Wedding Collections",
-    "itemListElement": [
-      {"@type": "Offer", "name": "Coverage", "price": "75000", "priceCurrency": "INR"},
-      {"@type": "Offer", "name": "Story", "price": "100000", "priceCurrency": "INR"},
-      {"@type": "Offer", "name": "Legacy", "price": "150000", "priceCurrency": "INR"}
+    "itemListElement": [{% for col in investment.collections %}
+      {"@type": "Offer", "name": "{{ col.name }}", "price": "{{ col.price_number }}", "priceCurrency": "INR"}{% unless forloop.last %},{% endunless %}{% endfor %}
     ]
   }
 }
@@ -270,78 +268,29 @@
     <p class="gsap-reveal reveal-d2">Every collection includes Arun leading your wedding personally. What changes is scope — one day or two, film length, and what you hold in your hands when it's over.</p>
   </div>
   <div class="collections-grid">
-
-    <div class="col gsap-reveal">
+    {% for col in investment.collections %}
+    {% if forloop.index == 1 %}{% assign revealClass = "gsap-reveal" %}{% elsif forloop.index == 2 %}{% assign revealClass = "gsap-reveal reveal-d1" %}{% else %}{% assign revealClass = "gsap-reveal reveal-d2" %}{% endif %}
+    <div class="col{% if col.featured %} featured{% endif %} {{ revealClass }}">
+      {% if col.badge != "" %}<div class="col-badge">{{ col.badge }}</div>{% endif %}
       <div class="col-icon">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="6" y="14" width="36" height="26" rx="2"/><circle cx="24" cy="27" r="8"/><circle cx="24" cy="27" r="4"/><path d="M16 14l3-5h10l3 5"/></svg>
+        {% if col.icon == "camera" %}<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="6" y="14" width="36" height="26" rx="2"/><circle cx="24" cy="27" r="8"/><circle cx="24" cy="27" r="4"/><path d="M16 14l3-5h10l3 5"/></svg>
+        {% elsif col.icon == "film" %}<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="14" width="28" height="20" rx="2"/><path d="M32 22l12-6v16l-12-6z"/><circle cx="14" cy="24" r="3"/></svg>
+        {% else %}<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="24" cy="24" r="4"/><path d="M24 20V8M24 28v12M20 24H8M28 24h12"/><circle cx="8" cy="8" r="3"/><circle cx="40" cy="8" r="3"/><circle cx="8" cy="40" r="3"/><circle cx="40" cy="40" r="3"/></svg>
+        {% endif %}
       </div>
-      <div class="col-name">Coverage</div>
-      <p class="col-tagline">For intimate single-event ceremonies. A complete gallery and a highlight film — focused and unhurried.</p>
+      <div class="col-name">{{ col.name }}</div>
+      <p class="col-tagline">{{ col.tagline }}</p>
       <div class="col-divider"></div>
       <ul class="col-features">
-        <li>Single-event coverage</li>
-        <li>Photographer + Cinematographer</li>
-        <li>400+ hand-edited photographs</li>
-        <li>Cinematic highlight film (4–6 min)</li>
-        <li>Private online gallery for delivery &amp; sharing</li>
-        <li>Album favorite selection built in</li>
-        <li>30-day delivery promise</li>
+        {% for feature in col.features %}<li>{{ feature }}</li>{% endfor %}
       </ul>
-      <div class="col-price">₹75,000 · Single Event</div>
-      <a href="/contact/" class="col-cta">Enquire <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M9 1l4 3.5L9 8M1 4.5h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></a>
+      {% if col.value_note != "" %}
+      <div class="col-value"><p>{{ col.value_note }}</p></div>
+      {% endif %}
+      <div class="col-price">{{ col.price }} · {{ col.price_note }}</div>
+      <a href="{{ col.cta_link }}" class="col-cta">{{ col.cta_text }}{% unless col.featured %} <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M9 1l4 3.5L9 8M1 4.5h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>{% endunless %}</a>
     </div>
-
-    <div class="col featured gsap-reveal reveal-d1">
-      <div class="col-badge">Most Chosen</div>
-      <div class="col-icon">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="14" width="28" height="20" rx="2"/><path d="M32 22l12-6v16l-12-6z"/><circle cx="14" cy="24" r="3"/></svg>
-      </div>
-      <div class="col-name">Story</div>
-      <p class="col-tagline">The complete Memorygraph experience. A full day, a pre-wedding shoot, a documentary film, and an album that lasts far beyond the wedding.</p>
-      <div class="col-divider"></div>
-      <ul class="col-features">
-        <li>Full-day photography coverage</li>
-        <li>Pre-wedding shoot included</li>
-        <li>Full documentary film + Highlight film</li>
-        <li>Two photographers + Two cinematographers</li>
-        <li>700+ hand-edited photographs</li>
-        <li>Printed wedding album + Digital album</li>
-        <li>Editorial wedding magazine (printed)</li>
-        <li>Private online gallery + private film link</li>
-        <li>Album shortlist tool for final print selections</li>
-        <li>Highlight teaser within 48 hours</li>
-        <li>30-day delivery promise</li>
-      </ul>
-      <div class="col-value">
-        <p>If booked individually, these elements would total <span>₹1,65,000.</span> As a collection: ₹1,00,000.</p>
-      </div>
-      <div class="col-price">₹1,00,000 · Full Day + Pre-Wedding</div>
-      <a href="/contact/" class="col-cta">Begin Your Story</a>
-    </div>
-
-    <div class="col gsap-reveal reveal-d2">
-      <div class="col-icon">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="24" cy="24" r="4"/><path d="M24 20V8M24 28v12M20 24H8M28 24h12"/><circle cx="8" cy="8" r="3"/><circle cx="40" cy="8" r="3"/><circle cx="8" cy="40" r="3"/><circle cx="40" cy="40" r="3"/></svg>
-      </div>
-      <div class="col-name">Legacy</div>
-      <p class="col-tagline">Everything in Story, elevated. A premium Heirloom Album, aerial drone coverage, and a feature-length film for the wedding that deserves every angle.</p>
-      <div class="col-divider"></div>
-      <ul class="col-features">
-        <li>Everything in The Story collection</li>
-        <li>Extended 2-day coverage</li>
-        <li>Heirloom printed album + Editorial wedding magazine</li>
-        <li>DGCA-certified aerial drone coverage</li>
-        <li>1000+ hand-edited photographs</li>
-        <li>Feature-length cinematic film</li>
-        <li>Private digital album delivery page</li>
-        <li>Unlimited album image selections</li>
-        <li>Same-day highlight teaser</li>
-        <li>30-day delivery promise</li>
-      </ul>
-      <div class="col-price">₹1,50,000 · 2 Days + Pre-Wedding</div>
-      <a href="/contact/" class="col-cta">Enquire <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M9 1l4 3.5L9 8M1 4.5h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></a>
-    </div>
-
+    {% endfor %}
   </div>
 </div>
 
@@ -376,36 +325,14 @@
   <div class="section-label center gsap-reveal">Custom Add-ons</div>
   <h2 class="section-title gsap-reveal reveal-d1" style="text-align:center;">Build it <em>your</em> way.</h2>
   <div class="add-ons-grid">
-    <div class="add-on-item gsap-reveal">
-      <div class="add-on-name">Drone Coverage</div>
-      <div class="add-on-desc">DGCA-certified aerial coverage — cinematic sweeps of your venue and ceremony.</div>
-      <div class="add-on-price">₹12,000</div>
+    {% for addon in investment.addons %}
+    {% assign mod = forloop.index | modulo: 3 %}
+    <div class="add-on-item gsap-reveal{% if mod == 2 %} reveal-d1{% elsif mod == 0 %} reveal-d2{% endif %}">
+      <div class="add-on-name">{{ addon.name }}</div>
+      <div class="add-on-desc">{{ addon.description }}</div>
+      <div class="add-on-price">{{ addon.price }}</div>
     </div>
-    <div class="add-on-item gsap-reveal reveal-d1">
-      <div class="add-on-name">Extra Day of Coverage</div>
-      <div class="add-on-desc">Add a full additional day — mehendi, sangeet, or reception.</div>
-      <div class="add-on-price">₹25,000</div>
-    </div>
-    <div class="add-on-item gsap-reveal reveal-d2">
-      <div class="add-on-name">Additional Photographer</div>
-      <div class="add-on-desc">A second shooter to cover multiple angles simultaneously.</div>
-      <div class="add-on-price">₹15,000</div>
-    </div>
-    <div class="add-on-item gsap-reveal">
-      <div class="add-on-name">Save-the-Date Film</div>
-      <div class="add-on-desc">90-second cinematic teaser for invitations &amp; social.</div>
-      <div class="add-on-price">On enquiry</div>
-    </div>
-    <div class="add-on-item gsap-reveal reveal-d1">
-      <div class="add-on-name">Family Portrait Session</div>
-      <div class="add-on-desc">Curated 30-min portrait block for extended family.</div>
-      <div class="add-on-price">On enquiry</div>
-    </div>
-    <div class="add-on-item gsap-reveal reveal-d2">
-      <div class="add-on-name">Destination Travel</div>
-      <div class="add-on-desc">Travel &amp; accommodation for weddings outside Kerala — quoted transparently.</div>
-      <div class="add-on-price">On enquiry</div>
-    </div>
+    {% endfor %}
   </div>
 </div>
 

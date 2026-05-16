@@ -1,0 +1,109 @@
+{
+  "collections": [
+    {
+      "name": "Coverage",
+      "tagline": "For intimate single-event ceremonies. A complete gallery and a highlight film — focused and unhurried.",
+      "icon": "camera",
+      "featured": false,
+      "badge": "",
+      "features": [
+        "Single-event coverage",
+        "Photographer + Cinematographer",
+        "400+ hand-edited photographs",
+        "Cinematic highlight film (4–6 min)",
+        "Private online gallery for delivery & sharing",
+        "Album favorite selection built in",
+        "30-day delivery promise"
+      ],
+      "value_note": "",
+      "price": "₹75,000",
+      "price_note": "Single Event",
+      "price_number": "75000",
+      "cta_text": "Enquire",
+      "cta_link": "/contact/"
+    },
+    {
+      "name": "Story",
+      "tagline": "The complete Memorygraph experience. A full day, a pre-wedding shoot, a documentary film, and an album that lasts far beyond the wedding.",
+      "icon": "film",
+      "featured": true,
+      "badge": "Most Chosen",
+      "features": [
+        "Full-day photography coverage",
+        "Pre-wedding shoot included",
+        "Full documentary film + Highlight film",
+        "Two photographers + Two cinematographers",
+        "700+ hand-edited photographs",
+        "Printed wedding album + Digital album",
+        "Editorial wedding magazine (printed)",
+        "Private online gallery + private film link",
+        "Album shortlist tool for final print selections",
+        "Highlight teaser within 48 hours",
+        "30-day delivery promise"
+      ],
+      "value_note": "If booked individually, these elements would total <span>₹1,65,000.</span> As a collection: ₹1,00,000.",
+      "price": "₹1,00,000",
+      "price_note": "Full Day + Pre-Wedding",
+      "price_number": "100000",
+      "cta_text": "Begin Your Story",
+      "cta_link": "/contact/"
+    },
+    {
+      "name": "Legacy",
+      "tagline": "Everything in Story, elevated. A premium Heirloom Album, aerial drone coverage, and a feature-length film for the wedding that deserves every angle.",
+      "icon": "legacy",
+      "featured": false,
+      "badge": "",
+      "features": [
+        "Everything in The Story collection",
+        "Extended 2-day coverage",
+        "Heirloom printed album + Editorial wedding magazine",
+        "DGCA-certified aerial drone coverage",
+        "1000+ hand-edited photographs",
+        "Feature-length cinematic film",
+        "Private digital album delivery page",
+        "Unlimited album image selections",
+        "Same-day highlight teaser",
+        "30-day delivery promise"
+      ],
+      "value_note": "",
+      "price": "₹1,50,000",
+      "price_note": "2 Days + Pre-Wedding",
+      "price_number": "150000",
+      "cta_text": "Enquire",
+      "cta_link": "/contact/"
+    }
+  ],
+  "addons": [
+    {
+      "name": "Drone Coverage",
+      "description": "DGCA-certified aerial coverage — cinematic sweeps of your venue and ceremony.",
+      "price": "₹12,000"
+    },
+    {
+      "name": "Extra Day of Coverage",
+      "description": "Add a full additional day — mehendi, sangeet, or reception.",
+      "price": "₹25,000"
+    },
+    {
+      "name": "Additional Photographer",
+      "description": "A second shooter to cover multiple angles simultaneously.",
+      "price": "₹15,000"
+    },
+    {
+      "name": "Save-the-Date Film",
+      "description": "90-second cinematic teaser for invitations & social.",
+      "price": "On enquiry"
+    },
+    {
+      "name": "Family Portrait Session",
+      "description": "Curated 30-min portrait block for extended family.",
+      "price": "On enquiry"
+    },
+    {
+      "name": "Destination Travel",
+      "description": "Travel & accommodation for weddings outside Kerala — quoted transparently.",
+      "price": "On enquiry"
+    }
+  ]
+}

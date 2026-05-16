@@ -31,6 +31,39 @@ collections:
           - { label: "CTA Subline", name: "cta_subline", widget: "text" }
           - { label: "CTA Button Text", name: "cta_button_text", widget: "string" }
 
+      - name: "investment"
+        label: "Investment Page"
+        file: "src/_data/investment.json"
+        fields:
+          - label: "Collections"
+            name: "collections"
+            widget: "list"
+            summary: "{{fields.name}} — {{fields.price}}"
+            fields:
+              - { label: "Collection Name", name: "name", widget: "string" }
+              - { label: "Tagline", name: "tagline", widget: "text", hint: "One-line description shown below the name" }
+              - { label: "Icon", name: "icon", widget: "select", options: ["camera", "film", "legacy"], hint: "Visual icon for the card" }
+              - { label: "Featured", name: "featured", widget: "boolean", default: false, hint: "Highlight this as the recommended collection" }
+              - { label: "Badge", name: "badge", widget: "string", required: false, hint: "e.g. Most Chosen. Leave blank for no badge." }
+              - label: "Features"
+                name: "features"
+                widget: "list"
+                field: { label: "Feature", name: "feature", widget: "string" }
+              - { label: "Value Note", name: "value_note", widget: "string", required: false, hint: "HTML allowed. e.g. If booked individually… <span>₹1,65,000.</span>" }
+              - { label: "Display Price", name: "price", widget: "string", hint: "e.g. ₹1,00,000" }
+              - { label: "Price Note", name: "price_note", widget: "string", hint: "e.g. Full Day + Pre-Wedding" }
+              - { label: "Price (number)", name: "price_number", widget: "string", hint: "Numeric only for SEO structured data, e.g. 100000" }
+              - { label: "CTA Text", name: "cta_text", widget: "string", default: "Enquire" }
+              - { label: "CTA Link", name: "cta_link", widget: "string", default: "/contact/" }
+          - label: "Add-ons"
+            name: "addons"
+            widget: "list"
+            summary: "{{fields.name}} — {{fields.price}}"
+            fields:
+              - { label: "Add-on Name", name: "name", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Price", name: "price", widget: "string", hint: "e.g. ₹12,000 or On enquiry" }
+
   - name: "stories"
     label: "Wedding Stories"
     folder: "src/content/stories"

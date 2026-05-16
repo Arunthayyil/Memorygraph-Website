@@ -9,14 +9,11 @@
 <link rel="apple-touch-icon" href="/assets/logo/logo-dark.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/css/global.css"/>
 <link rel="stylesheet" href="/assets/css/animations.css"/>
 <style>
-  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-  :root{--ivory:#f4ede0;--ivory-2:#ece4d4;--ink:#1a1814;--ink-soft:#3a3530;--teal:#1d5959;--teal-deep:#0f3838;--gold:#b8965a;--gold-2:#d4a96a;--mist:#8b857a;--line:rgba(26,24,20,.12);--line-2:rgba(26,24,20,.06);--paper:#fbf7ef;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',sans-serif;}
-  html{scroll-behavior:smooth;}
-  body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-weight:300;overflow-x:hidden;}
-  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");mix-blend-mode:multiply;opacity:.6;}
+  :root{--paper:#fbf7ef;}
   button,input,textarea,select{font:inherit;}button{cursor:pointer;}
 
   .screen-lock{position:fixed;inset:0;z-index:500;background:linear-gradient(140deg,rgba(15,56,56,.96),rgba(26,24,20,.96)),url('{{ lock_image or hero_image or "/assets/stories/abhin-gayathry/03.jpg" }}') center/cover;display:grid;place-items:center;padding:24px;color:var(--ivory);}

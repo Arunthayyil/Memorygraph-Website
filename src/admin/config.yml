@@ -9,6 +9,28 @@ media_folder: "src/assets/uploads"
 public_folder: "/assets/uploads"
 
 collections:
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "homepage"
+        label: "Homepage"
+        file: "src/_data/homepage.json"
+        fields:
+          - { label: "Hero Headline", name: "hero_headline", widget: "string", hint: "HTML allowed. Use <br> for line breaks and <em> for italic accent." }
+          - { label: "Hero Subline", name: "hero_subline", widget: "text" }
+          - { label: "Hero CTA Primary Text", name: "hero_cta_primary_text", widget: "string" }
+          - { label: "Hero CTA Primary Link", name: "hero_cta_primary_link", widget: "string" }
+          - { label: "Hero CTA Secondary Text", name: "hero_cta_secondary_text", widget: "string" }
+          - { label: "Hero CTA Secondary Link", name: "hero_cta_secondary_link", widget: "string" }
+          - { label: "Hero Trust Text", name: "hero_trust_text", widget: "string", hint: "Social proof line under hero buttons" }
+          - { label: "About Label", name: "about_label", widget: "string" }
+          - { label: "About Headline", name: "about_headline", widget: "string", hint: "HTML allowed." }
+          - { label: "About Body", name: "about_body", widget: "text" }
+          - { label: "About CTA Text", name: "about_cta_text", widget: "string" }
+          - { label: "CTA Headline", name: "cta_headline", widget: "string", hint: "Final CTA section. HTML allowed." }
+          - { label: "CTA Subline", name: "cta_subline", widget: "text" }
+          - { label: "CTA Button Text", name: "cta_button_text", widget: "string" }
+
   - name: "stories"
     label: "Wedding Stories"
     folder: "src/content/stories"

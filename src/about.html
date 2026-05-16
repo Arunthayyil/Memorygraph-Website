@@ -21,36 +21,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/css/global.css"/>
 <link rel="stylesheet" href="/assets/css/animations.css"/>
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --ivory:#f4ede0;--ivory-2:#ece4d4;--ink:#1a1814;--ink-soft:#3a3530;
-  --teal:#1d5959;--teal-2:#2a7575;--teal-deep:#0f3838;
-  --gold:#b8965a;--gold-2:#d4a96a;--mist:#8b857a;
-  --line:rgba(26,24,20,.1);--line-2:rgba(26,24,20,.06);
-  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',sans-serif;
-}
-html{scroll-behavior:smooth;}
-body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-weight:300;overflow-x:hidden;cursor:none;}
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
-  mix-blend-mode:multiply;opacity:.6;}
-@media(prefers-reduced-motion:reduce){body{cursor:auto;}.cursor{display:none;}}
-@media(pointer:coarse){body{cursor:auto;}.cursor{display:none;}}
-
-nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:24px 56px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s,background .5s;}
-nav.scrolled{padding:14px 56px;background:rgba(244,237,224,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line-2);}
-.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);}
-.nav-links{display:flex;gap:32px;list-style:none;}
-.nav-links a{font-family:var(--sans);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:color .3s;position:relative;}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--teal);transition:width .4s;}
-.nav-links a:hover,.nav-links a.active{color:var(--teal);}
-.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
-.nav-cta{font-family:var(--sans);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;background:var(--teal);color:var(--ivory);padding:11px 26px;text-decoration:none;transition:all .35s;border:1px solid var(--teal);}
-.nav-cta:hover{background:var(--teal-deep);}
-
 /* HERO */
 .hero{display:grid;grid-template-columns:44fr 56fr;min-height:100vh;}
 .hero-text{padding:140px 72px 100px 56px;display:flex;flex-direction:column;justify-content:center;position:relative;}
@@ -106,10 +80,6 @@ nav.scrolled{padding:14px 56px;background:rgba(244,237,224,.92);backdrop-filter:
 /* TEAM */
 .team{padding:100px 56px;background:var(--ivory);}
 .team-hd{margin-bottom:64px;}
-.eyebrow{font-family:var(--sans);font-size:.6rem;letter-spacing:.38em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;display:flex;align-items:center;gap:14px;}
-.eyebrow::before{content:'';width:30px;height:1px;background:var(--teal);}
-.section-h{font-family:var(--serif);font-size:clamp(2.4rem,4.5vw,4.4rem);font-weight:300;line-height:1.08;color:var(--ink);}
-.section-h em{font-style:italic;color:var(--teal);}
 .team-note{font-family:var(--sans);font-size:.85rem;font-weight:300;line-height:1.95;color:var(--ink-soft);max-width:540px;margin-top:18px;}
 .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--line-2);}
 .team-card{background:var(--ivory);overflow:hidden;}
@@ -160,18 +130,6 @@ nav.scrolled{padding:14px 56px;background:rgba(244,237,224,.92);backdrop-filter:
 .btn-gold{font-family:var(--sans);font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;background:var(--gold);color:var(--teal-deep);padding:17px 44px;text-decoration:none;transition:all .35s;display:inline-block;border:1px solid var(--gold);position:relative;z-index:1;}
 .btn-gold:hover{background:var(--gold-2);}
 
-/* FOOTER */
-footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
-.footer-inner{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;flex-wrap:wrap;gap:24px;}
-.footer-links-row{display:flex;gap:32px;flex-wrap:wrap;}
-.footer-links-row a{font-family:var(--sans);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,237,224,.38);text-decoration:none;transition:color .3s;}
-.footer-links-row a:hover{color:var(--gold);}
-.footer-bottom{border-top:1px solid rgba(244,237,224,.07);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;}
-.footer-copy{font-family:var(--sans);font-size:.65rem;color:rgba(244,237,224,.26);}
-.whatsapp-float{position:fixed;bottom:32px;right:32px;z-index:200;width:58px;height:58px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(37,211,102,.35);text-decoration:none;animation:pulse 2.5s ease-in-out infinite;}
-.whatsapp-float svg{width:30px;height:30px;color:#fff;}
-@keyframes pulse{0%,100%{box-shadow:0 8px 28px rgba(37,211,102,.35);}50%{box-shadow:0 8px 28px rgba(37,211,102,.6),0 0 0 14px rgba(37,211,102,.05);}}
-
 .slide-arrows{display:none;position:absolute;top:50%;transform:translateY(-50%);width:100%;pointer-events:none;z-index:3;}
 .slide-btn{pointer-events:all;position:absolute;width:44px;height:44px;background:rgba(26,24,20,.55);border:1px solid rgba(244,237,224,.2);border-radius:50%;color:var(--ivory);font-size:1.5rem;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .3s;-webkit-tap-highlight-color:transparent;}
 .slide-btn:hover{background:rgba(26,24,20,.85);}
@@ -182,30 +140,7 @@ footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
 .slide-btn.prev{left:16px;} .slide-btn.next{right:16px;}
 @media(max-width:980px){.slide-btn{display:flex;}}
 
-.reveal{opacity:0;transform:translateY(36px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);}
-.reveal.visible{opacity:1;transform:translateY(0);}
-.reveal-d1{transition-delay:.12s;}.reveal-d2{transition-delay:.24s;}.reveal-d3{transition-delay:.38s;}
-
-/* ── HAMBURGER & MOBILE MENU ── */
-.nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:101;}
-.nav-toggle span{display:block;width:22px;height:1.5px;background:var(--ink);transition:all .35s cubic-bezier(.22,1,.36,1);}
-.nav-toggle.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px);}
-.nav-toggle.open span:nth-child(2){opacity:0;}
-.nav-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
-.mobile-menu{position:fixed;inset:0;z-index:99;background:var(--ivory);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s;}
-.mobile-menu.open{opacity:1;visibility:visible;}
-.mobile-menu a{font-family:var(--serif);font-size:clamp(1.8rem,5vw,2.8rem);font-weight:300;font-style:italic;color:var(--ink);text-decoration:none;transition:color .3s;}
-.mobile-menu a:hover{color:var(--teal);}
-.mobile-menu-cta{font-family:var(--sans)!important;font-size:.7rem!important;font-style:normal!important;letter-spacing:.22em;text-transform:uppercase;background:var(--teal);color:var(--ivory)!important;padding:14px 32px;margin-top:12px;}
-.mobile-menu-social{display:flex;gap:24px;margin-top:8px;}
-.mobile-menu-social a{font-family:var(--sans)!important;font-size:.62rem!important;font-style:normal!important;letter-spacing:.22em;text-transform:uppercase;color:var(--mist)!important;}
-.skip-link{position:absolute;top:-100%;left:16px;z-index:10001;background:var(--teal);color:var(--ivory);padding:12px 24px;font-family:var(--sans);font-size:.8rem;text-decoration:none;transition:top .3s;}
-.skip-link:focus{top:16px;}
-
 @media(max-width:980px){
-  body{cursor:auto;}.cursor{display:none;}
-  nav{padding:16px 20px;}nav.scrolled{padding:12px 20px;}
-  .nav-links{display:none;}.nav-cta{display:none;}.nav-toggle{display:flex;}
   .hero{grid-template-columns:1fr;min-height:auto;}
   .hero-img{height:65vw;min-height:280px;order:-1;}
   .hero-img-gradient{background:linear-gradient(to bottom,transparent 70%,var(--ivory) 100%);}
@@ -228,7 +163,6 @@ footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
   .full-story-inner{padding-left:36px;}
   .testimonial{padding:72px 24px;}
   .cta{padding:72px 24px;}
-  footer{padding:48px 24px 28px;}
 }
 @media(max-width:600px){
   .team-grid{grid-template-columns:1fr;}
@@ -238,15 +172,13 @@ footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
 <body>
 
 <a href="#about-content" class="skip-link">Skip to content</a>
-<noscript><style>.preloader{display:none!important;}.reveal{opacity:1!important;transform:none!important;}.cursor{display:none!important;}body{cursor:auto!important;}</style></noscript>
+<noscript><style>.preloader{display:none!important;}.reveal{opacity:1!important;transform:none!important;}</style></noscript>
 
 <div class="preloader" id="preloader">
   <div class="preloader-logo">Memorygraph<small>Photographing Memories</small></div>
   <div class="preloader-line"></div>
 </div>
 <div class="page-transition-overlay"></div>
-<div class="cursor" id="cursor"><div class="cursor-dot" id="cursorDot"></div><div class="cursor-ring" id="cursorRing"></div></div>
-
 <nav id="nav">
   <a href="/" class="nav-logo">
     <img src="/assets/logo/logo-dark.png" alt="Memorygraph Wedding Studio" style="height:48px;width:auto;max-width:160px;display:block;"/>
@@ -394,38 +326,58 @@ footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
     <div class="tl-item reveal">
       <div class="tl-year">Childhood &middot; Thrissur</div>
       <div class="tl-title">A camera before I knew what it meant</div>
-      <p class="tl-text">My sister and her husband gifted me a camera when I was young. I'd go on long walks and come back with photographs — no plan, no technique. Just a genuine feeling for looking at the world a certain way. That feeling never left.</p>
+      <p class="tl-text">My sister and brother-in-law gifted me a camera when I was young. I'd go on long walks, looking for light, expressions, small details &mdash; moments that felt worth keeping. Even then, photography was not just about taking pictures. It was a way of paying attention.</p>
     </div>
     <div class="tl-item reveal reveal-d1">
-      <div class="tl-year">The year everything broke</div>
+      <div class="tl-year">The year everything changed</div>
       <div class="tl-title">Infopark, then the forest</div>
-      <p class="tl-text">Electronics diploma. Campus placement at an MNC in Kochi. One year, then I resigned — withdrew my PF savings and bought a professional camera. Spent the next months alone in forests learning patience and stillness. Both turned out to matter.</p>
+      <p class="tl-text">Electronics diploma. Campus placement at an MNC in Kochi. After a year in corporate life, I understood clearly: that world was not where I belonged. So I resigned. With my PF savings and some support from my father, I bought the camera that would begin my professional journey.</p>
     </div>
     <div class="tl-item reveal reveal-d2">
-      <div class="tl-year">&sim;2014 &middot; First wedding</div>
-      <div class="tl-title">A morning in Kottayam I still remember</div>
-      <p class="tl-text">A friend's cousin needed a photographer and I said yes reluctantly — I'd never photographed people. I made technical mistakes. But the photographs were real, and I realised I wasn't bad at this at all. That morning changed everything.</p>
+      <div class="tl-year">The quiet years</div>
+      <div class="tl-title">Forests, patience, instinct</div>
+      <p class="tl-text">I spent long hours walking alone through forests &mdash; photographing birds, wildlife, small creatures. Waiting for a paradise flycatcher to appear. Studying silence, patience, timing, and instinct. That was my first real school in photography.</p>
     </div>
     <div class="tl-item reveal">
-      <div class="tl-year">2020 &middot; The studio</div>
-      <div class="tl-title">Memorygraph</div>
-      <p class="tl-text">Founded with one principle: only work we're genuinely proud of, with couples we genuinely connect with. Small by design. The early people who believed before the portfolio existed — they built this with us.</p>
+      <div class="tl-year">First wedding &middot; Kottayam</div>
+      <div class="tl-title">A morning I still remember</div>
+      <p class="tl-text">A friend asked me to photograph his cousin's wedding. I hesitated &mdash; I had no confidence in photographing people. But I went. The shutter speed was not always right. The ISO was not always right. But the feeling was there. That wedding taught me I was not bad at photographing people. In fact, I was drawn to them.</p>
+    </div>
+    <div class="tl-item reveal reveal-d1">
+      <div class="tl-year">Building slowly</div>
+      <div class="tl-title">One act of trust at a time</div>
+      <p class="tl-text">Portraits, birthdays, engagements, holy communions, family gatherings. One small assignment became another. The earliest clients who trusted me before I had a strong portfolio &mdash; they became part of the foundation of what Memorygraph is today.</p>
+    </div>
+    <div class="tl-item reveal reveal-d2">
+      <div class="tl-year">Memorygraph</div>
+      <div class="tl-title">Built by first acts of trust</div>
+      <p class="tl-text">Shaped by forests, by uncertainty, by family, by friendship, by mistakes, by instinct, and by the quiet belief that some moments deserve to be remembered with care. Today, we photograph weddings with the same attention that began it all: patiently, honestly, and with deep respect for the people in front of us.</p>
     </div>
   </div>
 
   <button class="story-toggle" id="storyToggle" onclick="toggleStory()">
-    Read the unabridged version
+    Read the full story
     <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
   </button>
 
   <div class="full-story" id="fullStory">
     <div class="full-story-inner">
-      <p>I did a diploma in electronics. Got a campus placement at an MNC in Infopark, Kochi — the kind of job that looked good on paper and felt completely wrong from the inside. I lasted a year. Not because I wasn't trying, but because I was struggling with everything — the work, the environment, the version of myself I was becoming. I was at the brink of something I didn't want to name at the time. So I resigned.</p>
-      <p>Photography wasn't a plan. It was the one thing that had always made sense. When I was young, my sister — seven years older than me — and her husband gifted me a camera. I'd go on walks and come back with photographs. I had no idea what I was doing technically, but I had a genuine feeling for it. That never went away.</p>
-      <p>After resigning, I withdrew my PF fund and borrowed a little from my father to buy my first professional camera. Then I spent months alone in forests. Wildlife photography — birds, mostly. A paradise flycatcher once. Snakes sometimes. It was quiet work, solitary work, and I was good at being patient and invisible. Those two things turned out to matter a lot later.</p>
-      <p>The first wedding came through a friend. His cousin was getting married in Kottayam, budget was tight, and he thought of me. I said I wasn't sure I could photograph people — all my work until then had been birds and animals. He insisted. I went.</p>
-      <p>I still remember every moment of that wedding. I can picture the light in that room, the specific nervousness of not knowing how to move in a crowd with a camera. I made technical mistakes. But looking at those photographs now, I still like them. There's something in them that was real. That morning I understood I wasn't bad at photographing people at all. I'd just never tried.</p>
-      <p>What followed was a few years of building slowly. Small functions, engagements, a second wedding that was a friend's own. Early on, the people who believed in me did so without a large portfolio to justify it. I've never forgotten that. Those early supporters are the reason Memorygraph exists.</p>
+      <p>Memorygraph did not begin as a wedding company. It began with a camera, long walks, quiet observation, and a boy trying to understand the world through photographs.</p>
+      <p>Years before Memorygraph had a name, photography had already found its place in my life. My first camera was a gift from my sister and brother-in-law when I was young. I remember walking with it, looking for light, expressions, small details, and moments that felt worth keeping. Even then, photography was not just about taking pictures. It was a way of paying attention.</p>
+      <p>Later, I completed a diploma in Electronics and was placed through campus selection at an MNC in Infopark, Kochi. On paper, it was the kind of beginning many people would have considered stable. But after a year in corporate life, I understood something clearly: that world was not where I belonged.</p>
+      <p>So I resigned.</p>
+      <p>With my PF savings and some support from my father, I bought the camera that would begin my professional journey. At first, I photographed birds, forests, small creatures, and wildlife. I spent long hours walking alone through forests, waiting for a paradise flycatcher to appear, watching the movement of snakes, studying silence, patience, timing, and instinct.</p>
+      <p>That was my first real school in photography.</p>
+      <p>Weddings came unexpectedly. A friend asked me to photograph his cousin's wedding in Kottayam. I hesitated. I did not think I was good at photographing people. I had no confidence in handling the pace, emotion, and chaos of an Indian wedding. But the family needed someone, and my friend insisted.</p>
+      <p>So I went.</p>
+      <p>That first wedding stayed with me. Even now, nearly a decade later, I remember the moments clearly. I remember the nervousness, the mistakes, the frames I chased, the technical imperfections, and the photographs that somehow still carried something honest. The shutter speed was not always right. The ISO was not always right. But the feeling was there.</p>
+      <p>That wedding taught me that I was not bad at photographing people. In fact, I was drawn to them.</p>
+      <p>From there, I began photographing friends, small portraits, modelling sessions, birthdays, engagements, holy communions, and family gatherings. I worked with a designer friend to create my first printed album for a birthday event. Slowly, one small assignment became another. Then came my second wedding, this time for a friend.</p>
+      <p>Looking back, the earliest clients and friends who trusted me before I had a strong portfolio were not just supporters. They became part of the foundation of what Memorygraph is today.</p>
+      <p>Memorygraph was built by those first acts of trust.</p>
+      <p>It was shaped by forests, by uncertainty, by family, by friendship, by mistakes, by instinct, and by the quiet belief that some moments deserve to be remembered with care.</p>
+      <p>Today, we photograph weddings with the same attention that began it all: patiently, honestly, and with deep respect for the people in front of us.</p>
+      <p>Because for us, a wedding is not just an event to be covered. It is a memory being formed in real time.</p>
     </div>
   </div>
 </div>
@@ -470,6 +422,14 @@ footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
   </div>
 </footer>
 
+<!-- MOBILE STICKY CTA -->
+<div class="mobile-cta-bar" id="mobileCta">
+  <div class="mobile-cta-bar-inner">
+    <span class="mobile-cta-bar-text">Season dates filling up</span>
+    <a href="/contact/">Begin Your Story</a>
+  </div>
+</div>
+
 <a href="https://wa.me/919846238073?text=Hi%20Arun%2C%20I%27d%20love%20to%20discuss%20my%20wedding." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
   <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 .4C7.4.4.4 7.4.4 16c0 2.84.74 5.62 2.16 8.06L.27 31.6l7.74-2.27C10.36 30.7 13.14 31.5 16 31.5c8.6 0 15.6-7 15.6-15.5C31.6 7.4 24.6.4 16 .4zM16 28.7c-2.5 0-4.96-.66-7.1-1.92l-.5-.3-5.34 1.55 1.6-5.18-.34-.55C2.92 19.92 2.2 18 2.2 16 2.2 8.4 8.4 2.2 16 2.2c7.6 0 13.8 6.2 13.8 13.8 0 7.6-6.2 12.7-13.8 12.7zm7.6-9.8c-.4-.2-2.4-1.18-2.78-1.32-.38-.14-.66-.2-.94.2-.28.4-1.06 1.32-1.3 1.6-.24.28-.48.3-.88.1-.4-.2-1.7-.62-3.24-2-1.2-1.06-2-2.38-2.24-2.78-.24-.4-.02-.62.18-.82.18-.18.4-.46.6-.7.2-.24.26-.4.4-.68.14-.28.06-.52-.04-.72-.1-.2-.92-2.22-1.26-3.04-.34-.8-.68-.7-.94-.72h-.8c-.28 0-.72.1-1.1.5-.38.4-1.44 1.4-1.44 3.42s1.48 3.96 1.68 4.24c.2.28 2.92 4.46 7.08 6.24 1 .42 1.78.68 2.38.88.98.32 1.88.28 2.6.16.78-.12 2.4-.98 2.74-1.92.34-.94.34-1.74.24-1.92-.1-.18-.36-.28-.76-.48z"/></svg>
 </a>
@@ -482,19 +442,12 @@ footer{background:var(--ink);color:var(--ivory);padding:60px 56px 36px;}
   function toggleStory(){
     const s=document.getElementById('fullStory'),b=document.getElementById('storyToggle');
     s.classList.toggle('open');b.classList.toggle('open');
-    b.childNodes[0].textContent=b.classList.contains('open')?'Close ':'Read the unabridged version ';
+    b.childNodes[0].textContent=b.classList.contains('open')?'Close ':'Read the full story ';
   }
   const obs=new IntersectionObserver(es=>es.forEach(e=>{
     if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
   }),{threshold:.08});
   document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
-
-  // Mobile menu
-  const navToggle=document.getElementById('navToggle'),mobileMenu=document.getElementById('mobileMenu');
-  if(navToggle&&mobileMenu){
-    navToggle.addEventListener('click',()=>{const o=mobileMenu.classList.toggle('open');navToggle.classList.toggle('open');navToggle.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});
-    mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobileMenu.classList.remove('open');navToggle.classList.remove('open');navToggle.setAttribute('aria-expanded','false');document.body.style.overflow='';}));
-  }
 
   // Photo strip — landscape folder-based slides with swipe
   function captionFrom(src){

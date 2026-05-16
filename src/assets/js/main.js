@@ -12,7 +12,7 @@
   const preloader = document.querySelector('.preloader');
   if (preloader) {
     // Trigger flash effect after line animation
-    setTimeout(() => preloader.classList.add('flash'), 1400);
+    setTimeout(() => preloader.classList.add('flash'), 350);
     // Hide preloader
     setTimeout(() => {
       preloader.classList.add('done');
@@ -21,8 +21,8 @@
       setTimeout(() => {
         document.querySelectorAll('.hero-eyebrow, .hero-headline, .hero-subline, .hero-actions, .hero-meta, .hero-scroll')
           .forEach(el => el.style.animationPlayState = 'running');
-      }, 300);
-    }, 1800);
+      }, 200);
+    }, 500);
     document.body.style.overflow = 'hidden';
   }
 
@@ -163,33 +163,46 @@
     }
   }
 
-  // ═══════════════════════════════════════════════
-  // 4. CUSTOM CURSOR
-  // ═══════════════════════════════════════════════
-  const cursor = document.getElementById('cursor');
-  const cursorDot = document.getElementById('cursorDot');
-  const cursorRing = document.getElementById('cursorRing');
-  if (cursor && cursorDot && cursorRing && !window.matchMedia('(pointer: coarse)').matches) {
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-    function animateCursor() {
-      cursorDot.style.left = mx + 'px'; cursorDot.style.top = my + 'px';
-      rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15;
-      cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px';
-      requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
 
-    document.querySelectorAll('a, button, .magnetic, input, textarea, select, [role="button"]').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursorRing.classList.add('hover');
-        cursorRing.style.width = '48px'; cursorRing.style.height = '48px';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursorRing.classList.remove('hover');
-        cursorRing.style.width = '28px'; cursorRing.style.height = '28px';
+  // ═══════════════════════════════════════════════
+  // 4. HAMBURGER / MOBILE MENU
+  // ═══════════════════════════════════════════════
+  const navToggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (navToggle && mobileMenu) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      navToggle.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
       });
     });
+  }
+
+  // ═══════════════════════════════════════════════
+  // 4b. MOBILE STICKY CTA
+  // ═══════════════════════════════════════════════
+  const mobileCta = document.getElementById('mobileCta');
+  if (mobileCta) {
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      // Show after scrolling 600px down, hide when near top or at footer
+      const atFooter = y + window.innerHeight >= document.body.scrollHeight - 200;
+      if (y > 600 && !atFooter) {
+        mobileCta.classList.add('visible');
+      } else {
+        mobileCta.classList.remove('visible');
+      }
+      lastScroll = y;
+    }, { passive: true });
   }
 
   // ═══════════════════════════════════════════════

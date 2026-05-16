@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Memorygraph Weddings | Wedding Photographer in Thrissur, Kerala | Cinematic Films</title>
-  <meta name="description" content="Documentary-led, cinematic wedding photography &amp; films in Kerala. A small Thrissur-based studio quietly devoted to every wedding we hold in our hands."/>
+  <meta name="description" content="Documentary-led, cinematic wedding photography &amp; films in Kerala. A small Thrissur-based studio devoted to every wedding we hold in our hands."/>
   <meta name="keywords" content="Wedding Photographer Thrissur, Kerala Wedding Photography, Cinematic Wedding Films, Destination Wedding Kerala, Memorygraph"/>
   <meta name="author" content="Memorygraph Wedding Studio"/>
   <meta name="robots" content="index, follow"/>
@@ -39,7 +39,13 @@
       "https://www.instagram.com/memorygraph.weddings/",
       "https://www.youtube.com/@MemorygraphWeddings",
       "https://www.facebook.com/myjourneyismystory.iamarun"
-    ]
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "bestRating": "5",
+      "ratingCount": "27"
+    }
   }
   </script>
   <link rel="icon" href="/assets/logo/logo-dark.png" type="image/png"/>
@@ -47,180 +53,68 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/assets/css/global.css"/>
   <link rel="stylesheet" href="/assets/css/animations.css"/>
   <style>
-    *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
-
-    :root {
-      --ivory:    #f4ede0;
-      --ivory-2:  #ece4d4;
-      --ink:      #1a1814;
-      --ink-soft: #3a3530;
-      --teal:     #1d5959;
-      --teal-2:   #2a7575;
-      --teal-deep:#0f3838;
-      --gold:     #b8965a;
-      --gold-2:   #d4a96a;
-      --mist:     #8b857a;
-      --line:     rgba(26,24,20,.12);
-      --line-2:   rgba(26,24,20,.06);
-      --serif:    'Cormorant Garamond', Georgia, serif;
-      --sans:     'Jost', sans-serif;
-    }
-
-    html { scroll-behavior:smooth; }
-    body {
-      background: var(--ivory);
-      color: var(--ink);
-      font-family: var(--sans);
-      font-weight: 300;
-      overflow-x: hidden;
-      cursor: none;
-    }
-
-    /* Subtle paper texture */
-    body::before {
-      content:''; position:fixed; inset:0; pointer-events:none; z-index:1;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
-      mix-blend-mode: multiply; opacity:.6;
-    }
-
-    /* ── CURSOR ── */
-    .cursor { position:fixed; top:0; left:0; z-index:9999; pointer-events:none; }
-    .cursor-dot { width:6px; height:6px; background:#ffffff; border-radius:50%; position:absolute; transform:translate(-50%,-50%); mix-blend-mode:difference; }
-    .cursor-ring { width:28px; height:28px; border:1.5px solid rgba(26,24,20,.55); border-radius:50%; position:absolute; transform:translate(-50%,-50%); transition:width .3s, height .3s, border-color .3s, background .3s; }
-    input, textarea, select { cursor: text; }
-    @media (prefers-reduced-motion: reduce) { body { cursor:auto; } .cursor { display:none; } }
-
-    /* ── NAV ── */
-    nav {
-      position:fixed; top:0; left:0; width:100%; z-index:100;
-      padding:24px 56px; display:flex; align-items:center; justify-content:space-between;
-      transition:padding .5s, background .5s, border-color .5s;
-    }
-    nav.scrolled {
-      padding:14px 56px;
-      background: rgba(244,237,224,.92); backdrop-filter: blur(16px);
-      border-bottom:1px solid var(--line-2);
-    }
-    .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--ink); }
-    .nav-mark { width:30px; height:24px; }
-    .nav-mark svg { width:100%; height:100%; }
-    .nav-wordmark {
-      font-family:var(--serif); font-size:1.15rem; font-weight:500;
-      letter-spacing:.04em; color:var(--ink); line-height:1;
-    }
-    .nav-wordmark small {
-      display:block; font-family:var(--sans); font-size:.55rem; font-weight:400;
-      letter-spacing:.32em; color:var(--mist); margin-top:4px;
-    }
-    .nav-links { display:flex; gap:42px; list-style:none; }
-    .nav-links a {
-      font-family:var(--sans); font-size:.7rem; font-weight:400;
-      letter-spacing:.22em; text-transform:uppercase;
-      color: var(--ink-soft); text-decoration:none;
-      transition:color .3s; position:relative;
-    }
-    .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px; background:var(--teal); transition:width .4s; }
-    .nav-links a:hover, .nav-links a.active { color:var(--teal); }
-    .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
-    .nav-cta {
-      font-family:var(--sans); font-size:.7rem; font-weight:400;
-      letter-spacing:.22em; text-transform:uppercase;
-      background: var(--teal); color: var(--ivory); padding:11px 26px;
-      text-decoration:none; transition:all .35s; border:1px solid var(--teal);
-    }
-    .nav-cta:hover { background:var(--teal-deep); border-color:var(--teal-deep); }
+    /* Homepage nav override */
+    .nav-links { gap:42px; }
 
     /* ── HERO ── */
     .hero {
-      position:relative; width:100%; height:100vh; min-height:780px;
-      display:flex; align-items:center;
-      padding:0 56px;
+      position:relative; width:100%; height:100vh; min-height:700px;
+      display:flex; align-items:flex-end; justify-content:flex-start;
       overflow:hidden;
     }
-    .hero-video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:.8;}
-    .hero-bg-frame {
-      position:absolute; right:0; top:0; bottom:0;
-      width:52%; overflow:hidden;
-      background: linear-gradient(160deg, #d8cfb8 0%, #c9bda1 50%, #b8a98a 100%);
+    .hero-video {
+      position:absolute; top:0; left:0; width:100%; height:100%;
+      object-fit:cover;
     }
-    .hero-bg-frame::before {
-      content:''; position:absolute; inset:0;
-      background:
-        radial-gradient(ellipse at 30% 70%, rgba(29,89,89,.18) 0%, transparent 60%),
-        radial-gradient(ellipse at 70% 30%, rgba(184,150,90,.2) 0%, transparent 50%);
+    .hero-overlay {
+      position:absolute; inset:0; z-index:1;
+      background:linear-gradient(to bottom, transparent 0%, transparent 35%, rgba(26,24,20,.55) 75%, rgba(26,24,20,.82) 100%);
     }
-    .hero-bg-frame::after {
-      content:''; position:absolute; inset:0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
-      mix-blend-mode: multiply;
-    }
-    .hero-photo-tag {
-      position:absolute; bottom:32px; right:32px;
-      font-family:var(--sans); font-size:.6rem; letter-spacing:.3em;
-      text-transform:uppercase; color: rgba(26,24,20,.4);
-      writing-mode: vertical-lr; padding:8px;
-      border-left:1px solid rgba(26,24,20,.2);
-    }
-    .hero-bokeh { position:absolute; border-radius:50%; filter:blur(50px); animation:drift 14s ease-in-out infinite; }
-    .b1 { width:240px; height:240px; background:rgba(184,150,90,.25); top:20%; left:30%; animation-delay:0s; }
-    .b2 { width:180px; height:180px; background:rgba(212,169,106,.2); top:60%; left:55%; animation-delay:-5s; }
-    @keyframes drift {
-      0%,100% { transform:translate(0,0) scale(1); }
-      50% { transform:translate(30px,-20px) scale(1.1); }
-    }
-
     .hero-content {
       position:relative; z-index:2;
-      max-width:680px;
-      padding-right:60px;
+      max-width:820px; padding:0 56px 72px;
     }
-    .hero-eyebrow {
-      font-family:var(--sans); font-size:.65rem; font-weight:400;
-      letter-spacing:.35em; text-transform:uppercase;
-      color:var(--teal); margin-bottom:32px;
-      display:flex; align-items:center; gap:14px;
-      opacity:0; animation:fadeUp .8s .3s forwards;
-    }
-    .hero-eyebrow::before { content:''; width:32px; height:1px; background:var(--teal); }
     .hero-headline {
-      font-family:var(--serif); font-size:clamp(3.4rem,6.5vw,7rem);
-      font-weight:300; line-height:1.02; letter-spacing:-.012em;
-      color:var(--ink);
+      font-family:var(--serif); font-size:clamp(2.8rem,5.5vw,5.8rem);
+      font-weight:300; line-height:1.05; letter-spacing:-.012em;
+      color:#fff;
       opacity:0; animation:fadeUp .9s .5s forwards;
     }
     .hero-headline em {
-      font-style:italic; color:var(--teal);
+      font-style:italic; color:var(--gold-2);
       font-weight:300; position:relative;
     }
     .hero-headline em::after {
       content:''; position:absolute; bottom:.08em; left:0; width:100%; height:2px;
-      background: var(--gold); transform: scaleX(0); transform-origin:left;
-      animation: drawLine 1.2s 1.4s forwards;
+      background:var(--gold); transform:scaleX(0); transform-origin:left;
+      animation:drawLine 1.2s 1.4s forwards;
     }
     @keyframes drawLine { to { transform:scaleX(1); } }
-
     .hero-subline {
-      font-family:var(--sans); font-size:.95rem; font-weight:300;
-      line-height:1.85; color:var(--ink-soft);
-      max-width:480px; margin:32px 0 48px;
+      font-family:var(--sans); font-size:.92rem; font-weight:300;
+      line-height:1.85; color:rgba(255,255,255,.7);
+      max-width:520px; margin:20px 0 36px;
       opacity:0; animation:fadeUp .9s .7s forwards;
     }
     .hero-actions {
-      display:flex; align-items:center; gap:32px; flex-wrap:wrap;
+      display:flex; align-items:center; justify-content:flex-start; gap:24px; flex-wrap:wrap;
       opacity:0; animation:fadeUp .9s .9s forwards;
     }
     .btn-primary {
       font-family:var(--sans); font-size:.72rem; font-weight:400;
       letter-spacing:.25em; text-transform:uppercase;
-      background: var(--teal); color: var(--ivory);
+      background:var(--teal); color:var(--ivory);
       padding:16px 40px; text-decoration:none;
       transition:all .35s; display:inline-block;
       border:1px solid var(--teal);
     }
     .btn-primary:hover { background:var(--teal-deep); border-color:var(--teal-deep); }
+    .hero .btn-primary { background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.3); color:#fff; backdrop-filter:blur(8px); }
+    .hero .btn-primary:hover { background:var(--gold); border-color:var(--gold); color:var(--teal-deep); }
     .btn-ghost {
       font-family:var(--sans); font-size:.72rem; font-weight:400;
       letter-spacing:.25em; text-transform:uppercase;
@@ -231,55 +125,11 @@
     .btn-ghost svg { transition:transform .3s; }
     .btn-ghost:hover { color:var(--teal); }
     .btn-ghost:hover svg { transform:translateX(6px); }
-
-    .hero-meta {
-      position:absolute; bottom:48px; left:56px; z-index:2;
-      display:flex; gap:48px; align-items:center;
-      opacity:0; animation:fadeIn 1s 1.3s forwards;
-    }
-    .hero-meta-item {
-      font-family:var(--sans); font-size:.6rem; letter-spacing:.28em;
-      text-transform:uppercase; color:var(--mist);
-    }
-    .hero-meta-item strong { color:var(--ink); font-weight:400; }
-    .hero-meta-divider { width:1px; height:14px; background:var(--line); }
-
-    .hero-scroll {
-      position:absolute; bottom:48px; right:56px; z-index:2;
-      display:flex; flex-direction:column; align-items:center; gap:8px;
-      opacity:0; animation:fadeIn 1s 1.3s forwards;
-    }
-    .hero-scroll span {
-      font-family:var(--sans); font-size:.55rem; letter-spacing:.3em;
-      text-transform:uppercase; color:var(--mist);
-      writing-mode:vertical-lr;
-    }
-    .scroll-line { width:1px; height:50px; background:var(--line); position:relative; overflow:hidden; }
-    .scroll-line::after { content:''; position:absolute; top:-100%; left:0; width:100%; height:100%; background:var(--teal); animation:scrollAnim 2s ease-in-out 1.5s infinite; }
-    @keyframes scrollAnim { 0%{top:-100%;} 100%{top:100%;} }
-
-    /* ── MARQUEE ── */
-    .marquee-wrap {
-      width:100%; overflow:hidden;
-      border-top:1px solid var(--line-2);
-      border-bottom:1px solid var(--line-2);
-      padding:18px 0; background:var(--ivory-2);
-    }
-    .marquee-track {
-      display:flex; gap:0;
-      animation:marquee 32s linear infinite;
-      white-space:nowrap;
-    }
-    .marquee-item {
-      font-family:var(--serif); font-size:1.15rem; font-style:italic;
-      color:var(--ink-soft); padding:0 48px;
-      display:flex; align-items:center; gap:48px; flex-shrink:0;
-    }
-    .marquee-dot { width:5px; height:5px; background:var(--gold); border-radius:50%; }
-    @keyframes marquee {
-      0% { transform:translateX(0); }
-      100% { transform:translateX(-50%); }
-    }
+    .hero .btn-ghost { color:rgba(255,255,255,.65); }
+    .hero .btn-ghost:hover { color:var(--gold-2); }
+    .hero-trust { display:flex; align-items:center; gap:16px; margin-top:28px; opacity:0; animation:fadeUp .8s 1.8s forwards; }
+    .hero-trust-stars { display:flex; gap:3px; color:var(--gold); font-size:.7rem; }
+    .hero-trust-text { font-family:var(--sans); font-size:.62rem; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.5); }
 
     /* ── SHARED ── */
     section { padding:140px 56px; position:relative; }
@@ -381,135 +231,22 @@
       border:1px solid rgba(29,89,89,.25); padding:7px 14px;
     }
 
-    /* ── SERVICES STRIP ── */
-    .services {
-      background:var(--ivory-2);
-      border-top:1px solid var(--line-2);
-      border-bottom:1px solid var(--line-2);
-      padding:100px 56px;
-    }
-    .services-header { text-align:center; margin-bottom:80px; }
-    .services-grid {
-      display:grid; grid-template-columns:repeat(3,1fr);
-      gap:1px; background:var(--line);
-    }
-    .service-card {
-      padding:48px 40px; background:var(--ivory-2);
-      transition:background .4s; position:relative;
-      opacity:1; transform:none;
-    }
-    .service-card::before {
-      content:''; position:absolute; top:0; left:0; width:100%; height:2px;
-      background:var(--gold); transform:scaleX(0); transform-origin:left;
-      transition:transform .4s;
-    }
-    .service-card:hover { background:var(--ivory); }
-    .service-card:hover::before { transform:scaleX(1); }
-    .service-icon {
-      width:48px; height:48px; margin-bottom:28px;
-      display:flex; align-items:center; justify-content:center;
-      color:var(--teal);
-    }
-    .service-icon svg { width:100%; height:100%; }
-    .service-title {
-      font-family:var(--serif); font-size:1.5rem; font-weight:400;
-      color:var(--ink); margin-bottom:14px;
-    }
-    .service-desc {
-      font-family:var(--sans); font-size:.84rem; font-weight:300;
-      line-height:1.85; color:var(--ink-soft);
-    }
 
-    /* ── STORIES ── */
-    .stories { background:var(--ivory); }
-    .stories-header {
-      display:flex; justify-content:space-between; align-items:flex-end;
-      margin-bottom:48px; gap:40px;
-    }
-    .stories-link {
-      font-family:var(--sans); font-size:.7rem; letter-spacing:.22em;
-      text-transform:uppercase; color:var(--teal);
-      text-decoration:none; display:flex; align-items:center; gap:10px;
-      transition:gap .3s;
-    }
-    .stories-link:hover { gap:18px; }
-    .stories-grid {
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:24px;
-    }
-    .story-card {
-      position:relative; overflow:hidden;
-      cursor:pointer; background:var(--ivory-2);
-      border:1px solid var(--line-2);
-      transition:transform .35s, border-color .35s, background .35s;
-    }
-    .story-card:hover { transform:translateY(-4px); background:var(--ivory); border-color:rgba(29,89,89,.22); }
-    .story-card.large { grid-row:auto; }
-    .story-img {
-      width:100%; aspect-ratio:4/5; padding-bottom:0;
-      position:relative; overflow:hidden;
-    }
-    .story-card.large .story-img { height:auto; min-height:0; aspect-ratio:4/5; }
-    .story-img-inner {
-      position:absolute; inset:0;
-      transition:transform .8s cubic-bezier(.22,1,.36,1);
-    }
-    .story-card:hover .story-img-inner { transform:scale(1.035); }
-    .sg1 { background: linear-gradient(160deg,#d8cfb8 0%,#b8a98a 100%); }
-    .sg2 { background: linear-gradient(140deg,#cdc1a8 0%,#aa9a7a 100%); }
-    .sg3 { background: linear-gradient(150deg,#c9bda1 0%,#a09177 100%); }
-    .sg4 { background: linear-gradient(170deg,#d2c8b0 0%,#b3a48a 100%); }
-    .story-img-noise {
-      position:absolute; inset:0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.15'/%3E%3C/svg%3E");
-      mix-blend-mode:multiply; opacity:.4;
-    }
-    .story-img-icon {
-      position:absolute; inset:0;
-      display:flex; align-items:center; justify-content:center;
-    }
-    .story-img-icon svg { opacity:.16; }
-
-    .story-meta-block {
-      position:static;
-      padding:22px 24px 24px;
-      background:transparent;
-    }
-    .story-name {
-      font-family:var(--serif); font-size:1.42rem; font-style:italic;
-      color:var(--ink); margin-bottom:8px; line-height:1.15;
-    }
-    .story-meta {
-      font-family:var(--sans); font-size:.6rem; letter-spacing:.22em;
-      text-transform:uppercase; color:var(--teal);
-    }
-    /* ── PROCESS ── */
-    .process {
-      background:var(--ivory-2);
-      border-top:1px solid var(--line-2);
-    }
-    .process-grid {
-      display:grid; grid-template-columns:repeat(4,1fr);
-      gap:1px; margin-top:72px; background:var(--line);
-    }
-    .process-step {
-      padding:48px 36px; background:var(--ivory-2);
-      transition:background .4s; position:relative;
-    }
-    .process-step:hover { background:var(--ivory); }
-    .process-num {
-      font-family:var(--serif); font-size:3.5rem; font-weight:300;
-      color:rgba(29,89,89,.2); line-height:1; margin-bottom:28px;
-    }
-    .process-title {
-      font-family:var(--serif); font-size:1.35rem; font-weight:400;
-      color:var(--ink); margin-bottom:14px;
-    }
-    .process-desc {
-      font-family:var(--sans); font-size:.82rem; font-weight:300;
-      line-height:1.85; color:var(--ink-soft);
-    }
+    /* ── FEATURED STORY ── */
+    .featured-story { background:var(--ivory); }
+    .featured-story-inner { display:grid; grid-template-columns:1.1fr .9fr; gap:80px; align-items:center; }
+    .featured-story-img { position:relative; overflow:hidden; aspect-ratio:3/4; }
+    .featured-story-img-bg { position:absolute; inset:0; background-size:cover; background-position:center; transition:transform .8s cubic-bezier(.22,1,.36,1); }
+    .featured-story-img:hover .featured-story-img-bg { transform:scale(1.03); }
+    .featured-story-corner-tl { position:absolute; top:-14px; left:-14px; width:80px; height:80px; border-top:1px solid var(--teal); border-left:1px solid var(--teal); z-index:2; }
+    .featured-story-corner-br { position:absolute; bottom:-14px; right:-14px; width:80px; height:80px; border-bottom:1px solid var(--teal); border-right:1px solid var(--teal); z-index:2; }
+    .featured-story-name { font-family:var(--serif); font-size:clamp(2.4rem,4vw,4rem); font-weight:300; font-style:italic; line-height:1.1; color:var(--ink); margin-bottom:12px; }
+    .featured-story-meta { font-family:var(--sans); font-size:.65rem; letter-spacing:.25em; text-transform:uppercase; color:var(--teal); margin-bottom:36px; }
+    .featured-story-quote { font-family:var(--serif); font-size:1.3rem; font-weight:300; font-style:italic; line-height:1.7; color:var(--ink-soft); border-left:2px solid var(--gold); padding-left:24px; margin-bottom:40px; }
+    .featured-story-link { font-family:var(--sans); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; color:var(--teal); text-decoration:none; display:inline-flex; align-items:center; gap:10px; transition:gap .3s; }
+    .featured-story-link:hover { gap:18px; }
+    .featured-story-all { display:block; text-align:center; margin-top:64px; }
+    .featured-story-all a { font-family:var(--sans); font-size:.68rem; letter-spacing:.3em; text-transform:uppercase; color:var(--teal); text-decoration:none; border-bottom:1px solid rgba(29,89,89,.25); padding-bottom:5px; }
 
     /* ── TESTIMONIAL ── */
     .testimonial {
@@ -523,8 +260,11 @@
       color:rgba(29,89,89,.04); line-height:1; pointer-events:none; user-select:none;
     }
     .testimonial-inner { position:relative; z-index:1; max-width:880px; margin:0 auto; }
-    .testimonial-stars { display:flex; justify-content:center; gap:6px; margin-bottom:36px; }
+    .testimonial-stars { display:flex; justify-content:center; gap:6px; margin-bottom:12px; }
     .star { color:var(--gold); font-size:.85rem; }
+    .google-badge { display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:36px; }
+    .google-badge svg { width:16px; height:16px; flex-shrink:0; }
+    .google-badge span { font-family:var(--sans); font-size:.65rem; letter-spacing:.18em; text-transform:uppercase; color:var(--mist); }
     .testimonial{min-height:320px;}
   .testimonial-text {
       font-family:var(--serif); font-size:clamp(1.6rem,3.5vw,2.7rem);
@@ -539,49 +279,6 @@
     .dot { width:24px; height:2px; background:rgba(29,89,89,.2); cursor:pointer; transition:all .3s; }
     .dot.active { background:var(--gold); width:40px; }
 
-    /* ── INVESTMENT TEASER ── */
-    .investment-teaser {
-      background:linear-gradient(160deg, var(--teal-deep) 0%, var(--teal) 100%);
-      color:var(--ivory); text-align:center;
-      position:relative; overflow:hidden;
-    }
-    .investment-teaser::before {
-      content:''; position:absolute; inset:0;
-      background:
-        radial-gradient(ellipse at 30% 30%, rgba(184,150,90,.12) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 70%, rgba(184,150,90,.08) 0%, transparent 50%);
-    }
-    .investment-teaser .section-label { color:var(--gold); justify-content:center; }
-    .investment-teaser .section-label::before { display:none; }
-    .investment-headline {
-      font-family:var(--serif); font-size:clamp(2.6rem,5vw,4.8rem);
-      font-weight:300; line-height:1.1; margin:24px auto 32px;
-      max-width:780px; position:relative; z-index:1;
-    }
-    .investment-headline em { font-style:italic; color:var(--gold-2); }
-    .investment-sub {
-      font-family:var(--sans); font-size:.92rem; font-weight:300;
-      color:rgba(244,237,224,.75); line-height:1.85;
-      max-width:600px; margin:0 auto 48px;
-      position:relative; z-index:1;
-    }
-    .investment-pillars {
-      display:flex; justify-content:center; gap:48px; flex-wrap:wrap;
-      margin-bottom:56px; position:relative; z-index:1;
-    }
-    .inv-pillar {
-      font-family:var(--serif); font-style:italic; font-size:1.1rem;
-      color:var(--gold-2); display:flex; align-items:center; gap:14px;
-    }
-    .inv-pillar::before { content:'✦'; font-size:.7rem; opacity:.7; }
-    .btn-gold {
-      font-family:var(--sans); font-size:.72rem; letter-spacing:.25em;
-      text-transform:uppercase; background:var(--gold); color:var(--teal-deep);
-      padding:16px 44px; text-decoration:none; transition:all .35s;
-      display:inline-block; border:1px solid var(--gold);
-      position:relative; z-index:1;
-    }
-    .btn-gold:hover { background:var(--gold-2); border-color:var(--gold-2); }
 
     /* ── CTA ── */
     .cta-banner {
@@ -662,21 +359,8 @@
     .footer-socials a { font-family:var(--sans); font-size:.62rem; letter-spacing:.22em; text-transform:uppercase; color:rgba(244,237,224,.4); text-decoration:none; transition:color .3s; }
     .footer-socials a:hover { color:var(--gold); }
 
-    /* ── WHATSAPP FLOAT ── */
-    .whatsapp-float {
-      position:fixed; bottom:32px; right:32px; z-index:200;
-      width:58px; height:58px; border-radius:50%;
-      background:#25d366; display:flex; align-items:center; justify-content:center;
-      box-shadow:0 8px 28px rgba(37,211,102,.35);
-      text-decoration:none; transition:all .3s;
-      animation:pulse 2.5s ease-in-out infinite;
-    }
+    /* ── WHATSAPP TOOLTIP (page-specific) ── */
     .whatsapp-float:hover { transform:scale(1.1); }
-    .whatsapp-float svg { width:30px; height:30px; color:#fff; }
-    @keyframes pulse {
-      0%,100% { box-shadow:0 8px 28px rgba(37,211,102,.35); }
-      50% { box-shadow:0 8px 28px rgba(37,211,102,.6), 0 0 0 14px rgba(37,211,102,.05); }
-    }
     .whatsapp-tooltip {
       position:absolute; right:72px; top:50%; transform:translateY(-50%);
       background:var(--teal-deep); color:var(--ivory);
@@ -694,161 +378,62 @@
     }
     @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
 
-    .reveal { opacity:0; transform:translateY(36px); transition:opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1); }
-    .reveal.visible { opacity:1; transform:translateY(0); }
+    /* Homepage-specific reveal delays */
     .reveal-d1 { transition-delay:.15s; }
     .reveal-d2 { transition-delay:.3s; }
     .reveal-d3 { transition-delay:.45s; }
 
-    /* ── FAQ ── */
-    .faq-list { display:flex; flex-direction:column; }
-    .faq-item {
-      border-bottom:1px solid var(--line);
-      padding:0;
-    }
-    .faq-item summary {
-      font-family:var(--serif); font-size:1.2rem; font-weight:400;
-      color:var(--ink); padding:24px 40px 24px 0;
-      cursor:pointer; list-style:none; position:relative;
-      transition:color .3s;
-    }
-    .faq-item summary::-webkit-details-marker { display:none; }
-    .faq-item summary::after {
-      content:'+'; position:absolute; right:0; top:24px;
-      font-family:var(--sans); font-size:1.2rem; font-weight:200;
-      color:var(--teal); transition:transform .35s;
-    }
-    .faq-item[open] summary::after { transform:rotate(45deg); }
-    .faq-item[open] summary { color:var(--teal); }
-    .faq-item p {
-      font-family:var(--sans); font-size:.88rem; font-weight:300;
-      line-height:1.9; color:var(--ink-soft);
-      padding:0 40px 24px 0;
-    }
-    .faq-item summary:hover { color:var(--teal); }
-
-    /* ── HAMBURGER MENU ── */
-    .nav-toggle { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px; z-index:101; }
-    .nav-toggle span { display:block; width:22px; height:1.5px; background:var(--ink); transition:all .35s cubic-bezier(.22,1,.36,1); }
-    .nav-toggle.open span:nth-child(1) { transform:rotate(45deg) translate(4px,4px); }
-    .nav-toggle.open span:nth-child(2) { opacity:0; }
-    .nav-toggle.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
-
-    .mobile-menu {
-      position:fixed; inset:0; z-index:99;
-      background:var(--ivory); display:flex; flex-direction:column;
-      align-items:center; justify-content:center; gap:36px;
-      opacity:0; visibility:hidden; transition:opacity .4s, visibility .4s;
-    }
-    .mobile-menu.open { opacity:1; visibility:visible; }
-    .mobile-menu a {
-      font-family:var(--serif); font-size:clamp(1.8rem,5vw,2.8rem);
-      font-weight:300; font-style:italic; color:var(--ink);
-      text-decoration:none; transition:color .3s;
-    }
-    .mobile-menu a:hover { color:var(--teal); }
-    .mobile-menu-cta {
-      font-family:var(--sans); font-size:.7rem; letter-spacing:.22em;
-      text-transform:uppercase; background:var(--teal); color:var(--ivory);
-      padding:14px 32px; text-decoration:none; margin-top:12px;
-    }
-    .mobile-menu-social {
-      display:flex; gap:24px; margin-top:8px;
-    }
-    .mobile-menu-social a {
-      font-family:var(--sans) !important; font-size:.62rem !important;
-      font-style:normal !important; letter-spacing:.22em;
-      text-transform:uppercase; color:var(--mist) !important;
-    }
-
-    /* ── SKIP TO CONTENT ── */
-    .skip-link {
-      position:absolute; top:-100%; left:16px; z-index:10001;
-      background:var(--teal); color:var(--ivory); padding:12px 24px;
-      font-family:var(--sans); font-size:.8rem; text-decoration:none;
-      transition:top .3s;
-    }
-    .skip-link:focus { top:16px; }
-
     /* ── RESPONSIVE ── */
     @media (max-width: 980px) {
-      body { cursor:auto; }
-      .cursor { display:none; }
-      nav { padding:18px 24px; }
-      nav.scrolled { padding:14px 24px; }
-      .nav-links { display:none; }
-      .nav-cta { display:none; }
-      .nav-toggle { display:flex; }
-      .hero { padding:0 24px; min-height:680px; }
-    .hero-bg-frame { width:100%; opacity:.5; }
-      .hero-content { padding-right:0; }
-      .hero-meta { left:24px; bottom:24px; gap:24px; }
-      .hero-scroll { display:none; }
+      .hero { min-height:600px; }
+      .hero-content { padding:0 24px 56px; }
       section { padding:80px 24px; }
-      .about, .services-grid, .stories-grid, .process-grid, .footer-top { grid-template-columns:1fr !important; gap:40px; }
-      .stories-grid > .large { grid-row:auto; }
+      .about, .featured-story-inner, .footer-top { grid-template-columns:1fr !important; gap:40px; }
       .about-stat-card { right:auto; left:50%; transform:translateX(-50%); }
       .footer-bottom { flex-direction:column; }
       .testimonial-quotes { font-size:14rem; }
-      .faq-section { padding:80px 24px !important; }
-      .faq-section > div { grid-template-columns:1fr !important; gap:40px; }
+      .featured-story-img { aspect-ratio:4/3; }
+      .album-delivery { padding:80px 24px; }
+      .album-delivery-features { gap:24px; }
     }
   
-    .story-card-link { display:block; text-decoration:none; color:inherit; }
-
-    /* ── LANDSCAPE SLIDESHOW ── */
-    .moments-section{background:var(--teal-deep);padding:0;position:relative;overflow:hidden;}
-    .moments-header{padding:80px 56px 48px;position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-end;}
-    .moments-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3.8rem);font-weight:300;font-style:italic;color:var(--ivory);line-height:1.1;}
-    .moments-sub{font-family:var(--sans);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,237,224,.35);}
-    .moments-reel{position:relative;width:100%;overflow:hidden;}
-    .moments-slide{position:absolute;inset:0;width:100%;padding-bottom:42%;background:linear-gradient(160deg,var(--teal) 0%,var(--teal-deep) 100%);background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s ease;}
-    .moments-slide.active{opacity:1;position:relative;}
-    .moments-slide::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(26,24,20,.65) 0%,transparent 40%);}
-    .moments-caption{position:absolute;bottom:32px;left:56px;z-index:2;font-family:var(--serif);font-size:1rem;font-style:italic;color:rgba(244,237,224,.5);}
-    .moments-dots{display:flex;gap:8px;padding:28px 56px 60px;justify-content:center;}
-    .moments-dot{width:28px;height:2px;background:rgba(244,237,224,.2);cursor:pointer;transition:all .3s;}
-    .moments-dot.active{background:var(--gold);width:44px;}
-    /* ── PROCESS TIMELINE SECTION ── */
-    .process-tl-section{background:var(--ivory-2);border-top:1px solid var(--line-2);padding:140px 56px;}
-    .process-tl-header{max-width:700px;margin-bottom:100px;}
-    .delivery-experience{padding:130px 56px;background:var(--ivory-2);color:var(--ink);display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:center;overflow:hidden;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);}
-    .delivery-copy{max-width:620px;}
-    .delivery-copy .section-title{color:var(--ink);}
-    .delivery-copy .section-title em{color:var(--teal);}
-    .delivery-text{font-family:var(--sans);font-size:.92rem;font-weight:300;line-height:1.9;color:var(--ink-soft);margin:28px 0 40px;}
-    .delivery-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
-    .delivery-outline{font-family:var(--sans);font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);text-decoration:none;border:1px solid rgba(29,89,89,.3);padding:14px 28px;transition:all .3s;}
-    .delivery-outline:hover{background:var(--teal);color:var(--ivory);border-color:var(--teal);}
-    .delivery-demo{position:relative;min-height:520px;}
-    .delivery-window{position:absolute;inset:0;background:var(--ivory);padding:18px;box-shadow:0 30px 70px rgba(26,24,20,.12);border:1px solid var(--line-2);}
-    .delivery-window-bar{height:38px;display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--line-2);margin-bottom:18px;}
-    .delivery-window-bar span{width:8px;height:8px;border-radius:50%;background:var(--gold);}
-    .delivery-grid-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px;height:calc(100% - 56px);}
-    .delivery-grid-preview div{background-size:cover;background-position:center;min-height:130px;}
-    .delivery-grid-preview div:first-child{grid-row:span 2;background-image:url('/assets/stories/abhin-gayathry/01.jpg');}
-    .delivery-grid-preview div:nth-child(2){background-image:url('/assets/stories/abhin-gayathry/08.jpg');}
-    .delivery-grid-preview div:nth-child(3){background-image:url('/assets/stories/abhin-gayathry/05.jpg');}
-    .delivery-grid-preview div:nth-child(4){grid-column:span 2;background-image:url('/assets/stories/abhin-gayathry/11.jpg');}
-    .delivery-phone{position:absolute;right:-28px;bottom:-32px;width:190px;height:330px;background:var(--teal-deep);border:10px solid var(--teal-deep);box-shadow:0 24px 60px rgba(26,24,20,.18);padding:12px;}
-    .delivery-phone-img{height:100%;background:url('/assets/stories/abhin-gayathry/02.jpg') center/cover;}
-    .delivery-chip{position:absolute;left:-30px;bottom:50px;background:var(--gold);color:var(--teal-deep);padding:18px 22px;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;box-shadow:0 18px 45px rgba(26,24,20,.16);}
-    .delivery-features{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:58px;grid-column:1/-1;}
-    .delivery-feature{background:var(--ivory);padding:28px 26px;}
-    .delivery-feature h3{font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--teal);margin-bottom:8px;}
-    .delivery-feature p{font-family:var(--sans);font-size:.82rem;line-height:1.8;color:var(--ink-soft);}
-    @media(max-width:980px){
-      .moments-header{padding:60px 24px 36px;flex-direction:column;align-items:flex-start;gap:12px;}
-      .moments-slide{padding-bottom:65%;}
-      .moments-caption{left:24px;}
-      .moments-dots{padding:20px 24px 48px;}
-      .process-tl-section{padding:80px 24px;}
-      .delivery-experience{grid-template-columns:1fr;padding:80px 24px;gap:48px;}
-      .delivery-demo{min-height:420px;}
-      .delivery-phone{right:8px;width:150px;height:260px;}
-      .delivery-chip{left:0;bottom:26px;}
-      .delivery-features{grid-template-columns:1fr;}
+    /* ── ALBUM DELIVERY (compact) ── */
+    .album-delivery {
+      background:linear-gradient(160deg, var(--teal-deep) 0%, var(--teal) 100%);
+      color:var(--ivory); text-align:center;
+      padding:100px 56px; position:relative; overflow:hidden;
     }
+    .album-delivery::before {
+      content:''; position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse at 30% 30%, rgba(184,150,90,.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 70%, rgba(184,150,90,.06) 0%, transparent 50%);
+    }
+    .album-delivery .section-label { color:var(--gold); justify-content:center; }
+    .album-delivery .section-label::before { display:none; }
+    .album-delivery-headline {
+      font-family:var(--serif); font-size:clamp(2rem,4vw,3.4rem);
+      font-weight:300; line-height:1.15; margin:20px auto 20px;
+      max-width:680px; position:relative; z-index:1;
+    }
+    .album-delivery-headline em { font-style:italic; color:var(--gold-2); }
+    .album-delivery-sub {
+      font-family:var(--sans); font-size:.9rem; font-weight:300;
+      color:rgba(244,237,224,.65); line-height:1.8;
+      max-width:560px; margin:0 auto 44px;
+      position:relative; z-index:1;
+    }
+    .album-delivery-features {
+      display:flex; justify-content:center; gap:48px; flex-wrap:wrap;
+      margin-bottom:48px; position:relative; z-index:1;
+    }
+    .album-delivery-feature {
+      font-family:var(--serif); font-style:italic; font-size:1.05rem;
+      color:var(--gold-2); display:flex; align-items:center; gap:12px;
+    }
+    .album-delivery-feature::before { content:'✦'; font-size:.65rem; opacity:.7; }
+    .album-delivery .btn-outline { border-color:rgba(244,237,224,.2); color:var(--ivory); position:relative; z-index:1; }
+    .album-delivery .btn-outline:hover { border-color:var(--gold); color:var(--gold); }
   </style>
 </head>
 <body>
@@ -861,9 +446,7 @@
   <style>
     .preloader { display:none !important; }
     .reveal { opacity:1 !important; transform:none !important; }
-    .cursor { display:none !important; }
-    body { cursor:auto !important; }
-    .hero-eyebrow, .hero-headline, .hero-subline, .hero-actions, .hero-meta, .hero-scroll { opacity:1 !important; transform:none !important; animation:none !important; }
+    .hero-headline, .hero-subline, .hero-actions { opacity:1 !important; transform:none !important; animation:none !important; }
   </style>
 </noscript>
 
@@ -875,12 +458,6 @@
 
 <!-- PAGE TRANSITION OVERLAY -->
 <div class="page-transition-overlay"></div>
-
-<!-- CURSOR -->
-<div class="cursor" id="cursor">
-  <div class="cursor-dot" id="cursorDot"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-</div>
 
 <!-- NAV -->
 <nav id="nav">
@@ -916,66 +493,32 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg-frame">
-    <video autoplay muted loop playsinline class="hero-video">
-      <source src="/assets/hero.mp4" type="video/mp4">
-    </video>
-    <div class="hero-bokeh b1"></div>
-    <div class="hero-bokeh b2"></div>
-  </div>
-
+  <video autoplay muted loop playsinline class="hero-video">
+    <source src="/assets/hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow" data-cms="hero-eyebrow">Boutique Wedding Studio · Kerala</div>
     <h1 class="hero-headline">
-      Love, told in<br><em>quiet light</em><br>and honest frames.
+      {{ homepage.hero_headline }}
     </h1>
-    <p class="hero-subline" data-cms="hero-subline">
-      Whether yours is a quiet temple morning or a 600-guest backwater celebration, we'll be the calmest people in the room — watching, listening, capturing what's real.
+    <p class="hero-subline">
+      {{ homepage.hero_subline }}
     </p>
     <div class="hero-actions">
-      <a href="/stories/" class="btn-primary">View Our Stories</a>
-      <a href="/contact/" class="btn-ghost">
-        Begin your story
+      <a href="{{ homepage.hero_cta_primary_link }}" class="btn-primary">{{ homepage.hero_cta_primary_text }}</a>
+      <a href="{{ homepage.hero_cta_secondary_link }}" class="btn-ghost">
+        {{ homepage.hero_cta_secondary_text }}
         <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
           <path d="M13 1l6 6-6 6M1 7h18" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
         </svg>
       </a>
     </div>
-  </div>
-
-  <div class="hero-meta">
-    <div class="hero-meta-item"><strong>Photo</strong> · Cinema · Drone</div>
-    <div class="hero-meta-divider"></div>
-    <div class="hero-meta-item"><strong>Documentary</strong> · Editorial</div>
-    <div class="hero-meta-divider"></div>
-    <div class="hero-meta-item">Thrissur, <strong>Kerala</strong></div>
-  </div>
-
-  <div class="hero-scroll">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
+    <div class="hero-trust">
+      <div class="hero-trust-stars">★★★★★</div>
+      <span class="hero-trust-text">{{ homepage.hero_trust_text }}</span>
+    </div>
   </div>
 </section>
-
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <div class="marquee-item">Quiet Light <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Stolen Glances <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Heritage Mornings <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Real Laughter <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Backwater Twilights <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Temple Vows <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Jasmine &amp; Lamplight <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Quiet Light <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Stolen Glances <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Heritage Mornings <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Real Laughter <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Backwater Twilights <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Temple Vows <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Jasmine &amp; Lamplight <div class="marquee-dot"></div></div>
-  </div>
-</div>
 
 <!-- ABOUT -->
 <section class="about" id="about">
@@ -991,15 +534,15 @@
   </div>
 
   <div class="about-right">
-    <div class="section-label reveal">The Studio</div>
+    <div class="section-label reveal">{{ homepage.about_label }}</div>
     <h2 class="section-title reveal reveal-d1">
-      We don't measure<br>the weddings we've shot.<br>We measure the ones we <em>don't forget.</em>
+      {{ homepage.about_headline }}
     </h2>
     <blockquote class="about-body-quote reveal reveal-d2">
       "Every couple deserves a team that isn't running on autopilot — that shows up rested, listens carefully, and leaves with photographs you'll keep returning to."
     </blockquote>
     <p class="about-para reveal reveal-d3">
-      Memorygraph is a small Thrissur-based studio led by photographer-filmmaker Arun T Chandran, with a tight team of collaborators who believe wedding photography has become too much about production and not enough about presence. Documentary in spirit. Cinematic in craft. Quietly devoted to every wedding we hold in our hands.
+      {{ homepage.about_body }}
     </p>
     <div class="about-tags reveal">
       <span class="tag">Documentary</span>
@@ -1010,84 +553,39 @@
   </div>
 </section>
 
-<!-- SERVICES -->
-<section class="services" id="services">
-  <div class="services-header">
-    <h2 class="section-title reveal reveal-d1">Three crafts, one <em>story.</em></h2>
-  </div>
-  <div class="services-grid">
-    <div class="service-card">
-      <div class="service-icon">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
-          <rect x="6" y="14" width="36" height="26" rx="2"/>
-          <circle cx="24" cy="27" r="8"/>
-          <circle cx="24" cy="27" r="4"/>
-          <path d="M16 14l3-5h10l3 5"/>
+<!-- FEATURED STORY -->
+<section class="featured-story" id="stories">
+  {% assign featured = collections.stories | first %}
+  {% if featured %}
+  <div class="featured-story-inner">
+    <div class="featured-story-img reveal">
+      <div class="featured-story-corner-tl"></div>
+      {% if featured.data.hero %}
+      <div class="featured-story-img-bg" data-bg="{{ featured.data.hero }}" style="background-size:cover;background-position:center;"></div>
+      {% endif %}
+      <div class="featured-story-corner-br"></div>
+    </div>
+    <div class="featured-story-body">
+      <div class="section-label reveal">Featured Story</div>
+      <h2 class="featured-story-name reveal reveal-d1">{{ featured.data.title }}</h2>
+      <div class="featured-story-meta reveal reveal-d1">{{ featured.data.location_short }} · {{ featured.date | formatDate }}</div>
+      {% if featured.data.quote %}
+      <blockquote class="featured-story-quote reveal reveal-d2">{{ featured.data.quote }}</blockquote>
+      {% endif %}
+      <a href="{{ featured.url }}" class="featured-story-link reveal reveal-d3">
+        Read Their Story
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
+          <path d="M13 1l6 6-6 6M1 7h18" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
         </svg>
-      </div>
-      <h3 class="service-title">Photography</h3>
-      <p class="service-desc">We shoot the way memory works — quiet, unforced, drawn to the moments people don't realize they're making. Editorial in look. Documentary in soul.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
-          <rect x="4" y="14" width="28" height="20" rx="2"/>
-          <path d="M32 22l12-6v16l-12-6z"/>
-          <circle cx="14" cy="24" r="3"/>
-        </svg>
-      </div>
-      <h3 class="service-title">Cinematography</h3>
-      <p class="service-desc">Wedding films that feel like short cinema — your real voices, your real silences. Built to be watched again and again, not scrolled past.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
-          <circle cx="24" cy="24" r="4"/>
-          <path d="M24 20V8M24 28v12M20 24H8M28 24h12"/>
-          <circle cx="8" cy="8" r="3"/><circle cx="40" cy="8" r="3"/>
-          <circle cx="8" cy="40" r="3"/><circle cx="40" cy="40" r="3"/>
-        </svg>
-      </div>
-      <h3 class="service-title">Aerial &amp; Drone</h3>
-      <p class="service-desc">Sweeping aerial frames of your venue, the procession, the landscape — the kind of scale your wedding deserves to be remembered at.</p>
+      </a>
     </div>
   </div>
-</section>
-
-<!-- STORIES -->
-<section class="stories" id="stories">
-  <div class="stories-header">
-    <div>
-      <div class="section-label reveal">Recent Stories</div>
-      <h2 class="section-title reveal reveal-d1">The ones that went straight to our <em>heart</em>.</h2>
-    </div>
-    <a href="/stories/" class="stories-link reveal">
-      View All Stories
-      <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
-        <path d="M13 1l6 6-6 6M1 7h18" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
-    </a>
+  {% endif %}
+  {% if collections.stories.size > 1 %}
+  <div class="featured-story-all reveal">
+    <a href="/stories/">View all stories &rarr;</a>
   </div>
-  <div class="stories-grid reveal" data-cms="stories-grid">
-    {% for story in collections.stories limit:3 %}
-    <a href="{{ story.url }}" class="story-card-link">
-      <div class="story-card{% if forloop.first %} large{% endif %}">
-        <div class="story-img">
-          {% if story.data.hero %}
-          <div class="story-img-inner" data-bg="{{ story.data.hero }}" style="background-size:cover;background-position:center;"></div>
-          {% else %}
-          <div class="story-img-inner sg{% cycle '1','2','3','4','5' %}"></div>
-          {% endif %}
-          <div class="story-img-noise"></div>
-        </div>
-        <div class="story-meta-block">
-          <div class="story-name">{{ story.data.title }}</div>
-          <div class="story-meta">{{ story.data.location_short }} · {{ story.date | formatDate }}</div>
-        </div>
-      </div>
-    </a>
-    {% endfor %}
-  </div>
+  {% endif %}
 </section>
 
 <!-- TESTIMONIAL -->
@@ -1097,6 +595,10 @@
     <div class="testimonial-stars">
       <span class="star">★</span><span class="star">★</span>
       <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+    </div>
+    <div class="google-badge">
+      <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A10.96 10.96 0 0 0 1 12c0 1.77.42 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      <span>5.0 on Google &middot; 27 Reviews</span>
     </div>
     <blockquote class="testimonial-text" id="testimonialText">
       {% if collections.testimonials and collections.testimonials.size > 0 %}{{ collections.testimonials[0].data.quote }}{% else %}"I told Vivek a week before the wedding that I was scared the photographer would be in our face all day. We barely noticed Arun. And the photographs — I've cried twice already."{% endif %}
@@ -1108,146 +610,21 @@
   </div>
 </section>
 
-<!-- LANDSCAPE SLIDESHOW -->
-<div class="moments-section">
-  <div class="moments-header">
-    <h2 class="moments-title reveal">Moments that<br>stayed with us.</h2>
-    <span class="moments-sub">A quiet archive</span>
+<!-- ALBUM DELIVERY -->
+<section class="album-delivery">
+  <div class="section-label reveal">Delivery Experience</div>
+  <h2 class="album-delivery-headline reveal reveal-d1">Your story, delivered<br><em>beautifully.</em></h2>
+  <p class="album-delivery-sub reveal reveal-d2">Curated galleries, cinematic films, and heirloom-quality albums — delivered within 30 days through your own private online gallery.</p>
+  <div class="album-delivery-features reveal reveal-d2">
+    <span class="album-delivery-feature">Private Gallery</span>
+    <span class="album-delivery-feature">Album Selection</span>
+    <span class="album-delivery-feature">Easy Sharing</span>
+    <span class="album-delivery-feature">Print Ordering</span>
   </div>
-  <div class="moments-reel" id="momentsReel">
-    <!-- Landscape slides injected by JS from /assets/slides/landscape/ -->
-    <div class="moments-slide-arrows slide-arrows">
-      <button class="slide-btn prev" onclick="setMoment(mci-1)" aria-label="Previous">&#8249;</button>
-      <button class="slide-btn next" onclick="setMoment(mci+1)" aria-label="Next">&#8250;</button>
-    </div>
-  </div>
-  <div class="moments-dots" id="momentsDots"></div>
-</div><!-- PROCESS TIMELINE -->
-<div class="process-tl-section">
-  <div class="process-tl-header">
-    <div class="section-label reveal">The Experience</div>
-    <h2 class="section-title reveal reveal-d1">How we <em>work.</em></h2>
-    <p style="font-family:var(--sans);font-size:.92rem;font-weight:300;line-height:1.9;color:var(--ink-soft);margin-top:24px;" class="reveal reveal-d2">From the first message to the final album — here's what it feels like to work with Memorygraph.</p>
-  </div>
-  <div class="process-timeline">
-    <div class="process-tl-item">
-      <div class="tl-content">
-        <div class="tl-num">01</div>
-        <div class="tl-title">The First Conversation</div>
-        <p class="tl-desc">A 30-minute call — not a sales pitch. We listen to your story, your vision, your worries. Most couples leave already feeling lighter.</p>
-      </div>
-      <div class="tl-visual"><div class="tl-visual-img" data-bg="/assets/stories/abhin-gayathry/03.jpg"></div></div>
-      <div class="tl-dot"></div>
-    </div>
-    <div class="process-tl-item">
-      <div class="tl-visual"><div class="tl-visual-img" data-bg="/assets/stories/abhin-gayathry/05.jpg"></div></div>
-      <div class="tl-content">
-        <div class="tl-num">02</div>
-        <div class="tl-title">A Plan Built Around You</div>
-        <p class="tl-desc">Light maps, ceremony flow, family logistics, drone permissions. We over-plan so the day itself can be effortless.</p>
-      </div>
-      <div class="tl-dot"></div>
-    </div>
-    <div class="process-tl-item">
-      <div class="tl-content">
-        <div class="tl-num">03</div>
-        <div class="tl-title">The Day Itself</div>
-        <p class="tl-desc">Quiet, observant, deeply focused. We move like shadows — present everywhere, intrusive nowhere. You'll forget we're there.</p>
-      </div>
-      <div class="tl-visual"><div class="tl-visual-img" data-bg="/assets/stories/abhin-gayathry/08.jpg"></div></div>
-      <div class="tl-dot"></div>
-    </div>
-    <div class="process-tl-item">
-      <div class="tl-visual"><div class="tl-visual-img" data-bg="/assets/stories/abhin-gayathry/11.jpg"></div></div>
-      <div class="tl-content">
-        <div class="tl-num">04</div>
-        <div class="tl-title">Delivered with Care</div>
-        <p class="tl-desc">Curated galleries, cinematic films, heirloom-quality albums. Delivered within 30 days, presented beautifully — yours forever.</p>
-      </div>
-      <div class="tl-dot"></div>
-    </div>
-  </div>
-  <div style="text-align:center;margin-top:80px;" class="reveal">
-    <a href="/investment/" style="font-family:var(--sans);font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(29,89,89,.25);padding-bottom:5px;">See our collections &rarr;</a>
-  </div>
-</div>
-
-<!-- DELIVERY EXPERIENCE -->
-<section class="delivery-experience">
-  <div class="delivery-copy">
-    <div class="section-label reveal">Delivery Experience</div>
-    <h2 class="section-title reveal reveal-d1">Your story, delivered<br><em>beautifully.</em></h2>
-    <p class="delivery-text reveal reveal-d2">After the edit, your photographs arrive in a private online gallery built for viewing, sharing, downloading, and choosing album favorites. No confusing folders. No lost links. Just your photographs, films, and selections kept in one quiet place.</p>
-    <div class="delivery-actions reveal reveal-d3">
-      <a href="/client-gallery/" class="delivery-outline">View Gallery Demo</a>
-      <a href="/contact/" class="delivery-outline">Ask About Delivery</a>
-    </div>
-  </div>
-  <div class="delivery-demo reveal reveal-d2" aria-hidden="true">
-    <div class="delivery-window">
-      <div class="delivery-window-bar"><span></span><span></span><span></span></div>
-      <div class="delivery-grid-preview">
-        <div></div><div></div><div></div><div></div>
-      </div>
-    </div>
-    <div class="delivery-phone"><div class="delivery-phone-img"></div></div>
-    <div class="delivery-chip">Album Picks Saved</div>
-  </div>
-  <div class="delivery-features reveal">
-    <div class="delivery-feature"><h3>Private Gallery</h3><p>Password protected access for the couple and family, arranged with the same care as the photographs themselves.</p></div>
-    <div class="delivery-feature"><h3>Album Selection</h3><p>Choose the frames you want printed, add notes for the design, and send the final shortlist back to us.</p></div>
-    <div class="delivery-feature"><h3>Easy Sharing</h3><p>One clean link for photographs, films, downloads, favorites, and the pieces your family will keep returning to.</p></div>
-  </div>
-</section><!-- FAQ -->
-<section class="faq-section" id="faq" style="padding:120px 56px;background:var(--ivory);border-top:1px solid var(--line-2);">
-  <div style="display:grid;grid-template-columns:.8fr 1.2fr;gap:80px;align-items:start;">
-    <div>
-      <div class="section-label reveal">Common Questions</div>
-      <h2 class="section-title reveal reveal-d1">Before you<br><em>reach out.</em></h2>
-      <p class="reveal reveal-d2" style="font-family:var(--sans);font-size:.92rem;font-weight:300;line-height:1.9;color:var(--ink-soft);margin-top:24px;">Honest answers to the questions we hear most. If yours isn't here, we'd love to hear it.</p>
-    </div>
-    <div class="faq-list reveal reveal-d2">
-      <details class="faq-item">
-        <summary>How far in advance should we book?</summary>
-        <p>We take a limited number of weddings each month to give every couple our full attention. Peak season dates (November–February) tend to fill 4–6 months ahead. The earlier you reach out, the better — but we always try to make it work.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Do you travel outside Kerala for weddings?</summary>
-        <p>Absolutely. We've covered weddings across South India and are happy to travel anywhere. Destination wedding travel and accommodation costs are quoted transparently upfront — no surprises.</p>
-      </details>
-      <details class="faq-item">
-        <summary>How many photographs will we receive?</summary>
-        <p>It depends on the collection and the length of your day, but typically between 400–1000+ hand-edited photographs. We don't pad galleries with duplicates — every image earns its place.</p>
-      </details>
-      <details class="faq-item">
-        <summary>When will we get our photos and films?</summary>
-        <p>We promise delivery within 30 days. Highlight teasers arrive within 48 hours (or same-day for Legacy collections). Your photographs and films are delivered through a private online gallery — not random Google Drive links.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Can we customize a collection?</summary>
-        <p>Yes. Our three collections cover most needs, but we're happy to add drone coverage, extra days, printed albums, or pre-wedding shoots as individual add-ons. Tell us what you need — we'll build it around your wedding.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Will Arun personally photograph our wedding?</summary>
-        <p>Yes — always. When you book Memorygraph, you book Arun leading the coverage personally. Not an associate, not whoever is available. That's a promise we've kept since day one.</p>
-      </details>
-    </div>
+  <div class="reveal reveal-d3">
+    <a href="/investment/" class="btn-outline">See Our Collections &rarr;</a>
   </div>
 </section>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {"@type": "Question", "name": "How far in advance should we book?", "acceptedAnswer": {"@type": "Answer", "text": "Peak season dates (November–February) tend to fill 4–6 months ahead. The earlier you reach out, the better."}},
-    {"@type": "Question", "name": "Do you travel outside Kerala for weddings?", "acceptedAnswer": {"@type": "Answer", "text": "Absolutely. Destination wedding travel and accommodation costs are quoted transparently upfront."}},
-    {"@type": "Question", "name": "How many photographs will we receive?", "acceptedAnswer": {"@type": "Answer", "text": "Typically between 400–1000+ hand-edited photographs depending on the collection."}},
-    {"@type": "Question", "name": "When will we get our photos and films?", "acceptedAnswer": {"@type": "Answer", "text": "Within 30 days. Highlight teasers arrive within 48 hours or same-day for Legacy collections."}},
-    {"@type": "Question", "name": "Can we customize a collection?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Add drone coverage, extra days, printed albums, or pre-wedding shoots as individual add-ons."}},
-    {"@type": "Question", "name": "Will Arun personally photograph our wedding?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — always. When you book Memorygraph, you book Arun leading the coverage personally."}}
-  ]
-}
-</script>
 
 <!-- CTA -->
 <section class="cta-banner" id="contact">
@@ -1255,11 +632,11 @@
   <div class="cta-deco2"></div>
   <div class="section-label center reveal">Ready to Begin</div>
   <h2 class="cta-headline reveal reveal-d1">
-    If your wedding feels like<br>one of <em>ours</em> — let's talk.
+    {{ homepage.cta_headline }}
   </h2>
-  <p class="cta-sub reveal reveal-d2">Currently booking for 2026 &amp; 2027. Kerala &amp; destination weddings welcome.</p>
+  <p class="cta-sub reveal reveal-d2">{{ homepage.cta_subline }}</p>
   <div class="cta-actions reveal reveal-d3">
-    <a href="/contact/" class="btn-primary">Send an Enquiry</a>
+    <a href="/contact/" class="btn-primary">{{ homepage.cta_button_text }}</a>
     <a href="https://wa.me/919846238073" class="btn-outline" data-cms="whatsapp-link">Chat on WhatsApp</a>
   </div>
 </section>
@@ -1320,6 +697,14 @@
   </div>
 </footer>
 
+<!-- MOBILE STICKY CTA -->
+<div class="mobile-cta-bar" id="mobileCta">
+  <div class="mobile-cta-bar-inner">
+    <span class="mobile-cta-bar-text">Season dates filling up</span>
+    <a href="/contact/">Begin Your Story</a>
+  </div>
+</div>
+
 <!-- WHATSAPP -->
 <a href="https://wa.me/919846238073?text=Hi%20Arun%2C%20I%27d%20love%20to%20talk%20about%20my%20wedding." class="whatsapp-float" data-cms="whatsapp-link" target="_blank">
   <svg viewBox="0 0 32 32" fill="currentColor">
@@ -1338,10 +723,8 @@
 <script src="/assets/js/main.js"></script>
 
 <script>
-  let tts;
-  if(window._cms_testimonials && window._cms_testimonials.length){
-    tts=window._cms_testimonials;
-  } else {
+  let tts=[{% for t in collections.testimonials %}{t:{{ t.data.quote | json }},a:{{ t.data.title | append: " — " | append: t.data.location | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}];
+  if(!tts.length){
     tts=[
       {t:'"We barely noticed Arun. And the photographs — I\'ve cried twice already."',a:'Gayathry — married Abhin in Thrissur, Nov 2024'},
       {t:'"The photos didn\'t look like wedding photos. They looked like a magazine. Exactly what I wanted."',a:'Archana — married Manu in Kochi, 2024'},
@@ -1360,12 +743,7 @@
   setInterval(()=>setT(cur+1),6500);
 
   // ── SLIDE HELPERS ──────────────────────────────
-  function captionFrom(src){
-    return src.split('/').pop()
-      .replace(/\.\w+$/,'').replace(/^\d+-/,'')
-      .replace(/-/g,' ').replace(/\w/g,c=>c.toUpperCase());
-  }
-  function addSwipe(el, onLeft, onRight){
+    function addSwipe(el, onLeft, onRight){
     let tx=0;
     el.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
     el.addEventListener('touchend',e=>{
@@ -1410,71 +788,10 @@
     addSwipe(aEl,()=>setAboutSlide(aci+1),()=>setAboutSlide(aci-1));
   }
 
-  // ── LANDSCAPE SLIDESHOW (/assets/slides/landscape/) ──
-  const landscapeSlides = [
-    '/assets/slides/landscape/01.jpg',
-    '/assets/slides/landscape/02.jpg',
-    '/assets/slides/landscape/03.jpg',
-    '/assets/slides/landscape/04.jpg',
-    '/assets/slides/landscape/05.jpg',
-  ];
-  const mReelEl = document.getElementById('momentsReel');
-  const mDotsEl = document.getElementById('momentsDots');
-  if(mReelEl){
-    landscapeSlides.forEach((src,i)=>{
-      const d=document.createElement('div');
-      d.className='moments-slide'+(i===0?' active':'');
-      d.style.backgroundImage=`url('${src}')`;
-      const cap=document.createElement('span');
-      cap.className='moments-caption';
-      cap.textContent=captionFrom(src);
-      d.appendChild(cap);
-      mReelEl.insertBefore(d, mReelEl.querySelector('.moments-slide-arrows'));
-      const dot=document.createElement('div');
-      dot.className='moments-dot'+(i===0?' active':'');
-      dot.onclick=()=>setMoment(i);
-      if(mDotsEl) mDotsEl.appendChild(dot);
-    });
-  }
-  let mci=0;
-  function setMoment(i){
-    const sl=document.querySelectorAll('.moments-slide');
-    const dt=document.querySelectorAll('.moments-dot');
-    if(!sl.length) return;
-    sl[mci].classList.remove('active');if(dt[mci])dt[mci].classList.remove('active');
-    mci=((i%sl.length)+sl.length)%sl.length;
-    sl[mci].classList.add('active');if(dt[mci])dt[mci].classList.add('active');
-  }
-  if(mReelEl){
-    setInterval(()=>setMoment(mci+1),5000);
-    addSwipe(mReelEl,()=>setMoment(mci+1),()=>setMoment(mci-1));
-  }
-
   // Reveal
   const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}}),{threshold:.12});
   document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
 
-  // Mobile menu toggle
-  const navToggle=document.getElementById('navToggle');
-  const mobileMenu=document.getElementById('mobileMenu');
-  if(navToggle&&mobileMenu){
-    navToggle.addEventListener('click',()=>{
-      const isOpen=mobileMenu.classList.toggle('open');
-      navToggle.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded',isOpen);
-      document.body.style.overflow=isOpen?'hidden':'';
-      if(lenis){isOpen?lenis.stop():lenis.start();}
-    });
-    mobileMenu.querySelectorAll('a').forEach(a=>{
-      a.addEventListener('click',()=>{
-        mobileMenu.classList.remove('open');
-        navToggle.classList.remove('open');
-        navToggle.setAttribute('aria-expanded','false');
-        document.body.style.overflow='';
-        if(lenis)lenis.start();
-      });
-    });
-  }
 </script>
 <script src="/assets/cms-loader.js"></script>
 </body>

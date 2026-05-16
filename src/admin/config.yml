@@ -2,8 +2,7 @@ backend:
   name: github
   repo: Arunthayyil/Memorygraph-Website
   branch: main
-  base_url: https://memorygraphweddings.com
-  auth_endpoint: /api/auth
+  base_url: https://sveltia-cms-auth.yoursubdomain.workers.dev
 
 media_folder: "src/assets/uploads"
 public_folder: "/assets/uploads"

@@ -1,8 +1,8 @@
 ---
-title: "Abhin & Gayathry"
+title: "Gallery Demo"
 couple_names: "Abhin & Gayathry"
 password: "memorygraph"
-permalink: "/client-gallery/"
+permalink: "/client-gallery/demo/"
 layout: "client-gallery.njk"
 hero_title: "Wedding gallery<br><em>delivery.</em>"
 intro: "A private space for your photographs, film links, downloads, and album selections. Choose the images you love most; your shortlist stays saved on this device until you send it to the studio."

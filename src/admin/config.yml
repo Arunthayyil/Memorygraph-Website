@@ -2,7 +2,7 @@ backend:
   name: github
   repo: Arunthayyil/Memorygraph-Website
   branch: main
-  base_url: https://sveltia-cms-auth.yoursubdomain.workers.dev
+  base_url: https://sveltia-cms-auth.arunchandranlj175.workers.dev/
 
 media_folder: "src/assets/uploads"
 public_folder: "/assets/uploads"

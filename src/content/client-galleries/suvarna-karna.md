@@ -13,18 +13,9 @@ lock_image: /assets/uploads/NYZ03779.jpg
 film_quality: ''
 whatsapp_number: '919846238073'
 gallery_folder: ''
-gallery_drive_folder: 'https://drive.google.com/drive/folders/1xfxrsR5Ud38-WBLecfACOElNaV3SA-so'
-gallery_items:
-  - item_type: image
-    image: /assets/uploads/NYZ01840.jpg
-    image_code: ''
-    image_name: ''
-    category: ''
-    caption: ''
-    quote: ''
-    quote_by: ''
-  - "https://lh3.googleusercontent.com/d/1kJOz-8LhzgXVxT4jCpKr7V4nUvUVZMgg=s1920"
+gallery_drive_folder: https://drive.google.com/drive/folders/1xfxrsR5Ud38-WBLecfACOElNaV3SA-so
 gallery_drive_images:
+  - "https://lh3.googleusercontent.com/d/1kJOz-8LhzgXVxT4jCpKr7V4nUvUVZMgg=s1920"
   - "https://lh3.googleusercontent.com/d/1ftuk-HPJRllnlXV_Nj0sPw-suXq-6yq8=s1920"
   - "https://lh3.googleusercontent.com/d/1Aoxbcr5kGm-7EKWtIP9-8zSBuA6gd1N0=s1920"
   - "https://lh3.googleusercontent.com/d/1oIrFHZbAU5-vMsEZiucgk4gEeBGpUXdw=s1920"
@@ -1202,4 +1193,13 @@ gallery_drive_images:
   - "https://lh3.googleusercontent.com/d/1JBTMwivGruBaYym70S_bMCukrIx_tiU-=s1920"
   - "https://lh3.googleusercontent.com/d/1iM2AS5erk2n5SVuvOMpLzJyh5Wbhgx4M=s1920"
   - "https://lh3.googleusercontent.com/d/1MVKeH4dPar5S1ZdwuciEqko0X5CD7p2M=s1920"
+gallery_items:
+  - item_type: image
+    image: /assets/uploads/NYZ01840.jpg
+    image_code: ''
+    image_name: ''
+    category: ''
+    caption: ''
+    quote: ''
+    quote_by: ''
 ---

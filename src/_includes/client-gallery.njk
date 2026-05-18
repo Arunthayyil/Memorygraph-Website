@@ -75,8 +75,8 @@
   .section-title{font-family:var(--serif);font-size:clamp(2.6rem,5vw,4.8rem);font-weight:300;line-height:1.08;color:var(--ink);}
   .section-title em{font-style:italic;color:var(--teal);}
   .section-note{max-width:460px;color:var(--ink-soft);font-size:.86rem;line-height:1.8;}
-  .photo-grid{columns:4 230px;column-gap:18px;}
-  .photo-card,.quote-card{break-inside:avoid;margin:0 0 18px;position:relative;background:var(--ivory-2);overflow:hidden;border:1px solid var(--line-2);}
+  .photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .photo-card,.quote-card{position:relative;background:var(--ivory-2);overflow:hidden;border:1px solid var(--line-2);}
   .photo-card.hidden,.quote-card.hidden{display:none;}
   .photo-card img{width:100%;height:auto;display:block;transition:transform .4s,filter .4s;}
   .photo-card:hover img{transform:scale(1.025);filter:saturate(1.04);}
@@ -118,7 +118,8 @@
   .lb-stage img{max-width:92vw;max-height:100%;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.4);}
   .lightbox .lb-close,.lightbox .lb-prev,.lightbox .lb-next{position:absolute;border:1px solid rgba(244,237,224,.22);background:rgba(244,237,224,.06);color:var(--ivory);z-index:2;transition:background .2s;}
   .lightbox .lb-close:hover,.lightbox .lb-prev:hover,.lightbox .lb-next:hover{background:rgba(244,237,224,.14);}
-  .lb-close{top:16px;right:16px;width:42px;height:42px;font-size:1.2rem;}
+  .lb-close{top:16px;right:16px;width:48px;height:48px;font-size:1.5rem;border-radius:50%;background:rgba(244,237,224,.15);border:1px solid rgba(244,237,224,.35);backdrop-filter:blur(8px);}
+  .lb-close:hover{background:rgba(244,237,224,.3);border-color:rgba(244,237,224,.5);}
   .lb-prev,.lb-next{top:50%;width:44px;height:56px;transform:translateY(-50%);font-size:1.6rem;}
   .lb-prev{left:16px;}.lb-next{right:16px;}
   .lb-bar{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px;background:rgba(26,24,20,.7);border-top:1px solid rgba(244,237,224,.08);backdrop-filter:blur(12px);}
@@ -205,8 +206,7 @@
     .gallery-wrap{padding:60px 20px 90px;}
     .section-head{display:block;}
     .section-note{margin-top:18px;}
-    .photo-grid{columns:2 160px;column-gap:12px;}
-    .photo-card,.quote-card{margin-bottom:12px;}
+    .photo-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
     .delivery-info{padding:70px 24px;}
     .delivery-grid{grid-template-columns:1fr;}
     .lock-panel{padding:40px 28px;}
@@ -230,10 +230,47 @@
     .btn{width:100%;}
     .top-actions .btn,.top-actions .selection-pill{width:auto;}
     .hero-meta{grid-template-columns:1fr;}
-    .photo-grid{columns:1;}
+    .photo-grid{grid-template-columns:1fr;}
     .selected-item{grid-template-columns:66px 1fr auto;}
     .selected-item img{width:66px;height:54px;}
     .lb-action span{display:none;}
+  }
+
+  /* ── Admin Mode ── */
+  .admin-trigger{position:fixed;bottom:16px;left:16px;z-index:450;width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);background:rgba(244,237,224,.85);backdrop-filter:blur(8px);color:var(--mist);display:grid;place-items:center;cursor:pointer;opacity:.35;transition:opacity .3s,background .25s;}
+  .admin-trigger:hover{opacity:1;background:var(--ivory);}
+  .admin-trigger.active{opacity:1;background:var(--teal);color:var(--ivory);border-color:var(--teal);}
+  .admin-login-overlay{position:fixed;inset:0;z-index:500;background:rgba(15,14,12,.6);display:none;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px);}
+  .admin-login-overlay.open{display:flex;}
+  .admin-login-panel{width:min(400px,100%);padding:40px 36px;background:var(--paper);box-shadow:0 30px 80px rgba(0,0,0,.3);}
+  .admin-login-panel h3{font-family:var(--serif);font-size:1.6rem;font-weight:300;margin-bottom:6px;}
+  .admin-login-panel p{font-size:.82rem;color:var(--mist);margin-bottom:24px;line-height:1.6;}
+  .admin-login-panel form{display:grid;grid-template-columns:1fr auto;gap:10px;}
+  .admin-login-panel input{padding:13px 14px;border:1px solid var(--line);background:var(--ivory);color:var(--ink);}
+  .admin-login-panel input:focus{outline:1px solid var(--teal);border-color:var(--teal);}
+  .admin-login-error{display:none;margin-top:12px;color:#d44;font-size:.8rem;}
+  .admin-login-error.visible{display:block;}
+
+  .admin-bar{position:fixed;bottom:0;left:0;right:0;z-index:440;display:none;align-items:center;justify-content:space-between;gap:16px;padding:12px 24px;background:rgba(29,89,89,.95);backdrop-filter:blur(12px);color:var(--ivory);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;}
+  .admin-bar.visible{display:flex;}
+  .admin-bar-left{display:flex;align-items:center;gap:16px;}
+  .admin-bar-badge{padding:5px 10px;background:rgba(244,237,224,.15);border-radius:2px;font-variant-numeric:tabular-nums;}
+  .admin-bar-actions{display:flex;gap:8px;}
+  .admin-bar-btn{padding:8px 14px;border:1px solid rgba(244,237,224,.3);background:transparent;color:var(--ivory);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .2s;}
+  .admin-bar-btn:hover{background:rgba(244,237,224,.12);}
+  .admin-bar-btn.active{background:rgba(244,237,224,.2);border-color:rgba(244,237,224,.5);}
+
+  .photo-card .admin-hide-toggle{position:absolute;top:8px;left:8px;z-index:10;width:32px;height:32px;border-radius:50%;border:1px solid rgba(244,237,224,.5);background:rgba(26,24,20,.5);backdrop-filter:blur(4px);color:var(--ivory);display:none;place-items:center;cursor:pointer;transition:background .2s,border-color .2s;font-size:.7rem;}
+  .admin-mode .photo-card .admin-hide-toggle{display:grid;}
+  .photo-card .admin-hide-toggle:hover{background:rgba(220,60,60,.7);border-color:rgba(220,60,60,.8);}
+  .photo-card.admin-hidden{opacity:.4;position:relative;}
+  .photo-card.admin-hidden::before{content:'HIDDEN';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:5;padding:6px 14px;background:rgba(220,60,60,.85);color:#fff;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;pointer-events:none;}
+  .photo-card.admin-hidden .admin-hide-toggle{background:rgba(60,180,60,.5);border-color:rgba(60,180,60,.6);}
+  .photo-card.admin-hidden .admin-hide-toggle:hover{background:rgba(60,180,60,.7);}
+
+  @media(max-width:560px){
+    .admin-bar{flex-wrap:wrap;gap:10px;padding:10px 16px;}
+    .admin-trigger{bottom:60px;}
   }
 </style>
 </head>
@@ -249,6 +286,34 @@
       <button class="btn gold" type="submit">Unlock</button>
     </form>
     <p class="lock-error" id="lockError">That password does not match this gallery.</p>
+  </div>
+</div>
+
+<!-- Admin trigger (discreet key icon) -->
+<button class="admin-trigger" id="adminTrigger" type="button" title="Admin mode" aria-label="Admin mode">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="1"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+</button>
+
+<div class="admin-login-overlay" id="adminLoginOverlay">
+  <div class="admin-login-panel">
+    <h3>Admin access</h3>
+    <p>Enter admin password to manage gallery visibility.</p>
+    <form id="adminLoginForm">
+      <input type="password" id="adminPasswordInput" placeholder="Admin password" autocomplete="off" required/>
+      <button class="btn" type="submit">Login</button>
+    </form>
+    <p class="admin-login-error" id="adminLoginError">Invalid admin password.</p>
+  </div>
+</div>
+
+<div class="admin-bar" id="adminBar">
+  <div class="admin-bar-left">
+    <span>Admin Mode</span>
+    <span class="admin-bar-badge"><span id="hiddenCount">0</span> hidden</span>
+  </div>
+  <div class="admin-bar-actions">
+    <button class="admin-bar-btn" type="button" id="adminFilterHidden">Show Hidden Only</button>
+    <button class="admin-bar-btn" type="button" id="adminLogout">Log Out</button>
   </div>
 </div>
 
@@ -528,6 +593,7 @@
   function buildGallery(){
     const items = sortedGalleryItems();
     renderedImages = [];
+    let visibleCount = 0;
     photoGrid.innerHTML = items.map((item) => {
       const type = item.item_type || (item.image ? 'image' : 'quote');
       if(type === 'quote'){
@@ -547,7 +613,16 @@
         order: item.order
       };
       renderedImages.push(image);
-      return `<article class="photo-card${selected.has(image.id) ? ' selected' : ''}" data-type="image" data-id="${escapeAttr(image.id)}" data-cat="${escapeAttr(image.cat)}" data-title="${escapeAttr((image.title + ' ' + image.caption).toLowerCase())}">
+      // Admin: skip hidden images for non-admin visitors
+      const isHidden = hiddenImageIds.has(image.id);
+      if(isHidden && !isAdminMode) return '';
+      if(!isHidden) visibleCount++;
+      const hiddenClass = isHidden ? ' admin-hidden' : '';
+      const hideIcon = isHidden
+        ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l22 22"/><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/></svg>'
+        : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+      return `<article class="photo-card${selected.has(image.id) ? ' selected' : ''}${hiddenClass}" data-type="image" data-id="${escapeAttr(image.id)}" data-cat="${escapeAttr(image.cat)}" data-title="${escapeAttr((image.title + ' ' + image.caption).toLowerCase())}">
+        <button class="admin-hide-toggle" type="button" data-id="${escapeAttr(image.id)}" data-hidden="${isHidden ? '1' : '0'}" title="${isHidden ? 'Unhide' : 'Hide'} this image">${hideIcon}</button>
         <img src="${escapeAttr(image.src)}" alt="${escapeAttr(image.title)}" loading="lazy"/>
         <div class="photo-overlay">
           <span class="photo-id">${escapeHtml(image.id)} · ${escapeHtml(image.title)}</span>
@@ -568,10 +643,24 @@
         </div>
       </article>`;
     }).join('');
+    // Update visible image count (exclude hidden for non-admin)
+    if(!isAdminMode) document.getElementById('imageTotal').textContent = visibleCount;
+    else document.getElementById('imageTotal').textContent = imageItems.length;
     photoGrid.querySelectorAll('.select-btn').forEach(button => button.addEventListener('click', (e) => { e.stopPropagation(); toggleSelect(button.dataset.id); }));
     photoGrid.querySelectorAll('.view-btn').forEach(button => button.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(Number(button.dataset.index)); }));
-    photoGrid.querySelectorAll('.download-btn').forEach(link => link.addEventListener('click', (e) => e.stopPropagation()));
+    photoGrid.querySelectorAll('.download-btn').forEach(link => link.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      downloadSingleImage(link.href, link.getAttribute('download') || 'image.jpg');
+    }));
     photoGrid.querySelectorAll('.print-add-btn').forEach(button => button.addEventListener('click', (e) => { e.stopPropagation(); addToPrintCart(renderedImages[Number(button.dataset.index)]); }));
+    photoGrid.querySelectorAll('.admin-hide-toggle').forEach(btn => btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if(!isAdminMode) return;
+      const id = btn.dataset.id;
+      const wasHidden = btn.dataset.hidden === '1';
+      toggleImageVisibility(id, wasHidden ? 'unhide' : 'hide');
+    }));
     photoGrid.querySelectorAll('.photo-card').forEach(card => {
       card.addEventListener('click', () => {
         const idx = renderedImages.findIndex(img => img.id === card.dataset.id);
@@ -745,6 +834,12 @@
     if(image) addToPrintCart(image);
   });
 
+  lbDownloadBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const image = renderedImages[lightboxIndex];
+    if(image) downloadSingleImage(image.src, fileNameForImage(image));
+  });
+
   document.getElementById('lbClose').addEventListener('click', closeLightbox);
   document.getElementById('lbPrev').addEventListener('click', () => { lightboxIndex = (lightboxIndex - 1 + renderedImages.length) % renderedImages.length; updateLightbox(); });
   document.getElementById('lbNext').addEventListener('click', () => { lightboxIndex = (lightboxIndex + 1) % renderedImages.length; updateLightbox(); });
@@ -771,20 +866,45 @@
     return `${image.id}-${safeTitle || 'image'}${ext}`;
   }
 
+  function downloadSingleImage(src, filename){
+    // Cross-origin images (Google Drive etc) need fetch+blob for download to work
+    if(src.startsWith('http') && !src.startsWith(location.origin)){
+      return fetch(src, {mode:'cors'})
+        .then(r => r.blob())
+        .then(blob => {
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = filename;
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          URL.revokeObjectURL(url);
+        })
+        .catch(() => {
+          // Fallback: open in new tab
+          window.open(src, '_blank');
+        });
+    } else {
+      const link = document.createElement('a');
+      link.href = src;
+      link.download = filename;
+      link.rel = 'noopener';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      return Promise.resolve();
+    }
+  }
+
   function downloadImages(images, message){
     if(!images.length) return;
     exportOutput.textContent = message;
     exportOutput.classList.add('visible');
     images.forEach((image, index) => {
       setTimeout(() => {
-        const link = document.createElement('a');
-        link.href = image.src;
-        link.download = fileNameForImage(image);
-        link.rel = 'noopener';
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-      }, index * 180);
+        downloadSingleImage(image.src, fileNameForImage(image));
+      }, index * 300);
     });
   }
 
@@ -947,9 +1067,191 @@
 
   updatePrintBadge();
 
-  addCategoryFilters();
-  buildGallery();
-  renderSelection();
+  // ═══ ADMIN MODE ═══
+  let isAdminMode = false;
+  let adminToken = null;
+  let hiddenImageIds = new Set();
+  let adminShowHiddenOnly = false;
+  const adminTokenKey = `memorygraph_admin_token`;
+
+  const adminTrigger = document.getElementById('adminTrigger');
+  const adminLoginOverlay = document.getElementById('adminLoginOverlay');
+  const adminBar = document.getElementById('adminBar');
+  const hiddenCountEl = document.getElementById('hiddenCount');
+
+  // Fetch hidden images on page load (public endpoint, no auth needed)
+  async function fetchHiddenImages(){
+    try {
+      const res = await fetch(`/api/admin/hidden?slug=${encodeURIComponent(gallerySlug)}`);
+      if(res.ok){
+        const data = await res.json();
+        hiddenImageIds = new Set(data.hidden || []);
+      }
+    } catch(e){
+      // API not available (local dev, etc) — proceed with empty set
+      hiddenImageIds = new Set();
+    }
+  }
+
+  async function toggleImageVisibility(imageId, action){
+    if(!adminToken) return;
+    try {
+      const res = await fetch('/api/admin/hidden', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${adminToken}`},
+        body: JSON.stringify({ slug: gallerySlug, imageId, action })
+      });
+      if(res.ok){
+        const data = await res.json();
+        hiddenImageIds = new Set(data.hidden || []);
+        updateHiddenCount();
+        buildGallery();
+        renderSelection();
+      } else if(res.status === 401){
+        exitAdminMode();
+      }
+    } catch(e){
+      console.error('Failed to toggle visibility:', e);
+    }
+  }
+
+  function updateHiddenCount(){
+    hiddenCountEl.textContent = hiddenImageIds.size;
+  }
+
+  function enterAdminMode(){
+    isAdminMode = true;
+    document.body.classList.add('admin-mode');
+    adminTrigger.classList.add('active');
+    adminBar.classList.add('visible');
+    adminLoginOverlay.classList.remove('open');
+    updateHiddenCount();
+    buildGallery();
+    renderSelection();
+  }
+
+  function exitAdminMode(){
+    isAdminMode = false;
+    adminToken = null;
+    adminShowHiddenOnly = false;
+    sessionStorage.removeItem(adminTokenKey);
+    document.body.classList.remove('admin-mode');
+    adminTrigger.classList.remove('active');
+    adminBar.classList.remove('visible');
+    document.getElementById('adminFilterHidden').classList.remove('active');
+    buildGallery();
+    renderSelection();
+  }
+
+  // Admin trigger click
+  adminTrigger.addEventListener('click', () => {
+    if(isAdminMode){
+      exitAdminMode();
+    } else {
+      adminLoginOverlay.classList.add('open');
+      document.getElementById('adminPasswordInput').focus();
+    }
+  });
+
+  // Close admin login on overlay click
+  adminLoginOverlay.addEventListener('click', (e) => {
+    if(e.target === adminLoginOverlay) adminLoginOverlay.classList.remove('open');
+  });
+
+  // Admin login form
+  document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const pw = document.getElementById('adminPasswordInput').value;
+    const errorEl = document.getElementById('adminLoginError');
+    errorEl.classList.remove('visible');
+    try {
+      const res = await fetch('/api/admin/auth', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ password: pw })
+      });
+      const data = await res.json();
+      if(data.ok && data.token){
+        adminToken = data.token;
+        sessionStorage.setItem(adminTokenKey, adminToken);
+        document.getElementById('adminPasswordInput').value = '';
+        enterAdminMode();
+      } else {
+        errorEl.classList.add('visible');
+      }
+    } catch(err){
+      errorEl.textContent = 'Could not reach server. Try again.';
+      errorEl.classList.add('visible');
+    }
+  });
+
+  // Admin logout
+  document.getElementById('adminLogout').addEventListener('click', exitAdminMode);
+
+  // Show hidden only filter
+  document.getElementById('adminFilterHidden').addEventListener('click', () => {
+    adminShowHiddenOnly = !adminShowHiddenOnly;
+    document.getElementById('adminFilterHidden').classList.toggle('active', adminShowHiddenOnly);
+    applyFilters();
+  });
+
+  // Patch applyFilters to respect admin hidden-only filter
+  const _origApplyFilters = applyFilters;
+  applyFilters = function(){
+    _origApplyFilters();
+    if(isAdminMode && adminShowHiddenOnly){
+      document.querySelectorAll('.photo-card').forEach(card => {
+        if(!card.classList.contains('admin-hidden')){
+          card.classList.add('hidden');
+        }
+      });
+    }
+  };
+
+  // Keyboard shortcut: Ctrl+Shift+A
+  document.addEventListener('keydown', (e) => {
+    if(e.ctrlKey && e.shiftKey && e.key === 'A'){
+      e.preventDefault();
+      if(isAdminMode) exitAdminMode();
+      else {
+        adminLoginOverlay.classList.add('open');
+        document.getElementById('adminPasswordInput').focus();
+      }
+    }
+  });
+
+  // Restore admin session from sessionStorage
+  async function tryRestoreAdmin(){
+    const stored = sessionStorage.getItem(adminTokenKey);
+    if(!stored) return false;
+    try {
+      // Validate token by making a lightweight request
+      const res = await fetch('/api/admin/hidden', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${stored}`},
+        body: JSON.stringify({ slug: gallerySlug, imageId: '__test__', action: 'unhide' })
+      });
+      if(res.ok || res.status === 400){
+        // Token is valid (400 means bad input but auth passed)
+        adminToken = stored;
+        return true;
+      }
+    } catch(e){}
+    sessionStorage.removeItem(adminTokenKey);
+    return false;
+  }
+
+  // Initialize: fetch hidden list, then build
+  (async () => {
+    await fetchHiddenImages();
+    const restored = await tryRestoreAdmin();
+    addCategoryFilters();
+    if(restored) enterAdminMode();
+    else {
+      buildGallery();
+      renderSelection();
+    }
+  })();
 </script>
 </body>
 </html>

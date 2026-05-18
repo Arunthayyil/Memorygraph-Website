@@ -151,6 +151,9 @@ async function listAllImages(folderId) {
     pageToken = data.nextPageToken;
   } while (pageToken);
 
+  // Natural/numeric sort so S&K-96 comes before S&K-100
+  allFiles.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: "base" }));
+
   return allFiles;
 }
 
@@ -186,11 +189,11 @@ function writeToGallery(slug, imageUrls) {
 
   let frontMatter = fmMatch[1];
 
-  // Remove existing gallery_drive_images if present
-  frontMatter = frontMatter.replace(/gallery_drive_images:\s*\n(?:\s+-\s+.*\n)*/g, "");
-  frontMatter = frontMatter.replace(/gallery_drive_images:\s*\[.*?\]\n?/g, "");
-  frontMatter = frontMatter.replace(/gallery_drive_images:\s*'.*?'\n?/g, "");
-  frontMatter = frontMatter.replace(/gallery_drive_images:\s*".*?"\n?/g, "");
+  // Remove existing gallery_drive_images block (handles LF and CRLF)
+  frontMatter = frontMatter.replace(/gallery_drive_images:\s*\r?\n(?:\s+-\s+.*\r?\n)*/g, "");
+  frontMatter = frontMatter.replace(/gallery_drive_images:\s*\[.*?\]\r?\n?/g, "");
+  frontMatter = frontMatter.replace(/gallery_drive_images:\s*'[^']*'\r?\n?/g, "");
+  frontMatter = frontMatter.replace(/gallery_drive_images:\s*"[^"]*"\r?\n?/g, "");
 
   // Add gallery_drive_images before the closing ---
   frontMatter = frontMatter.trimEnd() + `\ngallery_drive_images:\n${yamlList}`;

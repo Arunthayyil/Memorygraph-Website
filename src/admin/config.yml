@@ -119,7 +119,14 @@ collections:
       - { label: "Password Screen Image", name: "lock_image", widget: "image", required: false }
       - { label: "Film Quality Label", name: "film_quality", widget: "string", default: "4K", required: false }
       - { label: "WhatsApp Number", name: "whatsapp_number", widget: "string", default: "919846238073" }
-      - { label: "Bulk Gallery Folder", name: "gallery_folder", widget: "string", required: false, hint: "Optional. Upload hundreds of images into a folder like assets/uploads/client-galleries/abhin-gayathry, then enter that folder path here. Images are auto-added and sorted by filename." }
+      - { label: "Bulk Gallery Folder", name: "gallery_folder", widget: "string", required: false, hint: "Optional. Local images in assets/uploads/client-galleries/couple-name. Images are auto-added and sorted by filename." }
+      - { label: "Google Drive Folder", name: "gallery_drive_folder", widget: "string", required: false, hint: "Paste the Google Drive shared folder link here for reference. Then run: node tools/drive-gallery.js --folder URL --gallery slug" }
+      - label: "Google Drive Images"
+        name: "gallery_drive_images"
+        widget: "list"
+        required: false
+        hint: "Auto-populated by the drive-gallery script. You can also paste Google Drive direct URLs manually."
+        field: { label: "Image URL", name: "url", widget: "string" }
       - label: "Gallery Items"
         name: "gallery_items"
         widget: "list"

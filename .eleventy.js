@@ -83,10 +83,13 @@ module.exports = function(eleventyConfig) {
     return Math.max(1, Math.ceil(words / 220));
   });
 
-  // Expands a client gallery folder into image items, then merges CMS quote/image blocks.
-  eleventyConfig.addFilter("clientGalleryItems", function(manualItems, galleryFolder) {
+  // Expands a client gallery folder into image items, merges Google Drive images,
+  // then appends CMS quote/image blocks.
+  eleventyConfig.addFilter("clientGalleryItems", function(manualItems, galleryFolder, driveImages) {
     const items = [];
     const supported = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
+
+    // 1. Local folder images
     if (galleryFolder) {
       const publicFolder = String(galleryFolder).replace(/\\/g, "/").replace(/^\/+/, "");
       const sourceFolder = path.join("src", publicFolder);
@@ -108,6 +111,23 @@ module.exports = function(eleventyConfig) {
           });
       }
     }
+
+    // 2. Google Drive images (URLs written by tools/drive-gallery.js)
+    if (Array.isArray(driveImages)) {
+      driveImages.forEach((url, index) => {
+        if (!url) return;
+        items.push({
+          item_type: "image",
+          image: String(url).trim(),
+          image_code: `MG-${String(items.length + 1).padStart(3, "0")}`,
+          image_name: `Image ${items.length + 1}`,
+          category: "Gallery",
+          caption: ""
+        });
+      });
+    }
+
+    // 3. Manual CMS items (quotes, hand-picked images)
     return items.concat(Array.isArray(manualItems) ? manualItems : []);
   });
 
@@ -145,6 +165,36 @@ module.exports = function(eleventyConfig) {
     }
 
     return images;
+  });
+
+  // Google Drive → direct image URL converter
+  // Accepts any of these formats:
+  //   https://drive.google.com/file/d/FILE_ID/view?usp=sharing
+  //   https://drive.google.com/open?id=FILE_ID
+  //   https://drive.google.com/uc?id=FILE_ID
+  //   Just the raw FILE_ID string
+  // Returns: https://lh3.googleusercontent.com/d/FILE_ID=s1920 (sized for web)
+  eleventyConfig.addFilter("gdrive", function(url, size) {
+    if (!url) return "";
+    const s = String(url).trim();
+    // Already a direct/local URL — pass through
+    if (s.startsWith("/") || s.startsWith("http://") || (s.startsWith("https://") && !s.includes("drive.google.com") && !s.includes("docs.google.com"))) {
+      return s;
+    }
+    // Extract file ID from various Google Drive URL formats
+    let fileId = s;
+    const patterns = [
+      /\/file\/d\/([a-zA-Z0-9_-]+)/,         // /file/d/ID/view
+      /[?&]id=([a-zA-Z0-9_-]+)/,             // ?id=ID or &id=ID
+      /\/d\/([a-zA-Z0-9_-]+)/,               // /d/ID
+      /^([a-zA-Z0-9_-]{20,})$/                // raw ID (20+ chars)
+    ];
+    for (const p of patterns) {
+      const m = s.match(p);
+      if (m) { fileId = m[1]; break; }
+    }
+    const sz = size || 1920;
+    return `https://lh3.googleusercontent.com/d/${fileId}=s${sz}`;
   });
 
   // absoluteUrl filter — story.njk OG image meta

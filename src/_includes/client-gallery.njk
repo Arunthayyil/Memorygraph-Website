@@ -430,7 +430,7 @@
   const galleryTitle = {{ title | json | safe }};
   const coupleNames = {{ (couple_names or title) | json | safe }};
   const whatsappNumber = {{ (whatsapp_number or "919846238073") | json | safe }};
-  const galleryItems = {{ gallery_items | clientGalleryItems(gallery_folder) | json | safe }};
+  const galleryItems = {{ gallery_items | clientGalleryItems(gallery_folder, gallery_drive_images) | json | safe }};
   const authKey = `memorygraph_gallery_unlocked_${gallerySlug}`;
   const storageKey = `memorygraph_album_selection_${gallerySlug}`;
   const notesKey = `memorygraph_album_notes_${gallerySlug}`;

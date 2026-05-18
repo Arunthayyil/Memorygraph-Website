@@ -112,15 +112,24 @@ module.exports = function(eleventyConfig) {
       }
     }
 
-    // 2. Google Drive images (URLs written by tools/drive-gallery.js)
+    // 2. Google Drive images (URLs written by tools/drive-gallery.js or sync-gallery.js)
+    // Supports both old format (plain URL strings) and new format (objects with url + name)
     if (Array.isArray(driveImages)) {
-      driveImages.forEach((url, index) => {
+      driveImages.forEach((entry, index) => {
+        if (!entry) return;
+        const isObject = typeof entry === "object" && entry !== null;
+        const url = isObject ? String(entry.url || "").trim() : String(entry).trim();
+        const rawName = isObject ? String(entry.name || "").trim() : "";
         if (!url) return;
+        // Derive display name from Drive filename (strip extension and prefix numbers)
+        const driveName = rawName
+          ? rawName.replace(/\.[^.]+$/, "")  // remove extension
+          : `Image ${items.length + 1}`;
         items.push({
           item_type: "image",
-          image: String(url).trim(),
-          image_code: `MG-${String(items.length + 1).padStart(3, "0")}`,
-          image_name: `Image ${items.length + 1}`,
+          image: url,
+          image_code: rawName ? rawName.replace(/\.[^.]+$/, "") : `MG-${String(items.length + 1).padStart(3, "0")}`,
+          image_name: driveName,
           category: "Gallery",
           caption: ""
         });

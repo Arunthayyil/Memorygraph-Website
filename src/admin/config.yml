@@ -125,8 +125,10 @@ collections:
         name: "gallery_drive_images"
         widget: "list"
         required: false
-        hint: "Auto-populated by the drive-gallery script. You can also paste Google Drive direct URLs manually."
-        field: { label: "Image URL", name: "url", widget: "string" }
+        hint: "Auto-populated by sync-gallery script. Each entry has a URL and the original Drive filename."
+        fields:
+          - { label: "Image URL", name: "url", widget: "string" }
+          - { label: "Filename", name: "name", widget: "string", required: false, hint: "Original Google Drive filename (auto-filled by sync script)" }
       - label: "Gallery Items"
         name: "gallery_items"
         widget: "list"

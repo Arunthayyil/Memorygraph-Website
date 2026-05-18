@@ -130,19 +130,22 @@ function countExistingDriveImages(fm) {
   return (m[1].match(/^\s+-/gm) || []).length;
 }
 
-function writeGalleryImages(filePath, imageUrls) {
+function writeGalleryImages(filePath, imageEntries) {
   const content = fs.readFileSync(filePath, "utf8");
   const fmMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
   if (!fmMatch) { console.error(`  Could not parse front matter: ${filePath}`); return false; }
 
   let fm = fmMatch[1];
-  // Remove old gallery_drive_images block
-  fm = fm.replace(/gallery_drive_images:\s*\r?\n(?:\s+-\s+.*\r?\n)*/g, "");
+  // Remove old gallery_drive_images block (handles both old URL-only and new object format)
+  fm = fm.replace(/gallery_drive_images:\s*\r?\n(?:\s+-[\s\S]*?)(?=\n[a-z_]|\n---|\s*$)/g, "");
   fm = fm.replace(/gallery_drive_images:\s*\[.*?\]\r?\n?/g, "");
   fm = fm.replace(/gallery_drive_images:\s*'[^']*'\r?\n?/g, "");
   fm = fm.replace(/gallery_drive_images:\s*"[^"]*"\r?\n?/g, "");
 
-  const yamlList = imageUrls.map((url) => `  - "${url}"`).join("\n");
+  // Build YAML list of objects with url + name
+  const yamlList = imageEntries.map((e) =>
+    `  - url: "${e.url}"\n    name: "${e.name}"`
+  ).join("\n");
   fm = fm.trimEnd() + `\ngallery_drive_images:\n${yamlList}`;
 
   const body = content.slice(fmMatch[0].length);
@@ -180,18 +183,21 @@ async function syncGallery(slug) {
   const files = await listDriveImages(folderId);
   if (files === null) return false;
 
-  const urls = files.map((f) => `https://lh3.googleusercontent.com/d/${f.id}=s${IMAGE_SIZE}`);
+  const entries = files.map((f) => ({
+    url: `https://lh3.googleusercontent.com/d/${f.id}=s${IMAGE_SIZE}`,
+    name: f.name
+  }));
 
-  const added = urls.length - existingCount;
+  const added = entries.length - existingCount;
   const symbol = added > 0 ? "+" : added < 0 ? "" : "±";
 
   if (dryRun) {
-    console.log(`  ✓ ${slug} — ${urls.length} images found (was ${existingCount}, ${symbol}${added}) [DRY RUN]`);
+    console.log(`  ✓ ${slug} — ${entries.length} images found (was ${existingCount}, ${symbol}${added}) [DRY RUN]`);
     return true;
   }
 
-  if (writeGalleryImages(filePath, urls)) {
-    console.log(`  ✓ ${slug} — ${urls.length} images written (was ${existingCount}, ${symbol}${added})`);
+  if (writeGalleryImages(filePath, entries)) {
+    console.log(`  ✓ ${slug} — ${entries.length} images written (was ${existingCount}, ${symbol}${added})`);
     return true;
   }
   return false;

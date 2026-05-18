@@ -75,9 +75,9 @@
   .section-title{font-family:var(--serif);font-size:clamp(2.6rem,5vw,4.8rem);font-weight:300;line-height:1.08;color:var(--ink);}
   .section-title em{font-style:italic;color:var(--teal);}
   .section-note{max-width:460px;color:var(--ink-soft);font-size:.86rem;line-height:1.8;}
-  .photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
-  .photo-card,.quote-card{position:relative;background:var(--ivory-2);overflow:hidden;border:1px solid var(--line-2);}
-  .photo-card.hidden,.quote-card.hidden{display:none;}
+  .photo-grid{position:relative;width:100%;}
+  .photo-card,.quote-card{position:absolute;background:var(--ivory-2);overflow:hidden;border:1px solid var(--line-2);transition:transform .35s ease,opacity .35s ease;}
+  .photo-card.hidden,.quote-card.hidden{display:none!important;}
   .photo-card img{width:100%;height:auto;display:block;transition:transform .4s,filter .4s;}
   .photo-card:hover img{transform:scale(1.025);filter:saturate(1.04);}
   .quote-card{padding:42px 34px;background:var(--ink);color:var(--ivory);}
@@ -206,7 +206,7 @@
     .gallery-wrap{padding:60px 20px 90px;}
     .section-head{display:block;}
     .section-note{margin-top:18px;}
-    .photo-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+    .photo-grid{/* masonry cols handled by JS */}
     .delivery-info{padding:70px 24px;}
     .delivery-grid{grid-template-columns:1fr;}
     .lock-panel{padding:40px 28px;}
@@ -230,7 +230,7 @@
     .btn{width:100%;}
     .top-actions .btn,.top-actions .selection-pill{width:auto;}
     .hero-meta{grid-template-columns:1fr;}
-    .photo-grid{grid-template-columns:1fr;}
+    .photo-grid{/* masonry cols handled by JS */}
     .selected-item{grid-template-columns:66px 1fr auto;}
     .selected-item img{width:66px;height:54px;}
     .lb-action span{display:none;}
@@ -668,7 +668,8 @@
       });
       card.style.cursor = 'pointer';
     });
-    applyFilters();
+    applyFilters(); // applyFilters calls layoutMasonry
+    observeImageLoads();
   }
 
   function toggleSelect(id){
@@ -702,6 +703,142 @@
       const matchesFilter = activeFilter === 'all' || (activeFilter === 'selected' && selected.has(card.dataset.id)) || card.dataset.cat === activeFilter || (activeFilter !== 'selected' && type === 'quote');
       const matchesSearch = !search || (card.dataset.id || '').toLowerCase().includes(search) || (card.dataset.title || '').includes(search);
       card.classList.toggle('hidden', !(matchesFilter && matchesSearch));
+    });
+    layoutMasonry();
+  }
+
+  // ═══ MASONRY LAYOUT (virtual scroll + batched) ═══
+  const MASONRY_GAP = 18;
+  const DEFAULT_ASPECT = 3/2; // fallback aspect ratio for images before load
+  const RENDER_BUFFER = 800;  // px above/below viewport to pre-render
+  let masonryRAF = null;
+  let cardAspects = {};  // cache image aspect ratios by src
+  let masonryPositions = []; // precomputed {x, y, w, h} for each visible card index
+
+  function getMasonryCols(){
+    const w = photoGrid.offsetWidth;
+    if(w <= 560) return 1;
+    if(w <= 980) return 2;
+    return 4;
+  }
+
+  function layoutMasonry(){
+    if(masonryRAF) cancelAnimationFrame(masonryRAF);
+    masonryRAF = requestAnimationFrame(_doMasonryLayout);
+  }
+
+  function _doMasonryLayout(){
+    const cards = Array.from(photoGrid.children).filter(c => !c.classList.contains('hidden') && c.style.display !== 'none');
+    if(!cards.length){ photoGrid.style.height = '0px'; return; }
+
+    const cols = getMasonryCols();
+    const gridW = photoGrid.offsetWidth;
+    const colW = (gridW - MASONRY_GAP * (cols - 1)) / cols;
+    const colHeights = new Array(cols).fill(0);
+
+    // Phase 1: compute positions using cached aspect ratios (no DOM reads per card)
+    masonryPositions = [];
+    cards.forEach((card, i) => {
+      const img = card.querySelector('img');
+      const src = img ? img.getAttribute('src') : '';
+      const isQuote = card.classList.contains('quote-card');
+
+      let h;
+      if(isQuote){
+        // Quote cards: fixed height
+        h = 220;
+      } else if(cardAspects[src]){
+        h = colW / cardAspects[src];
+      } else if(img && img.naturalWidth > 0){
+        const aspect = img.naturalWidth / img.naturalHeight;
+        cardAspects[src] = aspect;
+        h = colW / aspect;
+      } else {
+        h = colW / DEFAULT_ASPECT;
+      }
+
+      const col = colHeights.indexOf(Math.min(...colHeights));
+      const x = col * (colW + MASONRY_GAP);
+      const y = colHeights[col];
+
+      masonryPositions.push({ x, y, w: colW, h });
+      colHeights[col] += h + MASONRY_GAP;
+    });
+
+    const totalH = Math.max(...colHeights);
+    photoGrid.style.height = totalH + 'px';
+
+    // Phase 2: batch write all positions + virtual scroll (show only near viewport)
+    const scrollY = window.scrollY || window.pageYOffset;
+    const gridTop = photoGrid.getBoundingClientRect().top + scrollY;
+    const vpTop = scrollY - RENDER_BUFFER;
+    const vpBottom = scrollY + window.innerHeight + RENDER_BUFFER;
+
+    cards.forEach((card, i) => {
+      const p = masonryPositions[i];
+      const cardTop = gridTop + p.y;
+      const cardBottom = cardTop + p.h;
+      const inView = cardBottom >= vpTop && cardTop <= vpBottom;
+
+      card.style.position = 'absolute';
+      card.style.width = p.w + 'px';
+      card.style.left = p.x + 'px';
+      card.style.top = p.y + 'px';
+      card.style.visibility = inView ? 'visible' : 'hidden';
+      card.style.contentVisibility = inView ? 'visible' : 'hidden';
+    });
+  }
+
+  // Re-layout on scroll (for virtual scroll culling)
+  let scrollRAF = null;
+  window.addEventListener('scroll', () => {
+    if(scrollRAF) return;
+    scrollRAF = requestAnimationFrame(() => {
+      scrollRAF = null;
+      _applyVirtualScroll();
+    });
+  }, {passive:true});
+
+  function _applyVirtualScroll(){
+    const cards = Array.from(photoGrid.children).filter(c => !c.classList.contains('hidden') && c.style.display !== 'none');
+    if(!masonryPositions.length || cards.length !== masonryPositions.length) return;
+    const scrollY = window.scrollY || window.pageYOffset;
+    const gridTop = photoGrid.getBoundingClientRect().top + scrollY;
+    const vpTop = scrollY - RENDER_BUFFER;
+    const vpBottom = scrollY + window.innerHeight + RENDER_BUFFER;
+    cards.forEach((card, i) => {
+      const p = masonryPositions[i];
+      const cardTop = gridTop + p.y;
+      const cardBottom = cardTop + p.h;
+      const inView = cardBottom >= vpTop && cardTop <= vpBottom;
+      card.style.visibility = inView ? 'visible' : 'hidden';
+      card.style.contentVisibility = inView ? 'visible' : 'hidden';
+    });
+  }
+
+  // Re-layout on window resize
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(layoutMasonry, 150);
+  });
+
+  // Re-layout when images load (aspect ratio now known)
+  function observeImageLoads(){
+    photoGrid.querySelectorAll('img').forEach(img => {
+      if(img.complete){
+        if(img.naturalWidth > 0){
+          cardAspects[img.getAttribute('src')] = img.naturalWidth / img.naturalHeight;
+        }
+        return;
+      }
+      img.addEventListener('load', function(){
+        if(this.naturalWidth > 0){
+          cardAspects[this.getAttribute('src')] = this.naturalWidth / this.naturalHeight;
+        }
+        layoutMasonry();
+      }, {once:true});
+      img.addEventListener('error', () => layoutMasonry(), {once:true});
     });
   }
 

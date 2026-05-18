@@ -9,7 +9,10 @@
       "Bash(findstr \"client\")",
       "Bash(findstr /N \".\")",
       "Bash(node -e \"console.log\\(require\\('fs'\\).readFileSync\\('C:/Users/ARUN T CHANDRAN/Downloads/memorygraph-website/src/content/client-galleries/suvarna-karna.md','utf8'\\).substring\\(0,2000\\)\\)\")",
-      "Bash(node tools/sync-gallery.js --all --dry)"
+      "Bash(node tools/sync-gallery.js --all --dry)",
+      "Bash(node -e ' *)",
+      "Bash(node tools/sync-gallery.js suvarna-karna)",
+      "Bash(npx @11ty/eleventy --serve --port=8081)"
     ]
   }
 }

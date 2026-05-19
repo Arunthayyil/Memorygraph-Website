@@ -12,7 +12,8 @@
       "Bash(node tools/sync-gallery.js --all --dry)",
       "Bash(node -e ' *)",
       "Bash(node tools/sync-gallery.js suvarna-karna)",
-      "Bash(npx @11ty/eleventy --serve --port=8081)"
+      "Bash(npx @11ty/eleventy --serve --port=8081)",
+      "Bash(npx @11ty/eleventy --quiet)"
     ]
   }
 }

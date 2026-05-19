@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="robots" content="noindex, nofollow"/>
 <title>{{ title }} | Client Gallery | Memorygraph Wedding Studio</title>
-<link rel="icon" href="/assets/logo/logo-dark.png" type="image/png"/>
-<link rel="apple-touch-icon" href="/assets/logo/logo-dark.png"/>
+<link rel="icon" href="/assets/logo/favicon-32.png" type="image/png" sizes="32x32"/>
+<link rel="apple-touch-icon" href="/assets/logo/favicon-180.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
@@ -818,7 +818,8 @@
     applyFilters();
   });
 
-  document.getElementById('openDrawer').addEventListener('click', () => albumDrawer.classList.add('open'));
+  const openDrawerBtn = document.getElementById('openDrawer');
+  if(openDrawerBtn) openDrawerBtn.addEventListener('click', () => albumDrawer.classList.add('open'));
   document.getElementById('closeDrawer').addEventListener('click', () => albumDrawer.classList.remove('open'));
   selectorName.addEventListener('input', () => {
     localStorage.setItem(selectorNameKey, selectorName.value);

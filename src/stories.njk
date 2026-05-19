@@ -20,8 +20,8 @@
 <meta name="twitter:description" content="A curated portfolio of cinematic Kerala wedding stories — temple weddings, heritage venues, destinations."/>
 <meta name="twitter:image" content="https://memorygraphweddings.com/assets/og-stories.jpg"/>
 <link rel="canonical" href="https://memorygraphweddings.com/stories/"/>
-<link rel="icon" href="/assets/logo/logo-dark.png" type="image/png"/>
-<link rel="apple-touch-icon" href="/assets/logo/logo-dark.png"/>
+<link rel="icon" href="/assets/logo/favicon-32.png" type="image/png" sizes="32x32"/>
+<link rel="apple-touch-icon" href="/assets/logo/favicon-180.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
@@ -205,5 +205,6 @@
   const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}}),{threshold:.12});
   document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
 </script>
+{% include "wip-notice.njk" %}
 </body>
 </html>

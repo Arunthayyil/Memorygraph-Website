@@ -191,6 +191,62 @@
   .credit-text strong{font-weight:500;color:var(--ink);}
   .credit-link:hover .credit-text strong{color:var(--teal);}
   .credit-sub{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mist);}
+  .credit-socials{display:flex;gap:16px;margin-top:12px;justify-content:center;}
+  .credit-socials a{color:var(--mist);transition:color .3s;}
+  .credit-socials a:hover{color:var(--teal);}
+
+  /* ── Brand Strip ── */
+  .brand-strip{padding:16px 32px;background:var(--ivory-2);border-bottom:1px solid var(--line-2);text-align:center;}
+  .brand-strip-inner{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;}
+  .brand-strip-name{font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--mist);}
+  .brand-strip-dot{width:3px;height:3px;border-radius:50%;background:var(--line);flex-shrink:0;}
+  .brand-strip-rating{display:flex;align-items:center;gap:8px;}
+  .brand-strip-stars{display:flex;gap:2px;color:var(--gold);font-size:.7rem;}
+  .brand-strip-badge{display:flex;align-items:center;gap:6px;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mist);}
+  .brand-strip-badge svg{width:14px;height:14px;flex-shrink:0;}
+
+  /* ── Section Nav ── */
+  .section-nav{display:flex;align-items:center;gap:12px;margin-left:auto;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;max-width:60%;}
+  .section-nav::-webkit-scrollbar{display:none;}
+  .section-nav-divider{width:1px;height:20px;background:var(--line);flex-shrink:0;}
+  .section-nav-btn{padding:8px 12px;border:0;background:transparent;color:var(--mist);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;cursor:pointer;transition:color .25s,background .25s;flex-shrink:0;}
+  .section-nav-btn:hover{color:var(--teal);}
+  .section-nav-btn.active{color:var(--teal);background:rgba(29,89,89,.06);}
+
+  /* ── Section Divider Card ── */
+  .section-divider{position:absolute;width:100%;overflow:hidden;border:0;background:var(--ink);}
+  .section-divider-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.5;transition:opacity .6s;}
+  .section-divider:hover .section-divider-bg{opacity:.6;}
+  .section-divider-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,24,20,.4),rgba(26,24,20,.7));}
+  .section-divider-content{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:16px;height:100%;padding:20px 32px;}
+  .section-divider-line{width:40px;height:1px;background:var(--gold-2);flex-shrink:0;}
+  .section-divider-name{font-family:var(--serif);font-size:clamp(1.2rem,2.5vw,1.8rem);font-weight:300;font-style:italic;color:var(--gold-2);white-space:nowrap;}
+
+  /* ── Explore CTA ── */
+  .cg-explore{padding:80px 56px;background:var(--ink);text-align:center;color:var(--ivory);}
+  .cg-explore-title{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;line-height:1.2;margin-bottom:16px;color:var(--ivory);}
+  .cg-explore-title em{font-style:italic;color:var(--gold-2);}
+  .cg-explore-body{font-size:.86rem;line-height:1.8;color:rgba(244,237,224,.6);max-width:480px;margin:0 auto 32px;}
+  .cg-explore-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border:1px solid rgba(244,237,224,.25);background:transparent;color:var(--ivory);font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;transition:background .3s,border-color .3s,color .3s;}
+  .cg-explore-btn:hover{background:rgba(244,237,224,.1);border-color:var(--gold-2);color:var(--gold-2);}
+
+  /* ── Review Prompt ── */
+  .cg-review{padding:48px 56px;background:var(--ivory-2);text-align:center;border-top:1px solid var(--line-2);}
+  .cg-review-text{font-family:var(--serif);font-size:1.1rem;font-weight:300;font-style:italic;color:var(--ink-soft);margin-bottom:18px;}
+  .cg-review-sub{font-size:.76rem;color:var(--mist);margin-bottom:22px;line-height:1.7;}
+  .cg-review-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border:1px solid var(--line);background:var(--ivory);color:var(--ink-soft);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:border-color .3s,color .3s;}
+  .cg-review-btn:hover{border-color:var(--teal);color:var(--teal);}
+  .cg-review-btn svg{flex-shrink:0;}
+
+  /* ── Gallery Footer ── */
+  .cg-footer{background:rgba(26,24,20,.97);padding:48px 56px 32px;}
+  .cg-footer-inner{display:flex;flex-direction:column;align-items:center;gap:24px;}
+  .cg-footer-logo{height:44px;width:auto;opacity:.85;filter:brightness(0) invert(1);}
+  .cg-footer-links{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;}
+  .cg-footer-links a{color:rgba(244,237,224,.5);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:color .3s;}
+  .cg-footer-links a:hover{color:var(--gold-2);}
+  .cg-footer-bottom{margin-top:24px;padding-top:20px;border-top:1px solid rgba(244,237,224,.08);text-align:center;}
+  .cg-footer-copy{font-size:.6rem;letter-spacing:.14em;color:rgba(244,237,224,.3);line-height:1.8;}
 
   @media(max-width:980px){
     .topbar{padding:12px 20px;}
@@ -205,6 +261,11 @@
     .section-note{margin-top:18px;}
     .gallery-credit{padding:48px 24px;}
     .credit-inner{gap:16px;}
+    .brand-strip{padding:12px 20px;}
+    .section-nav{max-width:50%;}
+    .cg-explore{padding:60px 24px;}
+    .cg-review{padding:36px 24px;}
+    .cg-footer{padding:36px 24px 24px;}
     .lock-panel{padding:40px 28px;}
     .lock-form{grid-template-columns:1fr;}
     .print-banner{flex-wrap:wrap;padding:16px 18px;gap:14px;}
@@ -228,6 +289,8 @@
     .selected-item{grid-template-columns:66px 1fr auto;}
     .selected-item img{width:66px;height:54px;}
     .credit-text{font-size:.6rem;white-space:normal;text-align:center;}
+    .section-nav{max-width:100%;margin-left:0;margin-top:8px;}
+    .toolbar{flex-wrap:wrap;}
     .lb-action span{display:none;}
   }
 
@@ -341,11 +404,26 @@
     </div>
   </section>
 
+  <div class="brand-strip">
+    <div class="brand-strip-inner">
+      <span class="brand-strip-name">Memorygraph Wedding Studio &middot; Thrissur, Kerala</span>
+      <span class="brand-strip-dot"></span>
+      <div class="brand-strip-rating">
+        <span class="brand-strip-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span class="brand-strip-badge">
+          <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A10.96 10.96 0 0 0 1 12c0 1.77.42 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          5.0 on Google &middot; 27 Reviews
+        </span>
+      </div>
+    </div>
+  </div>
+
   <section class="toolbar" aria-label="Gallery filters">
     <div class="filters" id="filters">
       <button class="filter-btn active" type="button" data-filter="all">All</button>
       <button class="filter-btn" type="button" data-filter="selected">Selected</button>
     </div>
+    <div class="section-nav" id="sectionNav"></div>
   </section>
 
   <section class="gallery-wrap">
@@ -383,7 +461,54 @@
       </a>
       <div class="credit-line"></div>
     </div>
+    <div class="credit-socials">
+      <a href="https://www.instagram.com/memorygraph.weddings/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://wa.me/919846238073" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 2.12.56 4.16 1.6 5.97L.1 23.9l6.13-1.47A11.94 11.94 0 0012 24c6.63 0 12-5.37 12-12S18.63 0 12 0zm5.9 16.9c-.24.68-1.42 1.3-1.96 1.38-.5.08-1.14.12-1.84-.12-.42-.14-.96-.34-1.66-.66-2.92-1.34-4.82-4.28-4.97-4.48-.14-.2-1.18-1.56-1.18-2.98s.74-2.12.98-2.38c.26-.28.56-.34.74-.34h.54c.18 0 .42-.06.64.5.24.56.82 2 .88 2.14.08.14.12.32.02.5-.08.2-.14.3-.28.46-.14.16-.3.36-.42.48-.14.14-.3.3-.12.58.16.28.74 1.22 1.6 1.98 1.08.96 2 1.26 2.28 1.4.28.14.44.12.6-.06.16-.2.7-.82.88-1.1.2-.28.38-.24.64-.14.26.1 1.62.76 1.9.9.28.14.46.2.54.32.06.1.06.6-.18 1.28z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/@MemorygraphWeddings" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C17 2.6 12 2.6 12 2.6s-5 0-8.3.3c-.5.1-1.5.1-2.3 1-.7.7-.9 2.3-.9 2.3S.2 8.1.2 10v1.8c0 1.9.3 3.8.3 3.8s.2 1.6.9 2.3c.9.9 2 .9 2.5 1 1.8.2 7.6.2 7.6.2s5 0 8.3-.3c.5-.1 1.5-.1 2.3-1 .7-.7.9-2.3.9-2.3s.3-1.9.3-3.8V10c0-1.9-.3-3.8-.3-3.8zM9.5 15.6V8l6.5 3.8-6.5 3.8z"/></svg>
+      </a>
+    </div>
   </section>
+
+  <section class="cg-explore">
+    <h3 class="cg-explore-title">There's more to <em>explore.</em></h3>
+    <p class="cg-explore-body">Visit our website to see more wedding stories, learn about our collections, or start a conversation.</p>
+    <a href="/" class="cg-explore-btn">
+      Visit memorygraphweddings.com
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </section>
+
+  <section class="cg-review">
+    <p class="cg-review-text">Loved your gallery?</p>
+    <p class="cg-review-sub">Your words mean the world to us. A short review helps other couples find their storyteller.</p>
+    <a href="https://g.page/r/memorygraph/review" class="cg-review-btn" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Leave a Review on Google
+    </a>
+  </section>
+
+  <footer class="cg-footer">
+    <div class="cg-footer-inner">
+      <a href="/"><img src="/assets/logo/logo-white.png" alt="Memorygraph Wedding Studio" class="cg-footer-logo"/></a>
+      <div class="cg-footer-links">
+        <a href="/">Home</a>
+        <a href="/stories/">Stories</a>
+        <a href="/about/">About</a>
+        <a href="/investment/">Investment</a>
+        <a href="/blog/">Journal</a>
+        <a href="/contact/">Contact</a>
+      </div>
+    </div>
+    <div class="cg-footer-bottom">
+      <div class="cg-footer-copy">&copy; {% year %} Memorygraph Wedding Studio &middot; Thrissur, Kerala</div>
+      <div class="cg-footer-copy">+91 98462 38073 &middot; memorygraphweddings@gmail.com</div>
+    </div>
+  </footer>
 </main>
 
 <aside class="album-drawer" id="albumDrawer" aria-label="Album selections">
@@ -477,7 +602,8 @@
   const galleryTitle = {{ title | json | safe }};
   const coupleNames = {{ (couple_names or title) | json | safe }};
   const whatsappNumber = {{ (whatsapp_number or "919846238073") | json | safe }};
-  const galleryItems = {{ gallery_items | clientGalleryItems(gallery_folder, gallery_drive_images) | json | safe }};
+  const gallerySections = {{ gallery_sections | json | safe }} || [];
+  const galleryItems = {{ gallery_items | clientGalleryItems(gallery_folder, gallery_drive_images, gallery_sections) | json | safe }};
   const authKey = `memorygraph_gallery_unlocked_${gallerySlug}`;
   const storageKey = `memorygraph_album_selection_${gallerySlug}`;
   const notesKey = `memorygraph_album_notes_${gallerySlug}`;
@@ -565,6 +691,18 @@
     let visibleCount = 0;
     photoGrid.innerHTML = items.map((item) => {
       const type = item.item_type || (item.image ? 'image' : 'quote');
+      if(type === 'section'){
+        const slug = (item.section_name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        return `<div class="section-divider" data-type="section" data-section="${escapeAttr(slug)}" id="section-${escapeAttr(slug)}">
+          ${item.section_cover ? `<div class="section-divider-bg" style="background-image:url('${escapeAttr(item.section_cover)}')"></div>` : ''}
+          <div class="section-divider-overlay"></div>
+          <div class="section-divider-content">
+            <span class="section-divider-line"></span>
+            <span class="section-divider-name">${escapeHtml(item.section_name || '')}</span>
+            <span class="section-divider-line"></span>
+          </div>
+        </div>`;
+      }
       if(type === 'quote'){
         return `<article class="quote-card" data-type="quote" data-title="${escapeAttr(item.quote || '')}">
           <blockquote>${escapeHtml(item.quote || '')}</blockquote>
@@ -639,6 +777,7 @@
     });
     applyFilters(); // applyFilters calls layoutMasonry
     observeImageLoads();
+    setupSectionObserver();
   }
 
   function toggleSelect(id){
@@ -709,10 +848,24 @@
       const img = card.querySelector('img');
       const src = img ? img.getAttribute('src') : '';
       const isQuote = card.classList.contains('quote-card');
+      const isSection = card.classList.contains('section-divider');
 
-      let h;
+      let h, w, x, y;
+
+      if(isSection){
+        // Section dividers: full-width break — wait for all columns to align
+        const maxH = Math.max(...colHeights);
+        x = 0;
+        y = maxH;
+        w = gridW;
+        h = 180;
+        masonryPositions.push({ x, y, w, h });
+        // Reset all columns to the same height after the divider
+        colHeights.fill(maxH + h + MASONRY_GAP);
+        return;
+      }
+
       if(isQuote){
-        // Quote cards: fixed height
         h = 220;
       } else if(cardAspects[src]){
         h = colW / cardAspects[src];
@@ -725,8 +878,8 @@
       }
 
       const col = colHeights.indexOf(Math.min(...colHeights));
-      const x = col * (colW + MASONRY_GAP);
-      const y = colHeights[col];
+      x = col * (colW + MASONRY_GAP);
+      y = colHeights[col];
 
       masonryPositions.push({ x, y, w: colW, h });
       colHeights[col] += h + MASONRY_GAP;
@@ -807,6 +960,41 @@
       }, {once:true});
       img.addEventListener('error', () => layoutMasonry(), {once:true});
     });
+  }
+
+  // ═══ SECTION NAVIGATION ═══
+  const sectionNav = document.getElementById('sectionNav');
+  function buildSectionNav(){
+    if(!gallerySections || !gallerySections.length){ sectionNav.style.display = 'none'; return; }
+    sectionNav.innerHTML = '<span class="section-nav-divider"></span>' +
+      gallerySections.map(s => {
+        const slug = (s.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        return `<button class="section-nav-btn" type="button" data-section="${escapeAttr(slug)}">${escapeHtml(s.name)}</button>`;
+      }).join('');
+    sectionNav.querySelectorAll('.section-nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const el = document.getElementById('section-' + btn.dataset.section);
+        if(el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+  }
+  buildSectionNav();
+
+  // Track active section on scroll
+  let sectionObserver;
+  function setupSectionObserver(){
+    if(sectionObserver) sectionObserver.disconnect();
+    const dividers = photoGrid.querySelectorAll('.section-divider');
+    if(!dividers.length) return;
+    sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          const slug = e.target.dataset.section;
+          sectionNav.querySelectorAll('.section-nav-btn').forEach(b => b.classList.toggle('active', b.dataset.section === slug));
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    dividers.forEach(d => sectionObserver.observe(d));
   }
 
   document.getElementById('filters').addEventListener('click', (event) => {

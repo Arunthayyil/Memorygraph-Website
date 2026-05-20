@@ -85,7 +85,7 @@ module.exports = function(eleventyConfig) {
 
   // Expands a client gallery folder into image items, merges Google Drive images,
   // then appends CMS quote/image blocks.
-  eleventyConfig.addFilter("clientGalleryItems", function(manualItems, galleryFolder, driveImages) {
+  eleventyConfig.addFilter("clientGalleryItems", function(manualItems, galleryFolder, driveImages, sections) {
     const items = [];
     const supported = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
 
@@ -137,7 +137,27 @@ module.exports = function(eleventyConfig) {
     }
 
     // 3. Manual CMS items (quotes, hand-picked images)
-    return items.concat(Array.isArray(manualItems) ? manualItems : []);
+    const merged = items.concat(Array.isArray(manualItems) ? manualItems : []);
+
+    // 4. Insert section divider markers at the correct positions
+    // Sections are defined as [{name, start (1-based), cover}]
+    if (Array.isArray(sections) && sections.length > 0) {
+      // Sort sections by start position descending so inserting doesn't shift later indices
+      const sorted = [...sections]
+        .filter(s => s && s.name && s.start)
+        .sort((a, b) => b.start - a.start);
+      sorted.forEach(sec => {
+        const idx = Math.max(0, Math.min(sec.start - 1, merged.length));
+        merged.splice(idx, 0, {
+          item_type: "section",
+          section_name: sec.name,
+          section_cover: sec.cover || "",
+          section_start: sec.start
+        });
+      });
+    }
+
+    return merged;
   });
 
   // Flattens gallery data into a simple image list for masonry display.

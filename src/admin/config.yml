@@ -129,6 +129,16 @@ collections:
         fields:
           - { label: "Image URL", name: "url", widget: "string" }
           - { label: "Filename", name: "name", widget: "string", required: false, hint: "Original Google Drive filename (auto-filled by sync script)" }
+      - label: "Gallery Sections"
+        name: "gallery_sections"
+        widget: "list"
+        required: false
+        hint: "Define chapters/timestamps in the gallery (e.g. Morning at Home, Temple, Couples). Each section starts at a specific image number and has a cover image."
+        summary: "{{fields.name}} — starts at image {{fields.start}}"
+        fields:
+          - { label: "Section Name", name: "name", widget: "string", hint: "e.g. Morning at Home, Temple Ceremony, Couples" }
+          - { label: "Starts at Image #", name: "start", widget: "number", value_type: "int", hint: "The image number where this section begins (1-based)" }
+          - { label: "Cover Image", name: "cover", widget: "image", hint: "A hero/cover image for this section divider card" }
       - label: "Gallery Items"
         name: "gallery_items"
         widget: "list"

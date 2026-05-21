@@ -125,6 +125,8 @@ collections:
         name: "gallery_drive_images"
         widget: "list"
         required: false
+        collapsed: true
+        minimize_collapsed: true
         hint: "Auto-populated by sync-gallery script. Each entry has a URL and the original Drive filename."
         fields:
           - { label: "Image URL", name: "url", widget: "string" }
@@ -133,15 +135,17 @@ collections:
         name: "gallery_sections"
         widget: "list"
         required: false
-        hint: "Define chapters/timestamps in the gallery (e.g. Morning at Home, Temple, Couples). Each section starts at a specific image number and has a cover image."
-        summary: "{{fields.name}} — starts at image {{fields.start}}"
+        hint: "Define chapters/timestamps in the gallery. Type the filename where each section starts (e.g. S&K-120.jpg)."
+        summary: "{{fields.name}} — from {{fields.start_file}}"
         fields:
           - { label: "Section Name", name: "name", widget: "string", hint: "e.g. Morning at Home, Temple Ceremony, Couples" }
-          - { label: "Starts at Image #", name: "start", widget: "number", value_type: "int", hint: "The image number where this section begins (1-based)" }
-          - { label: "Cover Image", name: "cover", widget: "image", hint: "A hero/cover image for this section divider card" }
+          - { label: "Starts at Filename", name: "start_file", widget: "string", hint: "The Drive filename where this section begins, e.g. S&K-120.jpg" }
+          - { label: "Cover Image", name: "cover", widget: "image", required: false, hint: "Optional cover image for the section divider card" }
       - label: "Gallery Items"
         name: "gallery_items"
         widget: "list"
+        collapsed: true
+        minimize_collapsed: true
         summary: "{{fields.item_type}} — {{fields.image_name}}{{fields.quote}}"
         hint: "Use this for quotes, special featured images, or hand-picked extras. Bulk folder images appear first, sorted by filename; these blocks appear after them in your chosen drag-and-drop order."
         fields:

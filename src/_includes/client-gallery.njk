@@ -221,6 +221,16 @@
   .section-divider-content{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:16px;height:100%;padding:20px 32px;}
   .section-divider-line{width:40px;height:1px;background:var(--gold-2);flex-shrink:0;}
   .section-divider-name{font-family:var(--serif);font-size:clamp(1.2rem,2.5vw,1.8rem);font-weight:300;font-style:italic;color:var(--gold-2);white-space:nowrap;}
+  .section-divider-nav{position:absolute;bottom:12px;right:16px;z-index:2;display:flex;gap:6px;}
+  .section-divider-nav button{width:32px;height:32px;border:1px solid rgba(244,237,224,.25);background:rgba(26,24,20,.4);backdrop-filter:blur(4px);color:rgba(244,237,224,.7);display:grid;place-items:center;cursor:pointer;transition:background .2s,color .2s,border-color .2s;}
+  .section-divider-nav button:hover{background:rgba(244,237,224,.15);color:var(--gold-2);border-color:rgba(244,237,224,.4);}
+
+  /* ── Floating Section Jump ── */
+  .section-jump{position:fixed;bottom:24px;right:24px;z-index:95;display:none;flex-direction:column;gap:6px;}
+  .section-jump.visible{display:flex;}
+  .section-jump-btn{width:44px;height:44px;border:1px solid var(--line);background:rgba(244,237,224,.92);backdrop-filter:blur(12px);color:var(--ink-soft);display:grid;place-items:center;cursor:pointer;transition:background .2s,color .2s,border-color .2s;box-shadow:0 4px 16px rgba(26,24,20,.12);}
+  .section-jump-btn:hover{background:var(--ivory);color:var(--teal);border-color:var(--teal);}
+  .section-jump-label{font-size:.48rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mist);text-align:center;line-height:1;margin-top:-2px;}
 
   /* ── Explore CTA ── */
   .cg-explore{padding:80px 56px;background:var(--ink);text-align:center;color:var(--ivory);}
@@ -289,6 +299,7 @@
     .selected-item{grid-template-columns:66px 1fr auto;}
     .selected-item img{width:66px;height:54px;}
     .credit-text{font-size:.6rem;white-space:normal;text-align:center;}
+    .section-jump{bottom:16px;right:16px;}
     .section-nav{max-width:100%;margin-left:0;margin-top:8px;}
     .toolbar{flex-wrap:wrap;}
     .lb-action span{display:none;}
@@ -509,6 +520,16 @@
       <div class="cg-footer-copy">+91 98462 38073 &middot; memorygraphweddings@gmail.com</div>
     </div>
   </footer>
+
+  <div class="section-jump" id="sectionJump">
+    <button class="section-jump-btn" type="button" id="sectionPrev" aria-label="Previous section">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+    <span class="section-jump-label">Section</span>
+    <button class="section-jump-btn" type="button" id="sectionNext" aria-label="Next section">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+  </div>
 </main>
 
 <aside class="album-drawer" id="albumDrawer" aria-label="Album selections">
@@ -701,6 +722,14 @@
             <span class="section-divider-name">${escapeHtml(item.section_name || '')}</span>
             <span class="section-divider-line"></span>
           </div>
+          <div class="section-divider-nav">
+            <button type="button" data-dir="prev" aria-label="Previous section">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button type="button" data-dir="next" aria-label="Next section">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
         </div>`;
       }
       if(type === 'quote'){
@@ -860,8 +889,8 @@
         w = gridW;
         h = 180;
         masonryPositions.push({ x, y, w, h });
-        // Reset all columns to the same height after the divider
-        colHeights.fill(maxH + h + MASONRY_GAP);
+        // Reset all columns — no extra gap, images start right after divider
+        colHeights.fill(maxH + h + 6);
         return;
       }
 
@@ -964,21 +993,43 @@
 
   // ═══ SECTION NAVIGATION ═══
   const sectionNav = document.getElementById('sectionNav');
+  const sectionJump = document.getElementById('sectionJump');
+  const sectionSlugs = gallerySections ? gallerySections.map(s => (s.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')) : [];
+  let currentSectionIdx = -1;
+
   function buildSectionNav(){
-    if(!gallerySections || !gallerySections.length){ sectionNav.style.display = 'none'; return; }
+    if(!gallerySections || !gallerySections.length){
+      sectionNav.style.display = 'none';
+      sectionJump.classList.remove('visible');
+      return;
+    }
     sectionNav.innerHTML = '<span class="section-nav-divider"></span>' +
       gallerySections.map(s => {
         const slug = (s.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
         return `<button class="section-nav-btn" type="button" data-section="${escapeAttr(slug)}">${escapeHtml(s.name)}</button>`;
       }).join('');
     sectionNav.querySelectorAll('.section-nav-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const el = document.getElementById('section-' + btn.dataset.section);
-        if(el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      });
+      btn.addEventListener('click', () => scrollToSection(btn.dataset.section));
     });
   }
   buildSectionNav();
+
+  function scrollToSection(slug){
+    const el = document.getElementById('section-' + slug);
+    if(el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function jumpSection(dir){
+    if(!sectionSlugs.length) return;
+    let next = currentSectionIdx + dir;
+    if(next < 0) next = 0;
+    if(next >= sectionSlugs.length) next = sectionSlugs.length - 1;
+    scrollToSection(sectionSlugs[next]);
+  }
+
+  // Floating prev/next buttons
+  document.getElementById('sectionPrev').addEventListener('click', () => jumpSection(-1));
+  document.getElementById('sectionNext').addEventListener('click', () => jumpSection(1));
 
   // Track active section on scroll
   let sectionObserver;
@@ -986,15 +1037,34 @@
     if(sectionObserver) sectionObserver.disconnect();
     const dividers = photoGrid.querySelectorAll('.section-divider');
     if(!dividers.length) return;
+
+    // Show floating jump buttons once gallery has sections
+    sectionJump.classList.add('visible');
+
     sectionObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if(e.isIntersecting){
           const slug = e.target.dataset.section;
+          currentSectionIdx = sectionSlugs.indexOf(slug);
           sectionNav.querySelectorAll('.section-nav-btn').forEach(b => b.classList.toggle('active', b.dataset.section === slug));
         }
       });
     }, { rootMargin: '-30% 0px -60% 0px' });
     dividers.forEach(d => sectionObserver.observe(d));
+
+    // Per-divider prev/next arrows
+    dividers.forEach(d => {
+      d.querySelectorAll('.section-divider-nav button').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const slug = d.dataset.section;
+          const idx = sectionSlugs.indexOf(slug);
+          const dir = btn.dataset.dir === 'prev' ? -1 : 1;
+          const target = idx + dir;
+          if(target >= 0 && target < sectionSlugs.length) scrollToSection(sectionSlugs[target]);
+        });
+      });
+    });
   }
 
   document.getElementById('filters').addEventListener('click', (event) => {

@@ -140,19 +140,32 @@ module.exports = function(eleventyConfig) {
     const merged = items.concat(Array.isArray(manualItems) ? manualItems : []);
 
     // 4. Insert section divider markers at the correct positions
-    // Sections are defined as [{name, start (1-based), cover}]
+    // Sections are defined as [{name, start_file (filename), cover}]
+    // Match by filename (e.g. "S&K-120.jpg") against image_code or the raw Drive filename
     if (Array.isArray(sections) && sections.length > 0) {
-      // Sort sections by start position descending so inserting doesn't shift later indices
-      const sorted = [...sections]
-        .filter(s => s && s.name && s.start)
-        .sort((a, b) => b.start - a.start);
-      sorted.forEach(sec => {
-        const idx = Math.max(0, Math.min(sec.start - 1, merged.length));
-        merged.splice(idx, 0, {
+      const valid = sections.filter(s => s && s.name && s.start_file);
+      // Find the index of each section's start file in the merged array
+      const withIndex = valid.map(sec => {
+        const target = String(sec.start_file).trim();
+        const targetNoExt = target.replace(/\.[^.]+$/, "");
+        let idx = merged.findIndex(item => {
+          if (item.item_type !== "image") return false;
+          // Match against image_code (which is filename without extension for Drive images)
+          if (item.image_code && item.image_code === targetNoExt) return true;
+          // Also try exact filename match against image_name
+          if (item.image_name && item.image_name === targetNoExt) return true;
+          return false;
+        });
+        return { ...sec, idx: idx >= 0 ? idx : -1 };
+      }).filter(s => s.idx >= 0);
+      // Sort descending so inserting doesn't shift later indices
+      withIndex.sort((a, b) => b.idx - a.idx);
+      withIndex.forEach(sec => {
+        merged.splice(sec.idx, 0, {
           item_type: "section",
           section_name: sec.name,
           section_cover: sec.cover || "",
-          section_start: sec.start
+          section_start_file: sec.start_file
         });
       });
     }

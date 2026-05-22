@@ -14,6 +14,31 @@ film_quality: ''
 whatsapp_number: '919846238073'
 gallery_folder: ''
 gallery_drive_folder: https://drive.google.com/drive/folders/1xfxrsR5Ud38-WBLecfACOElNaV3SA-so
+gallery_sections:
+  - name: The Morning of Anticipation
+    start_file: S&K-2.jpg
+    cover: /assets/uploads/client-galleries/suvarna-karna/NYZ01366.png
+    start: 1
+  - name: Mathikunnu Temple
+    start_file: S&K-100.jpg
+    cover: /assets/uploads/client-galleries/suvarna-karna/NYZ01844.jpg
+    start: 99
+  - name: Muhoortham
+    start_file: S&K-168.jpg
+    cover: /assets/uploads/client-galleries/suvarna-karna/NYZ01969.jpg
+    start: 175
+  - name: Kalyaana Mandapam
+    start_file: S&K-324.jpg
+    cover: ''
+gallery_items:
+  - item_type: image
+    image: /assets/uploads/NYZ01840.jpg
+    image_code: ''
+    image_name: ''
+    category: ''
+    caption: ''
+    quote: ''
+    quote_by: ''
 gallery_drive_images:
   - url: https://lh3.googleusercontent.com/d/1ftuk-HPJRllnlXV_Nj0sPw-suXq-6yq8=s1920
     name: S&K-2.jpg
@@ -2369,23 +2394,4 @@ gallery_drive_images:
     name: S&K-1246.jpg
   - url: https://lh3.googleusercontent.com/d/1MVKeH4dPar5S1ZdwuciEqko0X5CD7p2M=s1920
     name: S&K-1247.jpg
-gallery_sections:
-  - name: The Morning of Anticipation
-    start: 1
-    cover: /assets/uploads/client-galleries/suvarna-karna/NYZ01366.png
-  - name: Mathikunnu Temple
-    start: 99
-    cover: /assets/uploads/client-galleries/suvarna-karna/NYZ01844.jpg
-  - name: Muhoortham
-    start: 175
-    cover: /assets/uploads/client-galleries/suvarna-karna/NYZ01969.jpg
-gallery_items:
-  - item_type: image
-    image: /assets/uploads/NYZ01840.jpg
-    image_code: ''
-    image_name: ''
-    category: ''
-    caption: ''
-    quote: ''
-    quote_by: ''
 ---

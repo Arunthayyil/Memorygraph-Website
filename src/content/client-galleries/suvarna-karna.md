@@ -30,6 +30,12 @@ gallery_sections:
   - name: Kalyaana Mandapam
     start_file: S&K-324.jpg
     cover: ''
+  - name: Tears and hugs
+    start_file: S&K-881.jpg
+    cover: ''
+  - name: Reception
+    start_file: S&K-1051.jpg
+    cover: ''
 gallery_items:
   - item_type: image
     image: /assets/uploads/NYZ01840.jpg

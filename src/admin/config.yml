@@ -121,16 +121,9 @@ collections:
       - { label: "WhatsApp Number", name: "whatsapp_number", widget: "string", default: "919846238073" }
       - { label: "Bulk Gallery Folder", name: "gallery_folder", widget: "string", required: false, hint: "Optional. Local images in assets/uploads/client-galleries/couple-name. Images are auto-added and sorted by filename." }
       - { label: "Google Drive Folder", name: "gallery_drive_folder", widget: "string", required: false, hint: "Paste the Google Drive shared folder link here for reference. Then run: node tools/drive-gallery.js --folder URL --gallery slug" }
-      - label: "Google Drive Images"
-        name: "gallery_drive_images"
-        widget: "list"
-        required: false
-        collapsed: true
-        minimize_collapsed: true
-        hint: "Auto-populated by sync-gallery script. Each entry has a URL and the original Drive filename."
-        fields:
-          - { label: "Image URL", name: "url", widget: "string" }
-          - { label: "Filename", name: "name", widget: "string", required: false, hint: "Original Google Drive filename (auto-filled by sync script)" }
+      # NOTE: gallery_drive_images is managed by the sync-gallery script (node tools/sync-gallery.js).
+      # It is NOT listed here as a CMS widget because 1000+ entries crash the editor.
+      # The field is preserved in markdown front matter when saving other fields.
       - label: "Gallery Sections"
         name: "gallery_sections"
         widget: "list"
@@ -144,8 +137,6 @@ collections:
       - label: "Gallery Items"
         name: "gallery_items"
         widget: "list"
-        collapsed: true
-        minimize_collapsed: true
         summary: "{{fields.item_type}} — {{fields.image_name}}{{fields.quote}}"
         hint: "Use this for quotes, special featured images, or hand-picked extras. Bulk folder images appear first, sorted by filename; these blocks appear after them in your chosen drag-and-drop order."
         fields:

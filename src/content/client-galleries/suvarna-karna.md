@@ -17,14 +17,23 @@ gallery_drive_folder: https://drive.google.com/drive/folders/1CRE3walW8RYiNC2mVT
 
 gallery_sections:
   - name: The Morning of Anticipation
-    start: 1
+    start_file: S&K-2.jpg
     cover: /assets/uploads/client-galleries/suvarna-karna/NYZ01366.png
   - name: Mathikunnu Temple
-    start: 99
+    start_file: S&K-100.jpg
     cover: /assets/uploads/client-galleries/suvarna-karna/NYZ01844.jpg
   - name: Muhoortham
-    start: 175
+    start_file: S&K-168.jpg
     cover: /assets/uploads/client-galleries/suvarna-karna/NYZ01969.jpg
+  - name: Kalyaana Mandapam
+    start_file: S&K-324.jpg
+    cover: ''
+  - name: Tears and hugs
+    start_file: S&K-881.jpg
+    cover: ''
+  - name: Reception
+    start_file: S&K-1051.jpg
+    cover: ''
 gallery_items:
   - item_type: image
     image: /assets/uploads/NYZ01840.jpg

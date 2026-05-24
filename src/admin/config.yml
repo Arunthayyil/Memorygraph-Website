@@ -134,6 +134,7 @@ collections:
           - { label: "Section Name", name: "name", widget: "string", hint: "e.g. Morning at Home, Temple Ceremony, Couples" }
           - { label: "Starts at Filename", name: "start_file", widget: "string", hint: "The Drive filename where this section begins, e.g. S&K-120.jpg" }
           - { label: "Cover Image", name: "cover", widget: "image", required: false, hint: "Optional cover image for the section divider card" }
+          - { label: "Quote or Description", name: "description", widget: "text", required: false, hint: "A short quote or paragraph for this section. E.g. 'The morning began with quiet laughter and chai.'" }
       - label: "Gallery Items"
         name: "gallery_items"
         widget: "list"

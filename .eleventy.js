@@ -165,6 +165,7 @@ module.exports = function(eleventyConfig) {
           item_type: "section",
           section_name: sec.name,
           section_cover: sec.cover || "",
+          section_description: sec.description || "",
           section_start_file: sec.start_file
         });
       });

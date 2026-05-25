@@ -16,23 +16,34 @@
   :root{--paper:#fbf7ef;}
   button,input,textarea,select{font:inherit;}button{cursor:pointer;}
 
-  .screen-lock{position:fixed;inset:0;z-index:500;background:linear-gradient(140deg,rgba(15,56,56,.96),rgba(26,24,20,.96)),url('{{ lock_image or hero_image or "/assets/stories/abhin-gayathry/03.jpg" }}') center/cover;display:flex;align-items:center;justify-content:center;padding:24px;color:var(--ivory);overflow-y:auto;}
+  .screen-lock{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:24px;color:var(--ivory);overflow-y:auto;}
   .screen-lock.hidden{display:none;}
-  .lock-panel{width:min(560px,100%);padding:56px 48px;background:rgba(244,237,224,.06);border:1px solid rgba(244,237,224,.12);backdrop-filter:blur(24px);text-align:center;}
-  .lock-logo{height:48px;width:auto;margin-bottom:36px;filter:brightness(0) invert(1);opacity:.85;}
-  .lock-label,.eyebrow{font-size:.62rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-2);font-weight:400;}
-  .lock-title{font-family:var(--serif);font-size:clamp(2.2rem,7vw,4.2rem);font-weight:300;line-height:1;margin:20px 0;}
+  .lock-bg{position:fixed;inset:0;z-index:0;background:url('{{ lock_image or hero_image or "/assets/stories/abhin-gayathry/03.jpg" }}') center/cover no-repeat;}
+  .lock-overlay{position:fixed;inset:0;z-index:1;background:linear-gradient(180deg,rgba(26,24,20,.7) 0%,rgba(26,24,20,.6) 30%,rgba(26,24,20,.6) 60%,rgba(26,24,20,.9) 100%);}
+  .lock-panel{position:relative;z-index:2;width:min(480px,100%);text-align:center;padding:56px 48px;}
+  .lock-logo{height:44px;width:auto;margin-bottom:48px;filter:brightness(0) invert(1) drop-shadow(0 2px 16px rgba(0,0,0,.4));opacity:.8;}
+  .lock-label,.eyebrow{font-size:.52rem;letter-spacing:.42em;text-transform:uppercase;color:var(--gold-2);font-weight:400;text-shadow:0 2px 12px rgba(0,0,0,.3);}
+  .lock-label::before,.lock-label::after{content:'';display:inline-block;width:20px;height:1px;background:var(--gold);opacity:.35;vertical-align:middle;margin:0 14px;}
+  .lock-title{font-family:var(--serif);font-size:clamp(2.6rem,7vw,4.8rem);font-weight:300;line-height:.94;margin:24px 0 28px;text-shadow:0 4px 40px rgba(0,0,0,.35),0 1px 6px rgba(0,0,0,.2);}
   .lock-title em{font-style:italic;color:var(--gold-2);}
-  .lock-copy{max-width:380px;margin:0 auto 28px;color:rgba(244,237,224,.6);font-size:.86rem;line-height:1.8;}
-  .lock-form{display:flex;flex-direction:column;gap:12px;max-width:360px;margin:0 auto;}
-  .lock-form input{width:100%;padding:16px 18px;background:rgba(244,237,224,.08);border:1px solid rgba(244,237,224,.16);color:var(--ivory);text-align:center;font-size:.92rem;letter-spacing:.06em;}
-  .lock-form input::placeholder{color:rgba(244,237,224,.35);}
-  .lock-form input:focus{outline:none;border-color:var(--gold-2);background:rgba(244,237,224,.1);}
-  .lock-form .btn{width:100%;padding:16px;letter-spacing:.28em;}
-  .lock-error{display:none;margin-top:10px;color:#ffd1c4;font-size:.78rem;}
+  .lock-copy{max-width:380px;margin:0 auto 36px;color:rgba(244,237,224,.6);font-size:.86rem;line-height:1.9;text-shadow:0 1px 8px rgba(0,0,0,.3);}
+  .lock-divider{width:48px;height:1px;background:rgba(244,237,224,.15);margin:0 auto 32px;}
+  .lock-form{display:flex;flex-direction:column;gap:14px;max-width:320px;margin:0 auto;}
+  .lock-form input{width:100%;padding:16px 20px;background:rgba(244,237,224,.08);border:1px solid rgba(244,237,224,.14);color:var(--ivory);text-align:center;font-size:.88rem;letter-spacing:.12em;backdrop-filter:blur(12px);transition:border-color .3s,background .3s;}
+  .lock-form input::placeholder{color:rgba(244,237,224,.3);letter-spacing:.08em;}
+  .lock-form input:focus{outline:none;border-color:var(--gold-2);background:rgba(244,237,224,.12);}
+  .lock-form .btn{width:100%;padding:16px;letter-spacing:.28em;font-size:.6rem;}
+  .lock-error{display:none;margin-top:8px;color:rgba(255,180,160,.9);font-size:.72rem;letter-spacing:.04em;text-shadow:0 1px 4px rgba(0,0,0,.2);}
   .lock-error.visible{display:block;}
-  .lock-hint{margin-top:20px;color:rgba(244,237,224,.4);font-size:.68rem;line-height:1.7;}
-  .lock-divider{width:48px;height:1px;background:rgba(244,237,224,.15);margin:24px auto;}
+  .lock-hint{margin-top:24px;color:rgba(244,237,224,.35);font-size:.62rem;line-height:1.8;letter-spacing:.02em;}
+  .lock-footer{position:fixed;bottom:0;left:0;right:0;z-index:2;padding:20px;text-align:center;}
+  .lock-footer-text{font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,237,224,.25);}
+  .lock-footer-text a{color:rgba(244,237,224,.35);text-decoration:none;transition:color .3s;}
+  .lock-footer-text a:hover{color:var(--gold-2);}
+  @keyframes lockFadeIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+  .screen-lock .lock-panel{animation:lockFadeIn .8s cubic-bezier(.22,1,.36,1) both;animation-delay:.2s;}
+  .screen-lock .lock-bg{animation:lockBgScale 1.2s cubic-bezier(.22,1,.36,1) both;}
+  @keyframes lockBgScale{from{transform:scale(1.06);}to{transform:scale(1);}}
 
   .btn{border:0;background:var(--teal);color:var(--ivory);padding:14px 24px;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;transition:all .3s;text-decoration:none;text-align:center;border-radius:3px;}
   .btn:hover{background:var(--teal-deep);}
@@ -335,9 +346,10 @@
     .cg-explore{padding:60px 24px;}
     .cg-review{padding:36px 24px;}
     .cg-footer{padding:36px 24px 24px;}
-    .lock-panel{padding:36px 24px;}
-    .lock-logo{height:40px;margin-bottom:28px;}
+    .lock-panel{padding:36px 20px;}
+    .lock-logo{height:36px;margin-bottom:36px;}
     .lock-copy{font-size:.82rem;}
+    .lock-label::before,.lock-label::after{width:14px;margin:0 10px;}
     .print-banner{flex-wrap:wrap;padding:16px 18px;gap:14px;}
     .print-banner-icon{width:36px;height:36px;}
     .print-banner-text strong{font-size:1rem;}
@@ -411,17 +423,22 @@
 </head>
 <body>
 <div class="screen-lock" id="screenLock">
+  <div class="lock-bg"></div>
+  <div class="lock-overlay"></div>
   <div class="lock-panel">
-    <img src="/assets/logo/logo-white.png" class="lock-logo" alt="Memorygraph Wedding Studio"/>
-    <div class="lock-label">Private Client Gallery</div>
-    <h1 class="lock-title">Your memories,<br><em>kept quietly.</em></h1>
+    <img src="/assets/logo/logo-white.png" class="lock-logo" alt="Memorygraph"/>
+    <div class="lock-label">A Memorygraph Gallery</div>
+    <h1 class="lock-title">{{ couple_names or title }}</h1>
     <div class="lock-divider"></div>
-    <p class="lock-copy">{{ lock_copy or "Enter the gallery password to view, download, and shortlist photographs for your wedding album." }}</p>
+    <p class="lock-copy">This is a private gallery. Enter the password shared with you to view, download, and shortlist photographs.</p>
     <form class="lock-form" id="lockForm">
-      <input type="password" id="passwordInput" placeholder="Enter gallery password" autocomplete="current-password" required/>
-      <button class="btn gold" type="submit">Unlock Gallery</button>
+      <input type="password" id="passwordInput" placeholder="Gallery password" autocomplete="current-password" required/>
+      <button class="btn gold" type="submit">View Gallery</button>
     </form>
-    <p class="lock-error" id="lockError">That password does not match this gallery.</p>
+    <p class="lock-error" id="lockError">That password doesn't match. Please try again.</p>
+  </div>
+  <div class="lock-footer">
+    <p class="lock-footer-text"><a href="/">Memorygraph Wedding Studio</a> &middot; Thrissur, Kerala</p>
   </div>
 </div>
 

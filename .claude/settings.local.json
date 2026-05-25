@@ -13,7 +13,12 @@
       "Bash(node -e ' *)",
       "Bash(node tools/sync-gallery.js suvarna-karna)",
       "Bash(npx @11ty/eleventy --serve --port=8081)",
-      "Bash(npx @11ty/eleventy --quiet)"
+      "Bash(npx @11ty/eleventy --quiet)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git pull *)",
+      "Bash(git add *)",
+      "Bash(npx @11ty/eleventy --serve --port=8082)"
     ]
   }
 }

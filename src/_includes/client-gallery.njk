@@ -1384,6 +1384,7 @@
     lightbox.classList.add('open');
     lightbox.setAttribute('aria-hidden','false');
     document.body.style.overflow = 'hidden';
+    history.pushState({ lightbox: true }, '');
   }
 
   function updateLightbox(){
@@ -1398,11 +1399,22 @@
     lbDownloadBtn.download = fileNameForImage(image);
   }
 
-  function closeLightbox(){
+  function closeLightbox(fromPopstate){
+    if(!lightbox.classList.contains('open')) return;
     lightbox.classList.remove('open');
     lightbox.setAttribute('aria-hidden','true');
     document.body.style.overflow = '';
+    // If closed by button/tap/Escape, pop the history entry we pushed
+    if(!fromPopstate && history.state && history.state.lightbox){
+      history.back();
+    }
   }
+  // Browser back button closes lightbox instead of leaving the page
+  window.addEventListener('popstate', (e) => {
+    if(lightbox.classList.contains('open')){
+      closeLightbox(true);
+    }
+  });
 
   lbSelectBtn.addEventListener('click', () => {
     const image = renderedImages[lightboxIndex];

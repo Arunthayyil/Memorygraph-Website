@@ -55,12 +55,26 @@
   .gallery-app{position:relative;z-index:2;min-height:100vh;}
 
   /* ── Utility Bar (appears on scroll) ── */
-  .topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:16px;height:52px;padding:0 32px;background:rgba(244,237,224,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--line-2);transform:translateY(-100%);transition:transform .4s cubic-bezier(.22,1,.36,1);will-change:transform;}
+  .topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px;padding:0 36px;background:rgba(244,237,224,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--line-2);transform:translateY(-100%);transition:transform .4s cubic-bezier(.22,1,.36,1);will-change:transform;}
   .topbar.visible{transform:translateY(0);}
-  .topbar img{height:28px;width:auto;display:block;opacity:.6;}
+  .topbar img{height:32px;width:auto;display:block;opacity:.6;}
   .top-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
   .topbar-home{display:grid;place-items:center;width:34px;height:34px;padding:0!important;}
-  .selection-pill{padding:8px 14px;border:1px solid rgba(29,89,89,.15);color:var(--teal);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;background:rgba(29,89,89,.03);border-radius:3px;}
+  .selection-pill{display:flex;align-items:center;gap:8px;padding:8px 16px;border:1px solid rgba(29,89,89,.15);color:var(--teal);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;background:rgba(29,89,89,.03);border-radius:3px;cursor:pointer;transition:all .3s;user-select:none;}
+  .selection-pill:hover{border-color:rgba(29,89,89,.3);background:rgba(29,89,89,.06);}
+  .selection-pill.active{background:var(--teal);color:var(--ivory);border-color:var(--teal);}
+  .selection-pill-icon{width:16px;height:16px;flex-shrink:0;opacity:.6;}
+  .selection-pill.active .selection-pill-icon{opacity:1;}
+  .selection-steps{display:none;position:absolute;top:100%;right:0;width:min(380px,calc(100vw - 32px));margin-top:8px;background:var(--ivory);border:1px solid var(--line-2);box-shadow:0 16px 48px rgba(26,24,20,.14);border-radius:4px;overflow:hidden;z-index:120;text-align:left;}
+  .selection-steps.open{display:block;}
+  .selection-steps-head{padding:18px 20px 14px;border-bottom:1px solid var(--line-2);}
+  .selection-steps-title{font-family:var(--serif);font-size:1.1rem;font-weight:300;color:var(--ink);margin-bottom:4px;}
+  .selection-steps-sub{font-size:.72rem;color:var(--mist);line-height:1.6;}
+  .selection-steps-list{padding:14px 20px 18px;display:flex;flex-direction:column;gap:10px;}
+  .selection-step{display:flex;align-items:flex-start;gap:10px;font-size:.72rem;color:var(--ink-soft);line-height:1.6;}
+  .selection-step-num{width:20px;height:20px;flex-shrink:0;border-radius:50%;background:var(--teal);color:var(--ivory);font-size:.5rem;font-weight:600;display:grid;place-items:center;letter-spacing:0;}
+  .selection-steps-action{padding:0 20px 18px;display:flex;gap:8px;}
+  .selection-steps-action .btn{flex:1;padding:10px;font-size:.52rem;letter-spacing:.18em;text-align:center;}
 
   /* ── Hamburger Menu (mobile only) ── */
   .topbar-hamburger{display:none;width:34px;height:34px;border:1px solid var(--line);background:transparent;border-radius:4px;color:var(--ink-soft);place-items:center;cursor:pointer;transition:all .25s;flex-shrink:0;}
@@ -252,18 +266,26 @@
   .chapter-index-label{font-size:.52rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:400;}
   .chapter-index-title{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;line-height:1.2;color:var(--ink);margin-bottom:48px;}
   .chapter-index-title em{font-style:italic;color:var(--teal);}
-  .chapter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line-2);max-width:880px;margin:0 auto;border:1px solid var(--line-2);}
-  .chapter-card{background:var(--ivory);padding:36px 20px 28px;text-align:center;cursor:pointer;transition:background .35s,transform .35s;}
-  .chapter-card:hover{background:var(--ivory-2);}
-  .chapter-card-num{font-size:.44rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;font-weight:400;}
-  .chapter-card-name{font-family:var(--serif);font-size:1.1rem;font-weight:300;font-style:italic;color:var(--ink);margin-bottom:10px;line-height:1.3;}
-  .chapter-card-count{font-size:.46rem;letter-spacing:.24em;text-transform:uppercase;color:var(--mist);font-weight:400;}
-  .chapter-card-rule{width:20px;height:1px;background:var(--gold);opacity:.35;margin:14px auto 0;}
+  .chapter-grid-hint{font-size:.62rem;letter-spacing:.14em;color:var(--mist);margin-bottom:20px;font-style:italic;font-family:var(--serif);}
+  .chapter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line-2);max-width:880px;margin:0 auto;border:1px solid var(--line-2);box-shadow:0 4px 24px rgba(26,24,20,.06);}
+  .chapter-card{background:var(--ivory);padding:40px 22px 30px;text-align:center;cursor:pointer;transition:all .35s;position:relative;}
+  .chapter-card:hover{background:var(--teal);color:var(--ivory);}
+  .chapter-card:hover .chapter-card-num{color:var(--gold-2);}
+  .chapter-card:hover .chapter-card-name{color:var(--ivory);}
+  .chapter-card:hover .chapter-card-count{color:rgba(244,237,224,.6);}
+  .chapter-card:hover .chapter-card-rule{background:var(--gold-2);opacity:.6;}
+  .chapter-card-num{font-size:.48rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:400;transition:color .35s;}
+  .chapter-card-name{font-family:var(--serif);font-size:1.2rem;font-weight:300;font-style:italic;color:var(--ink);margin-bottom:10px;line-height:1.3;transition:color .35s;}
+  .chapter-card-count{font-size:.5rem;letter-spacing:.24em;text-transform:uppercase;color:var(--mist);font-weight:400;transition:color .35s;}
+  .chapter-card-rule{width:24px;height:1.5px;background:var(--gold);opacity:.4;margin:16px auto 0;transition:all .35s;}
   .chapter-card--cta{background:var(--ivory-2);}
-  .chapter-card--cta:hover{background:rgba(29,89,89,.04);}
-  .chapter-card-icon{margin-bottom:10px;color:var(--gold);opacity:.5;}
+  .chapter-card--cta:hover{background:var(--teal);}
+  .chapter-card-icon{margin-bottom:10px;color:var(--gold);opacity:.5;transition:color .35s;}
+  .chapter-card--cta:hover .chapter-card-icon{color:var(--gold-2);opacity:.8;}
   .chapter-card--cta .chapter-card-name{font-style:normal;color:var(--teal);font-weight:400;}
+  .chapter-card--cta:hover .chapter-card-name{color:var(--ivory);}
   .chapter-card--cta .chapter-card-count{color:var(--ink-soft);}
+  .chapter-card--cta:hover .chapter-card-count{color:rgba(244,237,224,.6);}
   .chapter-index-cta{margin-top:48px;}
   .chapter-index-note{font-size:.78rem;color:var(--ink-soft);line-height:1.8;margin-bottom:18px;font-style:italic;font-family:var(--serif);}
   .chapter-index-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:var(--teal);color:var(--ivory);font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;border:0;border-radius:3px;transition:background .3s;cursor:pointer;}
@@ -323,11 +345,12 @@
   .cg-footer-copy{font-size:.6rem;letter-spacing:.14em;color:rgba(244,237,224,.3);line-height:1.8;}
 
   @media(max-width:980px){
-    .topbar{height:44px;padding:0 16px;}
-    .topbar img{height:22px;}
+    .topbar{height:52px;padding:0 16px;}
+    .topbar img{height:26px;}
     .topbar-home,.topbar #downloadAll{display:none!important;}
     .topbar-hamburger{display:grid;}
     .topbar .selection-pill{padding:6px 10px;font-size:.5rem;letter-spacing:.14em;}
+    .selection-steps{right:-16px;}
     .hero{min-height:88vh;padding:60px 28px 52px;}
     .hero h1{font-size:clamp(2.8rem,11vw,4.4rem);}
     .hero-monogram{height:36px;margin-bottom:36px;}
@@ -363,7 +386,7 @@
     .print-cart-item img{width:56px;height:44px;}
   }
   @media(max-width:560px){
-    .topbar{height:40px;padding:0 14px;gap:6px;}
+    .topbar{height:46px;padding:0 14px;gap:6px;}
     .top-actions{gap:6px;}
     .btn{padding:10px 14px;font-size:.6rem;}
     .topbar-home{width:32px;height:32px;}
@@ -384,9 +407,10 @@
   }
 
   /* ── Admin Mode ── */
-  .admin-trigger{position:fixed;bottom:16px;left:16px;z-index:450;width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);background:rgba(244,237,224,.85);backdrop-filter:blur(8px);color:var(--mist);display:grid;place-items:center;cursor:pointer;opacity:.35;transition:opacity .3s,background .25s;}
-  .admin-trigger:hover{opacity:1;background:var(--ivory);}
-  .admin-trigger.active{opacity:1;background:var(--teal);color:var(--ivory);border-color:var(--teal);}
+  .admin-trigger{display:none;}
+  .topbar-menu-admin{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid var(--line);background:transparent;border-radius:4px;color:var(--mist);cursor:pointer;transition:all .25s;flex-shrink:0;margin:8px 18px 10px auto;}
+  .topbar-menu-admin:hover{border-color:var(--teal);color:var(--teal);}
+  .topbar-menu-admin.active{background:var(--teal);color:var(--ivory);border-color:var(--teal);}
   .admin-login-overlay{position:fixed;inset:0;z-index:500;background:rgba(15,14,12,.6);display:none;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px);}
   .admin-login-overlay.open{display:flex;}
   .admin-login-panel{width:min(400px,100%);padding:40px 36px;background:var(--paper);box-shadow:0 30px 80px rgba(0,0,0,.3);}
@@ -417,7 +441,6 @@
 
   @media(max-width:560px){
     .admin-bar{flex-wrap:wrap;gap:10px;padding:10px 16px;}
-    .admin-trigger{bottom:60px;}
   }
 </style>
 </head>
@@ -479,11 +502,30 @@
       <a href="/" class="btn ghost topbar-home" aria-label="Home">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       </a>
-      <span class="selection-pill"><span id="selectionCount">0</span> selected</span>
+      <button class="selection-pill" type="button" id="selectionPill">
+        <svg class="selection-pill-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span id="selectionCount">0</span> selected
+      </button>
       <button class="btn ghost" type="button" id="downloadAll">Download All</button>
       <button class="topbar-hamburger" type="button" id="topbarHamburger" aria-label="Menu">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
+    </div>
+    <!-- Selection next-steps dropdown -->
+    <div class="selection-steps" id="selectionSteps">
+      <div class="selection-steps-head">
+        <div class="selection-steps-title">Your album shortlist</div>
+        <div class="selection-steps-sub">Here's how to get your selections to us:</div>
+      </div>
+      <div class="selection-steps-list">
+        <div class="selection-step"><span class="selection-step-num">1</span><span>Browse the gallery and tap the heart on photos you love</span></div>
+        <div class="selection-step"><span class="selection-step-num">2</span><span>Open this panel to review your picks and add notes</span></div>
+        <div class="selection-step"><span class="selection-step-num">3</span><span>Send your selection via WhatsApp or copy the list</span></div>
+      </div>
+      <div class="selection-steps-action">
+        <button class="btn ghost" type="button" id="stepsViewSelected">View Selected</button>
+        <button class="btn" type="button" id="stepsOpenDrawer">Open Album Picks</button>
+      </div>
     </div>
     <div class="topbar-menu" id="topbarMenu">
       <a href="/" class="topbar-menu-item">
@@ -497,6 +539,9 @@
       <button class="topbar-menu-item" type="button" id="menuLockGallery">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="1"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         Lock Gallery
+      </button>
+      <button class="topbar-menu-admin" type="button" id="menuAdminTrigger" title="Admin mode" aria-label="Admin mode">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="1"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>
       </button>
     </div>
   </header>
@@ -547,6 +592,7 @@
   <section class="chapter-index" id="chapterIndex">
     <div class="chapter-index-label">Chapters</div>
     <h2 class="chapter-index-title">Your wedding <em>story,</em> in chapters.</h2>
+    <p class="chapter-grid-hint">Select the chapter you want to jump to</p>
     <div class="chapter-grid" id="chapterGrid">
       {% for section in gallery_sections %}
       <div class="chapter-card" data-chapter-name="{{ section.name }}">
@@ -1717,6 +1763,8 @@
     adminTrigger.classList.add('active');
     adminBar.classList.add('visible');
     adminLoginOverlay.classList.remove('open');
+    const mab = document.getElementById('menuAdminTrigger');
+    if(mab) mab.classList.add('active');
     updateHiddenCount();
     buildGallery();
     renderSelection();
@@ -1730,6 +1778,8 @@
     document.body.classList.remove('admin-mode');
     adminTrigger.classList.remove('active');
     adminBar.classList.remove('visible');
+    const mab = document.getElementById('menuAdminTrigger');
+    if(mab) mab.classList.remove('active');
     document.getElementById('adminFilterHidden').classList.remove('active');
     buildGallery();
     renderSelection();
@@ -1857,6 +1907,75 @@
       screenLock.classList.remove('hidden');
       galleryApp.setAttribute('aria-hidden','true');
     });
+  }
+
+  // ═══ SELECTION PILL TOGGLE ═══
+  const selectionPill = document.getElementById('selectionPill');
+  const selectionSteps = document.getElementById('selectionSteps');
+  let selectionViewActive = false;
+  let stepsShownOnce = false;
+
+  selectionPill.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if(!selectionViewActive){
+      // First tap: show next-steps panel (only if never shown or has selections)
+      if(!stepsShownOnce && selected.size > 0){
+        selectionSteps.classList.add('open');
+        stepsShownOnce = true;
+        return;
+      }
+      // Toggle to selected view
+      activeFilter = 'selected';
+      selectionViewActive = true;
+      selectionPill.classList.add('active');
+      applyFilters();
+    } else {
+      // Toggle back to all
+      activeFilter = 'all';
+      selectionViewActive = false;
+      selectionPill.classList.remove('active');
+      applyFilters();
+    }
+  });
+
+  // Close steps panel on outside click
+  document.addEventListener('click', (e) => {
+    if(selectionSteps.classList.contains('open') && !selectionSteps.contains(e.target) && e.target !== selectionPill && !selectionPill.contains(e.target)){
+      selectionSteps.classList.remove('open');
+    }
+  });
+
+  // "View Selected" from steps panel
+  document.getElementById('stepsViewSelected').addEventListener('click', () => {
+    selectionSteps.classList.remove('open');
+    activeFilter = 'selected';
+    selectionViewActive = true;
+    selectionPill.classList.add('active');
+    applyFilters();
+  });
+
+  // "Open Album Picks" from steps panel
+  document.getElementById('stepsOpenDrawer').addEventListener('click', () => {
+    selectionSteps.classList.remove('open');
+    albumDrawer.classList.add('open');
+  });
+
+  // ═══ ADMIN TRIGGER IN HAMBURGER MENU ═══
+  const menuAdminBtn = document.getElementById('menuAdminTrigger');
+  if(menuAdminBtn){
+    menuAdminBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      topbarMenu.classList.remove('open');
+      if(isAdminMode){
+        exitAdminMode();
+      } else {
+        adminLoginOverlay.classList.add('open');
+        document.getElementById('adminPasswordInput').focus();
+      }
+    });
+    // Keep menu admin button in sync with admin state
+    const origEnter = enterAdminMode;
+    const origExit = exitAdminMode;
   }
 
   // Initialize: fetch hidden list, then build

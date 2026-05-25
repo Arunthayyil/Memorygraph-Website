@@ -215,14 +215,11 @@
   @media(max-width:767.98px){
     .story-gallery{background:var(--ivory);padding-top:64px;padding-bottom:34px;}
     .gallery-eyebrow-wrap{margin-bottom:34px;padding:0 20px;}
-    .gallery-masonry{columns:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:0 18px;}
-    .gal-item{margin:0;border-radius:12px;background:#ede5d6;box-shadow:0 10px 30px rgba(26,24,20,.07);}
-    .gal-item img{width:100%;height:100%;aspect-ratio:4/5;object-fit:cover;display:block;}
-    .gal-item.rhythm-feature,.gal-item.rhythm-tall{grid-column:1/-1;}
-    .gal-item.rhythm-feature img{aspect-ratio:4/3;}
-    .gal-item.rhythm-tall img{aspect-ratio:3/4;}
-    .gal-item.rhythm-pair-square img{aspect-ratio:1/1;}
-    .gallery-quote{grid-column:1/-1;padding:36px 4px;margin:0;}
+    .gallery-masonry{display:block;columns:2;column-gap:14px;padding:0 18px;}
+    .gal-item{break-inside:avoid;margin:0 0 14px;border-radius:12px;background:#ede5d6;box-shadow:0 10px 30px rgba(26,24,20,.07);}
+    .gal-item img{width:100%;height:auto;object-fit:contain;display:block;}
+    .gal-item:hover img{transform:none;}
+    .gallery-quote{break-inside:avoid;column-span:all;padding:36px 4px;margin:0 0 14px;}
   }
 </style>
 </head>
@@ -369,7 +366,7 @@
           <blockquote class="gallery-quote-text">{{ img.text }}</blockquote>
         </div>
       {% else %}
-        <div class="gal-item rhythm-{{ img.rhythm }}">
+        <div class="gal-item">
           <img src="{{ img.src }}" alt="{{ title }}" loading="lazy" data-lightbox="{{ img.src }}" data-caption="{{ title }}"/>
         </div>
       {% endif %}

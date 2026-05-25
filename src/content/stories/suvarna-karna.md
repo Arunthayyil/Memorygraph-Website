@@ -31,6 +31,9 @@ gallery:
   - layout: image
     images:
       - https://lh3.googleusercontent.com/d/1qoRbUAifHCh7JkSn3-GtNBfc6ZCUi_ml=s1920
+  - layout: image
+    images:
+      - https://lh3.googleusercontent.com/d/1na-ttWq2imARtsmT1xqK04G8hhttyjTI=s1920
 layout: story.njk
 ---
 

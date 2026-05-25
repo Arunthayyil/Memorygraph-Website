@@ -58,6 +58,9 @@ gallery:
   - layout: image
     images:
       - https://lh3.googleusercontent.com/d/168LLY3e2j4tmcGHwkgXgzgXybcq9hNov=s1920
+  - layout: image
+    images:
+      - https://lh3.googleusercontent.com/d/1bVj0feAHV6OBcO0e5r5_4wY7eVbPEXOp=s1920
 layout: story.njk
 ---
 

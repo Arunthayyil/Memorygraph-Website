@@ -38,7 +38,11 @@ gallery:
     images:
       - https://lh3.googleusercontent.com/d/14GnIv7fEQtOneaLD-GIYe9KCBBXricKD=s1920
     text: ''
+  - layout: full
+    images:
+      - https://lh3.googleusercontent.com/d/1Jqb-6m9U4sWvUlJhKRbsAFJRETaSQsZd=s1920
+    text: ''
 layout: story.njk
 ---
 
-_The kind of light you only get in Kerala mornings ÃÂ¢ÃÂÃÂ soft, slow, and impossible to fake._
+_The kind of light you only get in Kerala mornings ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ soft, slow, and impossible to fake._

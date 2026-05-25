@@ -13,19 +13,18 @@ stat_hours: '12'
 stat_photographers: '3'
 gallery_folder: ''
 gallery:
-  - layout: full
+  - layout: image
     images:
       - /assets/uploads/NYZ03487.jpg.jpeg
-    text: ''
-  - layout: full
+  - layout: image
     images:
       - /assets/uploads/NYZ02660.jpg
-    text: ''
-  - layout: full
+  - layout: image
     images:
       - /assets/uploads/NYZ03650 (1).jpg.jpeg
+  - layout: image
+    images:
       - /assets/uploads/NYZ04794.jpg
-    text: ''
 layout: story.njk
 ---
 

@@ -1787,27 +1787,40 @@
 
   // ═══ STORY PUSH (admin only) ═══
   const storyPushIcon = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>';
-  async function pushToStory(imageSrc, imageId, btn){
+  const spinnerIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="30" stroke-dashoffset="10"><animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur=".8s" repeatCount="indefinite"/></circle></svg>';
+  const checkIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>';
+  let storyPushQueue = [];
+  let storyPushTimer = null;
+
+  // Queue image for batch push — waits 800ms for more clicks, then sends all at once
+  function pushToStory(imageSrc, imageId, btn){
     if(!isAdminMode || !adminToken) return;
     btn.disabled = true;
-    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="30" stroke-dashoffset="10"><animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur=".8s" repeatCount="indefinite"/></circle></svg>';
+    btn.innerHTML = spinnerIcon;
+    storyPushQueue.push({ src: imageSrc, id: imageId, btn });
+    clearTimeout(storyPushTimer);
+    storyPushTimer = setTimeout(flushStoryPush, 800);
+  }
+
+  async function flushStoryPush(){
+    const batch = storyPushQueue.splice(0);
+    if(!batch.length) return;
     try {
       const res = await fetch('/api/admin/story-push', {
         method: 'POST',
         headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${adminToken}`},
-        body: JSON.stringify({ slug: gallerySlug, imageUrl: imageSrc, layout: 'full' })
+        body: JSON.stringify({ slug: gallerySlug, imageUrls: batch.map(b => b.src) })
       });
       const data = await res.json();
       if(res.ok && data.ok){
-        btn.classList.add('pushed');
-        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>';
-        showToast(`${imageId} added to story`, 'success');
+        batch.forEach(b => { b.btn.classList.add('pushed'); b.btn.innerHTML = checkIcon; });
+        showToast(`${batch.length} image${batch.length > 1 ? 's' : ''} added to story`, 'success');
       } else {
-        btn.disabled = false; btn.innerHTML = storyPushIcon;
+        batch.forEach(b => { b.btn.disabled = false; b.btn.innerHTML = storyPushIcon; });
         showToast(data.error || 'Failed to add to story', 'error');
       }
     } catch(e){
-      btn.disabled = false; btn.innerHTML = storyPushIcon;
+      batch.forEach(b => { b.btn.disabled = false; b.btn.innerHTML = storyPushIcon; });
       showToast('Network error', 'error');
     }
   }

@@ -78,6 +78,9 @@
   .selection-steps-action .btn{flex:1;padding:10px;font-size:.52rem;letter-spacing:.18em;text-align:center;}
 
   /* ── Hamburger Menu (mobile only) ── */
+  .topbar-admin{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);background:transparent;border-radius:4px;color:var(--ink-soft);cursor:pointer;transition:all .25s;flex-shrink:0;padding:0;}
+  .topbar-admin:hover{border-color:var(--teal);color:var(--teal);}
+  .topbar-admin.active{background:var(--teal);color:var(--ivory);border-color:var(--teal);}
   .topbar-hamburger{display:none;width:34px;height:34px;border:1px solid var(--line);background:transparent;border-radius:4px;color:var(--ink-soft);place-items:center;cursor:pointer;transition:all .25s;flex-shrink:0;}
   .topbar-hamburger:hover{border-color:var(--teal);color:var(--teal);}
   .topbar-menu{display:none;position:absolute;top:100%;right:16px;min-width:200px;background:var(--ivory);border:1px solid var(--line-2);box-shadow:0 12px 40px rgba(26,24,20,.12);border-radius:4px;overflow:hidden;z-index:110;}
@@ -363,7 +366,7 @@
   @media(max-width:980px){
     .topbar{height:52px;padding:0 16px;}
     .topbar img{height:26px;}
-    .topbar-home,.topbar #downloadAll{display:none!important;}
+    .topbar-home,.topbar #downloadAll,.topbar-admin{display:none!important;}
     .topbar-hamburger{display:grid;}
     .topbar .selection-pill{padding:6px 10px;font-size:.5rem;letter-spacing:.14em;}
     .selection-steps{right:-16px;}
@@ -532,6 +535,9 @@
         <span id="selectionCount">0</span> selected
       </button>
       <button class="btn ghost" type="button" id="downloadAll">Download All</button>
+      <button class="topbar-admin" type="button" id="topbarAdminTrigger" title="Admin settings" aria-label="Admin settings">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
       <button class="topbar-hamburger" type="button" id="topbarHamburger" aria-label="Menu">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
@@ -1864,6 +1870,8 @@
     adminLoginOverlay.classList.remove('open');
     const mab = document.getElementById('menuAdminTrigger');
     if(mab) mab.classList.add('active');
+    const tab = document.getElementById('topbarAdminTrigger');
+    if(tab) tab.classList.add('active');
     updateHiddenCount();
     buildGallery();
     renderSelection();
@@ -1878,6 +1886,8 @@
     adminBar.classList.remove('visible');
     const mab = document.getElementById('menuAdminTrigger');
     if(mab) mab.classList.remove('active');
+    const tab = document.getElementById('topbarAdminTrigger');
+    if(tab) tab.classList.remove('active');
     document.getElementById('adminFilterHidden').classList.remove('active');
     buildGallery();
     renderSelection();
@@ -2060,6 +2070,15 @@
         adminLoginOverlay.classList.add('open');
         document.getElementById('adminPasswordInput').focus();
       }
+    });
+  }
+
+  // ═══ ADMIN TRIGGER IN TOPBAR (desktop gear icon) ═══
+  const topbarAdminBtn = document.getElementById('topbarAdminTrigger');
+  if(topbarAdminBtn){
+    topbarAdminBtn.addEventListener('click', () => {
+      if(isAdminMode){ exitAdminMode(); }
+      else { adminLoginOverlay.classList.add('open'); document.getElementById('adminPasswordInput').focus(); }
     });
   }
 

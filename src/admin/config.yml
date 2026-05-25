@@ -115,6 +115,7 @@ collections:
       - { label: "Selection Title", name: "selection_title", widget: "string", default: "Select the frames<br><em>you want printed.</em>" }
       - { label: "Selection Note", name: "selection_note", widget: "text" }
       - { label: "Hero Image", name: "hero_image", widget: "image" }
+      - { label: "Hero Video (MP4)", name: "hero_video", widget: "string", required: false, hint: "Optional. Paste a URL to an MP4 video file. When set, the hero plays this video instead of showing the static image. The hero image is still used as a poster/fallback." }
       - { label: "Secondary Hero Image", name: "hero_image_secondary", widget: "image", required: false }
       - { label: "Password Screen Image", name: "lock_image", widget: "image", required: false }
       - { label: "Film Quality Label", name: "film_quality", widget: "string", default: "4K", required: false }

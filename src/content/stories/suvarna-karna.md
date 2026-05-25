@@ -26,7 +26,11 @@ gallery:
       - /assets/uploads/NYZ03650 (1).jpg.jpeg
       - /assets/uploads/NYZ04794.jpg
     text: ''
+  - layout: full
+    images:
+      - https://lh3.googleusercontent.com/d/1na-ttWq2imARtsmT1xqK04G8hhttyjTI=s1920
+    text: ''
 layout: story.njk
 ---
 
-_The kind of light you only get in Kerala mornings — soft, slow, and impossible to fake._
+_The kind of light you only get in Kerala mornings â soft, slow, and impossible to fake._

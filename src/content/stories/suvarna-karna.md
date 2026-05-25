@@ -28,6 +28,9 @@ gallery:
   - layout: image
     images:
       - https://lh3.googleusercontent.com/d/1k_e0xusqqGpIYKvcCEU52ZIF0SjbprZg=s1920
+  - layout: image
+    images:
+      - https://lh3.googleusercontent.com/d/1qoRbUAifHCh7JkSn3-GtNBfc6ZCUi_ml=s1920
 layout: story.njk
 ---
 

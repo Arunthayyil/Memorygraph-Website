@@ -50,7 +50,11 @@ gallery:
     images:
       - https://lh3.googleusercontent.com/d/168LLY3e2j4tmcGHwkgXgzgXybcq9hNov=s1920
     text: ''
+  - layout: full
+    images:
+      - https://lh3.googleusercontent.com/d/1-nkAYwTxcIZGEcU6XdtjEl5EGacZXwOe=s1920
+    text: ''
 layout: story.njk
 ---
 
-_The kind of light you only get in Kerala mornings ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ soft, slow, and impossible to fake._
+_The kind of light you only get in Kerala mornings ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ soft, slow, and impossible to fake._

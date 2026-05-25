@@ -207,7 +207,28 @@ module.exports = function(eleventyConfig) {
       });
     }
 
-    return images;
+    const rhythm = [
+      "feature",
+      "pair-portrait",
+      "pair-portrait",
+      "tall",
+      "pair-square",
+      "pair-square",
+      "tall",
+      "pair-portrait",
+      "pair-portrait",
+      "feature",
+      "pair-square",
+      "pair-square"
+    ];
+    let imageIndex = 0;
+
+    return images.map(item => {
+      if (item.type !== "image") return item;
+      const image = { ...item, rhythm: rhythm[imageIndex % rhythm.length] };
+      imageIndex += 1;
+      return image;
+    });
   });
 
   // Google Drive → direct image URL converter

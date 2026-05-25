@@ -144,13 +144,13 @@
   .section-title{font-family:var(--serif);font-size:clamp(2.6rem,5vw,4.8rem);font-weight:300;line-height:1.08;color:var(--ink);}
   .section-title em{font-style:italic;color:var(--teal);}
   .section-note{max-width:460px;color:var(--ink-soft);font-size:.86rem;line-height:1.8;}
-  .photo-grid{position:relative;width:100%;}
-  .photo-card,.quote-card{position:absolute;background:var(--ivory-2);overflow:hidden;border-radius:6px;transition:transform .35s ease,opacity .35s ease,box-shadow .35s ease;box-shadow:0 2px 12px rgba(26,24,20,.06);}
-  .photo-card:hover{box-shadow:0 8px 32px rgba(26,24,20,.12);}
+  .photo-grid{position:relative;width:100%;max-width:1420px;margin:0 auto;}
+  .photo-card,.quote-card{position:absolute;background:#ede5d6;overflow:hidden;border-radius:14px;transition:transform .35s ease,opacity .35s ease,box-shadow .35s ease;box-shadow:0 12px 34px rgba(26,24,20,.075);}
+  .photo-card:hover{transform:translateY(-2px);box-shadow:0 18px 44px rgba(26,24,20,.11);}
   .photo-card.hidden,.quote-card.hidden{display:none!important;}
-  .photo-card img{width:100%;height:auto;display:block;transition:transform .5s cubic-bezier(.25,.46,.45,.94),filter .4s;}
-  .photo-card:hover img{transform:scale(1.03);filter:saturate(1.05);}
-  .quote-card{padding:42px 34px;background:var(--ink);color:var(--ivory);border-radius:6px;}
+  .photo-card img{width:100%;height:auto;object-fit:contain;display:block;transition:filter .35s;}
+  .photo-card:hover img{filter:saturate(1.03) contrast(1.01);}
+  .quote-card{padding:42px 34px;background:var(--ink);color:var(--ivory);border-radius:14px;}
   .quote-card blockquote{font-family:var(--serif);font-size:clamp(1.45rem,2.4vw,2.25rem);font-style:italic;font-weight:300;line-height:1.32;color:var(--ivory);}
   .quote-card cite{display:block;margin-top:22px;font-style:normal;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-2);}
   .photo-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:14px;background:linear-gradient(180deg,rgba(26,24,20,.44),rgba(26,24,20,0) 42%,rgba(26,24,20,.55));opacity:0;transition:opacity .25s;}
@@ -381,6 +381,8 @@
     .chapter-card{padding:28px 16px 22px;}
     .chapter-card-name{font-size:1rem;}
     .gallery-wrap{padding:48px 20px 90px;}
+    .photo-grid{max-width:none;}
+    .photo-card,.quote-card{border-radius:13px;}
     .section-head{display:block;}
     .section-note{margin-top:18px;}
     .gallery-credit{padding:48px 24px;}
@@ -423,6 +425,11 @@
     .credit-text{font-size:.6rem;white-space:normal;text-align:center;}
     .section-jump{bottom:16px;right:16px;transform:scale(.8);transform-origin:bottom right;}
     .lb-action span{display:none;}
+    .photo-card,.quote-card{border-radius:12px;}
+  }
+
+  @media(min-width:1500px){
+    .photo-grid{max-width:1660px;}
   }
 
   /* ── Admin Mode ── */
@@ -1112,18 +1119,19 @@
   }
 
   // ═══ MASONRY LAYOUT (virtual scroll + batched) ═══
-  const MASONRY_GAP = 18;
-  const DEFAULT_ASPECT = 3/2; // fallback aspect ratio for images before load
+  const DEFAULT_MASONRY_GAP = 20;
+  const DEFAULT_ASPECT = 2/3; // portrait-friendly fallback before image ratios load
   const RENDER_BUFFER = 800;  // px above/below viewport to pre-render
   let masonryRAF = null;
   let cardAspects = {};  // cache image aspect ratios by src
   let masonryPositions = []; // precomputed {x, y, w, h} for each visible card index
 
-  function getMasonryCols(){
+  function getMasonryConfig(){
     const w = photoGrid.offsetWidth;
-    if(w <= 560) return 1;
-    if(w <= 980) return 2;
-    return 4;
+    if(w <= 560) return { cols: 1, gap: 14 };
+    if(w <= 980) return { cols: 2, gap: 16 };
+    if(window.innerWidth >= 1500) return { cols: 4, gap: DEFAULT_MASONRY_GAP };
+    return { cols: 3, gap: DEFAULT_MASONRY_GAP };
   }
 
   function layoutMasonry(){
@@ -1135,10 +1143,13 @@
     const cards = Array.from(photoGrid.children).filter(c => !c.classList.contains('hidden') && c.style.display !== 'none');
     if(!cards.length){ photoGrid.style.height = '0px'; return; }
 
-    const cols = getMasonryCols();
+    const masonryConfig = getMasonryConfig();
+    const cols = masonryConfig.cols;
+    const gap = masonryConfig.gap;
     const gridW = photoGrid.offsetWidth;
-    const colW = (gridW - MASONRY_GAP * (cols - 1)) / cols;
+    const colW = (gridW - gap * (cols - 1)) / cols;
     const colHeights = new Array(cols).fill(0);
+    let sequenceIndex = 0;
 
     // Phase 1: compute positions using cached aspect ratios (no DOM reads per card)
     masonryPositions = [];
@@ -1161,12 +1172,13 @@
         h = hasDesc ? 210 : 170;
         masonryPositions.push({ x, y, w, h });
         // Reset all columns — small gap after divider
-        colHeights.fill(maxH + h + 10);
+        colHeights.fill(maxH + h + gap);
+        sequenceIndex = 0;
         return;
       }
 
       if(isQuote){
-        h = 220;
+        h = cols === 1 ? 210 : 240;
       } else if(cardAspects[src]){
         h = colW / cardAspects[src];
       } else if(img && img.naturalWidth > 0){
@@ -1177,12 +1189,13 @@
         h = colW / DEFAULT_ASPECT;
       }
 
-      const col = colHeights.indexOf(Math.min(...colHeights));
-      x = col * (colW + MASONRY_GAP);
+      const col = sequenceIndex % cols;
+      x = col * (colW + gap);
       y = colHeights[col];
 
       masonryPositions.push({ x, y, w: colW, h });
-      colHeights[col] += h + MASONRY_GAP;
+      colHeights[col] += h + gap;
+      sequenceIndex++;
     });
 
     const totalH = Math.max(...colHeights);
@@ -1203,6 +1216,7 @@
 
       card.style.position = 'absolute';
       card.style.width = p.w + 'px';
+      card.style.height = p.h + 'px';
       card.style.left = p.x + 'px';
       card.style.top = p.y + 'px';
       card.style.visibility = inView ? 'visible' : 'hidden';

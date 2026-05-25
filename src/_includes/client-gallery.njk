@@ -426,6 +426,12 @@
     .section-jump{bottom:16px;right:16px;transform:scale(.8);transform-origin:bottom right;}
     .lb-action span{display:none;}
     .photo-card,.quote-card{border-radius:12px;}
+    .photo-overlay{padding:8px;}
+    .photo-id{font-size:.46rem;letter-spacing:.12em;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .photo-controls{gap:5px;flex-wrap:wrap;justify-content:flex-end;max-width:100%;}
+    .icon-btn{width:30px;height:30px;}
+    .icon-btn svg{width:16px;height:16px;}
+    .photo-card.selected::after{top:8px;right:8px;padding:4px 7px;font-size:.42rem;letter-spacing:.12em;}
   }
 
   @media(min-width:1500px){
@@ -1128,7 +1134,7 @@
 
   function getMasonryConfig(){
     const w = photoGrid.offsetWidth;
-    if(w <= 560) return { cols: 1, gap: 14 };
+    if(w <= 560) return { cols: 2, gap: 14 };
     if(w <= 980) return { cols: 2, gap: 16 };
     if(window.innerWidth >= 1500) return { cols: 4, gap: DEFAULT_MASONRY_GAP };
     return { cols: 3, gap: DEFAULT_MASONRY_GAP };

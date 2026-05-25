@@ -9,7 +9,8 @@
 <link rel="apple-touch-icon" href="/assets/logo/favicon-180.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/></noscript>
 <link rel="stylesheet" href="/assets/css/global.css"/>
 <link rel="stylesheet" href="/assets/css/animations.css"/>
 <style>
@@ -407,7 +408,7 @@
   }
 
   /* ── Admin Mode ── */
-  .admin-trigger{display:none;}
+  /* admin trigger moved to hamburger menu (.topbar-menu-admin) */
   .topbar-menu-admin{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid var(--line);background:transparent;border-radius:4px;color:var(--mist);cursor:pointer;transition:all .25s;flex-shrink:0;margin:8px 18px 10px auto;}
   .topbar-menu-admin:hover{border-color:var(--teal);color:var(--teal);}
   .topbar-menu-admin.active{background:var(--teal);color:var(--ivory);border-color:var(--teal);}
@@ -465,10 +466,7 @@
   </div>
 </div>
 
-<!-- Admin trigger (discreet key icon) -->
-<button class="admin-trigger" id="adminTrigger" type="button" title="Admin mode" aria-label="Admin mode">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="1"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>
-</button>
+<!-- Admin trigger moved to hamburger menu -->
 
 <div class="admin-login-overlay" id="adminLoginOverlay">
   <div class="admin-login-panel">
@@ -887,12 +885,7 @@
     }
   });
 
-  const lockAgainBtn = document.getElementById('lockAgain');
-  if(lockAgainBtn) lockAgainBtn.addEventListener('click', () => {
-    sessionStorage.removeItem(authKey);
-    screenLock.classList.remove('hidden');
-    galleryApp.setAttribute('aria-hidden','true');
-  });
+  // Lock-again handled by hamburger menu item #menuLockGallery
 
   function saveSelection(){
     localStorage.setItem(storageKey, JSON.stringify([...selected]));
@@ -1045,8 +1038,14 @@
   }
 
   function applyFilters(){
-    document.querySelectorAll('.photo-card,.quote-card').forEach((card) => {
+    const hideNonAll = activeFilter !== 'all';
+    document.querySelectorAll('.photo-card,.quote-card,.section-divider').forEach((card) => {
       const type = card.dataset.type;
+      if(type === 'section'){
+        // Hide section dividers when not showing all photos
+        card.classList.toggle('hidden', hideNonAll);
+        return;
+      }
       const matchesFilter = activeFilter === 'all' || (activeFilter === 'selected' && selected.has(card.dataset.id)) || card.dataset.cat === activeFilter || (activeFilter !== 'selected' && type === 'quote');
       card.classList.toggle('hidden', !matchesFilter);
     });
@@ -1132,13 +1131,14 @@
 
     // Phase 2: batch write all positions + virtual scroll (show only near viewport)
     const scrollY = window.scrollY || window.pageYOffset;
-    const gridTop = photoGrid.getBoundingClientRect().top + scrollY;
+    // Update cached position after layout changes
+    updateCachedGridTop();
     const vpTop = scrollY - RENDER_BUFFER;
     const vpBottom = scrollY + window.innerHeight + RENDER_BUFFER;
 
     cards.forEach((card, i) => {
       const p = masonryPositions[i];
-      const cardTop = gridTop + p.y;
+      const cardTop = cachedGridTop + p.y;
       const cardBottom = cardTop + p.h;
       const inView = cardBottom >= vpTop && cardTop <= vpBottom;
 
@@ -1171,16 +1171,20 @@
     });
   }, {passive:true});
 
+  let cachedGridTop = 0;
+  function updateCachedGridTop(){
+    cachedGridTop = photoGrid.getBoundingClientRect().top + (window.scrollY || window.pageYOffset);
+  }
+
   function _applyVirtualScroll(){
     const cards = Array.from(photoGrid.children).filter(c => !c.classList.contains('hidden') && c.style.display !== 'none');
     if(!masonryPositions.length || cards.length !== masonryPositions.length) return;
     const scrollY = window.scrollY || window.pageYOffset;
-    const gridTop = photoGrid.getBoundingClientRect().top + scrollY;
     const vpTop = scrollY - RENDER_BUFFER;
     const vpBottom = scrollY + window.innerHeight + RENDER_BUFFER;
     cards.forEach((card, i) => {
       const p = masonryPositions[i];
-      const cardTop = gridTop + p.y;
+      const cardTop = cachedGridTop + p.y;
       const cardBottom = cardTop + p.h;
       const inView = cardBottom >= vpTop && cardTop <= vpBottom;
       card.style.visibility = inView ? 'visible' : 'hidden';
@@ -1188,14 +1192,15 @@
     });
   }
 
-  // Re-layout on window resize
+  // Re-layout on window resize (also update cached grid position)
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(layoutMasonry, 150);
+    resizeTimer = setTimeout(() => { updateCachedGridTop(); layoutMasonry(); }, 150);
   });
 
-  // Re-layout when images load (aspect ratio now known)
+  // Re-layout when images load (aspect ratio now known) — debounced to avoid thrashing
+  let imgLoadTimer = null;
   function observeImageLoads(){
     photoGrid.querySelectorAll('img').forEach(img => {
       if(img.complete){
@@ -1208,9 +1213,14 @@
         if(this.naturalWidth > 0){
           cardAspects[this.getAttribute('src')] = this.naturalWidth / this.naturalHeight;
         }
-        layoutMasonry();
+        // Debounce: batch relayouts from multiple simultaneous image loads
+        clearTimeout(imgLoadTimer);
+        imgLoadTimer = setTimeout(layoutMasonry, 80);
       }, {once:true});
-      img.addEventListener('error', () => layoutMasonry(), {once:true});
+      img.addEventListener('error', () => {
+        clearTimeout(imgLoadTimer);
+        imgLoadTimer = setTimeout(layoutMasonry, 80);
+      }, {once:true});
     });
   }
 
@@ -1712,7 +1722,6 @@
   let adminShowHiddenOnly = false;
   const adminTokenKey = `memorygraph_admin_token`;
 
-  const adminTrigger = document.getElementById('adminTrigger');
   const adminLoginOverlay = document.getElementById('adminLoginOverlay');
   const adminBar = document.getElementById('adminBar');
   const hiddenCountEl = document.getElementById('hiddenCount');
@@ -1760,7 +1769,6 @@
   function enterAdminMode(){
     isAdminMode = true;
     document.body.classList.add('admin-mode');
-    adminTrigger.classList.add('active');
     adminBar.classList.add('visible');
     adminLoginOverlay.classList.remove('open');
     const mab = document.getElementById('menuAdminTrigger');
@@ -1776,7 +1784,6 @@
     adminShowHiddenOnly = false;
     sessionStorage.removeItem(adminTokenKey);
     document.body.classList.remove('admin-mode');
-    adminTrigger.classList.remove('active');
     adminBar.classList.remove('visible');
     const mab = document.getElementById('menuAdminTrigger');
     if(mab) mab.classList.remove('active');
@@ -1784,16 +1791,6 @@
     buildGallery();
     renderSelection();
   }
-
-  // Admin trigger click
-  adminTrigger.addEventListener('click', () => {
-    if(isAdminMode){
-      exitAdminMode();
-    } else {
-      adminLoginOverlay.classList.add('open');
-      document.getElementById('adminPasswordInput').focus();
-    }
-  });
 
   // Close admin login on overlay click
   adminLoginOverlay.addEventListener('click', (e) => {
@@ -1973,9 +1970,6 @@
         document.getElementById('adminPasswordInput').focus();
       }
     });
-    // Keep menu admin button in sync with admin state
-    const origEnter = enterAdminMode;
-    const origExit = exitAdminMode;
   }
 
   // Initialize: fetch hidden list, then build
@@ -1988,6 +1982,24 @@
       renderSelection();
     }
   })();
+</script>
+
+<!-- GOOGLE ANALYTICS 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FJVMP2JFEG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-FJVMP2JFEG');
+</script>
+
+<!-- MICROSOFT CLARITY -->
+<script>
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window,document,"clarity","script","wwps83ge4r");
 </script>
 </body>
 </html>

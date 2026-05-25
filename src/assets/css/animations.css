@@ -64,7 +64,7 @@ body {
   pointer-events: none;
 }
 .page-transition-overlay.active {
-  animation: pageTrans .7s cubic-bezier(.22,1,.36,1) forwards;
+  animation: pageTrans .45s cubic-bezier(.22,1,.36,1) forwards;
 }
 @keyframes pageTrans {
   0%   { transform: scaleY(0); transform-origin: top; }

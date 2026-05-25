@@ -12,8 +12,8 @@
   const preloader = document.querySelector('.preloader');
   if (preloader) {
     // Trigger flash effect after line animation
-    setTimeout(() => preloader.classList.add('flash'), 350);
-    // Hide preloader
+    setTimeout(() => preloader.classList.add('flash'), 200);
+    // Hide preloader quickly
     setTimeout(() => {
       preloader.classList.add('done');
       document.body.style.overflow = '';
@@ -21,36 +21,15 @@
       setTimeout(() => {
         document.querySelectorAll('.hero-eyebrow, .hero-headline, .hero-subline, .hero-actions, .hero-meta, .hero-scroll')
           .forEach(el => el.style.animationPlayState = 'running');
-      }, 200);
-    }, 500);
+      }, 100);
+    }, 350);
     document.body.style.overflow = 'hidden';
   }
 
   // ═══════════════════════════════════════════════
-  // 2. LENIS SMOOTH SCROLL
+  // 2. SMOOTH SCROLL (native CSS — Lenis removed for performance)
   // ═══════════════════════════════════════════════
-  let lenis;
-  if (window.Lenis) {
-    lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    });
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    // Connect Lenis to GSAP ScrollTrigger
-    if (window.gsap && window.ScrollTrigger) {
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add((time) => {
-        lenis.raf(time * 1000);
-      });
-      gsap.ticker.lagSmoothing(0);
-    }
-  }
+  let lenis = null; // kept as null for compat with lightbox start/stop calls
 
   // ═══════════════════════════════════════════════
   // 3. GSAP SCROLL ANIMATIONS
@@ -405,7 +384,7 @@
       }
       setTimeout(() => {
         window.location.href = href;
-      }, transitionOverlay ? 500 : 0);
+      }, transitionOverlay ? 300 : 0);
     });
   });
 

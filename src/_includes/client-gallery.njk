@@ -121,6 +121,21 @@
   @keyframes heroFloat{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-6px);}}
   .hero-scroll-hint svg{opacity:.4;}
 
+  /* ── Portrait hero — split layout (desktop only) ── */
+  @media(min-width:981px){
+    .hero.portrait-hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;padding:0;text-align:left;align-items:stretch;}
+    .hero.portrait-hero .hero-bg{position:relative;inset:auto;grid-column:2;grid-row:1/3;background-position:center top;}
+    .hero.portrait-hero .hero-overlay{position:relative;inset:auto;grid-column:1;grid-row:1/3;background:var(--ink);}
+    .hero.portrait-hero .hero-copy{position:absolute;z-index:2;top:50%;left:0;width:50%;transform:translateY(-50%);padding:0 56px;max-width:none;}
+    .hero.portrait-hero .hero-monogram{margin-bottom:40px;}
+    .hero.portrait-hero .hero-sub{margin:0 0 36px;}
+    .hero.portrait-hero .hero-meta{justify-content:flex-start;}
+    .hero.portrait-hero .hero-label::before{display:none;}
+    .hero.portrait-hero .hero-scroll-hint{left:56px;transform:none;align-items:flex-start;}
+    @keyframes heroFloatP{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+    .hero.portrait-hero .hero-scroll-hint{animation-name:heroFloatP;}
+  }
+
   .gallery-wrap{padding:72px 56px 120px;}
   .section-head{display:flex;align-items:end;justify-content:space-between;gap:40px;margin-bottom:40px;}
   .section-title{font-family:var(--serif);font-size:clamp(2.6rem,5vw,4.8rem);font-weight:300;line-height:1.08;color:var(--ink);}
@@ -820,6 +835,21 @@
 </div>
 
 <script>
+  // Auto-detect portrait hero → switch to split layout (desktop only)
+  (function(){
+    if(window.innerWidth < 981) return;
+    var hero = document.querySelector('.hero');
+    var bgEl = document.querySelector('.hero-bg');
+    if(!hero || !bgEl) return;
+    var bgUrl = getComputedStyle(bgEl).backgroundImage.replace(/url\(['"]?|['"]?\)/g, '');
+    if(!bgUrl || bgUrl === 'none') return;
+    var img = new Image();
+    img.onload = function(){
+      if(img.naturalHeight > img.naturalWidth) hero.classList.add('portrait-hero');
+    };
+    img.src = bgUrl;
+  })();
+
   const galleryPassword = {{ password | json | safe }};
   const gallerySlug = {{ page.fileSlug | json | safe }};
   const galleryTitle = {{ title | json | safe }};

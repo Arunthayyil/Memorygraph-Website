@@ -1134,7 +1134,7 @@
 
   function getMasonryConfig(){
     const w = photoGrid.offsetWidth;
-    if(w <= 560) return { cols: 2, gap: 14 };
+    if(w <= 560) return { cols: 2, gap: 14, mixed: true };
     if(w <= 980) return { cols: 2, gap: 16 };
     if(window.innerWidth >= 1500) return { cols: 4, gap: DEFAULT_MASONRY_GAP };
     return { cols: 3, gap: DEFAULT_MASONRY_GAP };
@@ -1155,7 +1155,9 @@
     const gridW = photoGrid.offsetWidth;
     const colW = (gridW - gap * (cols - 1)) / cols;
     const colHeights = new Array(cols).fill(0);
-    let sequenceIndex = 0;
+    const mobilePattern = [2, 1, 1, 1, 1, 2, 1, 1];
+    let visualIndex = 0;
+    let columnIndex = 0;
 
     // Phase 1: compute positions using cached aspect ratios (no DOM reads per card)
     masonryPositions = [];
@@ -1179,29 +1181,46 @@
         masonryPositions.push({ x, y, w, h });
         // Reset all columns — small gap after divider
         colHeights.fill(maxH + h + gap);
-        sequenceIndex = 0;
+        visualIndex = 0;
+        columnIndex = 0;
         return;
+      }
+
+      const fullSpan = !!(masonryConfig.mixed && (isQuote || mobilePattern[visualIndex % mobilePattern.length] === 2));
+      if(fullSpan){
+        const maxH = Math.max(...colHeights);
+        x = 0;
+        y = maxH;
+        w = gridW;
+      }else{
+        const col = columnIndex % cols;
+        x = col * (colW + gap);
+        y = colHeights[col];
+        w = colW;
       }
 
       if(isQuote){
         h = cols === 1 ? 210 : 240;
       } else if(cardAspects[src]){
-        h = colW / cardAspects[src];
+        h = w / cardAspects[src];
       } else if(img && img.naturalWidth > 0){
         const aspect = img.naturalWidth / img.naturalHeight;
         cardAspects[src] = aspect;
-        h = colW / aspect;
+        h = w / aspect;
       } else {
-        h = colW / DEFAULT_ASPECT;
+        h = w / DEFAULT_ASPECT;
       }
 
-      const col = sequenceIndex % cols;
-      x = col * (colW + gap);
-      y = colHeights[col];
-
-      masonryPositions.push({ x, y, w: colW, h });
-      colHeights[col] += h + gap;
-      sequenceIndex++;
+      masonryPositions.push({ x, y, w, h });
+      if(fullSpan){
+        colHeights.fill(y + h + gap);
+        columnIndex = 0;
+      }else{
+        const col = columnIndex % cols;
+        colHeights[col] += h + gap;
+        columnIndex++;
+      }
+      visualIndex++;
     });
 
     const totalH = Math.max(...colHeights);

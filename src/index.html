@@ -450,6 +450,14 @@
     .film-play-btn:hover svg{transform:scale(1.15);}
     @keyframes filmBtnPulse{0%,100%{border-color:rgba(244,237,224,.3);box-shadow:0 0 0 0 rgba(184,150,90,0);}50%{border-color:rgba(184,150,90,.5);box-shadow:0 0 24px rgba(184,150,90,.12);}}
 
+    /* Progress bar — thin line at bottom */
+    .film-progress{position:absolute;bottom:0;left:0;right:0;height:3px;z-index:6;background:rgba(244,237,224,.1);cursor:pointer;opacity:0;pointer-events:none;transition:opacity .4s,height .2s;}
+    .film-showcase.watching .film-progress{opacity:1;pointer-events:auto;}
+    .film-progress:hover{height:6px;}
+    .film-progress-bar{height:100%;background:var(--gold);width:0;transition:none;pointer-events:none;}
+    .film-progress-time{position:absolute;bottom:10px;left:12px;z-index:6;font-family:var(--sans);font-size:.55rem;letter-spacing:.08em;color:rgba(244,237,224,.4);opacity:0;pointer-events:none;transition:opacity .4s;font-variant-numeric:tabular-nums;}
+    .film-showcase.watching .film-progress-time{opacity:1;}
+
     /* Controls bar — bottom right, visible when watching */
     .film-controls{position:absolute;bottom:24px;right:24px;z-index:5;display:flex;gap:8px;opacity:0;pointer-events:none;transition:opacity .4s;}
     .film-showcase.watching .film-controls{opacity:1;pointer-events:auto;}
@@ -661,6 +669,8 @@
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
   </div>
+  <div class="film-progress" id="filmProgress"><div class="film-progress-bar" id="filmProgressBar"></div></div>
+  <div class="film-progress-time" id="filmTime"></div>
 </section>
 
 <!-- STORIES CAROUSEL -->
@@ -992,8 +1002,8 @@
       full.play().catch(() => { full.muted = true; full.play().catch(()=>{}); });
       section.classList.add('watching');
       muteBtn.innerHTML = volOn;
-      // Mobile: auto-enter fullscreen
-      if(isMobile()) setTimeout(enterFs, 100);
+      // Auto-enter fullscreen on all devices
+      setTimeout(enterFs, 100);
     }
 
     function backToTeaser(){
@@ -1021,6 +1031,23 @@
       e.stopPropagation();
       full.muted = !full.muted;
       muteBtn.innerHTML = full.muted ? volOff : volOn;
+    });
+
+    // Progress bar
+    const progWrap = document.getElementById('filmProgress');
+    const progBar = document.getElementById('filmProgressBar');
+    const timeEl = document.getElementById('filmTime');
+    function fmt(s){ const m=Math.floor(s/60); return m+':'+(''+(Math.floor(s)%60)).padStart(2,'0'); }
+    full.addEventListener('timeupdate', () => {
+      if(!full.duration) return;
+      const pct = (full.currentTime / full.duration) * 100;
+      progBar.style.width = pct + '%';
+      timeEl.textContent = fmt(full.currentTime) + ' / ' + fmt(full.duration);
+    });
+    progWrap.addEventListener('click', (e) => {
+      if(!full.duration) return;
+      const rect = progWrap.getBoundingClientRect();
+      full.currentTime = ((e.clientX - rect.left) / rect.width) * full.duration;
     });
 
     // Desktop fullscreen toggle

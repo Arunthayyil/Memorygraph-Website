@@ -430,50 +430,45 @@
       .album-delivery-features { gap:24px; }
     }
   
-    /* ── FILM SHOWCASE ── */
-    .film-showcase{position:relative;background:var(--ink);overflow:hidden;}
-    .film-showcase-inner{max-width:1400px;margin:0 auto;padding:120px 56px 100px;}
-    .film-showcase-header{text-align:center;margin-bottom:56px;position:relative;z-index:2;}
-    .film-showcase .section-label{color:var(--gold);justify-content:center;}
-    .film-showcase .section-label::before{display:none;}
-    .film-showcase-title{font-family:var(--serif);font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:300;line-height:1.12;color:var(--ivory);margin-top:20px;}
-    .film-showcase-title em{font-style:italic;color:var(--gold-2);}
-    .film-showcase-sub{font-family:var(--sans);font-size:.88rem;font-weight:300;color:rgba(244,237,224,.45);margin-top:16px;line-height:1.8;max-width:540px;margin-left:auto;margin-right:auto;}
-    .film-showcase-meta{display:flex;justify-content:center;gap:28px;margin-top:20px;font-family:var(--sans);font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(244,237,224,.3);}
-    .film-showcase-meta span{display:flex;align-items:center;gap:8px;}
-    .film-showcase-meta span::before{content:'';width:14px;height:1px;background:var(--gold-2);opacity:.4;}
-    .film-showcase-meta span:first-child::before{display:none;}
+    /* ── FILM SHOWCASE (full-bleed looping video) ── */
+    .film-showcase{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#0a0a09;}
+    .film-showcase video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+    .film-overlay{position:absolute;inset:0;z-index:1;background:rgba(26,24,20,.45);transition:background .8s;}
+    .film-showcase.watching .film-overlay{background:transparent;pointer-events:none;}
+    .film-content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;transition:opacity .6s;}
+    .film-showcase.watching .film-content{opacity:0;pointer-events:none;}
+    .film-eyebrow{font-family:var(--sans);font-size:.58rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+    .film-title{font-family:var(--serif);font-size:clamp(2.4rem,5vw,4.2rem);font-weight:300;line-height:1.1;color:var(--ivory);}
+    .film-title em{font-style:italic;color:var(--gold-2);}
+    .film-sub{font-family:var(--sans);font-size:.85rem;font-weight:300;color:rgba(244,237,224,.5);margin-top:14px;line-height:1.8;max-width:480px;}
+    .film-meta{display:flex;gap:24px;margin-top:18px;font-family:var(--sans);font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,237,224,.28);}
+    .film-meta span+span::before{content:'\00b7';margin-right:24px;}
 
-    .film-player-wrap{position:relative;width:100%;aspect-ratio:16/9;background:#0a0a09;overflow:hidden;cursor:pointer;box-shadow:0 40px 100px rgba(0,0,0,.5);}
-    .film-player-wrap video{width:100%;height:100%;object-fit:cover;display:block;}
-    .film-poster{position:absolute;inset:0;z-index:2;background-size:cover;background-position:center;transition:opacity .8s;}
-    .film-poster.hidden{opacity:0;pointer-events:none;}
-    .film-poster-overlay{position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse at center,rgba(26,24,20,.15) 0%,rgba(26,24,20,.55) 100%);transition:opacity .8s;}
-    .film-poster-overlay.hidden{opacity:0;pointer-events:none;}
+    .film-play-btn{margin-top:36px;display:inline-flex;align-items:center;gap:14px;padding:16px 36px;border:1px solid rgba(244,237,224,.3);background:rgba(26,24,20,.3);backdrop-filter:blur(16px);color:var(--ivory);font-family:var(--sans);font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;transition:all .4s;border-radius:0;}
+    .film-play-btn:hover{border-color:var(--gold);background:rgba(184,150,90,.15);color:var(--gold);}
+    .film-play-btn svg{flex-shrink:0;transition:transform .3s;}
+    .film-play-btn:hover svg{transform:scale(1.15);}
 
-    .film-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:4;width:96px;height:96px;border-radius:50%;border:1.5px solid rgba(244,237,224,.35);background:rgba(26,24,20,.3);backdrop-filter:blur(16px);display:grid;place-items:center;transition:all .5s cubic-bezier(.22,1,.36,1);cursor:pointer;}
-    .film-play-btn:hover{border-color:var(--gold);background:rgba(184,150,90,.15);transform:translate(-50%,-50%) scale(1.1);}
-    .film-play-btn svg{margin-left:4px;color:var(--ivory);transition:color .3s;}
-    .film-play-btn:hover svg{color:var(--gold);}
-    .film-play-label{position:absolute;top:50%;left:50%;transform:translate(-50%,58px);z-index:4;font-family:var(--sans);font-size:.55rem;letter-spacing:.32em;text-transform:uppercase;color:rgba(244,237,224,.4);white-space:nowrap;pointer-events:none;transition:opacity .5s;}
+    /* Controls bar — bottom right, visible when watching */
+    .film-controls{position:absolute;bottom:24px;right:24px;z-index:5;display:flex;gap:8px;opacity:0;pointer-events:none;transition:opacity .4s;}
+    .film-showcase.watching .film-controls{opacity:1;pointer-events:auto;}
+    .film-ctrl{width:42px;height:42px;border-radius:50%;border:1px solid rgba(244,237,224,.25);background:rgba(26,24,20,.4);backdrop-filter:blur(10px);display:grid;place-items:center;cursor:pointer;color:var(--ivory);transition:all .25s;}
+    .film-ctrl:hover{border-color:var(--gold);color:var(--gold);}
 
-    .film-controls{position:absolute;bottom:20px;right:20px;z-index:5;display:flex;gap:8px;opacity:0;transition:opacity .4s;}
-    .film-player-wrap.playing .film-controls{opacity:1;}
-    .film-ctrl-btn{width:42px;height:42px;border-radius:50%;border:1px solid rgba(244,237,224,.25);background:rgba(26,24,20,.45);backdrop-filter:blur(10px);display:grid;place-items:center;cursor:pointer;color:var(--ivory);transition:all .25s;}
-    .film-ctrl-btn:hover{border-color:var(--gold);color:var(--gold);}
-
-    .film-rotate-hint{display:none;position:absolute;bottom:20px;left:50%;transform:translateX(-50%);z-index:5;font-family:var(--sans);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,237,224,.4);background:rgba(26,24,20,.55);backdrop-filter:blur(8px);padding:9px 18px;border-radius:24px;white-space:nowrap;gap:8px;align-items:center;cursor:pointer;}
-    .film-rotate-hint svg{flex-shrink:0;animation:rotateHint 2.5s ease-in-out infinite;}
-    @keyframes rotateHint{0%,100%{transform:rotate(0deg);}50%{transform:rotate(90deg);}}
-
-    .film-credit{text-align:center;margin-top:32px;font-family:var(--sans);font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(244,237,224,.2);}
+    /* Mobile rotate hint */
+    .film-rotate{display:none;position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:5;font-family:var(--sans);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,237,224,.35);background:rgba(26,24,20,.5);backdrop-filter:blur(8px);padding:9px 18px;border-radius:24px;white-space:nowrap;align-items:center;gap:8px;cursor:pointer;transition:opacity .4s;}
+    .film-showcase.watching .film-rotate{opacity:0;pointer-events:none;}
+    .film-rotate svg{animation:filmRotate 2.5s ease-in-out infinite;}
+    @keyframes filmRotate{0%,100%{transform:rotate(0)}50%{transform:rotate(90deg)}}
 
     @media(max-width:980px){
-      .film-showcase-inner{padding:80px 20px 72px;}
-      .film-play-btn{width:72px;height:72px;}
-      .film-play-btn svg{width:22px;height:22px;}
-      .film-rotate-hint{display:flex;}
-      .film-showcase-meta{gap:16px;flex-wrap:wrap;justify-content:center;}
+      .film-showcase{aspect-ratio:16/10;}
+      .film-play-btn{padding:14px 28px;font-size:.58rem;}
+      .film-rotate{display:flex;}
+      .film-meta{flex-wrap:wrap;justify-content:center;gap:12px;}
+    }
+    @media(max-width:480px){
+      .film-showcase{aspect-ratio:4/3;}
     }
 
     /* ── ALBUM DELIVERY (compact) ── */
@@ -705,42 +700,35 @@
 </section>
 
 <!-- FILM SHOWCASE -->
-<section class="film-showcase">
-  <div class="film-showcase-inner">
-    <div class="film-showcase-header">
-      <div class="section-label reveal">Destination Film</div>
-      <h2 class="film-showcase-title reveal reveal-d1">Among the clouds<br>in <em>Munnar.</em></h2>
-      <p class="film-showcase-sub reveal reveal-d2">A slow, soulful post-wedding film — two souls from Lucknow, the mist-covered hills of Munnar, and a quiet kind of love that needed no words.</p>
-      <div class="film-showcase-meta reveal reveal-d3">
-        <span>Munnar, Kerala</span>
-        <span>Post-Wedding</span>
-        <span>Cinematic Film</span>
-      </div>
-    </div>
-    <div class="film-player-wrap reveal" id="filmPlayer">
-      <div class="film-poster" id="filmPoster"></div>
-      <div class="film-poster-overlay" id="filmPosterOverlay"></div>
-      <button class="film-play-btn" id="filmPlayBtn" aria-label="Play film">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg>
-      </button>
-      <span class="film-play-label" id="filmPlayLabel">Play with sound</span>
-      <video id="filmVideo" preload="auto" playsinline poster="/assets/uploads/destination/destination-film.mp4#t=1">
-        <source src="/assets/uploads/destination/destination-film.mp4" type="video/mp4"/>
-      </video>
-      <div class="film-controls">
-        <button class="film-ctrl-btn" id="filmMute" aria-label="Mute/Unmute" title="Unmute">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
-        </button>
-        <button class="film-ctrl-btn" id="filmFullscreen" aria-label="Fullscreen" title="Fullscreen">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
-        </button>
-      </div>
-      <div class="film-rotate-hint" id="filmRotateHint">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
-        Tap for fullscreen
-      </div>
-    </div>
-    <div class="film-credit reveal">Filmed &amp; graded by Memorygraph</div>
+<section class="film-showcase" id="filmSection">
+  <video id="filmVideo" autoplay muted loop playsinline>
+    <source src="/assets/uploads/destination/destination-film.mp4" type="video/mp4"/>
+  </video>
+  <div class="film-overlay" id="filmOverlay"></div>
+  <div class="film-content" id="filmContent">
+    <div class="film-eyebrow">Destination Film</div>
+    <h2 class="film-title">Among the clouds<br>in <em>Munnar.</em></h2>
+    <p class="film-sub">A slow, soulful post-wedding film. Two souls from Lucknow, the mist-covered hills of Munnar, and a quiet kind of love.</p>
+    <div class="film-meta"><span>Munnar, Kerala</span><span>Post-Wedding</span><span>Cinematic Film</span></div>
+    <button class="film-play-btn" id="filmPlayBtn" type="button">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg>
+      Play with music
+    </button>
+  </div>
+  <div class="film-controls" id="filmControls">
+    <button class="film-ctrl" id="filmMute" type="button" aria-label="Mute" title="Mute">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+    </button>
+    <button class="film-ctrl" id="filmFs" type="button" aria-label="Fullscreen" title="Fullscreen">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+    </button>
+    <button class="film-ctrl" id="filmExit" type="button" aria-label="Back to preview" title="Back to preview">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="film-rotate" id="filmRotate">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+    Rotate for fullscreen
   </div>
 </section>
 
@@ -963,71 +951,44 @@
 
   // ── FILM SHOWCASE ──
   (function(){
-    const wrap = document.getElementById('filmPlayer');
+    const section = document.getElementById('filmSection');
     const vid = document.getElementById('filmVideo');
-    const poster = document.getElementById('filmPoster');
-    const posterOv = document.getElementById('filmPosterOverlay');
     const playBtn = document.getElementById('filmPlayBtn');
-    const playLabel = document.getElementById('filmPlayLabel');
     const muteBtn = document.getElementById('filmMute');
-    const fsBtn = document.getElementById('filmFullscreen');
-    const rotateHint = document.getElementById('filmRotateHint');
-    if(!vid || !wrap) return;
+    const fsBtn = document.getElementById('filmFs');
+    const exitBtn = document.getElementById('filmExit');
+    const rotateBtn = document.getElementById('filmRotate');
+    if(!vid || !section) return;
 
-    // ── Poster: grab frame at 1s once video has enough data ──
-    vid.currentTime = 1;
-    vid.addEventListener('seeked', function grabPoster(){
-      vid.removeEventListener('seeked', grabPoster);
-      try {
-        const c = document.createElement('canvas');
-        c.width = vid.videoWidth || 1920; c.height = vid.videoHeight || 1080;
-        c.getContext('2d').drawImage(vid, 0, 0, c.width, c.height);
-        const url = c.toDataURL('image/jpeg', 0.85);
-        if(url.length > 100) poster.style.backgroundImage = `url(${url})`;
-      } catch(e){}
-      vid.currentTime = 0;
-    });
-
-    let isPlaying = false;
     const volOn = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
     const volOff = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
 
-    function showControls(){ wrap.classList.add('playing'); }
-    function hideControls(){ wrap.classList.remove('playing'); }
+    // "Play with music" — restart from 0, unmute, hide overlay
+    playBtn.addEventListener('click', () => {
+      vid.currentTime = 0;
+      vid.muted = false;
+      vid.loop = false; // play once with music, no loop
+      vid.play().catch(()=>{ vid.muted = true; vid.play().catch(()=>{}); });
+      section.classList.add('watching');
+      muteBtn.innerHTML = volOn;
+    });
 
-    function playFilm(){
-      // Browser autoplay policy: must start muted, then unmute via user gesture
+    // Exit back to preview mode — muted loop resumes, overlay returns
+    exitBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      section.classList.remove('watching');
       vid.muted = true;
-      const p = vid.play();
-      if(p) p.then(() => { vid.muted = false; muteBtn.innerHTML = volOn; }).catch(() => {
-        // If even muted play fails, try once more
-        vid.muted = true; vid.play().catch(()=>{});
-        muteBtn.innerHTML = volOff;
-      });
-      isPlaying = true;
-      showControls();
-      poster.classList.add('hidden');
-      posterOv.classList.add('hidden');
-      playBtn.style.display = 'none';
-      playLabel.style.opacity = '0';
-      if(rotateHint) rotateHint.style.opacity = '0';
-    }
+      vid.loop = true;
+      vid.play().catch(()=>{});
+    });
 
-    function pauseFilm(){
-      vid.pause();
-      isPlaying = false;
-      hideControls();
-      playBtn.style.display = 'grid';
-      playBtn.querySelector('svg').innerHTML = '<polygon points="6,3 20,12 6,21"/>';
-    }
-
-    // Play button click
-    playBtn.addEventListener('click', (e) => { e.stopPropagation(); playFilm(); });
-
-    // Click video area to pause/resume
-    wrap.addEventListener('click', (e) => {
-      if(e.target.closest('.film-ctrl-btn') || e.target.closest('.film-rotate-hint')) return;
-      if(isPlaying) pauseFilm(); else playFilm();
+    // When film ends (non-loop music mode), return to preview
+    vid.addEventListener('ended', () => {
+      section.classList.remove('watching');
+      vid.muted = true;
+      vid.loop = true;
+      vid.currentTime = 0;
+      vid.play().catch(()=>{});
     });
 
     // Mute toggle
@@ -1037,45 +998,38 @@
       muteBtn.innerHTML = vid.muted ? volOff : volOn;
     });
 
-    // Fullscreen helper
-    function goFullscreen(){
-      const el = wrap; // fullscreen the wrapper for controls
-      if(el.requestFullscreen) el.requestFullscreen();
-      else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-      else if(vid.webkitEnterFullscreen) vid.webkitEnterFullscreen(); // iOS fallback
+    // Fullscreen toggle
+    function isFullscreen(){ return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+    function toggleFullscreen(){
+      if(isFullscreen()){
+        if(document.exitFullscreen) document.exitFullscreen();
+        else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+      } else {
+        const el = section;
+        if(el.requestFullscreen) el.requestFullscreen();
+        else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        else if(vid.webkitEnterFullscreen) vid.webkitEnterFullscreen();
+      }
       try { screen.orientation.lock('landscape').catch(()=>{}); } catch(e){}
     }
-
-    fsBtn.addEventListener('click', (e) => { e.stopPropagation(); goFullscreen(); });
-
-    // Mobile rotate hint — tap to play + fullscreen
-    if(rotateHint){
-      rotateHint.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if(!isPlaying) playFilm();
-        setTimeout(goFullscreen, 100);
-      });
-    }
+    fsBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleFullscreen(); });
 
     // Unlock orientation on exit fullscreen
     document.addEventListener('fullscreenchange', () => {
-      if(!document.fullscreenElement) try { screen.orientation.unlock(); } catch(e){}
+      if(!isFullscreen()) try { screen.orientation.unlock(); } catch(e){}
     });
     document.addEventListener('webkitfullscreenchange', () => {
-      if(!document.webkitFullscreenElement) try { screen.orientation.unlock(); } catch(e){}
+      if(!isFullscreen()) try { screen.orientation.unlock(); } catch(e){}
     });
 
-    // Reset on video end
-    vid.addEventListener('ended', () => {
-      isPlaying = false;
-      hideControls();
-      vid.currentTime = 0;
-      poster.classList.remove('hidden');
-      posterOv.classList.remove('hidden');
-      playBtn.style.display = 'grid';
-      playLabel.style.opacity = '1';
-      if(rotateHint) rotateHint.style.opacity = '1';
-    });
+    // Mobile rotate hint — play with music + fullscreen
+    if(rotateBtn){
+      rotateBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        playBtn.click();
+        setTimeout(toggleFullscreen, 150);
+      });
+    }
   })();
 
   // Reveal

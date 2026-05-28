@@ -19,7 +19,7 @@
 
   .screen-lock{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:24px;color:var(--ivory);overflow-y:auto;}
   .screen-lock.hidden{display:none;}
-  .lock-bg{position:fixed;inset:0;z-index:0;background:url('{{ lock_image or hero_image or "/assets/stories/abhin-gayathry/03.jpg" }}') center/cover no-repeat;}
+  .lock-bg{position:fixed;inset:0;z-index:0;background:url('{{ (lock_image or hero_image or "/assets/stories/abhin-gayathry/03.jpg") | safe }}') center/cover no-repeat;}
   .lock-overlay{position:fixed;inset:0;z-index:1;background:linear-gradient(180deg,rgba(26,24,20,.7) 0%,rgba(26,24,20,.6) 30%,rgba(26,24,20,.6) 60%,rgba(26,24,20,.9) 100%);}
   .lock-panel{position:relative;z-index:2;width:min(480px,100%);text-align:center;padding:56px 48px;}
   .lock-logo{height:44px;width:auto;margin-bottom:48px;filter:brightness(0) invert(1) drop-shadow(0 2px 16px rgba(0,0,0,.4));opacity:.8;}
@@ -105,7 +105,7 @@
 
   /* ── Hero (full-bleed cinematic cover) ── */
   .hero{position:relative;min-height:94vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:80px 40px 72px;}
-  .hero-bg{position:absolute;inset:0;background:url('{{ hero_image or "/assets/stories/abhin-gayathry/01.jpg" }}') center/cover;z-index:0;}
+  .hero-bg{position:absolute;inset:0;background:url('{{ (hero_image or "/assets/stories/abhin-gayathry/01.jpg") | safe }}') center/cover;z-index:0;}
   .hero-video{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;}
   .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,24,20,.6) 0%,rgba(26,24,20,.45) 20%,rgba(26,24,20,.4) 40%,rgba(26,24,20,.55) 65%,rgba(26,24,20,.92) 100%);z-index:1;}
   .hero-copy{position:relative;z-index:2;max-width:680px;}

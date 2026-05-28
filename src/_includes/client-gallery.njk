@@ -311,20 +311,15 @@
   .chapter-index-btn:hover{background:var(--teal-deep);}
 
   /* ── Section Divider Card ── */
-  .section-divider{position:absolute;width:100%;overflow:hidden;border:0;background:var(--ink);border-radius:0;}
-  .section-divider-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.35;transition:opacity .8s cubic-bezier(.25,.46,.45,.94);}
-  .section-divider:hover .section-divider-bg{opacity:.45;}
-  .section-divider-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,56,56,.7),rgba(26,24,20,.85));}
-  .section-divider--no-cover .section-divider-overlay{background:linear-gradient(135deg,rgba(15,56,56,.95),rgba(26,24,20,.97));}
-  .section-divider-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;height:100%;padding:28px 40px;text-align:center;}
-  .section-divider-ornament{display:flex;align-items:center;gap:14px;margin-bottom:4px;}
-  .section-divider-line{width:32px;height:1px;background:var(--gold);opacity:.45;flex-shrink:0;}
-  .section-divider-dot{width:5px;height:5px;border-radius:50%;border:1px solid var(--gold);opacity:.5;flex-shrink:0;}
-  .section-divider-name{font-family:var(--serif);font-size:clamp(1.4rem,3vw,2.2rem);font-weight:300;font-style:italic;color:var(--ivory);letter-spacing:.03em;line-height:1.2;}
-  .section-divider-desc{font-family:var(--sans);font-size:.78rem;line-height:1.7;color:rgba(244,237,224,.5);max-width:420px;font-weight:300;font-style:italic;}
-  .section-divider-nav{position:absolute;bottom:14px;right:18px;z-index:2;display:flex;gap:6px;}
-  .section-divider-nav button{width:30px;height:30px;border:1px solid rgba(244,237,224,.18);background:rgba(244,237,224,.06);border-radius:50%;backdrop-filter:blur(4px);color:rgba(244,237,224,.55);display:grid;place-items:center;cursor:pointer;transition:all .25s;}
-  .section-divider-nav button:hover{background:rgba(244,237,224,.14);color:var(--gold-2);border-color:rgba(244,237,224,.35);}
+  .section-divider{position:absolute;width:100%;overflow:hidden;border:0;background:transparent;border-radius:0;display:flex;align-items:center;justify-content:center;}
+  .section-divider-content{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:0;width:100%;padding:0 20px;height:100%;}
+  .section-divider-rule{flex:1;height:1px;background:var(--line);opacity:.4;}
+  .section-divider-center{display:flex;flex-direction:column;align-items:center;gap:4px;padding:0 24px;flex-shrink:0;}
+  .section-divider-name{font-family:var(--serif);font-size:clamp(.85rem,1.8vw,1.05rem);font-weight:400;font-style:italic;color:var(--ink-soft,#8a8578);letter-spacing:.06em;line-height:1;white-space:nowrap;}
+  .section-divider-desc{font-family:var(--sans);font-size:.68rem;color:var(--ink-soft,#8a8578);opacity:.55;font-weight:300;font-style:italic;letter-spacing:.02em;}
+  .section-divider-nav{display:flex;align-items:center;gap:2px;position:absolute;right:20px;top:50%;transform:translateY(-50%);}
+  .section-divider-nav button{border:0;background:transparent;color:var(--ink-soft,#8a8578);opacity:.35;cursor:pointer;font-family:var(--sans);font-size:.7rem;letter-spacing:.04em;padding:4px 6px;transition:opacity .2s;}
+  .section-divider-nav button:hover{opacity:.7;}
 
   /* ── Floating Section Jump ── */
   .section-jump{position:fixed;bottom:24px;right:24px;z-index:95;display:none;flex-direction:column;align-items:center;gap:4px;}
@@ -978,25 +973,19 @@
         const slug = (item.section_name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
         const hasCover = !!item.section_cover;
         const hasDesc = !!(item.section_description && item.section_description.trim());
-        return `<div class="section-divider${hasCover ? '' : ' section-divider--no-cover'}" data-type="section" data-section="${escapeAttr(slug)}" id="section-${escapeAttr(slug)}">
-          ${hasCover ? `<div class="section-divider-bg" style="background-image:url('${escapeAttr(item.section_cover)}')"></div>` : ''}
-          <div class="section-divider-overlay"></div>
+        return `<div class="section-divider" data-type="section" data-section="${escapeAttr(slug)}" id="section-${escapeAttr(slug)}">
           <div class="section-divider-content">
-            <div class="section-divider-ornament">
-              <span class="section-divider-line"></span>
-              <span class="section-divider-dot"></span>
-              <span class="section-divider-line"></span>
+            <span class="section-divider-rule"></span>
+            <div class="section-divider-center">
+              <span class="section-divider-name">${escapeHtml(item.section_name || '')}</span>
+              ${hasDesc ? `<span class="section-divider-desc">${escapeHtml(item.section_description)}</span>` : ''}
             </div>
-            <span class="section-divider-name">${escapeHtml(item.section_name || '')}</span>
-            ${hasDesc ? `<p class="section-divider-desc">${escapeHtml(item.section_description)}</p>` : ''}
+            <span class="section-divider-rule"></span>
           </div>
           <div class="section-divider-nav">
-            <button type="button" data-dir="prev" aria-label="Previous section">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-            </button>
-            <button type="button" data-dir="next" aria-label="Next section">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
+            <button type="button" data-dir="prev" aria-label="Previous section">prev</button>
+            <span style="color:var(--line);opacity:.3;font-size:.6rem">|</span>
+            <button type="button" data-dir="next" aria-label="Next section">next</button>
           </div>
         </div>`;
       }
@@ -1175,9 +1164,8 @@
         x = 0;
         y = maxH;
         w = gridW;
-        // Taller divider if it has a description
         const hasDesc = card.querySelector('.section-divider-desc');
-        h = hasDesc ? 210 : 170;
+        h = hasDesc ? 70 : 54;
         masonryPositions.push({ x, y, w, h });
         // Reset all columns — small gap after divider
         colHeights.fill(maxH + h + gap);

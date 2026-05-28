@@ -437,7 +437,8 @@
     .film-showcase.watching .film-overlay{background:transparent;pointer-events:none;}
     .film-content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;transition:opacity .6s;}
     .film-showcase.watching .film-content{opacity:0;pointer-events:none;}
-    .film-eyebrow{font-family:var(--sans);font-size:.58rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+    .film-eyebrow{font-family:var(--sans);font-size:.6rem;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:inline-flex;align-items:center;gap:14px;text-shadow:0 1px 8px rgba(0,0,0,.5);}
+    .film-eyebrow::before,.film-eyebrow::after{content:'';width:28px;height:1px;background:var(--gold);opacity:.5;}
     .film-title{font-family:var(--serif);font-size:clamp(2.4rem,5vw,4.2rem);font-weight:300;line-height:1.1;color:var(--ivory);}
     .film-title em{font-style:italic;color:var(--gold-2);}
     .film-sub{font-family:var(--sans);font-size:.85rem;font-weight:300;color:rgba(244,237,224,.5);margin-top:14px;line-height:1.8;max-width:480px;}

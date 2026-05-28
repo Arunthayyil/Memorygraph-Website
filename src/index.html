@@ -701,8 +701,13 @@
 
 <!-- FILM SHOWCASE -->
 <section class="film-showcase" id="filmSection">
-  <video id="filmVideo" autoplay muted loop playsinline>
-    <source src="/assets/uploads/destination/destination-film.mp4" type="video/mp4"/>
+  <!-- Teaser: small clip loops muted as background -->
+  <video id="filmTeaser" autoplay muted loop playsinline>
+    <source src="/assets/uploads/destination/Faiz4(Small)(1).mp4" type="video/mp4"/>
+  </video>
+  <!-- Full film: loaded from R2 on demand -->
+  <video id="filmFull" playsinline style="display:none">
+    <source src="https://pub-d3b35746326c4e8b958b97d09657e1b6.r2.dev/destination-film.mp4" type="video/mp4"/>
   </video>
   <div class="film-overlay" id="filmOverlay"></div>
   <div class="film-content" id="filmContent">
@@ -712,7 +717,7 @@
     <div class="film-meta"><span>Munnar, Kerala</span><span>Post-Wedding</span><span>Cinematic Film</span></div>
     <button class="film-play-btn" id="filmPlayBtn" type="button">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg>
-      Play with music
+      Play with sound
     </button>
   </div>
   <div class="film-controls" id="filmControls">
@@ -952,84 +957,76 @@
   // ── FILM SHOWCASE ──
   (function(){
     const section = document.getElementById('filmSection');
-    const vid = document.getElementById('filmVideo');
+    const teaser = document.getElementById('filmTeaser');
+    const full = document.getElementById('filmFull');
     const playBtn = document.getElementById('filmPlayBtn');
     const muteBtn = document.getElementById('filmMute');
     const fsBtn = document.getElementById('filmFs');
     const exitBtn = document.getElementById('filmExit');
     const rotateBtn = document.getElementById('filmRotate');
-    if(!vid || !section) return;
+    if(!teaser || !full || !section) return;
 
     const volOn = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
     const volOff = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
 
-    // "Play with music" — restart from 0, unmute, hide overlay
-    playBtn.addEventListener('click', () => {
-      vid.currentTime = 0;
-      vid.muted = false;
-      vid.loop = false; // play once with music, no loop
-      vid.play().catch(()=>{ vid.muted = true; vid.play().catch(()=>{}); });
+    function startFullFilm(){
+      teaser.style.display = 'none';
+      teaser.pause();
+      full.style.display = 'block';
+      full.currentTime = 0;
+      full.muted = false;
+      full.play().catch(() => { full.muted = true; full.play().catch(()=>{}); });
       section.classList.add('watching');
       muteBtn.innerHTML = volOn;
-    });
+    }
 
-    // Exit back to preview mode — muted loop resumes, overlay returns
-    exitBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
+    function backToTeaser(){
       section.classList.remove('watching');
-      vid.muted = true;
-      vid.loop = true;
-      vid.play().catch(()=>{});
-    });
+      full.pause();
+      full.style.display = 'none';
+      teaser.style.display = 'block';
+      teaser.currentTime = 0;
+      teaser.play().catch(()=>{});
+    }
 
-    // When film ends (non-loop music mode), return to preview
-    vid.addEventListener('ended', () => {
-      section.classList.remove('watching');
-      vid.muted = true;
-      vid.loop = true;
-      vid.currentTime = 0;
-      vid.play().catch(()=>{});
-    });
+    // "Play with sound" button
+    playBtn.addEventListener('click', startFullFilm);
 
-    // Mute toggle
+    // Exit (✕) — back to teaser loop
+    exitBtn.addEventListener('click', (e) => { e.stopPropagation(); backToTeaser(); });
+
+    // Full film ends — back to teaser
+    full.addEventListener('ended', backToTeaser);
+
+    // Mute toggle (only relevant during full film)
     muteBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      vid.muted = !vid.muted;
-      muteBtn.innerHTML = vid.muted ? volOff : volOn;
+      full.muted = !full.muted;
+      muteBtn.innerHTML = full.muted ? volOff : volOn;
     });
 
     // Fullscreen toggle
-    function isFullscreen(){ return !!(document.fullscreenElement || document.webkitFullscreenElement); }
-    function toggleFullscreen(){
-      if(isFullscreen()){
-        if(document.exitFullscreen) document.exitFullscreen();
-        else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+    function isFs(){ return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+    function toggleFs(){
+      if(isFs()){
+        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
       } else {
         const el = section;
         if(el.requestFullscreen) el.requestFullscreen();
         else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-        else if(vid.webkitEnterFullscreen) vid.webkitEnterFullscreen();
+        else if(full.webkitEnterFullscreen) full.webkitEnterFullscreen();
       }
       try { screen.orientation.lock('landscape').catch(()=>{}); } catch(e){}
     }
-    fsBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleFullscreen(); });
+    fsBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleFs(); });
 
-    // Unlock orientation on exit fullscreen
-    document.addEventListener('fullscreenchange', () => {
-      if(!isFullscreen()) try { screen.orientation.unlock(); } catch(e){}
-    });
-    document.addEventListener('webkitfullscreenchange', () => {
-      if(!isFullscreen()) try { screen.orientation.unlock(); } catch(e){}
-    });
+    document.addEventListener('fullscreenchange', () => { if(!isFs()) try { screen.orientation.unlock(); } catch(e){} });
+    document.addEventListener('webkitfullscreenchange', () => { if(!isFs()) try { screen.orientation.unlock(); } catch(e){} });
 
-    // Mobile rotate hint — play with music + fullscreen
-    if(rotateBtn){
-      rotateBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        playBtn.click();
-        setTimeout(toggleFullscreen, 150);
-      });
-    }
+    // Mobile rotate — play + fullscreen
+    if(rotateBtn) rotateBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); startFullFilm(); setTimeout(toggleFs, 150);
+    });
   })();
 
   // Reveal

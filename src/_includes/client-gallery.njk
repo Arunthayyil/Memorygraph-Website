@@ -596,7 +596,7 @@
     <div class="hero-overlay"></div>
     <div class="hero-copy">
       <img src="/assets/logo/logo-white.png" alt="Memorygraph" class="hero-monogram"/>
-      <div class="hero-label">Private Wedding Gallery</div>
+      <div class="hero-label">{{ hero_label or "Private Wedding Gallery" }}</div>
       <h1>{{ couple_names or title }}</h1>
       <p class="hero-sub">{{ intro }}</p>
       <div class="hero-meta">
@@ -630,7 +630,7 @@
   {% if gallery_sections and gallery_sections.length %}
   <section class="chapter-index" id="chapterIndex">
     <div class="chapter-index-label">Chapters</div>
-    <h2 class="chapter-index-title">Your wedding <em>story,</em> in chapters.</h2>
+    <h2 class="chapter-index-title">{{ (chapter_heading or 'Your wedding <em>story,</em> in chapters.') | safe }}</h2>
     <p class="chapter-grid-hint">Select the chapter you want to jump to</p>
     <div class="chapter-grid" id="chapterGrid">
       {% for section in gallery_sections %}
@@ -690,7 +690,7 @@
       <div class="credit-line"></div>
       <a href="/" class="credit-link" aria-label="Memorygraph Wedding Studio">
         <img src="/assets/logo/logo-dark.png" alt="Memorygraph" class="credit-logo"/>
-        <span class="credit-text">Photographed by <strong>Memorygraph Wedding Studio</strong></span>
+        <span class="credit-text">{{ (credit_line or 'Photographed by <strong>Memorygraph Wedding Studio</strong>') | safe }}</span>
         <span class="credit-sub">Thrissur, Kerala</span>
       </a>
       <div class="credit-line"></div>
@@ -715,7 +715,7 @@
       <span></span>
     </div>
     <h3 class="cg-explore-title">There's more to <em>explore.</em></h3>
-    <p class="cg-explore-body">Visit our website to see more wedding stories, learn about our collections, or start a conversation.</p>
+    <p class="cg-explore-body">{{ explore_body or "Visit our website to see more wedding stories, learn about our collections, or start a conversation." }}</p>
     <a href="/" class="cg-explore-btn">
       Visit memorygraphweddings.com
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -724,7 +724,7 @@
 
   <section class="cg-review">
     <p class="cg-review-text">Loved your gallery?</p>
-    <p class="cg-review-sub">Your words mean the world to us. A short review helps other couples find their storyteller.</p>
+    <p class="cg-review-sub">{{ review_sub or "Your words mean the world to us. A short review helps other couples find their storyteller." }}</p>
     <a href="https://g.page/r/memorygraph/review" class="cg-review-btn" target="_blank" rel="noopener">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       Leave a Review on Google

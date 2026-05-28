@@ -120,6 +120,11 @@ collections:
       - { label: "Password Screen Image", name: "lock_image", widget: "image", required: false }
       - { label: "Film Quality Label", name: "film_quality", widget: "string", default: "4K", required: false }
       - { label: "WhatsApp Number", name: "whatsapp_number", widget: "string", default: "919846238073" }
+      - { label: "Hero Label", name: "hero_label", widget: "string", required: false, hint: "Default: Private Wedding Gallery" }
+      - { label: "Chapter Section Title", name: "chapter_heading", widget: "string", required: false, hint: "Default: Your wedding story, in chapters. Supports <em> tags." }
+      - { label: "Credit Text", name: "credit_line", widget: "string", required: false, hint: "Default: Photographed by <strong>Memorygraph Wedding Studio</strong>" }
+      - { label: "Explore Section Text", name: "explore_body", widget: "string", required: false, hint: "Default: Visit our website to see more wedding stories, learn about our collections, or start a conversation." }
+      - { label: "Review Prompt Text", name: "review_sub", widget: "string", required: false, hint: "Default: Your words mean the world to us. A short review helps other couples find their storyteller." }
       - { label: "Bulk Gallery Folder", name: "gallery_folder", widget: "string", required: false, hint: "Optional. Local images in assets/uploads/client-galleries/couple-name. Images are auto-added and sorted by filename." }
       - { label: "Google Drive Folder", name: "gallery_drive_folder", widget: "string", required: false, hint: "Paste the Google Drive shared folder link here for reference. Then run: node tools/drive-gallery.js --folder URL --gallery slug" }
       # NOTE: gallery_drive_images is managed by the sync-gallery script (node tools/sync-gallery.js).

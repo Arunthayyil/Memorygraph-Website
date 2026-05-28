@@ -1123,7 +1123,7 @@
 
   function getMasonryConfig(){
     const w = photoGrid.offsetWidth;
-    if(w <= 560) return { cols: 2, gap: 14, mixed: true };
+    if(w <= 560) return { cols: 2, gap: 14 };
     if(w <= 980) return { cols: 2, gap: 16 };
     if(window.innerWidth >= 1500) return { cols: 4, gap: DEFAULT_MASONRY_GAP };
     return { cols: 3, gap: DEFAULT_MASONRY_GAP };

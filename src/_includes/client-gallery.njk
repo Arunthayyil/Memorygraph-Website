@@ -1193,7 +1193,8 @@
         y = maxH;
         w = gridW;
       }else{
-        const col = columnIndex % cols;
+        // Shortest-column-first: place card in the column with least height
+        const col = colHeights.indexOf(Math.min(...colHeights));
         x = col * (colW + gap);
         y = colHeights[col];
         w = colW;
@@ -1216,8 +1217,8 @@
         colHeights.fill(y + h + gap);
         columnIndex = 0;
       }else{
-        const col = columnIndex % cols;
-        colHeights[col] += h + gap;
+        const col = colHeights.indexOf(Math.min(...colHeights));
+        colHeights[col] = y + h + gap;
         columnIndex++;
       }
       visualIndex++;

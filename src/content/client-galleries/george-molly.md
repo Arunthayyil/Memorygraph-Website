@@ -1,7 +1,7 @@
 ---
 title: George & Molly
 couple_names: George & Molly
-password: Gm
+password: ''
 layout: client-gallery.njk
 hero_title: Anniversary gallery<br><em>delivery.</em>
 intro: Fifty golden years of George & Molly,
@@ -21,15 +21,7 @@ review_sub: Your words mean the world to us. A short review helps others find th
 gallery_folder: ''
 gallery_drive_folder: https://drive.google.com/drive/folders/1HyuR9PHpIInwiN7tfikTKZvVr2nJyI1g?usp=sharing
 gallery_sections: []
-gallery_items:
-  - item_type: image
-    image: /assets/uploads/S&K-409.jpg
-    image_code: ''
-    image_name: ''
-    category: ''
-    caption: ''
-    quote: ''
-    quote_by: ''
+gallery_items: []
 gallery_drive_images:
   - url: https://lh3.googleusercontent.com/d/1FxgUUFi97vAUHNeQ2Vh1W-_PmFN3uCer=s1920
     name: S&K-1.jpg

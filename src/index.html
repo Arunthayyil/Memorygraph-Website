@@ -444,22 +444,17 @@
     .film-meta{display:flex;gap:24px;margin-top:18px;font-family:var(--sans);font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,237,224,.28);}
     .film-meta span+span::before{content:'\00b7';margin-right:24px;}
 
-    .film-play-btn{margin-top:36px;display:inline-flex;align-items:center;gap:14px;padding:16px 36px;border:1px solid rgba(244,237,224,.3);background:rgba(26,24,20,.3);backdrop-filter:blur(16px);color:var(--ivory);font-family:var(--sans);font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;transition:all .4s;border-radius:0;}
-    .film-play-btn:hover{border-color:var(--gold);background:rgba(184,150,90,.15);color:var(--gold);}
+    .film-play-btn{margin-top:36px;display:inline-flex;align-items:center;gap:14px;padding:16px 36px;border:1px solid rgba(244,237,224,.3);background:rgba(26,24,20,.3);backdrop-filter:blur(16px);color:var(--ivory);font-family:var(--sans);font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;transition:all .4s;border-radius:0;animation:filmBtnPulse 3s ease-in-out infinite;}
+    .film-play-btn:hover{border-color:var(--gold);background:rgba(184,150,90,.15);color:var(--gold);animation:none;}
     .film-play-btn svg{flex-shrink:0;transition:transform .3s;}
     .film-play-btn:hover svg{transform:scale(1.15);}
+    @keyframes filmBtnPulse{0%,100%{border-color:rgba(244,237,224,.3);box-shadow:0 0 0 0 rgba(184,150,90,0);}50%{border-color:rgba(184,150,90,.5);box-shadow:0 0 24px rgba(184,150,90,.12);}}
 
     /* Controls bar — bottom right, visible when watching */
     .film-controls{position:absolute;bottom:24px;right:24px;z-index:5;display:flex;gap:8px;opacity:0;pointer-events:none;transition:opacity .4s;}
     .film-showcase.watching .film-controls{opacity:1;pointer-events:auto;}
     .film-ctrl{width:42px;height:42px;border-radius:50%;border:1px solid rgba(244,237,224,.25);background:rgba(26,24,20,.4);backdrop-filter:blur(10px);display:grid;place-items:center;cursor:pointer;color:var(--ivory);transition:all .25s;}
     .film-ctrl:hover{border-color:var(--gold);color:var(--gold);}
-
-    /* Mobile rotate hint */
-    .film-rotate{display:none;position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:5;font-family:var(--sans);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,237,224,.35);background:rgba(26,24,20,.5);backdrop-filter:blur(8px);padding:9px 18px;border-radius:24px;white-space:nowrap;align-items:center;gap:8px;cursor:pointer;transition:opacity .4s;}
-    .film-showcase.watching .film-rotate{opacity:0;pointer-events:none;}
-    .film-rotate svg{animation:filmRotate 2.5s ease-in-out infinite;}
-    @keyframes filmRotate{0%,100%{transform:rotate(0)}50%{transform:rotate(90deg)}}
 
     @media(max-width:980px){
       .film-showcase{aspect-ratio:auto;min-height:70vh;}
@@ -469,7 +464,6 @@
       .film-meta{gap:6px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
       .film-meta span+span::before{margin-right:6px;}
       .film-play-btn{margin-top:24px;padding:14px 28px;font-size:.56rem;letter-spacing:.22em;}
-      .film-rotate{display:flex;}
       .film-controls{bottom:16px;right:16px;gap:6px;}
       .film-ctrl{width:36px;height:36px;}
     }
@@ -666,10 +660,6 @@
     <button class="film-ctrl" id="filmExit" type="button" aria-label="Back to preview" title="Back to preview">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
-  </div>
-  <div class="film-rotate" id="filmRotate">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
-    Rotate for fullscreen
   </div>
 </section>
 
@@ -971,11 +961,27 @@
     const muteBtn = document.getElementById('filmMute');
     const fsBtn = document.getElementById('filmFs');
     const exitBtn = document.getElementById('filmExit');
-    const rotateBtn = document.getElementById('filmRotate');
     if(!teaser || !full || !section) return;
 
+    const isMobile = () => window.innerWidth <= 980;
     const volOn = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
     const volOff = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
+
+    function enterFs(){
+      const el = section;
+      if(el.requestFullscreen) el.requestFullscreen();
+      else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      else if(full.webkitEnterFullscreen) full.webkitEnterFullscreen();
+      try { screen.orientation.lock('landscape').catch(()=>{}); } catch(e){}
+    }
+
+    function exitFs(){
+      if(document.fullscreenElement) document.exitFullscreen();
+      else if(document.webkitFullscreenElement) document.webkitExitFullscreen();
+      try { screen.orientation.unlock(); } catch(e){}
+    }
+
+    function isFs(){ return !!(document.fullscreenElement || document.webkitFullscreenElement); }
 
     function startFullFilm(){
       teaser.style.display = 'none';
@@ -986,6 +992,8 @@
       full.play().catch(() => { full.muted = true; full.play().catch(()=>{}); });
       section.classList.add('watching');
       muteBtn.innerHTML = volOn;
+      // Mobile: auto-enter fullscreen
+      if(isMobile()) setTimeout(enterFs, 100);
     }
 
     function backToTeaser(){
@@ -995,6 +1003,8 @@
       teaser.style.display = 'block';
       teaser.currentTime = 0;
       teaser.play().catch(()=>{});
+      // Exit fullscreen if still in it
+      if(isFs()) exitFs();
     }
 
     // "Play with sound" button
@@ -1006,35 +1016,24 @@
     // Full film ends — back to teaser
     full.addEventListener('ended', backToTeaser);
 
-    // Mute toggle (only relevant during full film)
+    // Mute toggle
     muteBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       full.muted = !full.muted;
       muteBtn.innerHTML = full.muted ? volOff : volOn;
     });
 
-    // Fullscreen toggle
-    function isFs(){ return !!(document.fullscreenElement || document.webkitFullscreenElement); }
-    function toggleFs(){
-      if(isFs()){
-        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-      } else {
-        const el = section;
-        if(el.requestFullscreen) el.requestFullscreen();
-        else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-        else if(full.webkitEnterFullscreen) full.webkitEnterFullscreen();
+    // Desktop fullscreen toggle
+    fsBtn.addEventListener('click', (e) => { e.stopPropagation(); isFs() ? exitFs() : enterFs(); });
+
+    // When user exits fullscreen via browser/swipe — return to teaser
+    function onFsChange(){
+      if(!isFs() && section.classList.contains('watching')){
+        backToTeaser();
       }
-      try { screen.orientation.lock('landscape').catch(()=>{}); } catch(e){}
     }
-    fsBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleFs(); });
-
-    document.addEventListener('fullscreenchange', () => { if(!isFs()) try { screen.orientation.unlock(); } catch(e){} });
-    document.addEventListener('webkitfullscreenchange', () => { if(!isFs()) try { screen.orientation.unlock(); } catch(e){} });
-
-    // Mobile rotate — play + fullscreen
-    if(rotateBtn) rotateBtn.addEventListener('click', (e) => {
-      e.stopPropagation(); startFullFilm(); setTimeout(toggleFs, 150);
-    });
+    document.addEventListener('fullscreenchange', onFsChange);
+    document.addEventListener('webkitfullscreenchange', onFsChange);
   })();
 
   // Reveal

@@ -462,13 +462,23 @@
     @keyframes filmRotate{0%,100%{transform:rotate(0)}50%{transform:rotate(90deg)}}
 
     @media(max-width:980px){
-      .film-showcase{aspect-ratio:16/10;}
-      .film-play-btn{padding:14px 28px;font-size:.58rem;}
+      .film-showcase{aspect-ratio:auto;min-height:70vh;}
+      .film-content{padding:24px 20px;}
+      .film-title{font-size:clamp(1.6rem,6vw,2.4rem);}
+      .film-sub{font-size:.78rem;margin-top:10px;line-height:1.7;}
+      .film-meta{gap:6px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+      .film-meta span+span::before{margin-right:6px;}
+      .film-play-btn{margin-top:24px;padding:14px 28px;font-size:.56rem;letter-spacing:.22em;}
       .film-rotate{display:flex;}
-      .film-meta{flex-wrap:wrap;justify-content:center;gap:12px;}
+      .film-controls{bottom:16px;right:16px;gap:6px;}
+      .film-ctrl{width:36px;height:36px;}
     }
     @media(max-width:480px){
-      .film-showcase{aspect-ratio:4/3;}
+      .film-showcase{min-height:60vh;}
+      .film-eyebrow{font-size:.5rem;margin-bottom:12px;}
+      .film-sub{display:none;}
+      .film-meta{font-size:.48rem;}
+      .film-play-btn{margin-top:20px;padding:12px 22px;font-size:.52rem;gap:10px;}
     }
 
     /* ── ALBUM DELIVERY (compact) ── */
@@ -627,6 +637,42 @@
   </div>
 </section>
 
+<!-- FILM SHOWCASE -->
+<section class="film-showcase" id="filmSection">
+  <video id="filmTeaser" autoplay muted loop playsinline>
+    <source src="/assets/uploads/destination/Faiz4(Small)(1).mp4" type="video/mp4"/>
+  </video>
+  <video id="filmFull" playsinline style="display:none">
+    <source src="https://pub-d3b35746326c4e8b958b97d09657e1b6.r2.dev/destination-film.mp4" type="video/mp4"/>
+  </video>
+  <div class="film-overlay" id="filmOverlay"></div>
+  <div class="film-content" id="filmContent">
+    <div class="film-eyebrow">Destination Film</div>
+    <h2 class="film-title">Among the clouds<br>in <em>Munnar.</em></h2>
+    <p class="film-sub">A slow, soulful post-wedding film. Two souls from Lucknow, the mist-covered hills of Munnar, and a quiet kind of love.</p>
+    <div class="film-meta"><span>Munnar, Kerala</span><span>Post-Wedding</span><span>Cinematic Film</span></div>
+    <button class="film-play-btn" id="filmPlayBtn" type="button">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg>
+      Play with sound
+    </button>
+  </div>
+  <div class="film-controls" id="filmControls">
+    <button class="film-ctrl" id="filmMute" type="button" aria-label="Mute" title="Mute">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+    </button>
+    <button class="film-ctrl" id="filmFs" type="button" aria-label="Fullscreen" title="Fullscreen">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+    </button>
+    <button class="film-ctrl" id="filmExit" type="button" aria-label="Back to preview" title="Back to preview">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="film-rotate" id="filmRotate">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+    Rotate for fullscreen
+  </div>
+</section>
+
 <!-- STORIES CAROUSEL -->
 <section class="stories-section" id="stories">
   <div class="stories-header">
@@ -696,44 +742,6 @@
     <div class="testimonial-dots" id="testimonialDots">
       {% if collections.testimonials and collections.testimonials.size > 0 %}{% for t in collections.testimonials %}<div class="dot{% if forloop.first %} active{% endif %}" onclick="setT({{ forloop.index0 }})"></div>{% endfor %}{% else %}<div class="dot active" onclick="setT(0)"></div><div class="dot" onclick="setT(1)"></div><div class="dot" onclick="setT(2)"></div>{% endif %}
     </div>
-  </div>
-</section>
-
-<!-- FILM SHOWCASE -->
-<section class="film-showcase" id="filmSection">
-  <!-- Teaser: small clip loops muted as background -->
-  <video id="filmTeaser" autoplay muted loop playsinline>
-    <source src="/assets/uploads/destination/Faiz4(Small)(1).mp4" type="video/mp4"/>
-  </video>
-  <!-- Full film: loaded from R2 on demand -->
-  <video id="filmFull" playsinline style="display:none">
-    <source src="https://pub-d3b35746326c4e8b958b97d09657e1b6.r2.dev/destination-film.mp4" type="video/mp4"/>
-  </video>
-  <div class="film-overlay" id="filmOverlay"></div>
-  <div class="film-content" id="filmContent">
-    <div class="film-eyebrow">Destination Film</div>
-    <h2 class="film-title">Among the clouds<br>in <em>Munnar.</em></h2>
-    <p class="film-sub">A slow, soulful post-wedding film. Two souls from Lucknow, the mist-covered hills of Munnar, and a quiet kind of love.</p>
-    <div class="film-meta"><span>Munnar, Kerala</span><span>Post-Wedding</span><span>Cinematic Film</span></div>
-    <button class="film-play-btn" id="filmPlayBtn" type="button">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg>
-      Play with sound
-    </button>
-  </div>
-  <div class="film-controls" id="filmControls">
-    <button class="film-ctrl" id="filmMute" type="button" aria-label="Mute" title="Mute">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
-    </button>
-    <button class="film-ctrl" id="filmFs" type="button" aria-label="Fullscreen" title="Fullscreen">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
-    </button>
-    <button class="film-ctrl" id="filmExit" type="button" aria-label="Back to preview" title="Back to preview">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-  </div>
-  <div class="film-rotate" id="filmRotate">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
-    Rotate for fullscreen
   </div>
 </section>
 

@@ -5,7 +5,7 @@ password: Gm
 layout: client-gallery.njk
 hero_title: Anniversary gallery<br><em>delivery.</em>
 intro: Fifty golden years of George & Molly,
-selection_title: Select the frames<br><em>you want printed.</em>
+selection_title: Crafted with<br><em>love & Care</em>
 selection_note: Please view these images and share with your family and friends.
 hero_image: /assets/uploads/S&K-409.jpg
 hero_video: ''

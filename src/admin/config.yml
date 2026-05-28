@@ -108,7 +108,7 @@ collections:
     fields:
       - { label: "Client / Couple Name", name: "title", widget: "string" }
       - { label: "Display Name", name: "couple_names", widget: "string", required: false }
-      - { label: "Gallery Password", name: "password", widget: "string" }
+      - { label: "Gallery Password", name: "password", widget: "string", required: false, hint: "Leave blank for a public gallery (no password screen)." }
       - { label: "Layout", name: "layout", widget: "hidden", default: "client-gallery.njk" }
       - { label: "Hero Title", name: "hero_title", widget: "string", default: "Wedding gallery<br><em>delivery.</em>", hint: "HTML line breaks and <em> are supported." }
       - { label: "Intro", name: "intro", widget: "text" }
@@ -144,8 +144,9 @@ collections:
       - label: "Gallery Items"
         name: "gallery_items"
         widget: "list"
+        required: false
         summary: "{{fields.item_type}} — {{fields.image_name}}{{fields.quote}}"
-        hint: "Use this for quotes, special featured images, or hand-picked extras. Bulk folder images appear first, sorted by filename; these blocks appear after them in your chosen drag-and-drop order."
+        hint: "Optional. Use this for quotes, special featured images, or hand-picked extras. Bulk folder images appear first, sorted by filename; these blocks appear after them in your chosen drag-and-drop order."
         fields:
           - { label: "Item Type", name: "item_type", widget: "select", options: ["image", "quote"], default: "image" }
           - { label: "Image", name: "image", widget: "image", required: false }

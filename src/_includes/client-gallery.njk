@@ -154,13 +154,16 @@
   .quote-card blockquote{font-family:var(--serif);font-size:clamp(1.45rem,2.4vw,2.25rem);font-style:italic;font-weight:300;line-height:1.32;color:var(--ivory);}
   .quote-card cite{display:block;margin-top:22px;font-style:normal;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-2);}
   .photo-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:14px;background:linear-gradient(180deg,rgba(26,24,20,.44),rgba(26,24,20,0) 42%,rgba(26,24,20,.55));opacity:0;transition:opacity .25s;}
-  .photo-card:hover .photo-overlay,.photo-card.selected .photo-overlay{opacity:1;}
+  .photo-card:hover .photo-overlay,.photo-card.selected .photo-overlay,.photo-card.not-selected .photo-overlay{opacity:1;}
   .photo-id{align-self:flex-start;color:var(--ivory);font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;text-shadow:0 2px 12px rgba(0,0,0,.35);}
   .photo-controls{display:flex;gap:8px;align-self:flex-end;}
   .icon-btn{width:40px;height:40px;border:1px solid rgba(244,237,224,.4);background:rgba(26,24,20,.3);border-radius:50%;color:var(--ivory);display:grid;place-items:center;transition:all .25s;text-decoration:none;backdrop-filter:blur(4px);}
   .icon-btn:hover{background:rgba(244,237,224,.9);color:var(--teal);border-color:rgba(244,237,224,.9);}
   .photo-card.selected .select-btn{background:var(--gold);border-color:var(--gold);color:var(--teal-deep);}
   .photo-card.selected::after{content:'Selected';position:absolute;top:14px;right:14px;padding:6px 12px;background:var(--gold);color:var(--teal-deep);font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;border-radius:3px;}
+  .photo-card.not-selected img{filter:grayscale(.55) brightness(.82);}
+  .photo-card.not-selected .reject-btn{background:rgba(158,68,54,.92);border-color:rgba(158,68,54,.92);color:var(--ivory);}
+  .photo-card.not-selected::after{content:'Not selected';position:absolute;top:14px;right:14px;padding:6px 12px;background:rgba(158,68,54,.92);color:var(--ivory);font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;border-radius:3px;}
 
   .album-drawer{position:fixed;right:0;top:0;bottom:0;z-index:220;width:min(460px,100%);background:var(--paper);box-shadow:-24px 0 60px rgba(26,24,20,.18);transform:translateX(100%);transition:transform .35s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;}
   .album-drawer.open{transform:translateX(0);}
@@ -200,6 +203,9 @@
   .lb-action{display:flex;align-items:center;gap:6px;padding:9px 14px;border:1px solid rgba(244,237,224,.18);background:transparent;color:var(--ivory);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:background .2s,border-color .2s,color .2s;}
   .lb-action:hover{background:rgba(244,237,224,.1);border-color:rgba(244,237,224,.3);}
   .lb-action.active{background:var(--gold);color:var(--teal-deep);border-color:var(--gold);}
+  .lb-action-reject{border-color:rgba(244,237,224,.16);color:rgba(244,237,224,.64);}
+  .lb-action-reject:hover{background:rgba(244,237,224,.08);border-color:rgba(244,237,224,.32);color:var(--ivory);}
+  .lb-action-reject.active{background:rgba(158,68,54,.92);border-color:rgba(158,68,54,.92);color:var(--ivory);}
   .lb-action-print{border-color:rgba(184,150,90,.5);color:var(--gold-2);}
   .lb-action-print:hover{background:rgba(184,150,90,.14);border-color:var(--gold);}
 
@@ -427,6 +433,7 @@
     .icon-btn{width:30px;height:30px;}
     .icon-btn svg{width:16px;height:16px;}
     .photo-card.selected::after{top:8px;right:8px;padding:4px 7px;font-size:.42rem;letter-spacing:.12em;}
+    .photo-card.not-selected::after{top:8px;right:8px;padding:4px 7px;font-size:.42rem;letter-spacing:.1em;}
   }
 
   @media(min-width:1500px){
@@ -557,7 +564,7 @@
         <div class="selection-steps-sub">Here's how to get your selections to us:</div>
       </div>
       <div class="selection-steps-list">
-        <div class="selection-step"><span class="selection-step-num">1</span><span>Browse the gallery and tap the heart on photos you love</span></div>
+        <div class="selection-step"><span class="selection-step-num">1</span><span>Browse the gallery and mark photos as selected or not selected</span></div>
         <div class="selection-step"><span class="selection-step-num">2</span><span>Open this panel to review your picks and add notes</span></div>
         <div class="selection-step"><span class="selection-step-num">3</span><span>Send your selection via WhatsApp or copy the list</span></div>
       </div>
@@ -811,6 +818,10 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
         <span>Select</span>
       </button>
+      <button class="lb-action lb-action-reject" type="button" id="lbReject">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        <span>Not Selected</span>
+      </button>
       <a class="lb-action" id="lbDownload" href="#" download>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>
         <span>Download</span>
@@ -888,9 +899,12 @@
   const galleryItems = {{ gallery_items | clientGalleryItems(gallery_folder, gallery_drive_images, gallery_sections) | json | safe }};
   const authKey = `memorygraph_gallery_unlocked_${gallerySlug}`;
   const storageKey = `memorygraph_album_selection_${gallerySlug}`;
+  const notSelectedKey = `memorygraph_album_not_selected_${gallerySlug}`;
   const notesKey = `memorygraph_album_notes_${gallerySlug}`;
   const selectorNameKey = `memorygraph_album_selector_${gallerySlug}`;
   let selected = new Set(JSON.parse(localStorage.getItem(storageKey) || '[]'));
+  let notSelected = new Set(JSON.parse(localStorage.getItem(notSelectedKey) || '[]'));
+  selected.forEach(id => notSelected.delete(id));
   let activeFilter = 'all';
   let sortMode = 'cms';
   let renderedImages = [];
@@ -948,6 +962,10 @@
 
   function saveSelection(){
     localStorage.setItem(storageKey, JSON.stringify([...selected]));
+  }
+
+  function saveNotSelected(){
+    localStorage.setItem(notSelectedKey, JSON.stringify([...notSelected]));
   }
 
   function sortedGalleryItems(){
@@ -1014,7 +1032,7 @@
       const hideIcon = isHidden
         ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l22 22"/><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/></svg>'
         : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
-      return `<article class="photo-card${selected.has(image.id) ? ' selected' : ''}${hiddenClass}" data-type="image" data-id="${escapeAttr(image.id)}" data-cat="${escapeAttr(image.cat)}" data-title="${escapeAttr((image.title + ' ' + image.caption).toLowerCase())}">
+      return `<article class="photo-card${selected.has(image.id) ? ' selected' : ''}${notSelected.has(image.id) ? ' not-selected' : ''}${hiddenClass}" data-type="image" data-id="${escapeAttr(image.id)}" data-cat="${escapeAttr(image.cat)}" data-title="${escapeAttr((image.title + ' ' + image.caption).toLowerCase())}">
         <button class="admin-hide-toggle" type="button" data-id="${escapeAttr(image.id)}" data-hidden="${isHidden ? '1' : '0'}" title="${isHidden ? 'Unhide' : 'Hide'} this image">${hideIcon}</button>
         <img src="${escapeAttr(image.src)}" alt="${escapeAttr(image.title)}" loading="lazy"/>
         <div class="photo-overlay">
@@ -1028,6 +1046,9 @@
             </a>
             <button class="icon-btn select-btn" type="button" data-id="${escapeAttr(image.id)}" aria-label="Select ${escapeAttr(image.id)}">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6L9 17l-5-5"/></svg>
+            </button>
+            <button class="icon-btn reject-btn" type="button" data-id="${escapeAttr(image.id)}" aria-label="Mark ${escapeAttr(image.id)} as not selected" title="Mark not selected">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6L6 18M6 6l12 12"/></svg>
             </button>
             <button class="icon-btn print-add-btn" type="button" data-index="${imageIndex}" aria-label="Order print of ${escapeAttr(image.id)}">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="1"/><rect x="5" y="5" width="14" height="14"/><path d="M2 2l3 3M22 2l-3 3M2 22l3-3M22 22l-3-3"/></svg>
@@ -1043,6 +1064,7 @@
     if(!isAdminMode) document.getElementById('imageTotal').textContent = visibleCount;
     else document.getElementById('imageTotal').textContent = imageItems.length;
     photoGrid.querySelectorAll('.select-btn').forEach(button => button.addEventListener('click', (e) => { e.stopPropagation(); toggleSelect(button.dataset.id); }));
+    photoGrid.querySelectorAll('.reject-btn').forEach(button => button.addEventListener('click', (e) => { e.stopPropagation(); toggleNotSelected(button.dataset.id); }));
     photoGrid.querySelectorAll('.view-btn').forEach(button => button.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(Number(button.dataset.index)); }));
     photoGrid.querySelectorAll('.download-btn').forEach(link => link.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -1076,12 +1098,40 @@
 
   function toggleSelect(id){
     if(selected.has(id)) selected.delete(id);
-    else selected.add(id);
+    else {
+      selected.add(id);
+      notSelected.delete(id);
+      saveNotSelected();
+    }
     saveSelection();
     renderSelection();
-    document.querySelectorAll(`[data-id="${cssEscape(id)}"]`).forEach(card => card.classList.toggle('selected', selected.has(id)));
+    updatePhotoStatus(id);
+    updateLightbox();
     if(sortMode === 'selected') buildGallery();
     else applyFilters();
+  }
+
+  function toggleNotSelected(id){
+    if(notSelected.has(id)){
+      notSelected.delete(id);
+    }else{
+      notSelected.add(id);
+      selected.delete(id);
+      saveSelection();
+    }
+    saveNotSelected();
+    renderSelection();
+    updatePhotoStatus(id);
+    updateLightbox();
+    if(sortMode === 'selected') buildGallery();
+    else applyFilters();
+  }
+
+  function updatePhotoStatus(id){
+    document.querySelectorAll(`.photo-card[data-id="${cssEscape(id)}"]`).forEach(card => {
+      card.classList.toggle('selected', selected.has(id));
+      card.classList.toggle('not-selected', notSelected.has(id));
+    });
   }
 
   function renderSelection(){
@@ -1441,9 +1491,10 @@
 
   function selectionText(){
     const codes = [...selected];
+    const notSelectedCodes = [...notSelected];
     const selectedBy = selectorName.value.trim();
     const notes = albumNotes.value.trim();
-    return `Memorygraph album selection - ${coupleNames}\nGallery: ${galleryTitle}\nSelected by: ${selectedBy || 'Not provided'}\n\nSelected images (${codes.length}):\n${codes.length ? codes.join(', ') : 'None yet'}\n\nNotes:\n${notes || 'No notes added.'}`;
+    return `Memorygraph album selection - ${coupleNames}\nGallery: ${galleryTitle}\nSelected by: ${selectedBy || 'Not provided'}\n\nSelected images (${codes.length}):\n${codes.length ? codes.join(', ') : 'None yet'}\n\nNot selected images (${notSelectedCodes.length}):\n${notSelectedCodes.length ? notSelectedCodes.join(', ') : 'None marked'}\n\nNotes:\n${notes || 'No notes added.'}`;
   }
 
   function requireSelectorName(){
@@ -1510,10 +1561,12 @@
 
   document.getElementById('clearSelection').addEventListener('click', () => {
     selected = new Set();
+    notSelected = new Set();
     saveSelection();
+    saveNotSelected();
     buildGallery();
     renderSelection();
-    exportOutput.textContent = 'Album picks cleared on this device.';
+    exportOutput.textContent = 'Album picks and not-selected marks cleared on this device.';
     exportOutput.classList.add('visible');
   });
 
@@ -1522,6 +1575,7 @@
   const lbBarId = document.getElementById('lbBarId');
   const lbBarTitle = document.getElementById('lbBarTitle');
   const lbSelectBtn = document.getElementById('lbSelect');
+  const lbRejectBtn = document.getElementById('lbReject');
   const lbDownloadBtn = document.getElementById('lbDownload');
   const lbOrderPrintBtn = document.getElementById('lbOrderPrint');
 
@@ -1542,6 +1596,7 @@
     lbBarId.textContent = image.id;
     lbBarTitle.textContent = image.title;
     lbSelectBtn.classList.toggle('active', selected.has(image.id));
+    lbRejectBtn.classList.toggle('active', notSelected.has(image.id));
     lbDownloadBtn.href = image.src;
     lbDownloadBtn.download = fileNameForImage(image);
   }
@@ -1566,6 +1621,11 @@
   lbSelectBtn.addEventListener('click', () => {
     const image = renderedImages[lightboxIndex];
     if(image) toggleSelect(image.id);
+    updateLightbox();
+  });
+  lbRejectBtn.addEventListener('click', () => {
+    const image = renderedImages[lightboxIndex];
+    if(image) toggleNotSelected(image.id);
     updateLightbox();
   });
   lbOrderPrintBtn.addEventListener('click', () => {

@@ -29,6 +29,9 @@
 <link rel="stylesheet" href="/assets/css/global.css"/>
 <link rel="stylesheet" href="/assets/css/animations.css"/>
 <style>
+  #nav{position:relative;top:auto;left:auto;z-index:3;background:linear-gradient(180deg,#f7f0e5 0%,#f1e7d8 100%);border-bottom:0;box-shadow:none;padding:22px 56px 14px;}
+  #nav.scrolled{position:relative;padding:22px 56px 14px;background:linear-gradient(180deg,#f7f0e5 0%,#f1e7d8 100%);backdrop-filter:none;border-bottom:0;}
+
   /* ═══ STORY HERO ═══ */
   .story-hero{position:relative;width:100%;height:100vh;min-height:700px;overflow:hidden;}
   .story-hero-img{position:absolute;inset:0;background-size:cover;background-position:center;background-color:#c9bda1;}
@@ -84,15 +87,6 @@
   .story-intro-quote::after{content:'\201D';}
   .story-intro-author{font-family:var(--sans);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:14px;}
   .story-intro-author::before,.story-intro-author::after{content:'';width:28px;height:1px;background:var(--gold);}
-
-  /* ═══ NARRATIVE ═══ */
-  .story-narrative{max-width:720px;margin:0 auto;padding:0 24px 120px;}
-  .narrative-eyebrow{font-family:var(--sans);font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--teal);margin-bottom:22px;display:flex;align-items:center;gap:14px;}
-  .narrative-eyebrow::before{content:'';width:28px;height:1px;background:var(--teal);}
-  .narrative-title{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;line-height:1.15;color:var(--ink);margin-bottom:36px;}
-  .narrative-title em{font-style:italic;color:var(--teal);}
-  .narrative-body p{font-family:var(--sans);font-size:.95rem;font-weight:300;line-height:2.1;color:var(--ink-soft);margin-bottom:22px;}
-  .narrative-body p:first-of-type::first-letter{font-family:var(--serif);font-size:3.6rem;font-weight:400;float:left;line-height:.85;padding:6px 10px 0 0;color:var(--teal);}
 
   /* ═══ FILM ═══ */
   .story-film{background:var(--ink);padding:100px 56px;text-align:center;}
@@ -156,17 +150,17 @@
   .story-journal-card h3{font-family:var(--serif);font-size:1.1rem;font-weight:400;line-height:1.3;margin-bottom:5px;}
   .story-journal-card .sj-meta{font-family:var(--sans);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mist);}
 
-  /* ═══ BOTTOM STORY NAV ═══ */
-  .story-nav{background:var(--ink);display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(244,237,224,.06);}
-  .story-nav-card{padding:28px 40px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ivory);transition:background .25s;position:relative;}
-  .story-nav-card:first-child{border-right:1px solid rgba(244,237,224,.06);}
-  .story-nav-card:hover{background:rgba(244,237,224,.03);}
-  .story-nav-direction{font-family:var(--sans);font-size:.54rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:8px;}
+  /* ═══ STORY LINKS NAV ═══ */
+  .story-nav{position:relative;top:auto;left:auto;width:auto;z-index:2;background:linear-gradient(180deg,#f1e7d8 0%,#f5ecdf 100%);display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 56px 22px;border-top:0;border-bottom:1px solid rgba(26,24,20,.08);box-shadow:0 18px 34px rgba(26,24,20,.06);transition:none;}
+  .story-nav::before{content:'';position:absolute;top:0;left:56px;right:56px;height:1px;background:rgba(26,24,20,.07);}
+  .story-nav-card{min-width:0;padding:15px 16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ink);transition:background .25s,border-color .25s,transform .25s;position:relative;border:1px solid rgba(26,24,20,.09);background:rgba(255,252,246,.34);border-radius:8px;}
+  .story-nav-card:hover{background:rgba(255,252,246,.58);border-color:rgba(184,150,90,.36);transform:translateY(-1px);}
+  .story-nav-direction{font-family:var(--sans);font-size:.52rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:rgba(29,89,89,.82);display:flex;align-items:center;gap:8px;}
   .story-nav-card.next .story-nav-direction{justify-content:flex-end;}
-  .story-nav-couple{font-family:var(--serif);font-size:1.15rem;font-weight:300;color:rgba(244,237,224,.85);transition:color .3s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .story-nav-card:hover .story-nav-couple{color:var(--gold-2);}
+  .story-nav-couple{font-family:var(--serif);font-size:1.12rem;font-weight:400;color:var(--ink);transition:color .3s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.18;}
+  .story-nav-card:hover .story-nav-couple{color:var(--teal);}
   .story-nav-card.next{text-align:right;}
-  .story-nav-meta{font-family:var(--sans);font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,237,224,.25);}
+  .story-nav-meta{font-family:var(--sans);font-size:.5rem;font-weight:400;letter-spacing:.11em;text-transform:uppercase;color:rgba(58,53,48,.72);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
   /* ═══ CTA ═══ */
   .story-cta{padding:120px 56px;text-align:center;background:linear-gradient(160deg,var(--teal-deep),var(--teal) 100%);color:var(--ivory);position:relative;overflow:hidden;}
@@ -190,11 +184,12 @@
     .gallery-masonry{--masonry-columns:3;--masonry-gap:18px;padding:0 40px;}
   }
   @media(max-width:980px){
+    #nav,#nav.scrolled{padding:18px 30px 12px;}
+    #nav .nav-logo img{height:44px!important;max-width:132px!important;}
     .story-hero-content{padding:0 24px 56px;}
     .story-hero-scroll{display:none;}
-    .story-intro,.story-narrative,.story-film,.story-cta{padding-left:24px;padding-right:24px;}
+    .story-intro,.story-film,.story-cta{padding-left:24px;padding-right:24px;}
     .story-intro{padding-top:56px;padding-bottom:56px;}
-    .story-narrative{padding-bottom:64px;}
     .story-film{padding-top:56px;padding-bottom:56px;}
     .story-gallery{padding-top:56px;padding-bottom:24px;}
     .gallery-quote{padding:48px 24px;}
@@ -206,17 +201,26 @@
     .story-journal{padding:56px 24px;}
     .story-journal-grid{grid-template-columns:1fr;}
     .story-inline-cta{padding:56px 24px;}
-    .story-nav{grid-template-columns:1fr;}
-    .story-nav-card{padding:16px 20px;}
-    .story-nav-card:first-child{border-right:none;border-bottom:1px solid rgba(244,237,224,.06);}
-    .story-nav-card.next{text-align:left;}
-    .story-nav-card.next .story-nav-direction{justify-content:flex-start;}
+    .story-nav{grid-template-columns:1fr 1fr;padding:0 30px 18px;gap:10px;}
+    .story-nav::before{left:30px;right:30px;}
+    .story-nav-card{padding:13px 12px;}
+    .story-nav-couple{font-size:1.06rem;}
+    .story-nav-direction{font-size:.5rem;letter-spacing:.13em;}
+    .story-nav-meta{font-size:.47rem;letter-spacing:.08em;}
     .story-album{padding:56px 24px;}
     .story-album-spread img{aspect-ratio:16/9;}
     .float-nav{display:none;}
     .story-cta{padding:72px 24px;}
   }
   @media(max-width:600px){
+    #nav,#nav.scrolled{padding:14px 24px 10px;}
+    #nav .nav-logo img{height:42px!important;max-width:120px!important;}
+    .story-nav{padding:0 24px 16px;gap:8px;}
+    .story-nav::before{left:24px;right:24px;}
+    .story-nav-card{padding:12px 10px;}
+    .story-nav-couple{font-size:1rem;}
+    .story-nav-direction{font-size:.47rem;letter-spacing:.1em;}
+    .story-nav-meta{font-size:.45rem;letter-spacing:.06em;}
     .story-hero-meta{gap:16px;}
     .story-hero-meta-item::before{display:none;}
   }
@@ -279,9 +283,50 @@
   <a href="/contact/" class="mobile-menu-cta">Begin Your Story</a>
 </div>
 
-<!-- ═══ FLOATING PREV / NEXT ═══ -->
+<!-- ═══ STORY LINKS NAV ═══ -->
 {%- set prevStory = collections.stories | getPreviousCollectionItem -%}
 {%- set nextStory = collections.stories | getNextCollectionItem -%}
+
+<nav class="story-nav story-nav--top">
+  {% if prevStory %}
+  <a href="{{ prevStory.url }}" class="story-nav-card prev">
+    <div class="story-nav-direction">
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M5 1L1 5l4 4M13 5H1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Previous Story
+    </div>
+    <div class="story-nav-couple">{{ prevStory.data.title }}</div>
+    <div class="story-nav-meta">{{ prevStory.data.location_short }} &middot; {{ prevStory.date | formatDate }}</div>
+  </a>
+  {% else %}
+  <a href="/stories/" class="story-nav-card prev">
+    <div class="story-nav-direction">
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M5 1L1 5l4 4M13 5H1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      All Stories
+    </div>
+    <div class="story-nav-couple">View all stories</div>
+  </a>
+  {% endif %}
+  {% if nextStory %}
+  <a href="{{ nextStory.url }}" class="story-nav-card next">
+    <div class="story-nav-direction">
+      Next Story
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M9 1l4 4-4 4M1 5h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </div>
+    <div class="story-nav-couple">{{ nextStory.data.title }}</div>
+    <div class="story-nav-meta">{{ nextStory.data.location_short }} &middot; {{ nextStory.date | formatDate }}</div>
+  </a>
+  {% else %}
+  <a href="/stories/" class="story-nav-card next">
+    <div class="story-nav-direction">
+      All Stories
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M9 1l4 4-4 4M1 5h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </div>
+    <div class="story-nav-couple">View all stories</div>
+  </a>
+  {% endif %}
+</nav>
+
+<!-- ═══ FLOATING PREV / NEXT ═══ -->
 {% if prevStory %}
 <div class="float-nav float-nav--prev" id="floatPrev">
   <a href="{{ prevStory.url }}" class="float-nav-btn" aria-label="Previous story: {{ prevStory.data.title }}">
@@ -339,15 +384,6 @@
   <blockquote class="story-intro-quote">{{ quote }}</blockquote>
   <div class="story-intro-author">{{ quote_by if quote_by else title }}</div>
 </section>
-
-<!-- ═══ NARRATIVE ═══ -->
-<article class="story-narrative">
-  <div class="narrative-eyebrow gsap-reveal">The Story</div>
-  <h2 class="narrative-title gsap-reveal reveal-d1 stagger-words">{{ chapter_title | safe if chapter_title else title }}</h2>
-  <div class="narrative-body gsap-reveal reveal-d2">
-    {{ content | safe }}
-  </div>
-</article>
 
 <!-- ═══ FILM ═══ -->
 {% if film_url %}
@@ -437,46 +473,6 @@
   </div>
 </section>
 {% endif %}
-
-<!-- ═══ PREV / NEXT (bottom) ═══ -->
-<nav class="story-nav">
-  {% if prevStory %}
-  <a href="{{ prevStory.url }}" class="story-nav-card prev">
-    <div class="story-nav-direction">
-      <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M5 1L1 5l4 4M13 5H1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-      Previous Story
-    </div>
-    <div class="story-nav-couple">{{ prevStory.data.title }}</div>
-    <div class="story-nav-meta">{{ prevStory.data.location_short }} &middot; {{ prevStory.date | formatDate }}</div>
-  </a>
-  {% else %}
-  <a href="/stories/" class="story-nav-card prev">
-    <div class="story-nav-direction">
-      <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M5 1L1 5l4 4M13 5H1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-      All Stories
-    </div>
-    <div class="story-nav-couple">View all stories</div>
-  </a>
-  {% endif %}
-  {% if nextStory %}
-  <a href="{{ nextStory.url }}" class="story-nav-card next">
-    <div class="story-nav-direction">
-      Next Story
-      <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M9 1l4 4-4 4M1 5h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-    </div>
-    <div class="story-nav-couple">{{ nextStory.data.title }}</div>
-    <div class="story-nav-meta">{{ nextStory.data.location_short }} &middot; {{ nextStory.date | formatDate }}</div>
-  </a>
-  {% else %}
-  <a href="/stories/" class="story-nav-card next">
-    <div class="story-nav-direction">
-      All Stories
-      <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M9 1l4 4-4 4M1 5h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-    </div>
-    <div class="story-nav-couple">View all stories</div>
-  </a>
-  {% endif %}
-</nav>
 
 <!-- ═══ CTA ═══ -->
 <section class="story-cta">

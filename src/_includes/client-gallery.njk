@@ -172,10 +172,15 @@
   .drawer-close{width:38px;height:38px;border:1px solid var(--line);background:transparent;color:var(--ink);}
   .drawer-body{padding:24px 28px;overflow:auto;flex:1;}
   .selected-list{display:grid;gap:12px;}
+  .selected-group{display:grid;gap:10px;}
+  .selected-group+.selected-group{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);}
+  .selected-group-title{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mist);}
   .selected-item{display:grid;grid-template-columns:76px 1fr auto;gap:12px;align-items:center;padding:10px;background:var(--ivory);border:1px solid var(--line-2);}
+  .selected-item.not-selected-pick{background:rgba(158,68,54,.06);border-color:rgba(158,68,54,.16);}
   .selected-item img{width:76px;height:58px;object-fit:cover;}
   .selected-item strong{font-family:var(--serif);font-size:1.1rem;font-weight:400;display:block;}
   .selected-item span{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mist);}
+  .selected-item.not-selected-pick span{color:rgba(158,68,54,.72);}
   .mini-remove{width:32px;height:32px;border:1px solid var(--line);background:transparent;color:var(--ink);}
   .drawer-foot{padding:22px 28px;border-top:1px solid var(--line);display:grid;gap:12px;}
   .textarea-label{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mist);}
@@ -784,7 +789,7 @@
 
 <aside class="album-drawer" id="albumDrawer" aria-label="Album selections">
   <div class="drawer-head">
-    <div><div class="eyebrow">Album Shortlist</div><h2 class="drawer-title">Selected images</h2></div>
+    <div><div class="eyebrow">Album Shortlist</div><h2 class="drawer-title">Album picks</h2></div>
     <button class="drawer-close" type="button" id="closeDrawer" aria-label="Close album picks">x</button>
   </div>
   <div class="drawer-body"><div class="selected-list" id="selectedList"></div></div>
@@ -1134,17 +1139,33 @@
     });
   }
 
+  function imagesForIds(idSet){
+    return imageItems.filter(image => idSet.has(image.id));
+  }
+
   function renderSelection(){
     selectionCount.textContent = selected.size;
-    const chosen = imageItems.filter(image => selected.has(image.id));
-    selectedList.innerHTML = chosen.length ? chosen.map(image => `
-      <div class="selected-item">
+    const chosen = imagesForIds(selected);
+    const rejected = imagesForIds(notSelected);
+    const renderItem = (image, status) => `
+      <div class="selected-item${status === 'not-selected' ? ' not-selected-pick' : ''}">
         <img src="${escapeAttr(image.src)}" alt="${escapeAttr(image.title)}"/>
-        <div><strong>${escapeHtml(image.id)}</strong><span>${escapeHtml(image.title)}</span></div>
-        <button class="mini-remove" type="button" data-id="${escapeAttr(image.id)}" aria-label="Remove ${escapeAttr(image.id)}">x</button>
+        <div><strong>${escapeHtml(image.id)}</strong><span>${escapeHtml(status === 'not-selected' ? 'Not selected' : image.title)}</span></div>
+        <button class="mini-remove" type="button" data-id="${escapeAttr(image.id)}" data-status="${escapeAttr(status)}" aria-label="Remove ${escapeAttr(image.id)}">x</button>
       </div>
-    `).join('') : '<p style="font-size:.88rem;line-height:1.8;color:var(--ink-soft);">No images selected yet. Choose the frames you want in the album, then come back here to review them.</p>';
-    selectedList.querySelectorAll('.mini-remove').forEach(button => button.addEventListener('click', () => toggleSelect(button.dataset.id)));
+    `;
+    const groups = [];
+    if(chosen.length){
+      groups.push(`<div class="selected-group"><div class="selected-group-title">Selected images (${chosen.length})</div>${chosen.map(image => renderItem(image, 'selected')).join('')}</div>`);
+    }
+    if(rejected.length){
+      groups.push(`<div class="selected-group"><div class="selected-group-title">Not selected images (${rejected.length})</div>${rejected.map(image => renderItem(image, 'not-selected')).join('')}</div>`);
+    }
+    selectedList.innerHTML = groups.length ? groups.join('') : '<p style="font-size:.88rem;line-height:1.8;color:var(--ink-soft);">No album picks marked yet. Choose the frames you want, or mark photos as not selected, then come back here to review them.</p>';
+    selectedList.querySelectorAll('.mini-remove').forEach(button => button.addEventListener('click', () => {
+      if(button.dataset.status === 'not-selected') toggleNotSelected(button.dataset.id);
+      else toggleSelect(button.dataset.id);
+    }));
     updateShareLinks();
   }
 
@@ -1490,8 +1511,8 @@
   });
 
   function selectionText(){
-    const codes = [...selected];
-    const notSelectedCodes = [...notSelected];
+    const codes = imagesForIds(selected).map(image => image.id);
+    const notSelectedCodes = imagesForIds(notSelected).map(image => image.id);
     const selectedBy = selectorName.value.trim();
     const notes = albumNotes.value.trim();
     return `Memorygraph album selection - ${coupleNames}\nGallery: ${galleryTitle}\nSelected by: ${selectedBy || 'Not provided'}\n\nSelected images (${codes.length}):\n${codes.length ? codes.join(', ') : 'None yet'}\n\nNot selected images (${notSelectedCodes.length}):\n${notSelectedCodes.length ? notSelectedCodes.join(', ') : 'None marked'}\n\nNotes:\n${notes || 'No notes added.'}`;
@@ -2117,12 +2138,20 @@
   const selectionSteps = document.getElementById('selectionSteps');
   let selectionViewActive = false;
   let stepsShownOnce = false;
+  const isMobileSelectionSurface = () => window.matchMedia('(max-width: 980px)').matches;
 
   selectionPill.addEventListener('click', (e) => {
     e.stopPropagation();
+    if(isMobileSelectionSurface()){
+      selectionSteps.classList.remove('open');
+      if(topbarMenu) topbarMenu.classList.remove('open');
+      albumDrawer.classList.add('open');
+      updateShareLinks();
+      return;
+    }
     if(!selectionViewActive){
       // First tap: show next-steps panel (only if never shown or has selections)
-      if(!stepsShownOnce && selected.size > 0){
+      if(!stepsShownOnce && (selected.size > 0 || notSelected.size > 0)){
         selectionSteps.classList.add('open');
         stepsShownOnce = true;
         return;

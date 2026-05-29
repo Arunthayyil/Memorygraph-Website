@@ -16,7 +16,7 @@
         "30-day delivery promise"
       ],
       "value_note": "",
-      "price": "85000",
+      "price": "On Enquiry",
       "price_note": "Single Event",
       "price_number": "On Enquiry",
       "cta_text": "Enquire",
@@ -42,9 +42,9 @@
         "30-day delivery promise"
       ],
       "value_note": "If booked individually, these elements would total <span>₹1,65,000.</span> As a collection: ₹1,00,000.",
-      "price": "₹1,00,000",
+      "price": "On Enquiry",
       "price_note": "Full Day + Pre-Wedding",
-      "price_number": "100000",
+      "price_number": "On Enquiry",
       "cta_text": "Begin Your Story",
       "cta_link": "/contact/"
     },
@@ -67,9 +67,9 @@
         "30-day delivery promise"
       ],
       "value_note": "",
-      "price": "₹1,50,000",
+      "price": "On Enquiry",
       "price_note": "2 Days + Pre-Wedding",
-      "price_number": "150000",
+      "price_number": "On Enquiry",
       "cta_text": "Enquire",
       "cta_link": "/contact/"
     }

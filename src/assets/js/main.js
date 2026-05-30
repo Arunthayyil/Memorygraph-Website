@@ -126,6 +126,7 @@
 
     // Story cards
     gsap.utils.toArray('.story-card').forEach((card, i) => {
+      if (card.closest('#storiesTrack')) return;
       gsap.from(card, {
         scrollTrigger: { trigger: card, start: 'top 88%', once: true },
         opacity: 0, y: 40, duration: 0.7, delay: (i % 3) * 0.1, ease: 'power3.out',

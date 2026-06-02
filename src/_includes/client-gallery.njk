@@ -298,12 +298,12 @@
 
   /* ── Authorship Line ── */
   .authorship{padding:20px 40px;text-align:center;background:var(--ivory-2);border-bottom:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;}
-  .authorship-text{font-size:.54rem;letter-spacing:.3em;text-transform:uppercase;color:var(--mist);font-weight:400;}
+  .authorship-text{font-size:.54rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft);font-weight:500;}
   .authorship-text a{color:var(--mist);text-decoration:none;transition:color .3s;}
   .authorship-text a:hover{color:var(--teal);}
   .authorship-dot{width:3px;height:3px;border-radius:50%;background:var(--line);flex-shrink:0;}
-  .authorship-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid var(--line);background:var(--ivory);color:var(--ink-soft);font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;border-radius:3px;transition:all .3s;white-space:nowrap;}
-  .authorship-btn:hover{border-color:var(--teal);color:var(--teal);background:rgba(29,89,89,.03);}
+  .authorship-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid var(--teal);background:var(--teal);color:var(--ivory);font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;border-radius:3px;transition:all .3s;white-space:nowrap;box-shadow:0 4px 12px rgba(29,89,89,.14);}
+  .authorship-btn:hover{border-color:var(--teal-deep);color:var(--ivory);background:var(--teal-deep);box-shadow:0 6px 16px rgba(29,89,89,.18);}
 
   /* ── Chapter Index ── */
   .chapter-index{padding:72px 56px 80px;background:var(--ivory);text-align:center;}
@@ -1199,17 +1199,6 @@
       e.preventDefault();
       downloadSingleImage(link.href, link.getAttribute('download') || 'image.jpg');
     }));
-
-  function getLikeCount(id){
-    return Math.max(0, Number(likeCounts[id] || 0));
-  }
-
-  function heartMarkup(id){
-    const count = getLikeCount(id);
-    const active = hearted.has(id);
-    const countMarkup = count > 0 ? ` <span class="photo-heart-count">${count}</span>` : '';
-    return `${active ? '❤️' : '🤍'}${countMarkup}`;
-  }
     photoGrid.querySelectorAll('.print-add-btn').forEach(button => button.addEventListener('click', (e) => { e.stopPropagation(); addToPrintCart(renderedImages[Number(button.dataset.index)]); }));
     photoGrid.querySelectorAll('.admin-hide-toggle').forEach(btn => btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -1235,6 +1224,16 @@
     setupSectionObserver();
   }
 
+  function getLikeCount(id){
+    return Math.max(0, Number(likeCounts[id] || 0));
+  }
+
+  function heartMarkup(id){
+    const count = getLikeCount(id);
+    const active = hearted.has(id);
+    const countMarkup = count > 0 ? ` <span class="photo-heart-count">${count}</span>` : "";
+    return `${active ? '&#10084;&#65039;' : '&#129293;'}${countMarkup}`;
+  }
   function toggleSelect(id){
     if(selected.has(id)) selected.delete(id);
     else {

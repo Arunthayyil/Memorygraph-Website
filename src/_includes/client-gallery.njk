@@ -560,15 +560,16 @@
   .toast.error{background:#c44;}
   .toast.success{background:rgba(29,89,89,.95);}
 
-  .butterfly-layer{position:fixed;inset:0;z-index:180;pointer-events:none;overflow:hidden;contain:layout paint;}
-  .butterfly{position:absolute;width:30px;height:22px;color:rgba(184,150,90,.64);opacity:0;will-change:transform,opacity;filter:drop-shadow(0 0 12px rgba(184,150,90,.14));}
+  .butterfly-layer{position:fixed;inset:0;z-index:980;pointer-events:none;overflow:hidden;contain:layout paint;isolation:isolate;transform:translateZ(0);}
+  .butterfly{position:absolute;width:36px;height:28px;color:rgba(184,150,90,.82);opacity:0;will-change:transform,opacity;filter:drop-shadow(0 0 16px rgba(184,150,90,.2));mix-blend-mode:screen;}
   .butterfly svg{display:block;width:100%;height:100%;}
   .butterfly-wing{transform-origin:50% 50%;animation:butterflyFlap .82s ease-in-out infinite;opacity:.92;}
   .butterfly-wing.right{animation-direction:reverse;}
   .butterfly-body{opacity:.7;}
   @keyframes butterflyDrift{
     0%{transform:translate3d(0,0,0) scale(var(--butterfly-scale,1)) rotate(var(--butterfly-tilt,0deg));opacity:0;}
-    12%{opacity:.24;}
+    8%{opacity:.8;}
+    85%{opacity:.45;}
     100%{transform:translate3d(var(--butterfly-drift-x,0px), calc(-1 * var(--butterfly-rise,120px)), 0) scale(var(--butterfly-scale,1)) rotate(calc(var(--butterfly-tilt,0deg) + var(--butterfly-spin,12deg)));opacity:0;}
   }
   @keyframes butterflyFlap{
@@ -576,8 +577,8 @@
     50%{transform:scaleY(1.05) rotate(.7deg);}
   }
   @media (prefers-reduced-motion: reduce){
-    .butterfly{animation-duration:12s;opacity:.18;}
-    .butterfly-wing{animation-duration:1.4s;}
+    .butterfly{animation-duration:10s;opacity:.65;}
+    .butterfly-wing{animation-duration:1.5s;}
   }
 
   .photo-card .admin-hide-toggle{position:absolute;top:8px;left:8px;z-index:10;width:32px;height:32px;border-radius:50%;border:1px solid rgba(244,237,224,.5);background:rgba(26,24,20,.5);backdrop-filter:blur(4px);color:var(--ivory);display:none;place-items:center;cursor:pointer;transition:background .2s,border-color .2s;font-size:.7rem;}
@@ -2048,7 +2049,6 @@
   const printPanelBody = document.getElementById('printPanelBody');
   const butterflyLayer = document.getElementById('butterflyLayer');
   const butterflyEnabled = !!butterflyLayer;
-  let nextButterflyAt = 0;
   let butterflyPulse = null;
 
   function createButterfly(){
@@ -2082,27 +2082,25 @@
       </svg>
     `;
     butterflyLayer.appendChild(el);
-    el.style.animation = `butterflyDrift ${4.8 + Math.random() * 2.2}s ease-in forwards`;
+    el.style.animation = `butterflyDrift ${5.5 + Math.random() * 2.5}s ease-in forwards`;
     el.addEventListener('animationend', () => el.remove(), { once: true });
   }
 
-  function maybeSpawnButterfly(){
+  function spawnButterflyBurst(count){
     if(!butterflyEnabled) return;
-    const now = Date.now();
-    if(now < nextButterflyAt) return;
-    if(butterflyLayer.childElementCount >= 3) return;
-    createButterfly();
-    nextButterflyAt = now + 2500 + Math.random() * 3500;
+    const total = Math.max(1, Math.min(8, count || 1));
+    for(let i = 0; i < total; i++){
+      setTimeout(() => {
+        if(!butterflyLayer) return;
+        if(butterflyLayer.childElementCount >= 8) return;
+        createButterfly();
+      }, i * 220);
+    }
   }
   if(butterflyEnabled){
-    butterflyPulse = setInterval(() => {
-      if(!document.hidden) maybeSpawnButterfly();
-    }, 2800);
-    requestAnimationFrame(maybeSpawnButterfly);
-    setTimeout(() => maybeSpawnButterfly(), 850);
-    window.addEventListener('load', () => {
-      if(!document.hidden) maybeSpawnButterfly();
-    }, {once:true});
+    requestAnimationFrame(() => spawnButterflyBurst(4));
+    setTimeout(() => spawnButterflyBurst(2), 1800);
+    butterflyPulse = setInterval(() => spawnButterflyBurst(1), 2600);
   }
 
   function savePrintCart(){

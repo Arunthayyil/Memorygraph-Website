@@ -114,6 +114,7 @@ collections:
       - { label: "Intro", name: "intro", widget: "text" }
       - { label: "Selection Title", name: "selection_title", widget: "string", default: "Select the frames<br><em>you want printed.</em>" }
       - { label: "Selection Note", name: "selection_note", widget: "text" }
+      - { label: "Show Selection Section", name: "show_selection_section", widget: "boolean", required: false, default: true, hint: "Hide the album-selection intro and print banner when turned off." }
       - { label: "Hero Image", name: "hero_image", widget: "image" }
       - { label: "Hero Video (MP4)", name: "hero_video", widget: "string", required: false, hint: "Optional. Paste a URL to an MP4 video file. When set, the hero plays this video instead of showing the static image. The hero image is still used as a poster/fallback." }
       - { label: "Secondary Hero Image", name: "hero_image_secondary", widget: "image", required: false }

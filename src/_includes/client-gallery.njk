@@ -552,6 +552,25 @@
   .toast.error{background:#c44;}
   .toast.success{background:rgba(29,89,89,.95);}
 
+  .butterfly-layer{position:fixed;inset:0;z-index:150;pointer-events:none;overflow:hidden;contain:layout paint;}
+  .butterfly{position:absolute;width:18px;height:14px;color:rgba(184,150,90,.38);opacity:0;will-change:transform,opacity;filter:drop-shadow(0 0 8px rgba(184,150,90,.08));}
+  .butterfly svg{display:block;width:100%;height:100%;}
+  .butterfly-wing{transform-origin:50% 50%;animation:butterflyFlap .82s ease-in-out infinite;opacity:.92;}
+  .butterfly-wing.right{animation-direction:reverse;}
+  .butterfly-body{opacity:.7;}
+  @keyframes butterflyDrift{
+    0%{transform:translate3d(0,0,0) scale(var(--butterfly-scale,1)) rotate(var(--butterfly-tilt,0deg));opacity:0;}
+    12%{opacity:.16;}
+    100%{transform:translate3d(var(--butterfly-drift-x,0px), calc(-1 * var(--butterfly-rise,120px)), 0) scale(var(--butterfly-scale,1)) rotate(calc(var(--butterfly-tilt,0deg) + var(--butterfly-spin,12deg)));opacity:0;}
+  }
+  @keyframes butterflyFlap{
+    0%,100%{transform:scaleY(.95) rotate(0deg);}
+    50%{transform:scaleY(1.05) rotate(.7deg);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .butterfly-layer{display:none;}
+  }
+
   .photo-card .admin-hide-toggle{position:absolute;top:8px;left:8px;z-index:10;width:32px;height:32px;border-radius:50%;border:1px solid rgba(244,237,224,.5);background:rgba(26,24,20,.5);backdrop-filter:blur(4px);color:var(--ivory);display:none;place-items:center;cursor:pointer;transition:background .2s,border-color .2s;font-size:.7rem;}
   .admin-mode .photo-card .admin-hide-toggle{display:grid;}
   .photo-card .admin-hide-toggle:hover{background:rgba(220,60,60,.7);border-color:rgba(220,60,60,.8);}
@@ -678,7 +697,9 @@
     <div class="hero-overlay"></div>
     <div class="hero-copy">
       <img src="/assets/logo/logo-white.png" alt="Memorygraph" class="hero-monogram"/>
+      {% if password %}
       <div class="hero-label">{{ hero_label or "Private Wedding Gallery" }}</div>
+      {% endif %}
       <h1>{{ couple_names or title }}</h1>
       <p class="hero-sub">{{ intro }}</p>
       <div class="hero-meta">
@@ -743,27 +764,31 @@
   {% endif %}
 
   <section class="gallery-wrap" id="galleryWrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow">Choose for album</div>
-        <h2 class="section-title">{{ selection_title | safe }}</h2>
+    {% if show_selection_section or show_selection_section == undefined %}
+    <div class="selection-section">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Choose for album</div>
+          <h2 class="section-title">{{ selection_title | safe }}</h2>
+        </div>
+        <p class="section-note">{{ selection_note }}</p>
       </div>
-      <p class="section-note">{{ selection_note }}</p>
+      <div class="print-banner" id="printBanner">
+        <div class="print-banner-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="20" height="20" rx="1"/><rect x="5" y="5" width="14" height="14"/><path d="M2 2l3 3M22 2l-3 3M2 22l3-3M22 22l-3-3"/></svg>
+        </div>
+        <div class="print-banner-text">
+          <strong>Print & frame service</strong>
+          <span>A4 &#8212; &#8377;500 &middot; A3 &#8212; &#8377;1,000 &middot; Delivered to your door</span>
+        </div>
+        <div class="print-banner-cart">
+          <button class="print-cart-pill empty" type="button" id="openPrintCart">
+            <span id="printCartBadge">0</span> items &middot; View order
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="print-banner" id="printBanner">
-      <div class="print-banner-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="20" height="20" rx="1"/><rect x="5" y="5" width="14" height="14"/><path d="M2 2l3 3M22 2l-3 3M2 22l3-3M22 22l-3-3"/></svg>
-      </div>
-      <div class="print-banner-text">
-        <strong>Print & frame service</strong>
-        <span>A4 &#8212; &#8377;500 &middot; A3 &#8212; &#8377;1,000 &middot; Delivered to your door</span>
-      </div>
-      <div class="print-banner-cart">
-        <button class="print-cart-pill empty" type="button" id="openPrintCart">
-          <span id="printCartBadge">0</span> items &middot; View order
-        </button>
-      </div>
-    </div>
+    {% endif %}
     <div class="photo-grid" id="photoGrid"></div>
   </section>
 
@@ -948,6 +973,7 @@
 
 <!-- Toast notification -->
 <div class="toast" id="toast"></div>
+<div class="butterfly-layer" id="butterflyLayer" aria-hidden="true"></div>
 
 <script>
   // Auto-detect portrait hero → switch to split layout (desktop only)
@@ -1393,6 +1419,7 @@
     scrollRAF = requestAnimationFrame(() => {
       scrollRAF = null;
       _applyVirtualScroll();
+      maybeSpawnButterfly();
       // Show utility bar once hero scrolls out of view
       if(heroSectionEl && topbarEl){
         const heroBottom = heroSectionEl.getBoundingClientRect().bottom;
@@ -1847,6 +1874,59 @@
   const openPrintCartBtn = document.getElementById('openPrintCart');
   const printSuccess = document.getElementById('printSuccess');
   const printPanelBody = document.getElementById('printPanelBody');
+  const butterflyLayer = document.getElementById('butterflyLayer');
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const butterflyEnabled = !!butterflyLayer && !reduceMotion;
+  let nextButterflyAt = 0;
+
+  function createButterfly(){
+    if(!butterflyLayer) return;
+    const el = document.createElement('div');
+    el.className = 'butterfly';
+    const isGold = Math.random() > 0.5;
+    const color = isGold ? 'rgba(184,150,90,.42)' : 'rgba(244,237,224,.28)';
+    const startLeft = 8 + Math.random() * 84;
+    const startTop = 58 + Math.random() * 28;
+    const rise = 90 + Math.random() * 90;
+    const driftX = (Math.random() - 0.5) * 120;
+    const scale = 0.72 + Math.random() * 0.55;
+    const tilt = (Math.random() - 0.5) * 26;
+    const spin = (Math.random() - 0.5) * 20;
+
+    el.style.left = `${startLeft}vw`;
+    el.style.top = `${startTop}vh`;
+    el.style.color = color;
+    el.style.setProperty('--butterfly-rise', `${rise}px`);
+    el.style.setProperty('--butterfly-drift-x', `${driftX}px`);
+    el.style.setProperty('--butterfly-scale', `${scale}`);
+    el.style.setProperty('--butterfly-tilt', `${tilt}deg`);
+    el.style.setProperty('--butterfly-spin', `${spin}deg`);
+    el.innerHTML = `
+      <svg viewBox="0 0 24 18" aria-hidden="true" focusable="false">
+        <path class="butterfly-wing left" fill="currentColor" d="M11.5 8.8c-1.1-2.9-3.8-5.6-6.2-5.1-2 .4-3.1 2.7-2.8 4.8.3 2.1 1.7 3.7 3.5 4.1 2.5.5 4.4-1 5.5-3.8z"/>
+        <path class="butterfly-wing right" fill="currentColor" d="M12.5 8.8c1.1-2.9 3.8-5.6 6.2-5.1 2 .4 3.1 2.7 2.8 4.8-.3 2.1-1.7 3.7-3.5 4.1-2.5.5-4.4-1-5.5-3.8z"/>
+        <rect class="butterfly-body" x="11.25" y="5.2" width="1.5" height="7.8" rx=".75" fill="currentColor"/>
+        <path class="butterfly-body" d="M12 4.6c-.8-.9-1.4-1.8-1.7-2.5m0 0c.7.1 1.2.4 1.7.9m0-.9c.5-.5 1-.8 1.7-.9-.3.7-.9 1.6-1.7 2.5" fill="none" stroke="currentColor" stroke-width=".7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    `;
+    butterflyLayer.appendChild(el);
+    el.style.animation = `butterflyDrift ${4.8 + Math.random() * 2.2}s ease-in forwards`;
+    el.addEventListener('animationend', () => el.remove(), { once: true });
+  }
+
+  function maybeSpawnButterfly(){
+    if(!butterflyEnabled) return;
+    const now = Date.now();
+    if(now < nextButterflyAt) return;
+    const wrapRect = document.getElementById('galleryWrap')?.getBoundingClientRect();
+    const footerRect = document.querySelector('.cg-footer')?.getBoundingClientRect();
+    const activeGallery = wrapRect && wrapRect.top < window.innerHeight * 0.9 && wrapRect.bottom > window.innerHeight * 0.18;
+    const footerNear = footerRect && footerRect.top < window.innerHeight * 0.9;
+    if(!activeGallery || footerNear) return;
+    if(butterflyLayer.childElementCount >= 3) return;
+    createButterfly();
+    nextButterflyAt = now + 1600 + Math.random() * 2600;
+  }
 
   function savePrintCart(){
     localStorage.setItem(printCartKey, JSON.stringify(printCart));
@@ -1855,8 +1935,8 @@
 
   function updatePrintBadge(){
     const count = printCart.reduce((s, i) => s + (i.qty || 1), 0);
-    printCartBadge.textContent = count;
-    openPrintCartBtn.classList.toggle('empty', count === 0);
+    if(printCartBadge) printCartBadge.textContent = count;
+    if(openPrintCartBtn) openPrintCartBtn.classList.toggle('empty', count === 0);
   }
 
   function addToPrintCart(image){
@@ -1948,7 +2028,7 @@
     document.getElementById('printWhatsApp').href = `https://wa.me/${whatsappNumber}?text=${text}`;
   }
 
-  openPrintCartBtn.addEventListener('click', openPrintPanel);
+  if(openPrintCartBtn) openPrintCartBtn.addEventListener('click', openPrintPanel);
   document.getElementById('closePrintPanel').addEventListener('click', closePrintPanel);
   printOverlay.addEventListener('click', e => { if(e.target === printOverlay) closePrintPanel(); });
   document.getElementById('printAddMore').addEventListener('click', () => { closePrintPanel(); });

@@ -20,6 +20,7 @@ explore_body: Visit our website to see more stories, learn about our work, or st
 review_sub: Your words mean the world to us. A short review helps others find their storyteller.
 gallery_folder: ''
 gallery_drive_folder: https://drive.google.com/drive/folders/1DMLTFPoNb_PsgS8Vqba_HRrRiT_Eq5Py?usp=sharing
+show_selection_section: true
 gallery_sections: []
 gallery_items: []
 gallery_drive_images:

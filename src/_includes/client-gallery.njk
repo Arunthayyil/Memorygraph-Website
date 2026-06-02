@@ -1125,10 +1125,10 @@
         caption: item.caption || '',
         order: item.order
       };
-      renderedImages.push(image);
       // Admin: skip hidden images for non-admin visitors
       const isHidden = hiddenImageIds.has(image.id);
       if(isHidden && !isAdminMode) return '';
+      renderedImages.push(image);
       if(!isHidden) visibleCount++;
       const hiddenClass = isHidden ? ' admin-hidden' : '';
       const hideIcon = isHidden

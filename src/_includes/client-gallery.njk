@@ -203,6 +203,7 @@
   .lightbox{position:fixed;inset:0;z-index:300;background:rgba(15,14,12,.96);display:none;flex-direction:column;color:var(--ivory);}
   .lightbox.open{display:flex;}
   .lightbox.open ~ .butterfly-layer{display:none;}
+  .lightbox.open ~ .butterfly-layer .butterfly{display:none;}
   .lb-stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative;min-height:0;overflow:hidden;}
   .lb-stage{touch-action:pan-y;}
   .lb-stage img{max-width:min(92vw,920px);max-height:100%;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.38);border-radius:2px;}

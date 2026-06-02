@@ -576,7 +576,8 @@
     50%{transform:scaleY(1.05) rotate(.7deg);}
   }
   @media (prefers-reduced-motion: reduce){
-    .butterfly-layer{display:none;}
+    .butterfly{animation-duration:12s;opacity:.18;}
+    .butterfly-wing{animation-duration:1.4s;}
   }
 
   .photo-card .admin-hide-toggle{position:absolute;top:8px;left:8px;z-index:10;width:32px;height:32px;border-radius:50%;border:1px solid rgba(244,237,224,.5);background:rgba(26,24,20,.5);backdrop-filter:blur(4px);color:var(--ivory);display:none;place-items:center;cursor:pointer;transition:background .2s,border-color .2s;font-size:.7rem;}

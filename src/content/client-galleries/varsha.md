@@ -8,6 +8,9 @@ intro: A curated photoshoot gallery for Varsha.
 selection_title: Select the frames<br><em>you want printed.</em>
 selection_note: Please view these images, share your favorites, and shortlist any frames you would like for prints.
 show_selection_section: false
+show_select_button: false
+show_not_selected_button: false
+show_order_print_button: false
 hero_image: https://lh3.googleusercontent.com/d/1zIacrEVT-FDSoMyURF8rtSMX5-FExGc-=s1920
 hero_video: ''
 hero_image_secondary: https://lh3.googleusercontent.com/d/1Crl7W4I0tnYsLRH5d-90y9jXKwiNpsb3=s1920

@@ -162,8 +162,13 @@
   .photo-card:hover .photo-overlay,.photo-card.selected .photo-overlay,.photo-card.not-selected .photo-overlay{opacity:1;}
   .photo-id{align-self:flex-start;color:var(--ivory);font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;text-shadow:0 2px 12px rgba(0,0,0,.35);}
   .photo-controls{display:flex;gap:8px;align-self:flex-end;}
+  .photo-heart-btn{position:absolute;top:12px;right:12px;z-index:3;min-width:38px;height:38px;padding:0 10px;border:1px solid rgba(244,237,224,.28);background:rgba(26,24,20,.34);border-radius:999px;color:var(--ivory);display:inline-flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;transition:transform .2s,background .2s,border-color .2s,color .2s;backdrop-filter:blur(4px);font-size:1rem;line-height:1;white-space:nowrap;}
+  .photo-heart-btn:hover{background:rgba(244,237,224,.14);border-color:rgba(244,237,224,.4);transform:translateY(-1px);}
+  .photo-heart-btn.active{background:rgba(220,60,60,.88);border-color:rgba(220,60,60,.95);color:#fff;}
+  .photo-heart-count{font-size:.68rem;letter-spacing:.08em;line-height:1;font-variant-numeric:tabular-nums;}
   .icon-btn{width:40px;height:40px;border:1px solid rgba(244,237,224,.4);background:rgba(26,24,20,.3);border-radius:50%;color:var(--ivory);display:grid;place-items:center;transition:all .25s;text-decoration:none;backdrop-filter:blur(4px);}
   .icon-btn:hover{background:rgba(244,237,224,.9);color:var(--teal);border-color:rgba(244,237,224,.9);}
+  .icon-btn.active{background:var(--gold);border-color:var(--gold);color:var(--teal-deep);}
   .photo-card.selected .select-btn{background:var(--gold);border-color:var(--gold);color:var(--teal-deep);}
   .photo-card.selected::after{content:'Selected';position:absolute;top:14px;right:14px;padding:6px 12px;background:var(--gold);color:var(--teal-deep);font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;border-radius:3px;}
   .photo-card.not-selected img{filter:grayscale(.55) brightness(.82);}
@@ -214,6 +219,9 @@
   .lb-action{display:flex;align-items:center;gap:6px;padding:9px 14px;border:1px solid rgba(244,237,224,.18);background:transparent;color:var(--ivory);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:background .2s,border-color .2s,color .2s;}
   .lb-action:hover{background:rgba(244,237,224,.1);border-color:rgba(244,237,224,.3);}
   .lb-action.active{background:var(--gold);color:var(--teal-deep);border-color:var(--gold);}
+  .lb-action-heart{border-color:rgba(220,60,60,.3);color:var(--ivory);}
+  .lb-action-heart:hover{background:rgba(220,60,60,.12);border-color:rgba(220,60,60,.45);color:var(--ivory);}
+  .lb-action-heart.active{background:rgba(220,60,60,.92);border-color:rgba(220,60,60,.95);color:#fff;}
   .lb-action-reject{border-color:rgba(244,237,224,.16);color:rgba(244,237,224,.64);}
   .lb-action-reject:hover{background:rgba(244,237,224,.08);border-color:rgba(244,237,224,.32);color:var(--ivory);}
   .lb-action-reject.active{background:rgba(158,68,54,.92);border-color:rgba(158,68,54,.92);color:var(--ivory);}
@@ -506,8 +514,9 @@
     .photo-overlay{padding:8px;}
     .photo-id{font-size:.46rem;letter-spacing:.12em;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
     .photo-controls{display:none;}
-    .photo-card.selected::after{top:8px;right:8px;padding:4px 7px;font-size:.42rem;letter-spacing:.12em;}
-    .photo-card.not-selected::after{top:8px;right:8px;padding:4px 7px;font-size:.42rem;letter-spacing:.1em;}
+  .photo-card.selected::after{top:8px;right:8px;padding:4px 7px;font-size:.42rem;letter-spacing:.12em;}
+  .photo-card.not-selected::after{top:8px;right:8px;padding:4px 7px;font-size:.42rem;letter-spacing:.1em;}
+    .photo-heart-btn{top:8px;right:8px;min-width:34px;height:34px;padding:0 9px;font-size:.95rem;}
   }
 
   @media(min-width:1500px){
@@ -914,22 +923,32 @@
       <span class="lb-bar-id" id="lbBarId"></span>
     </div>
     <div class="lb-bar-actions">
+      <button class="lb-action lb-action-heart" type="button" id="lbHeart" aria-pressed="false" aria-label="Leave a heart for this photo">
+        <span aria-hidden="true">❤️</span>
+        <span>Heart</span>
+      </button>
+      {% if show_select_button is not defined or show_select_button %}
       <button class="lb-action" type="button" id="lbSelect">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
         <span>Select</span>
       </button>
+      {% endif %}
+      {% if show_not_selected_button is not defined or show_not_selected_button %}
       <button class="lb-action lb-action-reject" type="button" id="lbReject">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
         <span>Not Selected</span>
       </button>
+      {% endif %}
       <a class="lb-action" id="lbDownload" href="#" download>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>
         <span>Download</span>
       </a>
+      {% if show_order_print_button is not defined or show_order_print_button %}
       <button class="lb-action lb-action-print" type="button" id="lbOrderPrint">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="1"/><rect x="5" y="5" width="14" height="14"/><path d="M2 2l3 3M22 2l-3 3M2 22l3-3M22 22l-3-3"/></svg>
         <span>Order Print</span>
       </button>
+      {% endif %}
     </div>
   </div>
 </div>
@@ -996,20 +1015,26 @@
   const galleryTitle = {{ title | json | safe }};
   const coupleNames = {{ (couple_names or title) | json | safe }};
   const whatsappNumber = {{ (whatsapp_number or "919846238073") | json | safe }};
+  const showSelectButton = {% if show_select_button is defined %}{{ show_select_button | json | safe }}{% else %}true{% endif %};
+  const showNotSelectedButton = {% if show_not_selected_button is defined %}{{ show_not_selected_button | json | safe }}{% else %}true{% endif %};
+  const showOrderPrintButton = {% if show_order_print_button is defined %}{{ show_order_print_button | json | safe }}{% else %}true{% endif %};
   const gallerySections = {{ gallery_sections | json | safe }} || [];
   const galleryItems = {{ gallery_items | clientGalleryItems(gallery_folder, gallery_drive_images, gallery_sections) | json | safe }};
   const authKey = `memorygraph_gallery_unlocked_${gallerySlug}`;
   const storageKey = `memorygraph_album_selection_${gallerySlug}`;
   const notSelectedKey = `memorygraph_album_not_selected_${gallerySlug}`;
+  const heartKey = `memorygraph_gallery_hearts_${gallerySlug}`;
   const notesKey = `memorygraph_album_notes_${gallerySlug}`;
   const selectorNameKey = `memorygraph_album_selector_${gallerySlug}`;
   let selected = new Set(JSON.parse(localStorage.getItem(storageKey) || '[]'));
   let notSelected = new Set(JSON.parse(localStorage.getItem(notSelectedKey) || '[]'));
+  let hearted = new Set(JSON.parse(localStorage.getItem(heartKey) || '[]'));
   selected.forEach(id => notSelected.delete(id));
   let activeFilter = 'all';
   let sortMode = 'cms';
   let renderedImages = [];
   let lightboxIndex = 0;
+  let likeCounts = {};
 
   const imageItems = galleryItems
     .map((item, index) => ({...item, order:index, item_type:item.item_type || (item.image ? 'image' : 'quote')}))
@@ -1136,6 +1161,7 @@
       return `<article class="photo-card${selected.has(image.id) ? ' selected' : ''}${notSelected.has(image.id) ? ' not-selected' : ''}${hiddenClass}" data-type="image" data-id="${escapeAttr(image.id)}" data-cat="${escapeAttr(image.cat)}" data-title="${escapeAttr((image.title + ' ' + image.caption).toLowerCase())}">
         <button class="admin-hide-toggle" type="button" data-id="${escapeAttr(image.id)}" data-hidden="${isHidden ? '1' : '0'}" title="${isHidden ? 'Unhide' : 'Hide'} this image">${hideIcon}</button>
         <img src="${escapeAttr(image.src)}" alt="${escapeAttr(image.title)}" loading="lazy"/>
+        <button class="photo-heart-btn${hearted.has(image.id) ? ' active' : ''}" type="button" data-id="${escapeAttr(image.id)}" aria-pressed="${hearted.has(image.id) ? 'true' : 'false'}" aria-label="${hearted.has(image.id) ? 'Remove heart for' : 'Leave a heart for'} ${escapeAttr(image.id)}">${heartMarkup(image.id)}</button>
         <div class="photo-overlay">
           <span class="photo-id">${escapeHtml(image.id)} · ${escapeHtml(image.title)}</span>
           <div class="photo-controls">
@@ -1145,15 +1171,15 @@
             <a class="icon-btn download-btn" href="${escapeAttr(image.src)}" download="${escapeAttr(fileNameForImage(image))}" aria-label="Download ${escapeAttr(image.id)}">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>
             </a>
-            <button class="icon-btn select-btn" type="button" data-id="${escapeAttr(image.id)}" aria-label="Select ${escapeAttr(image.id)}">
+            ${showSelectButton ? `<button class="icon-btn select-btn" type="button" data-id="${escapeAttr(image.id)}" aria-label="Select ${escapeAttr(image.id)}">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6L9 17l-5-5"/></svg>
-            </button>
-            <button class="icon-btn reject-btn" type="button" data-id="${escapeAttr(image.id)}" aria-label="Mark ${escapeAttr(image.id)} as not selected" title="Mark not selected">
+            </button>` : ''}
+            ${showNotSelectedButton ? `<button class="icon-btn reject-btn" type="button" data-id="${escapeAttr(image.id)}" aria-label="Mark ${escapeAttr(image.id)} as not selected" title="Mark not selected">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6L6 18M6 6l12 12"/></svg>
-            </button>
-            <button class="icon-btn print-add-btn" type="button" data-index="${imageIndex}" aria-label="Order print of ${escapeAttr(image.id)}">
+            </button>` : ''}
+            ${showOrderPrintButton ? `<button class="icon-btn print-add-btn" type="button" data-index="${imageIndex}" aria-label="Order print of ${escapeAttr(image.id)}">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="1"/><rect x="5" y="5" width="14" height="14"/><path d="M2 2l3 3M22 2l-3 3M2 22l3-3M22 22l-3-3"/></svg>
-            </button>
+            </button>` : ''}
             <button class="icon-btn story-push-btn" type="button" data-src="${escapeAttr(image.src)}" data-id="${escapeAttr(image.id)}" aria-label="Add to story" title="Add to story">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
             </button>
@@ -1166,12 +1192,24 @@
     else document.getElementById('imageTotal').textContent = imageItems.length;
     photoGrid.querySelectorAll('.select-btn').forEach(button => button.addEventListener('click', (e) => { e.stopPropagation(); toggleSelect(button.dataset.id); }));
     photoGrid.querySelectorAll('.reject-btn').forEach(button => button.addEventListener('click', (e) => { e.stopPropagation(); toggleNotSelected(button.dataset.id); }));
+    photoGrid.querySelectorAll('.photo-heart-btn').forEach(button => button.addEventListener('click', (e) => { e.stopPropagation(); toggleHeart(button.dataset.id); }));
     photoGrid.querySelectorAll('.view-btn').forEach(button => button.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(Number(button.dataset.index)); }));
     photoGrid.querySelectorAll('.download-btn').forEach(link => link.addEventListener('click', (e) => {
       e.stopPropagation();
       e.preventDefault();
       downloadSingleImage(link.href, link.getAttribute('download') || 'image.jpg');
     }));
+
+  function getLikeCount(id){
+    return Math.max(0, Number(likeCounts[id] || 0));
+  }
+
+  function heartMarkup(id){
+    const count = getLikeCount(id);
+    const active = hearted.has(id);
+    const countMarkup = count > 0 ? ` <span class="photo-heart-count">${count}</span>` : '';
+    return `${active ? '❤️' : '🤍'}${countMarkup}`;
+  }
     photoGrid.querySelectorAll('.print-add-btn').forEach(button => button.addEventListener('click', (e) => { e.stopPropagation(); addToPrintCart(renderedImages[Number(button.dataset.index)]); }));
     photoGrid.querySelectorAll('.admin-hide-toggle').forEach(btn => btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -1226,6 +1264,72 @@
     updateLightbox();
     if(sortMode === 'selected') buildGallery();
     else applyFilters();
+  }
+
+  function saveHearts(){
+    localStorage.setItem(heartKey, JSON.stringify([...hearted]));
+  }
+
+  async function toggleHeart(id){
+    const wasHearted = hearted.has(id);
+    const previousCount = getLikeCount(id);
+    if(wasHearted) hearted.delete(id);
+    else hearted.add(id);
+    likeCounts[id] = Math.max(0, previousCount + (wasHearted ? -1 : 1));
+    saveHearts();
+    updateHeartStatus(id);
+    updateLightbox();
+    try{
+      const res = await fetch('/api/gallery-likes', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ slug: gallerySlug, imageId: id, action: wasHearted ? 'unlike' : 'like' })
+      });
+      if(!res.ok) throw new Error('Like update failed');
+      const data = await res.json();
+      if(data && data.likes){
+        likeCounts = data.likes;
+      }
+      if(typeof data.count === 'number'){
+        likeCounts[id] = data.count;
+      }
+      updateHeartStatus(id);
+      updateLightbox();
+    }catch(err){
+      if(wasHearted) hearted.add(id);
+      else hearted.delete(id);
+      likeCounts[id] = previousCount;
+      saveHearts();
+      updateHeartStatus(id);
+      updateLightbox();
+    }
+  }
+
+  function updateHeartStatus(id){
+    const isHearted = hearted.has(id);
+    document.querySelectorAll(`.photo-card[data-id="${cssEscape(id)}"]`).forEach(card => {
+      card.classList.toggle('hearted', isHearted);
+      const btn = card.querySelector('.photo-heart-btn');
+      if(btn){
+        btn.classList.toggle('active', isHearted);
+        btn.setAttribute('aria-pressed', isHearted ? 'true' : 'false');
+        btn.innerHTML = heartMarkup(id);
+        btn.setAttribute('aria-label', `${isHearted ? 'Remove heart for' : 'Leave a heart for'} ${id}`);
+      }
+    });
+  }
+
+  async function loadLikeCounts(){
+    try{
+      const res = await fetch(`/api/gallery-likes?slug=${encodeURIComponent(gallerySlug)}`);
+      if(!res.ok) return;
+      const data = await res.json();
+      likeCounts = (data && data.likes && typeof data.likes === 'object') ? data.likes : {};
+      renderedImages.forEach(image => updateHeartStatus(image.id));
+      updateLightbox();
+    }catch(err){
+      // Keep local hearts working even if the shared counter endpoint is unavailable.
+    }
   }
 
   function updatePhotoStatus(id){
@@ -1729,6 +1833,7 @@
   const lbRejectBtn = document.getElementById('lbReject');
   const lbDownloadBtn = document.getElementById('lbDownload');
   const lbOrderPrintBtn = document.getElementById('lbOrderPrint');
+  const lbHeartBtn = document.getElementById('lbHeart');
   const lbStage = lightbox.querySelector('.lb-stage');
   let lightboxTouch = null;
   let lightboxSwipeHandled = false;
@@ -1748,8 +1853,14 @@
     lbImage.src = image.src;
     lbImage.alt = image.title;
     lbBarId.textContent = `${lightboxIndex + 1} / ${renderedImages.length}`;
-    lbSelectBtn.classList.toggle('active', selected.has(image.id));
-    lbRejectBtn.classList.toggle('active', notSelected.has(image.id));
+    if(lbSelectBtn) lbSelectBtn.classList.toggle('active', selected.has(image.id));
+    if(lbRejectBtn) lbRejectBtn.classList.toggle('active', notSelected.has(image.id));
+    if(lbHeartBtn){
+      const isHearted = hearted.has(image.id);
+      lbHeartBtn.classList.toggle('active', isHearted);
+      lbHeartBtn.setAttribute('aria-pressed', isHearted ? 'true' : 'false');
+      lbHeartBtn.innerHTML = heartMarkup(image.id);
+    }
     lbDownloadBtn.href = image.src;
     lbDownloadBtn.download = fileNameForImage(image);
   }
@@ -1771,20 +1882,33 @@
     }
   });
 
-  lbSelectBtn.addEventListener('click', () => {
-    const image = renderedImages[lightboxIndex];
-    if(image) toggleSelect(image.id);
-    updateLightbox();
-  });
-  lbRejectBtn.addEventListener('click', () => {
-    const image = renderedImages[lightboxIndex];
-    if(image) toggleNotSelected(image.id);
-    updateLightbox();
-  });
-  lbOrderPrintBtn.addEventListener('click', () => {
-    const image = renderedImages[lightboxIndex];
-    if(image) addToPrintCart(image);
-  });
+  if(lbHeartBtn){
+    lbHeartBtn.addEventListener('click', () => {
+      const image = renderedImages[lightboxIndex];
+      if(image) toggleHeart(image.id);
+      updateLightbox();
+    });
+  }
+  if(lbSelectBtn){
+    lbSelectBtn.addEventListener('click', () => {
+      const image = renderedImages[lightboxIndex];
+      if(image) toggleSelect(image.id);
+      updateLightbox();
+    });
+  }
+  if(lbRejectBtn){
+    lbRejectBtn.addEventListener('click', () => {
+      const image = renderedImages[lightboxIndex];
+      if(image) toggleNotSelected(image.id);
+      updateLightbox();
+    });
+  }
+  if(lbOrderPrintBtn){
+    lbOrderPrintBtn.addEventListener('click', () => {
+      const image = renderedImages[lightboxIndex];
+      if(image) addToPrintCart(image);
+    });
+  }
 
   lbDownloadBtn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -2518,6 +2642,7 @@
       buildGallery();
       renderSelection();
     }
+    loadLikeCounts();
   })();
 </script>
 

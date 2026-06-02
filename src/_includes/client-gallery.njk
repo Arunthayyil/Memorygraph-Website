@@ -198,6 +198,7 @@
   .lightbox{position:fixed;inset:0;z-index:300;background:rgba(15,14,12,.97);display:none;flex-direction:column;color:var(--ivory);}
   .lightbox.open{display:flex;}
   .lb-stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative;min-height:0;overflow:hidden;}
+  .lb-stage{touch-action:pan-y;}
   .lb-stage img{max-width:92vw;max-height:100%;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.4);}
   .lightbox .lb-close,.lightbox .lb-prev,.lightbox .lb-next{position:absolute;border:1px solid rgba(244,237,224,.22);background:rgba(244,237,224,.06);color:var(--ivory);z-index:2;transition:background .2s;}
   .lightbox .lb-close:hover,.lightbox .lb-prev:hover,.lightbox .lb-next:hover{background:rgba(244,237,224,.14);}
@@ -1730,6 +1731,9 @@
   const lbRejectBtn = document.getElementById('lbReject');
   const lbDownloadBtn = document.getElementById('lbDownload');
   const lbOrderPrintBtn = document.getElementById('lbOrderPrint');
+  const lbStage = lightbox.querySelector('.lb-stage');
+  let lightboxTouch = null;
+  let lightboxSwipeHandled = false;
 
   function openLightbox(index){
     lightboxIndex = index;
@@ -1794,7 +1798,54 @@
   document.getElementById('lbClose').addEventListener('click', closeLightbox);
   document.getElementById('lbPrev').addEventListener('click', () => { lightboxIndex = (lightboxIndex - 1 + renderedImages.length) % renderedImages.length; updateLightbox(); });
   document.getElementById('lbNext').addEventListener('click', () => { lightboxIndex = (lightboxIndex + 1) % renderedImages.length; updateLightbox(); });
-  lightbox.querySelector('.lb-stage').addEventListener('click', event => { if(event.target === event.currentTarget || event.target === lbImage) closeLightbox(); });
+  lbStage.addEventListener('touchstart', event => {
+    if(event.touches.length !== 1) return;
+    const touch = event.touches[0];
+    lightboxTouch = {
+      id: touch.identifier,
+      x: touch.clientX,
+      y: touch.clientY,
+      time: Date.now(),
+    };
+    lightboxSwipeHandled = false;
+  }, {passive:true});
+  lbStage.addEventListener('touchmove', event => {
+    if(!lightboxTouch || event.touches.length !== 1) return;
+    const touch = event.touches[0];
+    if(touch.identifier !== lightboxTouch.id) return;
+    const dx = touch.clientX - lightboxTouch.x;
+    const dy = touch.clientY - lightboxTouch.y;
+    if(Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy)){
+      lightboxSwipeHandled = true;
+      event.preventDefault();
+    }
+  }, {passive:false});
+  lbStage.addEventListener('touchend', event => {
+    if(!lightboxTouch) return;
+    const touch = Array.from(event.changedTouches).find(t => t.identifier === lightboxTouch.id);
+    if(!touch) return;
+    const dx = touch.clientX - lightboxTouch.x;
+    const dy = touch.clientY - lightboxTouch.y;
+    const dt = Date.now() - lightboxTouch.time;
+    if(Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) && dt < 700){
+      lightboxSwipeHandled = true;
+      if(dx < 0){
+        document.getElementById('lbNext').click();
+      } else {
+        document.getElementById('lbPrev').click();
+      }
+    }
+    lightboxTouch = null;
+    setTimeout(() => { lightboxSwipeHandled = false; }, 300);
+  }, {passive:true});
+  lbStage.addEventListener('touchcancel', () => {
+    lightboxTouch = null;
+    lightboxSwipeHandled = false;
+  }, {passive:true});
+  lightbox.querySelector('.lb-stage').addEventListener('click', event => {
+    if(lightboxSwipeHandled) return;
+    if(event.target === event.currentTarget || event.target === lbImage) closeLightbox();
+  });
   document.addEventListener('keydown', event => {
     if(!lightbox.classList.contains('open')) return;
     if(event.key === 'Escape') closeLightbox();

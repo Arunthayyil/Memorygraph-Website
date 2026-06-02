@@ -1923,8 +1923,7 @@
   const printSuccess = document.getElementById('printSuccess');
   const printPanelBody = document.getElementById('printPanelBody');
   const butterflyLayer = document.getElementById('butterflyLayer');
-  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const butterflyEnabled = !!butterflyLayer && !reduceMotion;
+  const butterflyEnabled = !!butterflyLayer;
   let nextButterflyAt = 0;
   let butterflyPulse = null;
 

@@ -19,6 +19,8 @@
 
   .screen-lock{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:24px;color:var(--ivory);overflow-y:auto;}
   .screen-lock.hidden{display:none;}
+  body.gallery-locked{overflow:hidden;}
+  body.gallery-locked .gallery-app{display:none!important;}
   .lock-bg{position:fixed;inset:0;z-index:0;background:url('{{ (lock_image or hero_image or "/assets/stories/abhin-gayathry/03.jpg") | safe }}') center/cover no-repeat;}
   .lock-overlay{position:fixed;inset:0;z-index:1;background:linear-gradient(180deg,rgba(26,24,20,.7) 0%,rgba(26,24,20,.6) 30%,rgba(26,24,20,.6) 60%,rgba(26,24,20,.9) 100%);}
   .lock-panel{position:relative;z-index:2;width:min(480px,100%);text-align:center;padding:56px 48px;}
@@ -597,7 +599,7 @@
   }
 </style>
 </head>
-<body>
+<body class="{% if galleryPassword %}gallery-locked{% endif %}">
 <div class="screen-lock" id="screenLock">
   <div class="lock-bg"></div>
   <div class="lock-overlay"></div>
@@ -1071,6 +1073,7 @@
   function unlockGallery(){
     screenLock.classList.add('hidden');
     galleryApp.setAttribute('aria-hidden','false');
+    document.body.classList.remove('gallery-locked');
     sessionStorage.setItem(authKey,'true');
   }
 

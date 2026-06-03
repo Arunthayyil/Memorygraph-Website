@@ -276,6 +276,10 @@
   .print-input:focus{outline:1px solid var(--teal);border-color:var(--teal);}
   .print-textarea{min-height:80px;resize:vertical;}
   .print-panel-foot{padding:18px 28px;border-top:1px solid var(--line);display:grid;gap:10px;}
+  .print-status{display:none;padding:10px 12px;border:1px solid transparent;border-radius:3px;font-size:.75rem;line-height:1.6;text-align:left;}
+  .print-status.visible{display:block;}
+  .print-status.error{background:rgba(158,68,54,.08);border-color:rgba(158,68,54,.18);color:rgba(158,68,54,.96);}
+  .print-status.success{background:rgba(29,89,89,.07);border-color:rgba(29,89,89,.16);color:var(--teal);}
   .print-note{font-size:.7rem;color:var(--mist);text-align:center;line-height:1.6;}
   .print-wa-btn{display:flex;align-items:center;justify-content:center;gap:8px;}
   .print-success{display:none;text-align:center;padding:48px 24px;}
@@ -981,6 +985,7 @@
       </div>
     </div>
     <div class="print-panel-foot">
+      <p class="print-status" id="printStatus" aria-live="polite"></p>
       <button class="btn gold" type="button" id="submitPrintOrder" style="width:100%;">Place Order</button>
       <a class="btn ghost print-wa-btn" id="printWhatsApp" href="#" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4l-2-1c-.3-.1-.5-.1-.7.2l-.9 1.1c-.2.2-.3.2-.6.1-1.7-.8-2.8-1.8-3.7-3.1-.2-.3-.1-.5.1-.7l.6-.7c.2-.2.2-.4.1-.6l-1-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4C6.5 8 6 9 6 10.1s1 2.7 1.1 2.9c.1.2 2 3.1 4.9 4.3 2 .8 2.8.9 3.8.8.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.7-.5zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.4 5L2 22l5.2-1.4c1.4.8 3 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
@@ -1031,8 +1036,18 @@
   const storageKey = `memorygraph_album_selection_${gallerySlug}`;
   const notSelectedKey = `memorygraph_album_not_selected_${gallerySlug}`;
   const heartKey = `memorygraph_gallery_hearts_${gallerySlug}`;
+  const heartClientKey = `memorygraph_gallery_heart_client_${gallerySlug}`;
   const notesKey = `memorygraph_album_notes_${gallerySlug}`;
   const selectorNameKey = `memorygraph_album_selector_${gallerySlug}`;
+  const heartClientId = (() => {
+    const stored = localStorage.getItem(heartClientKey);
+    if (stored) return stored;
+    const fresh = (window.crypto && crypto.randomUUID)
+      ? crypto.randomUUID()
+      : `client_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`;
+    localStorage.setItem(heartClientKey, fresh);
+    return fresh;
+  })();
   let selected = new Set(JSON.parse(localStorage.getItem(storageKey) || '[]'));
   let notSelected = new Set(JSON.parse(localStorage.getItem(notSelectedKey) || '[]'));
   let hearted = new Set(JSON.parse(localStorage.getItem(heartKey) || '[]'));
@@ -1075,6 +1090,13 @@
     galleryApp.setAttribute('aria-hidden','false');
     document.body.classList.remove('gallery-locked');
     sessionStorage.setItem(authKey,'true');
+  }
+
+  function lockGallery(){
+    screenLock.classList.remove('hidden');
+    galleryApp.setAttribute('aria-hidden','true');
+    document.body.classList.add('gallery-locked');
+    sessionStorage.removeItem(authKey);
   }
 
   if(!galleryPassword || sessionStorage.getItem(authKey) === 'true') unlockGallery();
@@ -1290,7 +1312,7 @@
       const res = await fetch('/api/gallery-likes', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ slug: gallerySlug, imageId: id, action: wasHearted ? 'unlike' : 'like' })
+        body: JSON.stringify({ slug: gallerySlug, imageId: id, action: wasHearted ? 'unlike' : 'like', clientId: heartClientId })
       });
       if(!res.ok) throw new Error('Like update failed');
       const data = await res.json();
@@ -2053,6 +2075,7 @@
   const openPrintCartBtn = document.getElementById('openPrintCart');
   const printSuccess = document.getElementById('printSuccess');
   const printPanelBody = document.getElementById('printPanelBody');
+  const printStatus = document.getElementById('printStatus');
   const butterflyLayer = document.getElementById('butterflyLayer');
   const butterflyEnabled = !!butterflyLayer;
   let butterflyPulse = null;
@@ -2184,12 +2207,24 @@
     printSuccess.classList.remove('visible');
     printPanelBody.style.display = '';
     document.querySelector('.print-panel-foot').style.display = '';
+    setPrintStatus('');
     renderPrintCart();
     printOverlay.classList.add('open');
   }
 
   function closePrintPanel(){
     printOverlay.classList.remove('open');
+  }
+
+  function setPrintStatus(message, type){
+    if(!printStatus) return;
+    if(!message){
+      printStatus.textContent = '';
+      printStatus.className = 'print-status';
+      return;
+    }
+    printStatus.textContent = message;
+    printStatus.className = `print-status visible ${type || ''}`.trim();
   }
 
   function printOrderText(){
@@ -2218,9 +2253,19 @@
     const name = document.getElementById('printName').value.trim();
     const phone = document.getElementById('printPhone').value.trim();
     const address = document.getElementById('printAddress').value.trim();
-    if(!printCart.length){ alert('Add at least one photo to your order.'); return; }
-    if(!name || !phone || !address){ alert('Please fill in your name, phone number, and delivery address.'); return; }
+    if(!printCart.length){
+      setPrintStatus('Please add at least one photo before placing the order.', 'error');
+      return;
+    }
+    if(!name || !phone || !address){
+      setPrintStatus('Please fill in your name, phone number, and delivery address.', 'error');
+      if(!name) document.getElementById('printName').focus();
+      else if(!phone) document.getElementById('printPhone').focus();
+      else document.getElementById('printAddress').focus();
+      return;
+    }
     const submitBtn = document.getElementById('submitPrintOrder');
+    setPrintStatus('');
     submitBtn.textContent = 'Placing order...';
     submitBtn.disabled = true;
     try {
@@ -2237,10 +2282,10 @@
         printSuccess.classList.add('visible');
       } else {
         const err = await res.json().catch(() => ({}));
-        alert(err.error || 'Order could not be placed. Please try sending via WhatsApp instead.');
+        setPrintStatus(err.error || 'Order could not be placed. Please try sending via WhatsApp instead.', 'error');
       }
     } catch(e) {
-      alert('Network error. Please try sending your order via WhatsApp instead.');
+      setPrintStatus('Network error. Please try sending your order via WhatsApp instead.', 'error');
     }
     submitBtn.textContent = 'Place Order';
     submitBtn.disabled = false;
@@ -2248,7 +2293,10 @@
 
   document.getElementById('printSuccessClose').addEventListener('click', closePrintPanel);
 
-  document.querySelectorAll('#printName,#printPhone,#printAddress').forEach(el => el.addEventListener('input', updatePrintWhatsApp));
+  document.querySelectorAll('#printName,#printPhone,#printAddress').forEach(el => el.addEventListener('input', () => {
+    setPrintStatus('');
+    updatePrintWhatsApp();
+  }));
 
   updatePrintBadge();
 
@@ -2492,9 +2540,7 @@
   if(menuLockBtn){
     menuLockBtn.addEventListener('click', () => {
       topbarMenu.classList.remove('open');
-      sessionStorage.removeItem(authKey);
-      screenLock.classList.remove('hidden');
-      galleryApp.setAttribute('aria-hidden','true');
+      lockGallery();
     });
   }
 

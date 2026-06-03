@@ -604,7 +604,7 @@
 </style>
 </head>
 <body class="{% if galleryPassword %}gallery-locked{% endif %}">
-<div class="screen-lock" id="screenLock">
+<div class="screen-lock" id="screenLock" style="{% if galleryPassword %}display:flex{% else %}display:none{% endif %}">
   <div class="lock-bg"></div>
   <div class="lock-overlay"></div>
   <div class="lock-panel">
@@ -649,7 +649,7 @@
   </div>
 </div>
 
-<main class="gallery-app" id="galleryApp" aria-hidden="true">
+<main class="gallery-app" id="galleryApp" aria-hidden="true" style="{% if galleryPassword %}display:none{% endif %}">
 
   <!-- ── Utility Bar (fixed, appears on scroll) ── -->
   <header class="topbar" id="topbar">
@@ -1087,14 +1087,18 @@
 
   function unlockGallery(){
     screenLock.classList.add('hidden');
+    screenLock.style.display = 'none';
     galleryApp.setAttribute('aria-hidden','false');
+    galleryApp.style.display = '';
     document.body.classList.remove('gallery-locked');
     sessionStorage.setItem(authKey,'true');
   }
 
   function lockGallery(){
     screenLock.classList.remove('hidden');
+    screenLock.style.display = 'flex';
     galleryApp.setAttribute('aria-hidden','true');
+    galleryApp.style.display = 'none';
     document.body.classList.add('gallery-locked');
     sessionStorage.removeItem(authKey);
   }

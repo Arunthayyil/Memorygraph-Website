@@ -785,7 +785,7 @@
   {% endif %}
 
   <section class="gallery-wrap" id="galleryWrap">
-    {% if show_selection_section or show_selection_section == undefined %}
+    {% if show_selection_section %}
     <div class="selection-section">
       <div class="section-head">
         <div>
@@ -938,13 +938,13 @@
         <span aria-hidden="true">❤️</span>
         <span>Heart</span>
       </button>
-      {% if show_select_button is not defined or show_select_button %}
+      {% if show_select_button %}
       <button class="lb-action" type="button" id="lbSelect">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
         <span>Select</span>
       </button>
       {% endif %}
-      {% if show_not_selected_button is not defined or show_not_selected_button %}
+      {% if show_not_selected_button %}
       <button class="lb-action lb-action-reject" type="button" id="lbReject">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
         <span>Not Selected</span>
@@ -954,7 +954,7 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>
         <span>Download</span>
       </a>
-      {% if show_order_print_button is not defined or show_order_print_button %}
+      {% if show_order_print_button %}
       <button class="lb-action lb-action-print" type="button" id="lbOrderPrint">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="1"/><rect x="5" y="5" width="14" height="14"/><path d="M2 2l3 3M22 2l-3 3M2 22l3-3M22 22l-3-3"/></svg>
         <span>Order Print</span>
@@ -1027,9 +1027,9 @@
   const galleryTitle = {{ title | json | safe }};
   const coupleNames = {{ (couple_names or title) | json | safe }};
   const whatsappNumber = {{ (whatsapp_number or "919846238073") | json | safe }};
-  const showSelectButton = {% if show_select_button is defined %}{{ show_select_button | json | safe }}{% else %}true{% endif %};
-  const showNotSelectedButton = {% if show_not_selected_button is defined %}{{ show_not_selected_button | json | safe }}{% else %}true{% endif %};
-  const showOrderPrintButton = {% if show_order_print_button is defined %}{{ show_order_print_button | json | safe }}{% else %}true{% endif %};
+  const showSelectButton = {% if show_select_button %}true{% else %}false{% endif %};
+  const showNotSelectedButton = {% if show_not_selected_button %}true{% else %}false{% endif %};
+  const showOrderPrintButton = {% if show_order_print_button %}true{% else %}false{% endif %};
   const gallerySections = {{ gallery_sections | json | safe }} || [];
   const galleryItems = {{ gallery_items | clientGalleryItems(gallery_folder, gallery_drive_images, gallery_sections) | json | safe }};
   const authKey = `memorygraph_gallery_unlocked_${gallerySlug}`;

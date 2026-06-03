@@ -7,10 +7,10 @@ hero_title: Naming ceremony gallery<br><em>delivery.</em>
 intro: A gentle glimpse into Adrija's naming ceremony, captured with care by Memorygraph.
 selection_title: Select the frames<br><em>you want printed.</em>
 selection_note: Please view these images, share them with your family, and shortlist any frames you'd like printed.
-show_selection_section: true
-show_select_button: true
-show_not_selected_button: true
-show_order_print_button: true
+show_selection_section: false
+show_select_button: false
+show_not_selected_button: false
+show_order_print_button: false
 hero_image: /assets/uploads/Nithara-129.jpg
 hero_video: ''
 hero_image_secondary: ''

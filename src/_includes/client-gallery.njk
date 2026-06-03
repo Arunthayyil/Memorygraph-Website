@@ -1103,7 +1103,11 @@
     sessionStorage.removeItem(authKey);
   }
 
-  if(!galleryPassword || sessionStorage.getItem(authKey) === 'true') unlockGallery();
+  if(!galleryPassword){
+    unlockGallery();
+  } else {
+    lockGallery();
+  }
 
   document.getElementById('lockForm').addEventListener('submit', (event) => {
     event.preventDefault();

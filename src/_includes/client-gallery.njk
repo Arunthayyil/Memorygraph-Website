@@ -164,12 +164,12 @@
   .section-title em{font-style:italic;color:var(--teal);}
   .section-note{max-width:460px;color:var(--ink-soft);font-size:.86rem;line-height:1.8;}
   .photo-grid{position:relative;width:100%;max-width:1420px;margin:0 auto;}
-  .photo-card,.quote-card{position:absolute;background:#ede5d6;overflow:hidden;border-radius:14px;transition:transform .35s ease,opacity .35s ease,box-shadow .35s ease;box-shadow:0 12px 34px rgba(26,24,20,.075);}
-  .photo-card:hover{transform:translateY(-2px);box-shadow:0 18px 44px rgba(26,24,20,.11);}
+  .photo-card,.quote-card{position:absolute;background:#ede5d6;overflow:hidden;border-radius:4px;transition:transform .4s cubic-bezier(.25,.46,.45,.94),opacity .35s ease,box-shadow .4s ease;box-shadow:0 6px 20px rgba(26,24,20,.08);}
+  .photo-card:hover{transform:translateY(-3px) scale(1.008);box-shadow:0 16px 40px rgba(26,24,20,.14);}
   .photo-card.hidden,.quote-card.hidden{display:none!important;}
-  .photo-card img{width:100%;height:100%;object-fit:cover;display:block;transition:filter .35s;}
-  .photo-card:hover img{filter:saturate(1.03) contrast(1.01);}
-  .quote-card{padding:42px 34px;background:var(--ink);color:var(--ivory);border-radius:14px;}
+  .photo-card img{width:100%;height:100%;object-fit:cover;display:block;transition:filter .5s,transform .6s cubic-bezier(.25,.46,.45,.94);}
+  .photo-card:hover img{filter:saturate(1.06) contrast(1.02);transform:scale(1.02);}
+  .quote-card{padding:42px 34px;background:var(--ink);color:var(--ivory);border-radius:4px;}
   .quote-card blockquote{font-family:var(--serif);font-size:clamp(1.45rem,2.4vw,2.25rem);font-style:italic;font-weight:300;line-height:1.32;color:var(--ivory);}
   .quote-card cite{display:block;margin-top:22px;font-style:normal;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-2);}
   .photo-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:14px;background:linear-gradient(180deg,rgba(26,24,20,.44),rgba(26,24,20,0) 42%,rgba(26,24,20,.55));opacity:0;transition:opacity .25s;}
@@ -214,8 +214,10 @@
   .export-output{display:none;padding:14px;background:var(--ivory);border:1px solid var(--line);font-size:.78rem;line-height:1.7;color:var(--ink-soft);white-space:pre-wrap;}
   .export-output.visible{display:block;}
 
-  .lightbox{position:fixed;inset:0;z-index:300;background:rgba(15,14,12,.96);display:none;flex-direction:column;color:var(--ivory);}
-  .lightbox.open{display:flex;}
+  .lightbox{position:fixed;inset:0;z-index:300;background:rgba(15,14,12,.96);display:flex;flex-direction:column;color:var(--ivory);opacity:0;pointer-events:none;transition:opacity .35s ease;}
+  .lightbox.open{opacity:1;pointer-events:auto;}
+  .lb-stage img{transition:transform .4s cubic-bezier(.25,.46,.45,.94),opacity .35s ease;}
+  .lightbox:not(.open) .lb-stage img{transform:scale(.95);opacity:0;}
   .lightbox.open ~ .butterfly-layer{display:none;}
   .lightbox.open ~ .butterfly-layer .butterfly{display:none;}
   .lb-stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative;min-height:0;overflow:hidden;}
@@ -438,7 +440,7 @@
     .chapter-card-name{font-size:1rem;}
     .gallery-wrap{padding:48px 20px 90px;}
     .photo-grid{max-width:none;}
-    .photo-card,.quote-card{border-radius:13px;}
+    .photo-card,.quote-card{border-radius:4px;}
     .section-head{display:block;}
     .section-note{margin-top:18px;}
     .gallery-credit{padding:48px 24px;}
@@ -530,7 +532,7 @@
     .credit-text{font-size:.6rem;white-space:normal;text-align:center;}
     .section-jump{bottom:16px;right:16px;transform:scale(.8);transform-origin:bottom right;}
     .lb-action span{display:none;}
-    .photo-card,.quote-card{border-radius:12px;}
+    .photo-card,.quote-card{border-radius:3px;}
     .photo-overlay{padding:8px;}
     .photo-id{font-size:.46rem;letter-spacing:.12em;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
     .photo-controls{display:none;}
@@ -621,13 +623,13 @@
   <div class="lock-overlay"></div>
   <div class="lock-panel">
     <img src="/assets/logo/logo-white.png" class="lock-logo" alt="Memorygraph"/>
-    <div class="lock-label">A Memorygraph Gallery</div>
+    <div class="lock-label">Prepared with love</div>
     <h1 class="lock-title">{{ couple_names or title }}</h1>
     <div class="lock-divider"></div>
-    <p class="lock-copy">This is a private gallery. Enter the password shared with you to view, download, and shortlist photographs.</p>
+    <p class="lock-copy">Your photographs are ready. Enter the password we shared with you to step inside.</p>
     <form class="lock-form" id="lockForm">
-      <input type="password" id="passwordInput" placeholder="Gallery password" autocomplete="current-password" required/>
-      <button class="btn gold" type="submit">View Gallery</button>
+      <input type="password" id="passwordInput" placeholder="Enter password" autocomplete="current-password" required/>
+      <button class="btn gold" type="submit">Open Gallery</button>
     </form>
     <p class="lock-error" id="lockError">That password doesn't match. Please try again.</p>
   </div>

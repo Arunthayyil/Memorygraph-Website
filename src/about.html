@@ -53,7 +53,7 @@
 .conviction{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line);}
 .cv-item{padding:64px 48px;position:relative;}
 .cv-item+.cv-item{border-left:1px solid var(--line);}
-.cv-n{font-family:var(--serif);font-size:3.8rem;font-weight:300;color:rgba(29,89,89,.07);line-height:1;margin-bottom:18px;}
+.cv-n{width:28px;height:1px;background:var(--teal);opacity:.3;margin-bottom:18px;}
 .cv-title{font-family:var(--serif);font-size:1.25rem;font-weight:400;color:var(--ink);margin-bottom:16px;line-height:1.25;}
 .cv-body{font-family:var(--sans);font-size:.83rem;font-weight:300;line-height:2;color:var(--ink-soft);}
 
@@ -67,7 +67,7 @@
 .philo-headline em{font-style:normal;color:var(--gold-2);}
 .philo-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(244,237,224,.07);}
 .philo-col{padding:48px 40px;background:var(--ink);}
-.philo-col-n{font-family:var(--serif);font-size:2.4rem;font-weight:300;color:rgba(184,150,90,.18);line-height:1;margin-bottom:18px;}
+.philo-col-n{width:22px;height:1px;background:var(--gold);opacity:.3;margin-bottom:18px;}
 .philo-col-title{font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--ivory);margin-bottom:14px;}
 .philo-col-text{font-family:var(--sans);font-size:.8rem;font-weight:300;line-height:1.95;color:rgba(244,237,224,.5);}
 
@@ -106,8 +106,7 @@
 .story-toggle:hover{background:var(--teal);color:var(--ivory);}
 .story-toggle svg{transition:transform .4s;}
 .story-toggle.open svg{transform:rotate(180deg);}
-.full-story{max-height:0;overflow:hidden;transition:max-height .8s cubic-bezier(.22,1,.36,1);}
-.full-story.open{max-height:4000px;}
+.full-story{overflow:hidden;}
 .full-story-inner{padding:40px 0 8px 52px;}
 .full-story-inner p{font-family:var(--sans);font-size:.85rem;font-weight:300;line-height:1.95;color:var(--ink-soft);margin-bottom:22px;}
 .full-story-inner p:first-of-type::first-letter{font-family:var(--serif);font-size:3.2rem;font-weight:300;float:left;line-height:.85;padding:6px 10px 0 0;color:var(--teal);}
@@ -190,7 +189,7 @@
     <li><a href="/investment/">Investment</a></li>
     <li><a href="/blog/">Journal</a></li>
   </ul>
-  <a href="/contact/" class="nav-cta magnetic">Begin Your Story</a>
+  <a href="/contact/" class="nav-cta magnetic">Let's Talk</a>
   <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 
@@ -200,7 +199,7 @@
   <a href="/about/">About</a>
   <a href="/investment/">Investment</a>
   <a href="/blog/">Journal</a>
-  <a href="/contact/" class="mobile-menu-cta">Begin Your Story</a>
+  <a href="/contact/" class="mobile-menu-cta">Let's Talk</a>
   <div class="mobile-menu-social">
     <a href="https://instagram.com/memorygraph.weddings" target="_blank" rel="noopener">Instagram</a>
     <a href="https://www.youtube.com/@MemorygraphWeddings" target="_blank" rel="noopener">YouTube</a>
@@ -237,17 +236,17 @@
 <!-- CONVICTION -->
 <div class="conviction">
   <div class="cv-item reveal">
-    <div class="cv-n">01</div>
+    <div class="cv-n"></div>
     <div class="cv-title">He'll be there. Personally.</div>
     <p class="cv-body">When you book Memorygraph, you book Arun. Not an associate, not whoever is available that weekend. He leads every wedding we take from the first conversation to the final delivered gallery. That is not something we're willing to change as we grow.</p>
   </div>
   <div class="cv-item reveal reveal-d1">
-    <div class="cv-n">02</div>
+    <div class="cv-n"></div>
     <div class="cv-title">He knows Kerala weddings.</div>
     <p class="cv-body">We grew up with these ceremonies. We will be ready when the muhurtham is. We know to step back during your moments and follow the thaali through the crowd. Nothing needs explaining. Nothing will be missed because we didn't understand it. We consider that a responsibility, not just a privilege.</p>
   </div>
   <div class="cv-item reveal reveal-d2">
-    <div class="cv-n">03</div>
+    <div class="cv-n"></div>
     <div class="cv-title">He'll disappear into the room.</div>
     <p class="cv-body">The real moments only surface when people stop performing for the camera. We've spent years learning to be invisible — not absent, but unobtrusive. To read a room so well we're simply part of it. We wait for that. We're patient, and we step in only when necessary — usually just to say, keep smiling, and occasionally look at each other.</p>
   </div>
@@ -259,17 +258,17 @@
   <h2 class="philo-headline reveal reveal-d1">The best photographs happen<br>when the photographer <em>disappears.</em></h2>
   <div class="philo-cols">
     <div class="philo-col reveal">
-      <div class="philo-col-n">01</div>
+      <div class="philo-col-n"></div>
       <div class="philo-col-title">Presence over direction</div>
       <p class="philo-col-text">We ask couples to pose, but rarely. Because the real photographs come from real moments: the hand-in-hand walks, the laughter, the moments when you are simply yourselves - and there are always more of them than you might expect. We just have to be patient enough to wait for them.</p>
     </div>
     <div class="philo-col reveal reveal-d1">
-      <div class="philo-col-n">02</div>
+      <div class="philo-col-n"></div>
       <div class="philo-col-title">Light as language</div>
       <p class="philo-col-text">Kerala's golden hour is unlike anywhere else. We plan around it — arrive before the light does, stay after it leaves. Light is the difference between a photograph and a document.</p>
     </div>
     <div class="philo-col reveal reveal-d2">
-      <div class="philo-col-n">03</div>
+      <div class="philo-col-n"></div>
       <div class="philo-col-title">Editing as storytelling</div>
       <p class="philo-col-text">Post-production is the final act of the story. The grade that decides whether a frame feels like that morning or just any morning. Warm, cinematic, restrained. Designed to age the way good photographs age.</p>
     </div>
@@ -355,11 +354,6 @@
     </div>
   </div>
 
-  <button class="story-toggle" id="storyToggle" onclick="toggleStory()">
-    Read the full story
-    <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-  </button>
-
   <div class="full-story" id="fullStory">
     <div class="full-story-inner">
       <p>Memorygraph did not begin as a wedding company. It began with a camera, long walks, quiet observation, and a boy trying to understand the world through photographs.</p>
@@ -399,7 +393,7 @@
   <div class="cta-eyebrow reveal">If you've read this far</div>
   <h2 class="cta-title reveal reveal-d1">Let's find out<br>if we're a <em>fit.</em></h2>
   <p class="cta-sub reveal reveal-d2">No sales pitch. No pressure. A 30-minute conversation about your wedding — and we'll both know.</p>
-  <a href="/contact/" class="btn-gold reveal reveal-d3 magnetic">Begin Your Story</a>
+  <a href="/contact/" class="btn-gold reveal reveal-d3 magnetic">Let's Talk</a>
 </div>
 
 <footer>
@@ -426,7 +420,7 @@
 <div class="mobile-cta-bar" id="mobileCta">
   <div class="mobile-cta-bar-inner">
     <span class="mobile-cta-bar-text">Season dates filling up</span>
-    <a href="/contact/">Begin Your Story</a>
+    <a href="/contact/">Let's Talk</a>
   </div>
 </div>
 
